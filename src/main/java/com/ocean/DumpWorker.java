@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 import com.ocean.ConstantBit.Target;
 import com.ocean.FileAdapter.ByteReadParser;
 import com.ocean.FileAdapter.ByteWriteParser;
+import com.ocean.util.LogUtil;
 
 @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 public class DumpWorker extends MigrantWorker implements CoolHashBase {

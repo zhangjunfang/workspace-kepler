@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import com.ocean.ConstantBit.Target;
+import com.ocean.util.LogUtil;
 
 @SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 public class DumpCtor extends Contractor implements CoolHashBase,

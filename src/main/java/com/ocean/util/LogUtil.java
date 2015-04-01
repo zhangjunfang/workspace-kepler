@@ -1,6 +1,11 @@
-package com.ocean;
+package com.ocean.util;
 
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.ocean.ConfigContext;
 
 public class LogUtil {
 	private static Logger logger;
@@ -96,10 +101,5 @@ public class LogUtil {
 
 	public static String getLogStr(Object logStr) {
 		return logStr != null ? logStr.toString() : null;
-	}
-
-	public static void main(String args[]) {
-		LogUtil.fine("hhhhhhhhhhh");
-		LogUtil.info("select * from db");
 	}
 }

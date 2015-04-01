@@ -8,6 +8,8 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.Date;
 
+import com.ocean.util.LogUtil;
+
 public class ParkService extends MementoService implements Park {
 	/**
 	 * 

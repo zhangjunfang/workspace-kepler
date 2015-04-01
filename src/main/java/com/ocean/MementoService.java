@@ -3,6 +3,8 @@ package com.ocean;
 import java.rmi.server.RemoteServer;
 import java.rmi.server.ServerNotActiveException;
 
+import com.ocean.util.LogUtil;
+
 class MementoService {
 	String getClientHost() {
 		String clienthost = null;

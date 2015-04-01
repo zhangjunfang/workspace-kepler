@@ -2,6 +2,8 @@ package com.ocean;
 
 import java.text.DecimalFormat;
 
+import com.ocean.util.LogUtil;
+
 public class ClosetoOverException extends ServiceException {
 	/**
 	 * 

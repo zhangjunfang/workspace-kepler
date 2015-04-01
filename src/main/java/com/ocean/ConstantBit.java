@@ -3,6 +3,8 @@ package com.ocean;
 import java.util.Date;
 import java.io.Serializable;
 
+import com.ocean.util.LogUtil;
+
 interface ConstantBit<T> extends CoolHashBase {
 	byte[] getBytes(T value);
 

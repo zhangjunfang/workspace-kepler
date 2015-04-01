@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.io.File;
 
+import com.ocean.util.LogUtil;
+
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class DumpAdapter extends FileAdapter {
 	/**

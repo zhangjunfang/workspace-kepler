@@ -16,6 +16,8 @@ import java.util.zip.CRC32;
 import java.net.URLEncoder;
 import java.net.URLDecoder;
 
+import com.ocean.util.LogUtil;
+
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public final class ObjectBytes // nopub
 {

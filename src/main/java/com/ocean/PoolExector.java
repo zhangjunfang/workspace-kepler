@@ -7,6 +7,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
+import com.ocean.util.LogUtil;
+
 class PoolExector // java.io.Closeable
 {
 	private static ThreadPoolExecutor tpe;

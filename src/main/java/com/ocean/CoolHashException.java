@@ -2,6 +2,8 @@ package com.ocean;
 
 import java.util.regex.Pattern;
 
+import com.ocean.util.LogUtil;
+
 public class CoolHashException extends ServiceException {
 	/**
 	 * 

@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.UUID;
 import java.io.File;
 
+import com.ocean.util.LogUtil;
+
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class BeanContext extends ServiceContext {
 	public static void setConfigFile(String configFile) {

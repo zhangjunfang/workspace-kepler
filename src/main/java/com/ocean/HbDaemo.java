@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.rmi.ConnectException;
 import java.util.List;
 
+import com.ocean.util.LogUtil;
+
 public class HbDaemo {
 	static Timer tm = new Timer();
 	private static PutHbTask putTask = null;

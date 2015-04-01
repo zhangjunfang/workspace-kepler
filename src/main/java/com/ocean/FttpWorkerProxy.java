@@ -3,6 +3,8 @@ package com.ocean;
 import java.io.File;
 import java.net.URI;
 
+import com.ocean.util.LogUtil;
+
 @SuppressWarnings("unchecked")
 public class FttpWorkerProxy extends WorkerServiceProxy {
 	private FttpWorker fw;

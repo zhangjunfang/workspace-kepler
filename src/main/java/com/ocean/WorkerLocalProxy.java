@@ -1,5 +1,7 @@
 package com.ocean;
 
+import com.ocean.util.LogUtil;
+
 public class WorkerLocalProxy extends PoolExector {
 	MigrantWorker mwobj;
 	Thread mwThread;

@@ -6,6 +6,8 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import com.ocean.util.LogUtil;
+
 class BeanService extends PoolExector {
 	final static void putBean(String TPYFWYM, boolean TPYRZDY, int TPYDK,
 			String rmname, ParkActive paobj) {

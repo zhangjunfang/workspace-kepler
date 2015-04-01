@@ -2,6 +2,8 @@ package com.ocean;
 
 import java.rmi.RemoteException;
 
+import com.ocean.util.LogUtil;
+
 class ServiceContext extends BeanService {
 	static <I extends ParkActive> void startService(String host, int port,
 			String sn, I i) {

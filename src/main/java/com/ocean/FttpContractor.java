@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.io.File;
 import java.util.Date;
 
+import com.ocean.util.LogUtil;
+
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public abstract class FttpContractor extends Contractor implements
 		FttpAdapter.FttpAdapterOperate, Cloneable {

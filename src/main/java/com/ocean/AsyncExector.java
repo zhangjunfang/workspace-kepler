@@ -1,5 +1,7 @@
 package com.ocean;
 
+import com.ocean.util.LogUtil;
+
 public abstract class AsyncExector {
 	public abstract void task();
 

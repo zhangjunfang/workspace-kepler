@@ -3,6 +3,8 @@ package com.ocean;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.List;
 
+import com.ocean.util.LogUtil;
+
 public class ParkPatternExector {
 	private static ParkLocal pl;
 	private static LinkedBlockingQueue<ParkPatternBean> bq = new LinkedBlockingQueue<ParkPatternBean>();

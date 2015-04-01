@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.io.File;
 
+import com.ocean.util.LogUtil;
+
 public class ConfigContext {
 	private static MulBean mb = null;
 	private static String QSXYSJ = null, YMMZ = null, RZDY = null,
@@ -20,146 +22,146 @@ public class ConfigContext {
 	private static int HASHCAPACITY = -1;
 	private static String DATAROOT;
 
-	static long getKEYLENTH() {
+	public static long getKEYLENTH() {
 		if (KEYLENTH == -1)
 			KEYLENTH = new Long(getConfig("COOLHASH", "KEYLENTH", "B", "256"));
 		return KEYLENTH;
 	}
 
-	static long getVALUELENGTH() {
+	public static long getVALUELENGTH() {
 		if (VALUELENGTH == -1)
 			VALUELENGTH = new Long(getConfig("COOLHASH", "VALUELENGTH", "M",
 					"2"));
 		return VALUELENGTH;
 	}
 
-	static long getREGIONLENGTH() {
+	public static long getREGIONLENGTH() {
 		if (REGIONLENGTH == -1)
 			REGIONLENGTH = new Long(getConfig("COOLHASH", "REGIONLENGTH", "M",
 					"2"));
 		return REGIONLENGTH;
 	}
 
-	static long getLOADLENGTH() {
+	public static long getLOADLENGTH() {
 		if (LOADLENGTH == -1)
 			LOADLENGTH = new Long(
 					getConfig("COOLHASH", "LOADLENGTH", "M", "64"));
 		return LOADLENGTH;
 	}
 
-	static int getHASHCAPACITY() {
+	public static int getHASHCAPACITY() {
 		if (HASHCAPACITY == -1)
 			HASHCAPACITY = new Integer(getConfig("COOLHASH", "HASHCAPACITY",
 					null, "1000000"));
 		return HASHCAPACITY;
 	}
 
-	static String getDATAROOT() {
+	public static String getDATAROOT() {
 		if (DATAROOT == null)
 			DATAROOT = getConfig("COOLHASH", "DATAROOT", null, "data");
 		return DATAROOT;
 	}
 
-	static MulBean getMulBean() {
+	public static MulBean getMulBean() {
 		return mb != null ? mb : new MulBean("ISO-8859-1");
 	}
 
-	static String getQSXYSJ() {
+	public static String getQSXYSJ() {
 		if (QSXYSJ == null)
 			QSXYSJ = getMulBean().getString("QSXYSJ");
 		return QSXYSJ;
 	}
 
-	static String getYMMZ() {
+	public static String getYMMZ() {
 		if (YMMZ == null)
 			YMMZ = getMulBean().getString("YMMZ");
 		return YMMZ;
 	}
 
-	static String getRZDY() {
+	public static String getRZDY() {
 		if (RZDY == null)
 			RZDY = getMulBean().getString("RZDY");
 		return RZDY;
 	}
 
-	static String getYCDYXY() {
+	public static String getYCDYXY() {
 		if (YCDYXY == null)
 			YCDYXY = getMulBean().getString("YCDYXY");
 		return YCDYXY;
 	}
 
-	static String getDMY() {
+	public static String getDMY() {
 		if (DMY == null)
 			DMY = getMulBean().getString("DMY");
 		return DMY;
 	}
 
-	static String getAQCL() {
+	public static String getAQCL() {
 		if (AQCL == null)
 			AQCL = getMulBean().getString("AQCL");
 		return AQCL;
 	}
 
-	static String getPOLICY() {
+	public static String getPOLICY() {
 		if (POLICY == null)
 			POLICY = getMulBean().getString("POLICY");
 		return POLICY;
 	}
 
-	static String getLSML() {
+	public static String getLSML() {
 		if (LSML == null)
 			LSML = getMulBean().getString("LSML");
 		return LSML;
 	}
 
-	static String getProp(String propstr) {
+	public static String getProp(String propstr) {
 		return getMulBean().getString(propstr);
 	}
 
-	static String getProtocolInfo(String ym, int dk, String mc) {
+	public static String getProtocolInfo(String ym, int dk, String mc) {
 		return getYCDYXY() + ym + ":" + dk + "/" + mc;
 	}
 
-	static long getTMOT() {
+	public static long getTMOT() {
 		if (TMOT == -1)
 			TMOT = getSecTime(new Double(getConfig("WORKER", "TIMEOUT", "TRUE",
 					"0")));
 		return TMOT;
 	}
 
-	static boolean getServiceFlag() {
+	public static boolean getServiceFlag() {
 		if (SERVICEONWORKER == null)
 			SERVICEONWORKER = getConfig("WORKER", "SERVICE", null, "false");
 		return Boolean.parseBoolean(SERVICEONWORKER);
 	}
 
-	static long getSecTime(Double hours) {
+	public static long getSecTime(Double hours) {
 		Double t = hours * 3600 * 1000;
 		return t.longValue();
 	}
 
-	static String[][] getParkConfig() {
+	public static String[][] getParkConfig() {
 		String servers = getConfig("PARK", "SERVERS", null);
 		return getServerFromStr(servers);
 	}
 
-	static String getParkService() {
+	public static String getParkService() {
 		return getConfig("PARK", "SERVICE", null);
 	}
 
-	static String[] getCtorService() {
+	public static String[] getCtorService() {
 		return getConfig("CTOR", "CTORSERVERS", null).split(":");
 	}
 
-	static String[] getFttpConfig() {
+	public static String[] getFttpConfig() {
 		return getConfig("FTTP", "SERVERS", null).split(":");
 	}
 
-	static String[] getInetConfig() {
+	public static String[] getInetConfig() {
 		return getConfig("WEBAPP", "SERVERS", null).split(":");
 	}
 
-	static ObjValue getUsersConfig() {
+	public static ObjValue getUsersConfig() {
 		if (USERS == null) {
 			String userstr = getConfig("WEBAPP", "USERS", null);
 			USERS = getObjFromStr(userstr);
@@ -167,13 +169,13 @@ public class ConfigContext {
 		return USERS;
 	}
 
-	static String getInetStrConfig(String wkjn) {
+	public static String getInetStrConfig(String wkjn) {
 		String inetstr = "http://" + getConfig("WEBAPP", "SERVERS", null)
 				+ "/res/";
 		return wkjn != null ? inetstr + wkjn : inetstr;
 	}
 
-	static String getPolicyConfig() {
+	public static String getPolicyConfig() {
 		String tdir = System.getProperty(getLSML());
 		File fl = new File(tdir, "a.pl");
 		if (!fl.exists()) {
@@ -184,20 +186,20 @@ public class ConfigContext {
 		return fl.getPath();
 	}
 
-	static String[] getWorkerConfig() {
+	public static String[] getWorkerConfig() {
 		return getConfig("WORKER", "SERVERS", null).split(":");
 	}
 
-	static String[][] getCacheConfig() {
+	public static String[][] getCacheConfig() {
 		String servers = getConfig("CACHE", "SERVERS", null);
 		return getServerFromStr(servers);
 	}
 
-	static String getCacheService() {
+	public static String getCacheService() {
 		return getConfig("CACHE", "SERVICE", null);
 	}
 
-	static String[] getCacheFacadeConfig() {
+	public static String[] getCacheFacadeConfig() {
 		return getConfig("CACHEFACADE", "SERVERS", null).split(":");
 	}
 
@@ -205,7 +207,7 @@ public class ConfigContext {
 		return getConfig("CACHEFACADE", "SERVICE", null);
 	}
 
-	static int getInitServices() {
+	public static int getInitServices() {
 		int initnum = 10;
 		try {
 			initnum = Integer.parseInt(getConfig("CTOR", "INITSERVICES", null,
@@ -215,7 +217,7 @@ public class ConfigContext {
 		return initnum;
 	}
 
-	static int getMaxServices() {
+	public static int getMaxServices() {
 		int maxnum = 100;
 		try {
 			maxnum = Integer.parseInt(getConfig("CTOR", "MAXSERVICES", null,
@@ -225,16 +227,16 @@ public class ConfigContext {
 		return maxnum;
 	}
 
-	static int getParallelPattern() {
+	public static int getParallelPattern() {
 		return Integer.parseInt(getConfig("COMPUTEMODE", "MODE", "DEFAULT"));
 	}
 
-	static String getConfig(String cfgname, String cfgprop, String cfgdesc) {
+	public static String getConfig(String cfgname, String cfgprop, String cfgdesc) {
 		return getConfig(cfgname, cfgprop, cfgdesc, null);
 	}
 
 	@SuppressWarnings("rawtypes")
-	static String getConfig(String cfgname, String cfgprop, String cfgdesc,
+	public static String getConfig(String cfgname, String cfgprop, String cfgdesc,
 			String defvalue) {
 		XmlUtil xu = new XmlUtil();
 		ArrayList al = xu.getXmlObjectByFile(configFile, cfgname, cfgdesc);
@@ -250,7 +252,7 @@ public class ConfigContext {
 	}
 
 	@SuppressWarnings("rawtypes")
-	static String getLogLevel(String deflevel) {
+	public static String getLogLevel(String deflevel) {
 		XmlUtil xu = new XmlUtil();
 		ArrayList al = xu.getXmlPropsByFile(configFile, "LOG", "LOGLEVEL");
 		Properties dbProps = (Properties) al.get(0);
@@ -260,7 +262,7 @@ public class ConfigContext {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	static ObjValue getCacheGroupConfig() {
+	public static ObjValue getCacheGroupConfig() {
 		XmlUtil xu = new XmlUtil();
 		ArrayList al = xu.getXmlObjectByFile(configFile, "CACHEGROUP");
 		ObjValue groups = new ObjValue();
@@ -281,7 +283,7 @@ public class ConfigContext {
 		return groups;
 	}
 
-	static String getDateLong(String dateStr) {
+	public static String getDateLong(String dateStr) {
 		if (dateStr != null && !dateStr.equals("")) {
 			try {
 				DateFormat dateFormat = DateFormat.getDateInstance();
@@ -296,7 +298,7 @@ public class ConfigContext {
 		return dateStr;
 	}
 
-	static String[][] getServerFromStr(String servers) {
+	public static String[][] getServerFromStr(String servers) {
 		String[] serverarr = servers.split(",");
 		String[][] sarr = new String[serverarr.length][];
 		for (int n = 0; n < serverarr.length; n++) {
@@ -318,7 +320,7 @@ public class ConfigContext {
 		return ov;
 	}
 
-	static String getRequest(String requestUrl) {
+	public static String getRequest(String requestUrl) {
 		return getMulBean().getFileString(getMulBean().getString(requestUrl));
 	}
 

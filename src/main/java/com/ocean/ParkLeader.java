@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 
+import com.ocean.util.LogUtil;
+
 public class ParkLeader {
 	boolean ismaster = false;
 	boolean alwaystry = false;

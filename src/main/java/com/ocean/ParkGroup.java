@@ -2,6 +2,8 @@ package com.ocean;
 
 import java.util.ArrayList;
 
+import com.ocean.util.LogUtil;
+
 public class ParkGroup {
 	private ObjValue groups = new ObjValue();
 

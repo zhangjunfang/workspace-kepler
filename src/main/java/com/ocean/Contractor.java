@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.lang.reflect.Array;
 import java.util.Random;
 
+import com.ocean.util.LogUtil;
+
 public abstract class Contractor extends ContractorParallel {
 	private Contractor ctor;
 	WorkerLocal[] wks = null;

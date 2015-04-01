@@ -12,6 +12,7 @@ import java.lang.reflect.Array;
 import java.util.Comparator;
 
 import com.ocean.ConstantBit.Target;
+import com.ocean.util.LogUtil;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class CoolHashMap extends LinkedHashMap implements Map, CoolHashBase {

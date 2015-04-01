@@ -2,6 +2,8 @@ package com.ocean;
 
 import java.util.List;
 
+import com.ocean.util.LogUtil;
+
 @SuppressWarnings({ "rawtypes", "unchecked" })
 class CoolHashCtor extends DumpCtor implements CoolHashClient {
 	CoolHashCtor(String parkhost, int parkport) {
