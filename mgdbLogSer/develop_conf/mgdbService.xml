@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<app>MgdbSer</app>
+	<ver>1.0.0.0</ver>
+	<desc>客车平台查车服务配置</desc>
+	
+	<item name="mongoServiceManage">
+		<comments>mongo配置管理</comments>
+		<item name="MongoIp">
+			<value>10.8.3.165</value>
+			<comments>mongoIP地址</comments>
+		</item>
+		
+		<item name="MongoPort">
+			<value>50001</value>
+			<comments>mongo端口</comments>
+		</item>
+		<item name="MongoDbname">
+			<value>spatial</value>
+			<comments>mongo库名</comments>
+		</item>
+		<item name="MongoCollection">
+			<value>regauthlog</value>
+			<comments>mongo集合</comments>
+		</item>
+   </item>
+
+	<item name="msgServiceManage">
+		<comments>消息服务配置管理</comments>
+		<item name="msgServicePort">
+			<value>7505</value>
+			<comments>消息服务器端口</comments>
+		</item>
+		<item name="msgServiceAddr">
+			<value>10.8.3.162</value>
+			<comments>消息服务器地址</comments>
+		</item>
+		<item name="logintype">
+			<value>SAVE</value>
+			<comments>登陆类型</comments>
+		</item>
+		<item name="userid">
+			<value>16705</value>
+			<comments>登陆id</comments>
+		</item>
+		<item name="password">
+			<value>16705</value>
+			<comments>登陆密码</comments>
+		</item>
+		<item name="reConnectTime">
+			<value>400000</value>
+			<comments>断线重连时间(ms)</comments>
+		</item>
+
+		<item name="connectStateTime">
+			<value>600000</value>
+			<comments>连接状态时间(ms)</comments>
+		</item>
+
+	</item>
+	
+	<item name = "threadServiceManage">
+		<comments>线程服务配置管理</comments>
+		<item name="analyseServiceCount">
+			<value>1</value>
+			<comments>分析线程数量</comments>
+		</item>
+		<item name="saveServiceCount">
+			<value>1</value>
+			<comments>存储线程数量</comments>
+		</item>
+	
+	</item>
+</config>
