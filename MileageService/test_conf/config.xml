@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<config>
+		<!-- 系统配置 -->
+		<property name="systemProt" desc="系统监听端口">8430</property>
+		<property name="threadSize" desc="线程数">5</property>
+		<property name="threadLoad" desc="显示线程负载">true</property>
+		<property name="speedLimit" desc="速度阀值（1400表示：140KM/H； 单位精度：0.1公里/每小时）">1400</property>
+		<property name="timeLimit" desc="时间阀值（5表示：5分钟； 单位精度：分钟；）">15</property>
+		
+		<!-- Oracle配置 -->
+		<property name="oracleUrl" desc="访问地址">${oracleUrl}</property>
+		<property name="oracleUsername" desc="用户名">${oracleUsername}</property>
+		<property name="oraclePassword" desc="密码">${oraclePassword}</property>
+		<property name="oracleInitialSize" desc="初始化数量">15</property>
+		<property name="oracleMaxActive" desc="最大活动数">100</property>
+		<property name="oracleMinIdle" desc="最小空闲数">15</property>
+		<property name="oracleMaxWait" desc="最大等待时间">60000</property>
+		<property name="oracleTimeBetweenEvictionRunsMillis" desc="检查无效间隔">600000</property>
+		<property name="oracleMinEvictableIdleTimeMillis" desc="最小生存时间">300000</property>
+		<property name="oracleTestWhileIdle" desc="申请连接时检查">true</property>
+		<property name="oracleTestOnBorrow" desc="获取连接时检查">true</property>
+		<property name="oracleTestOnReturn" desc="放回连接池时检查">false</property>
+		<property name="oracleSetMaxOpenPreparedStatements" desc="预处理最大缓存数">20</property>
+		
+
+		
+		<!-- 存储参数配置 -->
+		<property name="trackBatchSize" desc="轨迹存储批量提交数量-单位:条">500</property>
+		<property name="trackClearSize" desc="轨迹存储缓存清除间隔数量-单位:个">3600</property>
+		<property name="trackBatchTime" desc="轨迹存储间隔时间-单位:毫秒">1000</property>
+		<property name="trackLogOutTime" desc="轨迹存储日志输出间隔-单位:毫秒">30000</property>
+		<property name="statusBatchSize" desc="状态更新批量提交数量-单位:条">500</property>
+		<property name="statusClearSize" desc="轨迹存储缓存清除间隔数量-单位:个">3600</property>
+		<property name="statusBatchTime" desc="状态更新间隔时间-单位:毫秒">1000</property>
+		<property name="statusLogOutTime" desc="状态更新日志输出间隔-单位:毫秒">30000</property>
+		<property name="onofflineBatchSize" desc="上下线存储批量提交数量-单位:条">500</property>
+		<property name="onofflineBatchTime" desc="上下线存储间隔时间-单位:毫秒">1000</property>
+		<property name="onofflineLogOutTime" desc="上下线存储日志输出间隔-单位:毫秒">30000</property>
+		
+		<!-- SQL语句 -->
+		<property name="sql_queryVehicleInfo" desc="车辆基本查询语句">	
+			    SELECT V.VID,V.VEHICLE_NO,V.VIN_CODE,V.VEHICLE_TYPE,V.INNER_CODE,O.ENT_ID,O.ENT_NAME,E.ENT_ID AS EID,E.ENT_NAME AS ENAME,DECODE(PROG.CFG_FLAG,'1','1','0')AS CFG_FLAG
+                FROM TB_VEHICLE V 
+                LEFT JOIN TB_ORGANIZATION O ON V.ENT_ID = O.ENT_ID  
+     			      LEFT JOIN TB_ORGANIZATION E ON E.ENT_ID = O.PARENT_ID 
+                LEFT JOIN (SELECT P.PROG_ID,'1' CFG_FLAG FROM TB_VEHICLE_CONFIGUER_PROGRAMME P,TB_VEHICLE_CONFIGUER_DETAIL D
+                                         WHERE P.PROG_ID = D.PROG_ID 
+                                         AND P.ENABLE_FLAG = '1'
+                                         AND D.CODE_ID = '000100060001') PROG ON PROG.PROG_ID = V.PROG_ID
+                WHERE V.VID = ?
+	    </property>
+	     <property name="sql_saveDayServiceStInfo" desc="车辆行驶里程统计信息语句">
+			INSERT INTO TS_VEHICLE_MILEAGE_DAYSTAT
+	        (STAT_DATE,VID,VEHICLE_NO,C_VIN,CORP_ID,
+	         CORP_NAME,TEAM_ID,TEAM_NAME,   
+	         POINT_MILEAGE,GIS_MILEAGE,MILEAGE,UTC
+	         )
+	      	 VALUES
+	         (?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		<property name = "sql_saveDriverDetailInfo" desc = "驾驶员行驶里程统计语句">
+			INSERT INTO TH_DRIVER_MILEAGE_DETAIL
+			(AUTO_ID,STAT_DATE,VID,VEHICLE_NO,CORP_ID,
+			  CORP_NAME,TEAM_ID,TEAM_NAME,DRIVER_ID,DRIVER_NAME,
+			  DRIVER_SRC,BEGIN_UTC,BEGIN_LON,BEGIN_LAT,BEGIN_MAPLON,
+			  BEGIN_MAPLAT,BEGIN_MILEAGE,END_UTC,END_LON,END_LAT,END_MAPLON,
+			  END_MAPLAT,END_MILEAGE,MILEAGE
+			)
+			VALUES
+			(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		<property name = "sql_queryDriverClockinDetail" desc = "查询驾驶员打卡明细语句">
+			SELECT STAFF_ID DEVICE_ID,
+	               STAFF_NAME DRIVER_NAME,
+	               ON_LINE_TIME,
+	               CASE
+	                 WHEN OFF_LINE_TIME > 0 THEN
+	                  OFF_LINE_TIME
+	                 ELSE
+	                  LEAD(ON_LINE_TIME, 1, 0) OVER(ORDER BY ON_LINE_TIME)
+	               END OFF_LINE_TIME,
+	               '1' DRIVER_SRC
+	          FROM TH_DRIVER_LOGIN_RECORD A
+	          JOIN (SELECT STAFF_ID, STAFF_NAME, BUSSINESS_ID
+	                 FROM TB_EMPLOYEE
+	                WHERE STAFF_TYPE = '0'
+	                  AND ENABLE_FLAG = '1') B
+	            ON A.QUALIFICATION_NO = B.BUSSINESS_ID
+	         WHERE A.VID = ?
+	           AND ((A.SYSUTC &gt;= ? AND A.SYSUTC &lt; ?) 
+	           		OR 
+	           		(A.OFF_LINE_TIME &gt;= ? AND A.OFF_LINE_TIME &lt; ?))
+	        UNION
+	        SELECT C.STAFF_ID DEVICE_ID,
+	               STAFF_NAME DRIVER_NAME,
+	               0 ON_LINE_TIME,
+	               0 OFF_LINE_TIME,
+	               '0' DRIVER_SRC
+	          FROM TR_VEHICLE_STAFF C
+	          JOIN (SELECT STAFF_ID, STAFF_NAME, BUSSINESS_ID
+	                  FROM TB_EMPLOYEE
+	                 WHERE STAFF_TYPE = '0'
+	                   AND ENABLE_FLAG = '1') D
+	            ON C.STAFF_ID = D.STAFF_ID
+	         WHERE VID = ?
+	           AND ROWNUM = 1
+		</property>
+		<property name = "sql_queryTotalMileageInfo" desc = "获取每天上报里程">
+			SELECT * FROM TS_VEHICLE_MILEAGE_DAYSTAT T WHERE STAT_DATE = ?
+		</property>	
+		<property name = "sql_updateStaInfo" desc ="更新总里程">
+			UPDATE TS_VEHICLE_MILEAGE_TOTALSTAT SET MILEAGE = MILEAGE + ? WHERE VID = ?		
+		</property>	
+		<property name = "sql_deleteVehicleInfo" desc = "车辆补录数据删除">
+			DELETE FROM TS_VEHICLE_MILEAGE_DAYSTAT T WHERE T.STAT_DATE = ?		
+		</property>
+		<property name = "sql_deleteDriverInfo" desc = "驾驶员补录数据删除">
+			DELETE FROM TH_DRIVER_MILEAGE_DETAIL T WHERE T.STAT_DATE = ?		
+		</property>
+		
+	</config>
+	
+	<tasks>
+		<task name="VehicleRunningMileageTask" enable="true" threadNum = "16" desc="车辆运行统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.mileageservice.task.VehicleRunningMileageTask</class>
+			<interval unit="hour" delay="0" desc="任务间隔">24</interval>
+			<properties desc="自定义配置">
+				<property name = "trackFilePath">/opt/iscsi-temp1/file/track</property>
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+		
+	</tasks>
+	
+</configuration>
