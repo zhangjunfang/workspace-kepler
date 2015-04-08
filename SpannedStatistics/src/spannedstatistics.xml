@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xconf>
+	<app>KCPTSaveCenter</app>
+	<ver>3.0.0.0</ver>
+	<desc>客车平台存储服务配置</desc>
+
+	<item name="ManagePort">
+		<value>7255</value>
+		<comments>管理端口</comments>
+	</item>
+	<item name="AnalyseClass">
+		<value>com.ctfo.savecenter.analy.CommonAnalyseService</value>
+		<comments>解析类</comments>
+	</item>
+	<item name="ManageFlag">
+		<value>1</value>
+		<comments>消息服务配置管理测试开关 1启动消息服务直连，0通过节点管理处理</comments>
+	</item>
+	<item name="areaTreeFileName">
+		<value>D:\workspace_truck\SpannedStatistics\src\china.idx</value>
+		<comments>区域树文件全路径</comments>
+	</item>
+
+	<item name="msgServiceManage">
+		<comments>消息服务配置管理</comments>
+		<item name="msg1">
+			<comments>消息服务器1</comments>
+			<item name="msgServicePort">
+				<value>7505</value>
+				<comments>消息服务器端口</comments>
+			</item>
+			<item name="msgServiceAddr">
+				<value>192.168.100.50</value>
+				<comments>消息服务器地址192.168.100.50</comments>
+			</item>
+			<item name="logintype">
+				<value>SAVE</value>
+				<comments>登陆类型</comments>
+			</item>
+			<item name="userid">
+				<value>6706</value>
+				<comments>登陆id</comments>
+			</item>
+			<item name="password">
+				<value>6706</value>
+				<comments>登陆密码</comments>
+			</item>
+			<item name="reConnectTime">
+				<value>30000</value>
+				<comments>断线重连时间(ms)</comments>
+			</item>
+			<item name="connectStateTime">
+				<value>600000</value>
+				<comments>连接状态时间(ms)</comments>
+			</item>
+		</item>
+	</item>
+
+	<item name="configServer">
+		<comments>节点管理器配置</comments>
+		<item name="localIP">
+			<value>192.168.100.50</value>
+			<comments>本地IP</comments>
+		</item>
+		<item name="localPort">
+			<value>7000</value>
+			<comments>本地端口</comments>
+		</item>
+		<item name="loginID">
+			<value>300019</value>
+			<comments>登陆id</comments>
+		</item>
+		<item name="conNums">
+			<value>2</value>
+			<comments>连接数</comments>
+		</item>
+		<item name="reconTimes">
+			<value>10</value>
+			<comments>如果与节点管理器断开，设置重连时间(单位：S</comments>
+		</item>
+		<item name="handlerClass">
+			<value>com.ctfo.savecenter.io.ReceiveMsgHandler</value>
+			<comments>处理类</comments>
+		</item>
+		<item name="configIP">
+			<value>192.168.100.50</value>
+			<comments>节点管理器IP</comments>
+		</item>
+		<item name="configPort">
+			<value>7555</value>
+			<comments>节点管理器端口</comments>
+		</item>
+		<item name="groupID">
+			<value>1</value>
+			<comments>节点管理组ID</comments>
+		</item>
+	</item>
+	<item name="activeMQ">
+		<item name="url">
+			<value>tcp://192.168.100.52:61616</value>
+			<comments>activeMQ连接地址</comments>
+		</item>
+		<item name="alarmQueue">
+			<value>alarmSettingQueue</value>
+			<comments>报警设置队列名称</comments>
+		</item>
+	</item>
+	<item name="AnalyserAddIns">
+		<comments>分析插件</comments>
+		<item name="track">
+			<comments>轨迹、上下线插件</comments>
+			<item name="class1">
+				<value>com.ctfo.savecenter.addin.kcpt.trackmanager.TrackManagerKcptMainThread</value>
+				<comments>监控位置更新插件</comments>
+				<item name="count">
+					<value>5</value>
+					<comments>监控位置更新插件个数</comments>
+				</item>
+				<item name="spannedStatisticsCount">
+					<value>10</value>
+					<comments>跨域统计提交数</comments>
+				</item>
+				<item name="commitTime">
+					<value>60</value>
+					<comments>批量数据库提交间隔时间(单位:S)</comments>
+				</item>
+				<item name="sql_insertSpannedStatistics">
+					<value>INSERT INTO
+						TH_SPANNED_STATISTICS(SUID,LOCAL_CODE,CURRENT_CODE,CURRENT_TIME,LOCAL_CITY_CODE,CURRENT_CITY_CODE,LOCAL_PROVINCE_CODE,CURRENT_PROVINCE_CODE)
+						VALUES(?,?,?,?,?,?,?,?)</value>
+					<comments>查询车辆最新报警状态</comments>
+				</item>
+			</item>
+		</item>
+	</item>
+
+	<item name="database">
+		<comments>数据库连接配置</comments>
+		<item name="DbImpl">
+			<value>com.ctfo.savecenter.dao.MonitorDBAdapter</value>
+			<comments>数据接口驱动类型</comments>
+		</item>
+		<item name="JDBCDriver">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+			<comments>数据库类型</comments>
+		</item>
+		<item name="JDBCUrl">
+			<value>jdbc:oracle:thin:@192.168.100.53:1521:orcl</value>
+			<comments>数据库连接URL 192.168.5.120:1521:orcl</comments>
+		</item>
+		<item name="JDBCUser">
+			<value>kcpt</value>
+			<comments>数据库登录用户名</comments>
+		</item>
+		<item name="JDBCPassword">
+			<value>kcpt</value>
+			<comments>ORACLE数据库登录密码</comments>
+		</item>
+		<item name="DBReconnectWait">
+			<value>60000</value>
+			<comments>数据库断线重连延时(秒)</comments>
+		</item>
+		<item name="delay">
+			<value>3600000</value>
+			<comments>检测线程休眠时间</comments>
+		</item>
+		<item name="connectionPoolSize">
+			<value>40</value>
+			<comments>连接池连接数目</comments>
+		</item>
+		<item name="minLimit">
+			<value>10</value>
+			<comments>连接池最小连接数</comments>
+		</item>
+		<item name="InitialLimit">
+			<value>20</value>
+			<comments>连接池初始化连接数</comments>
+		</item>
+		<item name="abandonedConnectionTimeout">
+			<value>30</value>
+			<comments>Sets the maximum time that a connection can remain unused
+				before the connection is closed and returned to the cache(单位:S)</comments>
+		</item>
+		<item name="propertyCheckInterval">
+			<value>60</value>
+			<comments>Sets the time interval at which the cache manager inspects
+				and enforces all specified cache properties (单位:S)</comments>
+		</item>
+		<item name="inactivityTimeout">
+			<value>30</value>
+			<comments>Sets the maximum time a physical connection can remain idle
+				in a connection cache.(单位:S)</comments>
+		</item>
+		<item name="sqlstatement">
+			<comments>轨迹存储SQL语句</comments>
+			<item name="sql_queryAllVehicle">
+				<value>SELECT v.TYRE_R,
+					       v.REAR_AXLE_RATE,
+					       v.vehicle_no,
+					       S.SUID,
+					       V.VID            AS VID,
+					       PLATE_COLOR      AS plate_color_id,
+					       M.COMMADDR       AS t_identifyno,
+					       T.OEM_CODE       AS oemcode,
+					       T.TMODEL_CODE,
+					       T.TID,
+					       V.CITY_ID
+					  FROM TB_SIM M
+					 INNER JOIN TR_SERVICEUNIT S
+					    ON S.SID = M.SID
+					 INNER JOIN TB_VEHICLE V
+					    ON V.VID = S.VID
+					 INNER JOIN TB_TERMINAL T
+					    ON T.TID = S.TID
+					 WHERE COMMADDR IS NOT NULL
+					   AND V.ENABLE_FLAG = 1
+					   AND T.ENABLE_FLAG = 1
+   				</value>
+				<comments>初始化加载所有车辆基本信息 </comments>
+			</item>
+			<item name="sql_queryVehicleByMacid">
+				<value>SELECT S.SUID,
+					       V.VID          AS VID,
+					       PLATE_COLOR    AS plate_color_id,
+					       M.COMMADDR     AS t_identifyno,
+					       T.OEM_CODE     AS oemcode,
+					       T.TMODEL_CODE,
+					       T.TID,
+					       vehicle_no,
+					       TYRE_R,
+					       REAR_AXLE_RATE
+					  FROM TB_SIM M
+					 INNER JOIN TR_SERVICEUNIT S
+					    ON S.SID = M.SID
+					 INNER JOIN TB_VEHICLE V
+					    ON V.VID = S.VID
+					 INNER JOIN TB_TERMINAL T
+					    ON T.TID = S.TID
+					 WHERE COMMADDR = ?
+					   AND T.OEM_CODE = ?
+					   AND V.ENABLE_FLAG = 1
+					   AND T.ENABLE_FLAG = 1
+				</value>
+				<comments>如果内存中不存在当前车辆信息，则从数据库加载</comments>
+			</item>
+			<item name="sql_queryDeleteVehicle">
+				<value>SELECT VID FROM TB_VEHICLE WHERE ENABLE_FLAG='0' and UPDATE_TIME &gt;?</value>
+				<comments>查询报警编码 </comments>
+			</item>
+		</item>
+	</item>
+</xconf>

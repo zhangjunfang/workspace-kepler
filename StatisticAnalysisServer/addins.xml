@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addins>
+	<value></value>
+	<type>tree</type>
+	<comments>分析插件</comments>
+	<check></check>
+	<!--  
+	<addin class="com.caits.analysisserver.addin.kcpt.addin.selfdispatch.TravelingRecorderCollectThread" isload="true" type="self"/>
+	<addin class="com.caits.analysisserver.addin.kcpt.addin.selfdispatch.VehicleReportStateUpdateThread" isload="true" type="self"/>
+	<addin class="com.caits.analysisserver.addin.kcpt.addin.selfdispatch.AutoExtendTablePartition" isload="true" type="self"/>
+	-->
+	<addin class="com.caits.analysisserver.addin.kcpt.addin.selfdispatch.TerminalPhotoSettingsSwitch" isload="true" type="self"/>
+	
+	<addin name="FileTaskThread" type="uinifed" scheduletime="15:20" class="com.caits.analysisserver.addin.kcpt.addin.task.FileTaskThread">
+		<!-- task name="alarm" class="com.caits.analysisserver.addin.kcpt.addin.unifieddispatch.AnalysisAlarmThread" isload="true" threadnum="5"/>
+		<task name="exc" class="com.caits.analysisserver.addin.kcpt.addin.unifieddispatch.VechicleExcStatisticThread" isload="true" threadnum="5"/-->
+		<task name="eload" class="com.caits.analysisserver.addin.kcpt.addin.unifieddispatch.AnalysisEloadThread" isload="true" threadnum="5"/>
+		<task name="oil" class="com.caits.analysisserver.addin.kcpt.addin.unifieddispatch.AnalysisOilChanged" isload="true" threadnum="5"/>
+		<task name="track" class="com.caits.analysisserver.addin.kcpt.addin.unifieddispatch.AnalysisStatusBakThread" isload="true" threadnum="15"/>
+	</addin>
+</addins>

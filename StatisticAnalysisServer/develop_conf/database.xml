@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+	<value></value>
+	<type>tree</type>
+	<comments>数据库连接配置</comments>
+	<check></check>
+	<oracle>
+		<JDBCDriver>
+			<type>string</type>
+			<value>oracle.jdbc.driver.OracleDriver</value>
+			<comments>数据库类型</comments>
+			<check></check>
+		</JDBCDriver>
+		<JDBCUrl>
+			<value>jdbc:oracle:oci:@(DESCRIPTION=(LOAD_BALANCE=on)(ADDRESS_LIST=(FAILOVER=on)(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.100.183)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=192.168.100.184)(PORT=1521)))(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=RACDB)(FAILOVER_MODE=(TYPE=SESSION)(METHOD=BASIC))(DELAY=10)(RETRIES=5)))</value>
+			<type>string</type>
+			<comments>数据库连接URL jdbc:oracle:thin:@10.8.1.245:1521:orcl</comments>
+			<check></check>
+		</JDBCUrl>
+		<JDBCUser>
+			<value>kcpt</value>
+			<type>string</type>
+			<comments>数据库登录用户名</comments>
+			<check></check>
+		</JDBCUser>
+		<JDBCPassword>
+			<value>kcpt</value>
+			<type>string</type>
+			<comments>ORACLE数据库登录密码</comments>
+			<check></check>
+		</JDBCPassword>
+		<DBReconnectWait>
+			<value>60000</value>
+			<type>integer</type>
+			<comments>数据库断线重连延时(秒)</comments>
+			<check></check>
+		</DBReconnectWait>
+		<delay>
+			<value>3600000</value>
+			<type>integer</type>
+			<comments>检测线程休眠时间</comments>
+			<check></check>
+		</delay>
+		<maxLimit>
+			<value>35</value>
+			<type>integer</type>
+			<comments>最大连接数目</comments>
+			<check></check>
+		</maxLimit>
+		<minLimit>
+			<value>2</value>
+			<comments>连接池最小连接数</comments>
+		</minLimit>
+		<InitialLimit>
+			<value>10</value>
+			<comments>连接池初始化连接数</comments>
+		</InitialLimit>
+		<propertyCheckInterval>
+			<value>60</value>
+			<comments>Sets the time interval at which the cache manager inspects and enforces all specified cache properties (单位:S)</comments>
+		</propertyCheckInterval>
+	</oracle>
+</database>

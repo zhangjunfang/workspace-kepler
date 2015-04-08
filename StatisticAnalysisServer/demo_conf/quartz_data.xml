@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<job-scheduling-data xmlns="http://www.quartz-scheduler.org/xml/JobSchedulingData"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.quartz-scheduler.org/xml/JobSchedulingData http://www.quartz-scheduler.org/xml/job_scheduling_data_2_0.xsd"
+    version="2.0">
+
+    <schedule>
+    <!--  
+    	<job>
+	        <name>TestJob</name>
+	        <group>ORG_TEST</group>
+	        <description>生成车辆每日运营属性 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.TestJob</job-class>
+	    </job>
+    	<trigger>
+	        <cron>
+	            <name>TestJobTrigger</name>
+	            <group>ORG_TEST_T</group>
+	            <job-name>TestJob</job-name>
+	            <job-group>ORG_TEST</job-group>
+	            <cron-expression>0 0/3 * * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    -->
+    	<!-- 车辆运营情况统计 JOB -->
+	    <job>
+	        <name>VehicleOperationPropertyDaysJob</name>
+	        <group>ORG_OPERATION</group>
+	        <description>生成车辆每日运营属性 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.VehicleOperationPropertyDaysJob</job-class>
+	    </job>
+	    <job>
+	        <name>OrgOperationDaystatJob</name>
+	        <group>ORG_OPERATION</group>
+	        <description>车辆运营情况日汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.OrgOperationDaystatJob</job-class>
+	    </job>
+	    <job>
+	        <name>OrgOperationWeekstatJob</name>
+	        <group>ORG_OPERATION</group>
+	        <description>车辆运营情况周汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.OrgOperationWeekstatJob</job-class>
+	    </job>
+	    <job>
+	        <name>OrgOperationMonthstatJob</name>
+	        <group>ORG_OPERATION</group>
+	        <description>车辆运营情况月汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.OrgOperationMonthstatJob</job-class>
+	    </job>
+	    
+	    <!-- 车辆告警情况统计 JOB -->
+	    <job>
+	        <name>OrgAlarmDaystatJob</name>
+	        <group>ORG_ALARM</group>
+	        <description>企业车辆告警情况日汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.OrgAlarmDaystatJob</job-class>
+	    </job>
+	    <job>
+	        <name>OrgAlarmMonthstatJob</name>
+	        <group>ORG_ALARM</group>
+	        <description>企业车辆告警情况月汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.OrgAlarmMonthstatJob</job-class>
+	    </job>
+	    
+	    <!-- 车辆油耗分析 JOB -->
+	    <job>
+	        <name>VehicleOilWearAnalyseDaystatJob</name>
+	        <group>VEHICLE_OIL_ANALYSE</group>
+	        <description>企业车辆油耗分析日汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.VehicleOilWearAnalyseDaystatJob</job-class>
+	    </job>
+	    <job>
+	        <name>VehicleOilWearAnalyseWeekstatJob</name>
+	        <group>VEHICLE_OIL_ANALYSE</group>
+	        <description>企业车辆油耗分析周汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.VehicleOilWearAnalyseWeekstatJob</job-class>
+	    </job>
+	    <job>
+	        <name>VehicleOilWearAnalyseMonthstatJob</name>
+	        <group>VEHICLE_OIL_ANALYSE</group>
+	        <description>企业车辆油耗分析月汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.VehicleOilWearAnalyseMonthstatJob</job-class>
+	    </job>
+	    
+	    <!-- 车辆燃油消耗分析 JOB -->
+	    <job>
+	        <name>OilConsumeMonthstatJob</name>
+	        <group>VEHICLE_OIL_CONSUME</group>
+	        <description>企业车辆油耗分析日汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.OilConsumeMonthstatJob</job-class>
+	    </job>
+	    <job>
+	        <name>OilConsumeYearstatJob</name>
+	        <group>VEHICLE_OIL_CONSUME</group>
+	        <description>企业车辆油耗分析周汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.OilConsumeYearstatJob</job-class>
+	    </job>
+	    
+	    <!-- 车辆日超速情况分析 JOB -->
+	    <job>
+	        <name>VehicleOverspeedAnalyseDaystatJob</name>
+	        <group>VEHICLE_OVERSPEED_ANALYSE</group>
+	        <description>企业车辆油耗分析日汇总 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.VehicleOverspeedAnalyseDaystatJob</job-class>
+	    </job>
+	    
+	    <!-- 访问日志按小时按日分析 JOB -->
+	    <job>
+	        <name>AnalyserVisitlogDaysJob</name>
+	        <group>VISILOG_ANALYSE</group>
+	        <description>系统访问日志按小时按日分析 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.visitlog.jobs.AnalyserVisitlogDaysJob</job-class>
+	    </job>
+	    
+	    <!-- 基础数据按日备份 JOB -->
+	    <job>
+	        <name>BackBasedataDaysJob</name>
+	        <group>VISILOG_ANALYSE</group>
+	        <description>基础数据按日备份 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.visitlog.jobs.BackBasedataDaysJob</job-class>
+	    </job>
+	    
+	    <!-- 基础数据按日统计 JOB -->
+	    <job>
+	        <name>StatBasedataDaysJob</name>
+	        <group>VISILOG_ANALYSE</group>
+	        <description>基础数据按日统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.visitlog.jobs.StatBasedataDaysJob</job-class>
+	    </job>
+	    
+	    <!-- 访问记录按日统计 JOB -->
+	    <job>
+	        <name>StatVisitlogDaysJob</name>
+	        <group>VISILOG_ANALYSE</group>
+	        <description>访问记录按日统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.visitlog.jobs.StatVisitlogDaysJob</job-class>
+	    </job>
+	    
+	    <!-- 车厂指标按周统计 JOB -->
+	    <job>
+	        <name>StatFactoryWeeksJob</name>
+	        <group>VISILOG_ANALYSE</group>
+	        <description>车厂指标按周统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.visitlog.jobs.StatFactoryWeeksJob</job-class>
+	    </job>
+	    
+	    <!-- 车厂指标按月统计 JOB -->
+	    <job>
+	        <name>StatFactoryMonthsJob</name>
+	        <group>VISILOG_ANALYSE</group>
+	        <description>车厂指标按月统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.visitlog.jobs.StatFactoryMonthsJob</job-class>
+	    </job>
+	    
+	    <!-- 企业告警分级别按日统计 JOB -->
+	    <job>
+	        <name>StatAlarmDaysJob</name>
+	        <group>ALARM_ANALYSE</group>
+	        <description>企业告警分级别按日统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.alarm.jobs.StatAlarmDaysJob</job-class>
+	    </job>
+	    
+	    <!-- 企业告警分级别按周统计 JOB -->
+	    <job>
+	        <name>StatAlarmWeeksJob</name>
+	        <group>ALARM_ANALYSE</group>
+	        <description>企业告警分级别按周统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.alarm.jobs.StatAlarmWeeksJob</job-class>
+	    </job>
+	    
+	    <!-- 企业告警分级别按月统计 JOB -->
+	    <job>
+	        <name>StatAlarmMonthJob</name>
+	        <group>ALARM_ANALYSE</group>
+	        <description>企业告警分级别按月统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.alarm.jobs.StatAlarmMonthJob</job-class>
+	    </job>
+	    
+	    <!-- 企业告警分级别统计结果向redis同步 JOB -->
+	    <job>
+	        <name>SynAlarmDaysJob</name>
+	        <group>ALARM_ANALYSE</group>
+	        <description>企业告警分级别统计结果向redis同步 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.alarm.jobs.SynAlarmDaysJob</job-class>
+	    </job>
+	    
+	    <!-- 车辆状态信息按日统计 JOB -->
+	    <job>
+	        <name>StatStateDaysJob</name>
+	        <group>STATE_ANALYSE</group>
+	        <description>车辆状态信息按日统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.state.jobs.StatStateDaysJob</job-class>
+	    </job>
+	    
+	    <!-- 车辆信息按日统计 JOB -->
+	    <job>
+	        <name>StatServiceDaysJob</name>
+	        <group>VEHICLE_ANALYSE</group>
+	        <description>车辆按日统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.service.jobs.StatServiceDaysJob</job-class>
+	    </job>
+	    
+	    <!-- 车辆信息按月统计 JOB -->
+	    <job>
+	        <name>StatServiceMonthsJob</name>
+	        <group>VEHICLE_ANALYSE</group>
+	        <description>车辆按日统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.service.jobs.StatServiceMonthsJob</job-class>
+	    </job>
+	    
+	    <!-- 手机客户端引用数据统计 JOB -->
+	    <job>
+	        <name>StatMobileClientMonthsJob</name>
+	        <group>VEHICLE_ANALYSE</group>
+	        <description>车辆按日统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.service.jobs.StatMobileClientMonthsJob</job-class>
+	    </job>
+	    
+	    <!-- 车辆运行趟次按日统计 JOB -->
+	    <job>
+	        <name>VehicleItineraryDaystatJob</name>
+	        <group>VEHICLE_ANALYSE</group>
+	        <description>车辆运行趟次统计 作业</description>
+	        <job-class>com.caits.analysisserver.quartz.jobs.VehicleItineraryDaystatJob</job-class>
+	    </job>
+
+		<!-- 车辆运营情况统计 trigger -->
+	     <trigger>
+	        <cron>
+	            <name>VehicleOperationPropertyDaysJobTrigger</name>
+	            <group>ORG_OPERATION_T</group>
+	            <job-name>VehicleOperationPropertyDaysJob</job-name>
+	            <job-group>ORG_OPERATION</job-group>
+	            <cron-expression>0 0 4 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    <trigger>
+	        <cron>
+	            <name>OrgOperationDaystatJobTrigger</name>
+	            <group>ORG_OPERATION_T</group>
+	            <job-name>OrgOperationDaystatJob</job-name>
+	            <job-group>ORG_OPERATION</job-group>
+	            <cron-expression>0 0 5 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    <trigger>
+	        <cron>
+	            <name>OrgOperationWeekstatJobTrigger</name>
+	            <group>ORG_OPERATION_T</group>
+	            <job-name>OrgOperationWeekstatJob</job-name>
+	            <job-group>ORG_OPERATION</job-group>
+	            <cron-expression>0 30 5 ? * MON</cron-expression>
+	        </cron>
+	    </trigger>
+	    <trigger>
+	        <cron>
+	            <name>OrgOperationMonthstatJobTrigger</name>
+	            <group>ORG_OPERATION_T</group>
+	            <job-name>OrgOperationMonthstatJob</job-name>
+	            <job-group>ORG_OPERATION</job-group>
+	            <cron-expression>0 0 6 1 * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 车辆告警情况统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>OrgAlarmDaystatJobTrigger</name>
+	            <group>ORG_ALARM_T</group>
+	            <job-name>OrgAlarmDaystatJob</job-name>
+	            <job-group>ORG_ALARM</job-group>
+	            <cron-expression>0 30 4 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    <trigger>
+	        <cron>
+	            <name>OrgAlarmMonthstatJobTrigger</name>
+	            <group>ORG_ALARM_T</group>
+	            <job-name>OrgAlarmMonthstatJob</job-name>
+	            <job-group>ORG_ALARM</job-group>
+	            <cron-expression>0 10 5 1 * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 车辆油耗分析统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>VehicleOilWearAnalyseDaystatJobTrigger</name>
+	            <group>VEHICLE_OIL_ANALYSE_T</group>
+	            <job-name>VehicleOilWearAnalyseDaystatJob</job-name>
+	            <job-group>VEHICLE_OIL_ANALYSE</job-group>
+	            <cron-expression>0 0 5 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    <trigger>
+	        <cron>
+	            <name>VehicleOilWearAnalyseWeekstatJobTrigger</name>
+	            <group>VEHICLE_OIL_ANALYSE_T</group>
+	            <job-name>VehicleOilWearAnalyseWeekstatJob</job-name>
+	            <job-group>VEHICLE_OIL_ANALYSE</job-group>
+	            <cron-expression>0 30 5 ? * MON</cron-expression>
+	        </cron>
+	    </trigger>
+	    <trigger>
+	        <cron>
+	            <name>VehicleOilWearAnalyseMonthstatJobTrigger</name>
+	            <group>VEHICLE_OIL_ANALYSE_T</group>
+	            <job-name>VehicleOilWearAnalyseMonthstatJob</job-name>
+	            <job-group>VEHICLE_OIL_ANALYSE</job-group>
+	            <cron-expression>0 30 5 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 车辆燃油消耗情况统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>OilConsumeMonthstatJobTrigger</name>
+	            <group>VEHICLE_OIL_CONSUME_T</group>
+	            <job-name>OilConsumeMonthstatJob</job-name>
+	            <job-group>VEHICLE_OIL_CONSUME</job-group>
+	            <cron-expression>0 0 5 1 * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    <trigger>
+	        <cron>
+	            <name>OilConsumeYearstatJobTrigger</name>
+	            <group>VEHICLE_OIL_CONSUME_T</group>
+	            <job-name>OilConsumeYearstatJob</job-name>
+	            <job-group>VEHICLE_OIL_CONSUME</job-group>
+	            <cron-expression>0 0 5 1 1 ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 车辆日超速情况分析 trigger -->
+	     <trigger>
+	        <cron>
+	            <name>VehicleOverspeedAnalyseDaystatJobTrigger</name>
+	            <group>VEHICLE_OVERSPEED_ANALYSE_T</group>
+	            <job-name>VehicleOverspeedAnalyseDaystatJob</job-name>
+	            <job-group>VEHICLE_OVERSPEED_ANALYSE</job-group>
+	            <cron-expression>0 30 4 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 访问日志按小时按日分析 trigger -->
+	     <trigger>
+	        <cron>
+	            <name>AnalyserVisitlogDaysJobTrigger</name>
+	            <group>VISILOG_ANALYSE_T</group>
+	            <job-name>AnalyserVisitlogDaysJob</job-name>
+	            <job-group>VISILOG_ANALYSE</job-group>
+	            <cron-expression>0 0 4 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 基础数据按日备份 trigger -->
+	     <trigger>
+	        <cron>
+	            <name>BackBasedataDaysJobTrigger</name>
+	            <group>VISILOG_ANALYSE_T</group>
+	            <job-name>BackBasedataDaysJob</job-name>
+	            <job-group>VISILOG_ANALYSE</job-group>
+	            <cron-expression>0 0 4 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+
+	    <!-- 基础数据按日统计 trigger -->
+	     <trigger>
+	        <cron>
+	            <name>StatBasedataDaysJobTrigger</name>
+	            <group>VISILOG_ANALYSE_T</group>
+	            <job-name>StatBasedataDaysJob</job-name>
+	            <job-group>VISILOG_ANALYSE</job-group>
+	            <cron-expression>0 0 5 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 访问记录按日统计 trigger -->
+	     <trigger>
+	        <cron>
+	            <name>StatVisitlogDaysJobTrigger</name>
+	            <group>VISILOG_ANALYSE_T</group>
+	            <job-name>StatVisitlogDaysJob</job-name>
+	            <job-group>VISILOG_ANALYSE</job-group>
+	            <cron-expression>0 30 5 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 车厂指标按周统计 trigger -->
+	     <trigger>
+	        <cron>
+	            <name>StatFactoryWeeksJobTrigger</name>
+	            <group>VISILOG_ANALYSE_T</group>
+	            <job-name>StatFactoryWeeksJob</job-name>
+	            <job-group>VISILOG_ANALYSE</job-group>
+	            <cron-expression>0 0 5 ? * MON</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 车厂指标按月统计 trigger -->
+	     <trigger>
+	        <cron>
+	            <name>StatFactoryMonthsJobTrigger</name>
+	            <group>VISILOG_ANALYSE_T</group>
+	            <job-name>StatFactoryMonthsJob</job-name>
+	            <job-group>VISILOG_ANALYSE</job-group>
+	            <cron-expression>0 0 5 1 * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 企业告警分级别按日统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>StatAlarmDaysJobTrigger</name>
+	            <group>ALARM_ANALYSE_T</group>
+	            <job-name>StatAlarmDaysJob</job-name>
+	            <job-group>ALARM_ANALYSE</job-group>
+	            <cron-expression>0 0 4 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 企业告警分级别按周统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>StatAlarmWeeksJobTrigger</name>
+	            <group>ALARM_ANALYSE_T</group>
+	            <job-name>StatAlarmWeeksJob</job-name>
+	            <job-group>ALARM_ANALYSE</job-group>
+	            <cron-expression>0 30 4 ? * MON</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 企业告警分级别按月统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>StatAlarmMonthJobTrigger</name>
+	            <group>ALARM_ANALYSE_T</group>
+	            <job-name>StatAlarmMonthJob</job-name>
+	            <job-group>ALARM_ANALYSE</job-group>
+	            <cron-expression>0 30 4 1 * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 企业告警分级别统计结果向redis同步 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>SynAlarmDaysJobTrigger</name>
+	            <group>ALARM_ANALYSE_T</group>
+	            <job-name>SynAlarmDaysJob</job-name>
+	            <job-group>ALARM_ANALYSE</job-group>
+	            <cron-expression>0 0 5 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 车辆状态信息按日统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>StatStateDaysJobTrigger</name>
+	            <group>STATE_ANALYSE_T</group>
+	            <job-name>StatStateDaysJob</job-name>
+	            <job-group>STATE_ANALYSE</job-group>
+	            <cron-expression>0 0 4 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 车辆信息按日统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>StatServiceDaysJobTrigger</name>
+	            <group>VEHICLE_ANALYSE_T</group>
+	            <job-name>StatServiceDaysJob</job-name>
+	            <job-group>VEHICLE_ANALYSE</job-group>
+	            <cron-expression>0 30 4 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 车辆信息按月统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>StatServiceMonthsJobTrigger</name>
+	            <group>VEHICLE_ANALYSE_T</group>
+	            <job-name>StatServiceMonthsJob</job-name>
+	            <job-group>VEHICLE_ANALYSE</job-group>
+	            <cron-expression>0 0 5 1 * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 手机客户端引用数据月统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>StatMobileClientMonthsJobTrigger</name>
+	            <group>VEHICLE_ANALYSE_T</group>
+	            <job-name>StatMobileClientMonthsJob</job-name>
+	            <job-group>VEHICLE_ANALYSE</job-group>
+	            <cron-expression>0 30 5 1 * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+	    <!-- 车辆运行趟次按日统计 trigger -->
+	    <trigger>
+	        <cron>
+	            <name>VehicleItineraryDaystatJobTrigger</name>
+	            <group>VEHICLE_ANALYSE_T</group>
+	            <job-name>VehicleItineraryDaystatJob</job-name>
+	            <job-group>VEHICLE_ANALYSE</job-group>
+	            <cron-expression>0 30 4 * * ?</cron-expression>
+	        </cron>
+	    </trigger>
+	    
+    </schedule>    
+</job-scheduling-data>

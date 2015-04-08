@@ -1,0 +1,2163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<config>
+		<!-- 系统配置 -->
+		<property name="systemProt" desc="系统监听端口">8430</property>
+		<property name="threadSize" desc="线程数">5</property>
+		<property name="threadLoad" desc="显示线程负载">false</property>
+		<property name="speedLimit" desc="速度阀值（1400表示：140KM/H； 单位精度：0.1公里/每小时）">1400</property>
+		<property name="timeLimit" desc="时间阀值（5表示：5分钟； 单位精度：分钟；）">15</property>
+		
+		<!-- Oracle配置 -->
+		<property name="oracleUrl" desc="访问地址">${oracleUrl}</property>
+		<property name="oracleUsername" desc="用户名">${oracleUsername}</property>
+		<property name="oraclePassword" desc="密码">${oraclePassword}</property>
+		<property name="oracleInitialSize" desc="初始化数量">15</property>
+		<property name="oracleMaxActive" desc="最大活动数">100</property>
+		<property name="oracleMinIdle" desc="最小空闲数">15</property>
+		<property name="oracleMaxWait" desc="最大等待时间">60000</property>
+		<property name="oracleTimeBetweenEvictionRunsMillis" desc="检查无效间隔">600000</property>
+		<property name="oracleMinEvictableIdleTimeMillis" desc="最小生存时间">300000</property>
+		<property name="oracleTestWhileIdle" desc="申请连接时检查">false</property>
+		<property name="oracleTestOnBorrow" desc="获取连接时检查">false</property>
+		<property name="oracleTestOnReturn" desc="放回连接池时检查">false</property>
+		<property name="oracleSetMaxOpenPreparedStatements" desc="预处理最大缓存数">20</property>
+		
+		<property name = "oilFilePath">/opt/iscsi-temp1/file/oilUrl</property>
+		<property name = "trackFilePath">d:/test/track</property>
+		<property name = "eventFilePath">d:/test/event</property>
+		
+		<property name = "startTime" desc="yyyy-MM-dd HH:mm:ss">2014-12-29 17:57:00</property>
+		
+		<property name = "autoStartTime" desc="yyyy-MM-dd">2014-08-01</property>
+		<property name = "autoEndTime" desc="yyyy-MM-dd">2014-08-03</property>
+		<property name = "autoTask" desc="自动补跑任务">VehicleRunningMileageTask</property>
+		<!-- SQL语句 -->
+		<property name="sql_queryVehicleInfo" desc="车辆基本查询语句">	
+			 SELECT V.VID,V.ENABLE_FLAG,V.VEHICLE_NO,V.VIN_CODE,V.VEHICLE_TYPE,V.INNER_CODE,L.CLASS_LINE_ID,CL.LINE_NAME,O.ENT_ID,O.ENT_NAME,E.ENT_ID AS EID,E.ENT_NAME AS ENAME,DECODE(PROG.CFG_FLAG,'000100060001','1','000100060002','2','000100060003','3','0') AS CFG_FLAG
+              FROM (SELECT * FROM TB_VEHICLE WHERE ENABLE_FLAG = '1')V
+               LEFT JOIN TB_ORGANIZATION O ON V.ENT_ID = O.ENT_ID
+                LEFT JOIN TB_ORGANIZATION E ON E.ENT_ID = O.PARENT_ID
+               LEFT JOIN TR_LINE_VEHICLE L ON L.VID = V.VID 
+               LEFT JOIN TB_CLASS_LINE CL ON CL.LINE_ID = L.CLASS_LINE_ID
+               LEFT JOIN (SELECT P.PROG_ID,D.CODE_ID CFG_FLAG FROM TB_VEHICLE_CONFIGUER_PROGRAMME P,TB_VEHICLE_CONFIGUER_DETAIL D
+                                        WHERE P.PROG_ID = D.PROG_ID 
+                                        AND P.ENABLE_FLAG = '1'
+                                        AND (D.CODE_ID = '000100060001' OR D.CODE_ID = '000100060002' OR D.CODE_ID = '000100060003')) PROG ON PROG.PROG_ID = V.PROG_ID
+	    </property>
+	    
+	    <property name="sql_loadingOilMap" desc="加载传感器油耗语句">	
+		      SELECT VID,USEOIL_VOLUME,RUNNINGOIL_VOLUME FROM TS_VEHICLE_OILMASS_NEW WHERE STAT_DATE = ?
+	    </property>
+	      <property name="sql_saveDayMileageStInfo" desc="车辆行驶里程统计信息语句">
+			INSERT INTO TS_VEHICLE_MILEAGE_DAYSTAT
+	        (STAT_DATE,VID,VEHICLE_NO,C_VIN,CORP_ID,
+	         CORP_NAME,TEAM_ID,TEAM_NAME,   
+	         POINT_MILEAGE,GIS_MILEAGE,MILEAGE,UTC
+	         )
+	      	 VALUES
+	         (?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		<property name = "sql_saveDriverDetailInfo" desc = "驾驶员行驶里程统计语句">
+			INSERT INTO TH_DRIVER_MILEAGE_DETAIL
+			(AUTO_ID,STAT_DATE,VID,VEHICLE_NO,CORP_ID,
+			  CORP_NAME,TEAM_ID,TEAM_NAME,DRIVER_ID,DRIVER_NAME,
+			  DRIVER_SRC,BEGIN_UTC,BEGIN_LON,BEGIN_LAT,BEGIN_MAPLON,
+			  BEGIN_MAPLAT,BEGIN_MILEAGE,END_UTC,END_LON,END_LAT,END_MAPLON,
+			  END_MAPLAT,END_MILEAGE,MILEAGE,OIL_WEAR,RUNNING_OIL_WEAR,
+			  MET_OIL_WEAR,MET_RUNNING_OIL_WEAR,ENGINE_ROTATE_TIME,RUNNING_TIME,IDLING_TIME,OIL_FLAG,
+			  OVER_SPEED_NUM,OVER_SPEED_TIME,OVER_RPM_NUM,OVER_RPM_TIME,URGENT_SPEED_NUM,URGENT_SPEED_TIME,
+			  URGENT_LOWDOWN_NUM,URGENT_LOWDOWN_TIME,LONG_IDLE_NUM,LONG_IDLE_TIME,IDLE_AIRCONDITION_NUM,IDLE_AIRCONDITION_TIME,
+			  GEAR_GLIDE_NUM,GEAR_GLIDE_TIME,AIRCONDITION_NUM,AIRCONDITION_TIME,WARM_WIND_TIME,ECONOMIC_RUN_TIME
+			)
+			VALUES
+			(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+				<property name = "sql_queryDriverDetailInfo" desc = "查询驾驶员行驶里程统计语句">
+			SELECT VID,VEHICLE_NO,CORP_ID,CORP_NAME,TEAM_ID,TEAM_NAME,
+			DRIVER_ID,DRIVER_NAME,DRIVER_SRC,SUM(MILEAGE),SUM(OIL_WEAR),
+			SUM(RUNNING_OIL_WEAR),SUM(MET_OIL_WEAR),SUM(MET_RUNNING_OIL_WEAR),
+			SUM(ENGINE_ROTATE_TIME),SUM(RUNNING_TIME),SUM(IDLING_TIME),OIL_FLAG,
+			SUM(OVER_SPEED_NUM),SUM(OVER_SPEED_TIME),SUM(OVER_RPM_NUM),SUM(OVER_RPM_TIME),
+			SUM(URGENT_SPEED_NUM),SUM(URGENT_SPEED_TIME),SUM(URGENT_LOWDOWN_NUM),SUM(URGENT_LOWDOWN_TIME),
+			SUM(LONG_IDLE_NUM),SUM(LONG_IDLE_TIME),SUM(IDLE_AIRCONDITION_NUM),SUM(IDLE_AIRCONDITION_TIME),
+			SUM(GEAR_GLIDE_NUM),SUM(GEAR_GLIDE_TIME),SUM(AIRCONDITION_NUM),SUM(AIRCONDITION_TIME),SUM(WARM_WIND_TIME),
+			SUM(ECONOMIC_RUN_TIME)
+			FROM (SELECT *  FROM TH_DRIVER_MILEAGE_DETAIL T WHERE STAT_DATE &gt; ? AND STAT_DATE &lt; ?) 
+			GROUP BY VID,VEHICLE_NO,DRIVER_ID,DRIVER_NAME,DRIVER_SRC,CORP_ID,CORP_NAME,TEAM_ID,TEAM_NAME,OIL_FLAG
+		</property>
+		<property name="sql_saveMonthDriverDetailInfo" desc="驾驶员月统计信息语句">
+			INSERT INTO TH_DRIVER_MILEAGE_DETAIL_MONTH
+	        (YEAR,MONTH,VID,VEHICLE_NO,CORP_ID,CORP_NAME,TEAM_ID,TEAM_NAME,
+	         DRIVER_ID,DRIVER_NAME,DRIVER_SRC,MILEAGE,OIL_WEAR,RUNNING_OIL_WEAR,
+	         MET_OIL_WEAR,MET_RUNNING_OIL_WEAR,ENGINE_ROTATE_TIME,RUNNING_TIME,IDLING_TIME,OIL_FLAG,
+	         OVER_SPEED_NUM,OVER_SPEED_TIME,OVER_RPM_NUM,OVER_RPM_TIME,URGENT_SPEED_NUM,URGENT_SPEED_TIME,
+			 URGENT_LOWDOWN_NUM,URGENT_LOWDOWN_TIME,LONG_IDLE_NUM,LONG_IDLE_TIME,IDLE_AIRCONDITION_NUM,IDLE_AIRCONDITION_TIME,
+			 GEAR_GLIDE_NUM,GEAR_GLIDE_TIME,AIRCONDITION_NUM,AIRCONDITION_TIME,WARM_WIND_TIME,ECONOMIC_RUN_TIME
+	         )
+	      	 VALUES
+	         (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		<property name="sql_delRestoreDriverMonthInfo" desc="驾驶员月统计删除信息语句">
+			DELETE FROM TH_DRIVER_MILEAGE_DETAIL_MONTH T WHERE T.YEAR = ? AND T.MONTH = ?       
+		</property>
+		<property name = "sql_queryTotalMileageInfo" desc = "获取每天上报里程">
+			SELECT * FROM TS_VEHICLE_MILEAGE_DAYSTAT T WHERE STAT_DATE = ?
+		</property>	
+		<property name = "sql_updateStaInfo" desc ="更新总里程">
+			UPDATE TS_VEHICLE_MILEAGE_TOTALSTAT SET MILEAGE = ? WHERE VID = ?	
+		</property>
+		
+		<!-- 行驶里程统计删除语句 -->
+		<property name = "sql_deleteVehicleInfo" desc = "车辆补录数据删除">
+			DELETE FROM TS_VEHICLE_MILEAGE_DAYSTAT T WHERE T.STAT_DATE = ?		
+		</property>
+		<property name = "sql_deleteDriverInfo" desc = "驾驶员补录数据删除">
+			DELETE FROM TH_DRIVER_MILEAGE_DETAIL T WHERE T.STAT_DATE = ?
+		</property>
+		
+		<!-- 车辆运行统计删除语句 -->
+		<property name = "sql_deleteRunningInfo" desc = "车辆运行统计数据删除">
+			DELETE FROM TS_VEHICLE_RUNNING_STATUS T WHERE T.STAT_DATE = ?		
+		</property>
+		<property name = "sql_deleteStopStartInfo" desc = "起步停车数据删除">
+			DELETE FROM TH_VEHICLE_STOPSTART_NEW T WHERE T.STAT_DATE &gt;= ? AND T.STAT_DATE &lt; ?
+		</property>
+		<property name = "sql_deleteOilSaveInfo" desc = "节油驾驶数据删除">
+			DELETE FROM TS_VEHICLE_OIL_NEW T WHERE T.STAT_DATE = ?
+		</property>
+		
+		<!-- 油箱油量监控删除语句 -->
+		<property name = "sql_deleteOilWearInfo" desc = "油耗油量监控数据删除">
+			DELETE FROM TS_VEHICLE_OILMASS_NEW T WHERE T.STAT_DATE &gt;= ? AND T.STAT_DATE &lt; ?
+		</property>
+		<property name = "sql_deleteOilChangedInfo" desc = "油量监控变化数据删除">
+			DELETE FROM TH_OILMASS_CHANGE_DETAIL_TEST T WHERE T.UTC &gt;= ? AND T.UTC &lt; ?
+		</property>
+		<!-- 单车分析报告删除语句 -->
+		<property name = "sql_deleteReportInfo" desc = "单车分析报告数据删除">
+			BEGIN
+				DELETE FROM TH_ENTERING_AIR_TEMP_NEW WHERE STAT_TIME = ?;
+				DELETE FROM TH_VOLTAGEDIST_DAY_NEW WHERE STAT_TIME = ?;
+				DELETE FROM TH_ROTATESPEED_DAY_NEW WHERE TERMINAL_UTC = ?;
+				DELETE FROM TH_SPEEDDIST_DAY_NEW WHERE STAT_TIME = ?;
+				DELETE FROM TH_COOLLIQUIDTEM_DIST_DAY_NEW WHERE STAT_TIME = ?;
+				DELETE FROM TH_OILPRESSUREDIST_DAY_NEW WHERE STAT_TIME = ?;
+				DELETE FROM TH_GASPRESSURE_DIST_DAY_NEW WHERE STAT_TIME = ?;
+			END;
+		</property>
+		
+	    <property name='sql_saveOilDayStat' desc="油耗油量监控保存语句">
+	    	INSERT INTO TS_VEHICLE_OILMASS_NEW (STAT_DATE,VID,VEHICLE_NO,INNER_CODE,PROD_TYPE,CORP_ID,CORP_NAME,TEAM_ID,TEAM_NAME,CHANGE_TYPE,ADDOIL_VOLUME,DECREASEOIL_VOLUME,USEOIL_VOLUME,RUNNINGOIL_VOLUME,IDLEOIL_VOLUME) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+	    </property>
+	    <property name='sql_saveOilDriver' desc ="油耗统计节能驾驶日统计语句">
+	    	INSERT INTO TS_VEHICLE_OIL_NEW
+	    	(STAT_DATE,VID,VEHICLE_NO,INNER_CODE,PROD_TYPE,CORP_ID,
+	    	CORP_NAME,TEAM_ID,TEAM_NAME,DRIVER_ID,DRIVER_NAME,MILEAGE,OIL_WEAR,RUNNING_OIL_WEAR,
+	    	PRECISE_OIL_WEAR,MET_RUNNING_OIL_WEAR,OVER_SPEED_NUM,OVER_SPEED_TIME,
+	    	OVER_RPM_NUM,OVER_RPM_TIME,URGENT_SPEED_NUM,URGENT_SPEED_TIME,URGENT_LOWDOWN_NUM,
+	    	URGENT_LOWDOWN_TIME,LONG_IDLE_NUM,LONG_IDLE_TIME,IDLE_AIRCONDITION_NUM,IDLE_AIRCONDITION_TIME,
+	    	GEAR_GLIDE_NUM,GEAR_GLIDE_TIME,AIRCONDITION_TIME,AIRCONDITION_NUM,WARM_WIND_TIME,ECONOMIC_RUN_TIME,ENGINE_ROTATE_TIME,CFG_FLAG)
+	    	VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+	    </property>
+	    
+	    <property name='sql_saveOilMonthInfo' desc ="油耗统计节能驾驶月统计语句">
+	    	INSERT INTO TS_VEHICLE_OIL_MONTH_NEW
+	    	(YEAR,MONTH,VID,VEHICLE_NO,INNER_CODE,PROD_TYPE,CORP_ID,
+	    	CORP_NAME,TEAM_ID,TEAM_NAME,DRIVER_ID,DRIVER_NAME,MILEAGE,OIL_WEAR,RUNNING_OIL_WEAR,
+	    	PRECISE_OIL_WEAR,MET_RUNNING_OIL_WEAR,OVER_SPEED_NUM,OVER_SPEED_TIME,
+	    	OVER_RPM_NUM,OVER_RPM_TIME,URGENT_SPEED_NUM,URGENT_SPEED_TIME,URGENT_LOWDOWN_NUM,
+	    	URGENT_LOWDOWN_TIME,LONG_IDLE_NUM,LONG_IDLE_TIME,IDLE_AIRCONDITION_NUM,IDLE_AIRCONDITION_TIME,
+	    	GEAR_GLIDE_NUM,GEAR_GLIDE_TIME,AIRCONDITION_TIME,AIRCONDITION_NUM,WARM_WIND_TIME,ECONOMIC_RUN_TIME,ENGINE_ROTATE_TIME,CFG_FLAG)
+	    	VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+	    </property>
+	    
+		<property name = "sql_queryOilDayInfo" desc = "查询节油驾驶日统计信息">
+			SELECT VID,VEHICLE_NO,INNER_CODE,PROD_TYPE,CORP_ID,
+			CORP_NAME,TEAM_ID,TEAM_NAME,DRIVER_ID,DRIVER_NAME,
+			SUM(MILEAGE),SUM(OIL_WEAR),MAX(RUNNING_OIL_WEAR),MAX(PRECISE_OIL_WEAR),
+			SUM(MET_RUNNING_OIL_WEAR),SUM(OVER_SPEED_NUM),SUM(OVER_SPEED_TIME),
+			SUM(OVER_RPM_NUM),SUM(OVER_RPM_TIME),SUM(URGENT_SPEED_NUM),
+			SUM(URGENT_SPEED_TIME),SUM(URGENT_LOWDOWN_NUM),SUM(URGENT_LOWDOWN_TIME),SUM(LONG_IDLE_NUM),
+			SUM(LONG_IDLE_TIME),SUM(IDLE_AIRCONDITION_NUM),SUM(IDLE_AIRCONDITION_TIME),SUM(GEAR_GLIDE_NUM),
+			SUM(GEAR_GLIDE_TIME),SUM(AIRCONDITION_TIME),SUM(AIRCONDITION_NUM),SUM(WARM_WIND_TIME),SUM(ECONOMIC_RUN_TIME),SUM(ENGINE_ROTATE_TIME),CFG_FLAG
+			FROM (SELECT *  FROM TS_VEHICLE_OIL_NEW T WHERE STAT_DATE &gt; ? AND STAT_DATE &lt; ?) 
+			GROUP BY VID,VEHICLE_NO, INNER_CODE,PROD_TYPE,CORP_ID,CORP_NAME,TEAM_ID,TEAM_NAME,DRIVER_ID,DRIVER_NAME,CFG_FLAG
+		</property>
+	    <property name = 'sql_vehicleConfigOilMonitor' desc = "车辆油箱油量监控配置初始化语句">
+	    	SELECT V.VID, B.CODE_ID
+				  FROM TB_VEHICLE V,
+				       (SELECT P.PROG_ID, D.CODE_ID
+				          FROM TB_VEHICLE_CONFIGUER_PROGRAMME P,
+				               TB_VEHICLE_CONFIGUER_DETAIL    D
+				         WHERE P.ENABLE_FLAG = '1'
+				           AND (D.CODE_ID = '000100060002' OR D.CODE_ID = '000100060003')
+				           AND P.PROG_ID = D.PROG_ID) B
+				 WHERE V.ENABLE_FLAG =1 AND V.PROG_ID = B.PROG_ID
+	    </property>
+				
+		<property name="sql_saveOilChanged" desc = "存储油量监控变化">
+			INSERT INTO TH_OILMASS_CHANGE_DETAIL_TEST (CHANGE_ID,CHANGE_TYPE,VID,UTC,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,SYSUTC,CURR_OILLEVEL,CURR_OILMAS,CHANGE_OILMASS) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>		
+	    <property name="sql_saveDayServiceStInfo" desc="车辆运行日统计信息语句">
+			INSERT INTO TS_VEHICLE_RUNNING_STATUS
+	        (STAT_DATE,VID,VEHICLE_NO,C_VIN,CORP_ID,
+	         CORP_NAME,TEAM_ID,TEAM_NAME,ONLINE_TIME,ENGINE_ROTATE_TIME,
+	         SPEED_MAX,RPM_MAX,VCL_GPS_AMOUNT,VCL_GPS_INVALID_AMOUNT,VCL_GPS_TIMEINVALID_AMOUNT,
+	         VCL_GPS_LONINVALID_AMOUNT,ACC_CLOSE_NUM,ACC_CLOSE_TIME,VLINE_ID,LINE_NAME,
+	         POINT_MILEAGE,POINT_OIL,GIS_MILEAGE,RUNNING_TIME,OIL_FLAG,
+	         MILEAGE,OIL_WEAR,RUNNING_OIL,MET_OIL_WEAR,MET_RUNNING_OIL_WEAR,
+	         MET_IDLING_OIL_WEAR,ECU_OIL_WEAR,ECU_RUNNING_OIL_WEAR,ECU_IDLING_OIL_WEAR,HEAT_UP_TIME,
+	         AIRCONDITION_TIME,BRAKE_NUM,RETARDER_WORK_NUM,TRUMPET_NUM,ABS_WORK_NUM,DOOR1_OPEN_NUM,
+	         DOOR2_OPEN_NUM
+	         )
+	      	 VALUES
+	         (?,?,?,?,?,?,?,?,?,?,
+	         ?,?,?,?,?,?,?,?,?,?,
+	         ?,?,?,?,?,?,?,?,?,?,
+	         ?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		<property name="sql_saveMonthServiceStInfo" desc="车辆运行月统计信息语句">
+			INSERT INTO TS_VEHICLE_RUNNING_MONTH
+	        (YEAR,MONTH,VID,VEHICLE_NO,C_VIN,CORP_ID,
+	         CORP_NAME,TEAM_ID,TEAM_NAME,ONLINE_TIME,ENGINE_ROTATE_TIME,
+	         SPEED_MAX,RPM_MAX,VCL_GPS_AMOUNT,VCL_GPS_INVALID_AMOUNT,VCL_GPS_TIMEINVALID_AMOUNT,
+	         VCL_GPS_LONINVALID_AMOUNT,ACC_CLOSE_NUM,ACC_CLOSE_TIME,VLINE_ID,LINE_NAME,
+	         POINT_MILEAGE,POINT_OIL,GIS_MILEAGE,RUNNING_TIME,OIL_FLAG,
+	         MILEAGE,OIL_WEAR,RUNNING_OIL,MET_OIL_WEAR,MET_RUNNING_OIL_WEAR,
+	         MET_IDLING_OIL_WEAR,ECU_OIL_WEAR,ECU_RUNNING_OIL_WEAR,ECU_IDLING_OIL_WEAR,HEAT_UP_TIME,
+	         AIRCONDITION_TIME,BRAKE_NUM,RETARDER_WORK_NUM,TRUMPET_NUM,ABS_WORK_NUM,DOOR1_OPEN_NUM,
+	         DOOR2_OPEN_NUM
+	         )
+	      	 VALUES
+	         (?,?,?,?,?,?,?,?,?,?,
+	         ?,?,?,?,?,?,?,?,?,?,
+	         ?,?,?,?,?,?,?,?,?,?,
+	         ?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		<property name = "sql_queryStatDayInfo" desc = "查询车辆运行日统计信息">
+			SELECT VID,VEHICLE_NO,C_VIN,CORP_ID,CORP_NAME,TEAM_ID,TEAM_NAME,
+			SUM(ONLINE_TIME),SUM(ENGINE_ROTATE_TIME),MAX(SPEED_MAX),MAX(RPM_MAX),
+			SUM(VCL_GPS_AMOUNT),SUM(VCL_GPS_INVALID_AMOUNT),SUM(VCL_GPS_TIMEINVALID_AMOUNT),
+			SUM(VCL_GPS_LONINVALID_AMOUNT),SUM(ACC_CLOSE_NUM),SUM(ACC_CLOSE_TIME),
+			VLINE_ID,LINE_NAME,
+			SUM(POINT_MILEAGE),SUM(POINT_OIL),SUM(GIS_MILEAGE),SUM(RUNNING_TIME),OIL_FLAG,
+			SUM(MILEAGE),SUM(OIL_WEAR),SUM(RUNNING_OIL),SUM(MET_OIL_WEAR),SUM(MET_RUNNING_OIL_WEAR),
+			SUM(MET_IDLING_OIL_WEAR),SUM(ECU_OIL_WEAR),SUM(ECU_RUNNING_OIL_WEAR),SUM(ECU_IDLING_OIL_WEAR),
+			SUM(HEAT_UP_TIME),SUM(AIRCONDITION_TIME),SUM(BRAKE_NUM),SUM(RETARDER_WORK_NUM),SUM(TRUMPET_NUM),
+			SUM(ABS_WORK_NUM),SUM(DOOR1_OPEN_NUM),SUM(DOOR2_OPEN_NUM) 
+			FROM (SELECT *  FROM TS_VEHICLE_RUNNING_STATUS T WHERE STAT_DATE &gt; ? AND STAT_DATE &lt; ?) 
+			GROUP BY VID,VEHICLE_NO, C_VIN,CORP_ID,CORP_NAME,TEAM_ID,TEAM_NAME,VLINE_ID,LINE_NAME,OIL_FLAG
+		</property>
+		
+		<property name="sql_delRestoreMonthInfo" desc="车辆运行月统计删除信息语句">
+			DELETE FROM TS_VEHICLE_RUNNING_MONTH T WHERE T.YEAR = ? AND T.MONTH = ?       
+		</property>
+		<property name="sql_delOilMonthInfo" desc="节油驾驶月统计删除信息语句">
+			DELETE FROM TS_VEHICLE_OIL_MONTH_NEW T WHERE T.YEAR = ? AND T.MONTH = ?       
+		</property>
+		<property name = "sql_saveStopstartInfo" desc = "保存起步停车语句">
+			INSERT INTO TH_VEHICLE_STOPSTART_NEW
+				(STAT_DATE,VID,VEHICLE_NO,C_VIN,CORP_ID,
+		         CORP_NAME,TEAM_ID,TEAM_NAME,LAUNCH_TIME,START_TIME,STOP_TIME,FIREOFF_TIME,ONLINE_TIME,ENGINE_ROTATE_TIME,
+		         SPEED_MAX,RPM_MAX,VCL_GPS_AMOUNT,VCL_GPS_INVALID_AMOUNT,VCL_GPS_TIMEINVALID_AMOUNT,
+		         VCL_GPS_LONINVALID_AMOUNT,ACC_CLOSE_NUM,ACC_CLOSE_TIME,VLINE_ID,LINE_NAME,
+		         POINT_MILEAGE,POINT_OIL,GIS_MILEAGE,RUNNING_TIME,OIL_FLAG,
+		         MILEAGE,OIL_WEAR,RUNNING_OIL,MET_OIL_WEAR,MET_RUNNING_OIL_WEAR,
+		         MET_IDLING_OIL_WEAR,ECU_OIL_WEAR,ECU_RUNNING_OIL_WEAR,ECU_IDLING_OIL_WEAR,HEAT_UP_TIME,
+		         AIRCONDITION_TIME,BRAKE_NUM,RETARDER_WORK_NUM,TRUMPET_NUM,ABS_WORK_NUM,DOOR1_OPEN_NUM,
+		         DOOR2_OPEN_NUM) 
+				values(?,?,?,?,?,?,?,?,?,?,
+		         ?,?,?,?,?,?,?,?,?,?,
+		         ?,?,?,?,?,?,?,?,?,?,
+		         ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		<property name = "sql_queryDriverClockinDetail" desc = "查询驾驶员打卡明细语句">
+			SELECT STAFF_ID DEVICE_ID,
+	               STAFF_NAME DRIVER_NAME,
+	               ON_LINE_TIME,
+	               CASE
+	                 WHEN OFF_LINE_TIME > 0 THEN
+	                  OFF_LINE_TIME
+	                 ELSE
+	                  LEAD(ON_LINE_TIME, 1, 0) OVER(ORDER BY ON_LINE_TIME)
+	               END OFF_LINE_TIME,
+	               '1' DRIVER_SRC
+	          FROM TH_DRIVER_LOGIN_RECORD A
+	          JOIN (SELECT STAFF_ID, STAFF_NAME, BUSSINESS_ID
+	                 FROM TB_EMPLOYEE
+	                WHERE STAFF_TYPE = '0'
+	                  AND ENABLE_FLAG = '1') B
+	            ON A.QUALIFICATION_NO = B.BUSSINESS_ID
+	         WHERE A.VID = ?
+	           AND ((A.SYSUTC &gt;= ? AND A.SYSUTC &lt; ?) 
+	           		OR 
+	           		(A.OFF_LINE_TIME &gt;= ? AND A.OFF_LINE_TIME &lt; ?))
+	        UNION
+	        SELECT C.STAFF_ID DEVICE_ID,
+	               STAFF_NAME DRIVER_NAME,
+	               0 ON_LINE_TIME,
+	               0 OFF_LINE_TIME,
+	               '0' DRIVER_SRC
+	          FROM TR_VEHICLE_STAFF C
+	          JOIN (SELECT STAFF_ID, STAFF_NAME, BUSSINESS_ID
+	                  FROM TB_EMPLOYEE
+	                 WHERE STAFF_TYPE = '0'
+	                   AND ENABLE_FLAG = '1') D
+	            ON C.STAFF_ID = D.STAFF_ID
+	         WHERE VID = ?
+	           AND ROWNUM = 1
+		</property>	
+		<property name="sql_statTransportDays" desc = "趟次统计日统计">
+			INSERT INTO TS_TRANSPORT_DAYSTAT
+			  (TRID, TRAN_DATE, VID, LINE_ID, TRAN_NUM, RUN_TIME, MILEAGE)
+			  SELECT SYS_GUID() TRID,
+			       TRAN_DATE,
+			       VID,
+			       LINE_ID,
+			       TRAN_NUM,
+			       RUN_TIME,
+			       MILEAGE
+			  FROM (SELECT TRAN_DATE,
+			               VID,
+			               LINE_ID,
+			               SUM(TRAN_NUM) TRAN_NUM,
+			               SUM(RUN_TIME) RUN_TIME,
+			               SUM(MILEAGE) MILEAGE
+			          FROM (SELECT TRAN_DATE,
+			                       VID,
+			                       LINE_ID,
+			                       MAX(STATION_NUM) ALL_SATION_NUM,
+			                       COUNT(1) RUN_STATION_NUM,
+			                       MIN(STATION_IDX) START_IDX,
+                             	   MAX(STATION_IDX) END_IDX,
+			                       COUNT(distinct ITINERARY_SEQ) TRAN_NUM,
+			                       (MAX(CASE
+			                              WHEN STATION_IDX = END_POINT THEN
+			                               IN_TIME
+			                            END) - MAX(CASE
+			                                          WHEN STATION_IDX = START_POINT THEN
+			                                           OUT_TIME
+			                                        END)) / 1000 RUN_TIME,
+			                       (MAX(CASE
+			                              WHEN STATION_IDX = END_POINT THEN
+			                               MILEAGE
+			                            END) - MAX(CASE
+			                                          WHEN STATION_IDX = START_POINT THEN
+			                                           MILEAGE
+			                                        END)) MILEAGE
+			                  FROM (SELECT TRAN_DATE,
+			                               VID,
+			                               LINE_ID,
+			                               STATION_NUM,
+			                               STATION_ID,
+			                               STATION_IDX,
+			                               STATION_NAME,
+			                               IN_TIME,
+			                               OUT_TIME,
+			                               MILEAGE,
+			                               ITINERARY_SEQ,
+			                               MIN(STATION_IDX) OVER(PARTITION BY LINE_ID) START_POINT,
+			                               MAX(STATION_IDX) OVER(PARTITION BY LINE_ID) END_POINT
+			                          FROM TS_TRANSPORT_DETAIL
+			                         WHERE TRAN_DATE &gt;=?
+			                           and TRAN_DATE &lt; ? )
+			                 GROUP BY TRAN_DATE, VID, LINE_ID, ITINERARY_SEQ)
+			         WHERE START_IDX = 1 AND END_IDX = ALL_SATION_NUM AND RUN_STATION_NUM / ALL_SATION_NUM &gt;= 0.7
+			         GROUP BY TRAN_DATE, VID, LINE_ID)
+		</property>
+		
+		<property name="sql_statTransportDetail" desc = "趟次明细统计">
+			INSERT INTO TS_TRANSPORT_DETAIL
+			  (DEID,
+			   TRAN_DATE,
+			   VID,
+			   LINE_ID,
+			   STATION_NUM,
+			   STATION_ID,
+			   STATION_IDX,
+			   STATION_NAME,
+			   IN_TIME,
+			   OUT_TIME,
+			   MILEAGE,
+			   ITINERARY_SEQ)
+			  SELECT SYS_GUID() DEID,
+		       FUN_DATE2UTC(TRAN_DATE) TRAN_DATE,
+		       VID,
+		       LINE_ID,
+		       STATION_NUM,
+		       STATION_ID,
+		       STATION_NUMBER AS STATION_IDX,
+		       STATION_NAME,
+		       IN_TIME,
+		       OUT_TIME,
+		       MILEAGE,
+		       M_SEQ ITINERARY_SEQ
+		  FROM (SELECT TRAN_DATE,
+		               VID,
+		               LINE_ID,
+		               STATION_NUM,
+		               STATION_ID,
+		               STATION_NUMBER,
+		               STATION_NAME,
+		               INTOSTATION_TIME,
+		               OUTSTATION_TIME,
+		               M_SEQ,
+		               CASE
+		                 WHEN STATION_NUMBER = 1 THEN
+		                  OUTSTATION_MILEAGE
+		                 ELSE
+		                  INTOSTATION_MILEAGE
+		               END MILEAGE,
+		               CASE
+		                 WHEN STATION_NUMBER != 1 THEN
+		                  INTOSTATION_TIME
+		               END IN_TIME,
+		               CASE
+		                 WHEN STATION_NUM != STATION_NUMBER THEN
+		                  OUTSTATION_TIME
+		               END OUT_TIME
+		          FROM (SELECT VID,
+		                       LINE_ID,
+		                       STATION_NUM,
+		                       STATION_ID,
+		                       STATION_NUMBER,
+		                       STATION_NAME,
+		                       m_seq,
+		                       MAX(TRUNC(FUN_UTC2DATE(OVER_UTC))) TRAN_DATE,
+		                       MAX(DECODE(OVER_TYPE, '0', OVER_UTC)) INTOSTATION_TIME,
+		                       MAX(DECODE(OVER_TYPE, '1', OVER_UTC)) OUTSTATION_TIME,
+		                       MAX(DECODE(OVER_TYPE, '0', MILEAGE)) INTOSTATION_MILEAGE,
+		                       MAX(DECODE(OVER_TYPE, '1', MILEAGE)) OUTSTATION_MILEAGE
+		                  FROM TH_VEHICLE_OVER_STATION
+		                 where OVER_UTC &gt;= ?
+		                   and OVER_UTC &lt; ?
+		                   and m_seq is not null
+		                 GROUP BY VID,
+		                          LINE_ID,
+		                          STATION_NUM,
+		                          STATION_ID,
+		                          STATION_NUMBER,
+		                          STATION_NAME,
+		                          M_SEQ))
+		</property>
+		<property name = "sql_delTransportDays" desc = "删除趟次统计">
+			BEGIN
+				DELETE FROM TS_TRANSPORT_DETAIL WHERE TRAN_DATE &gt;= ? and TRAN_DATE &lt; ? ;
+				DELETE FROM TS_TRANSPORT_DAYSTAT WHERE TRAN_DATE &gt;= ? and TRAN_DATE &lt; ? ;
+			END;
+		</property>
+		<property name = "sql_setNullTransport" desc = "车辆过站记录表m_seq置空">
+			update TH_VEHICLE_OVER_STATION
+     		set m_seq = null
+  		 	WHERE OVER_UTC &gt;= ?
+     		and OVER_UTC &lt; ?
+		</property>
+		
+		<property name = "tangciqufenSql" desc = "趟次统计存储过程">
+			{call proc_tang(?,?)}
+		</property>
+		
+		<property name ="sql_overidTransport" desc = "车辆过站记录表顺序号集合">
+			select t.over_id from TH_VEHICLE_OVER_STATION t 
+			where t.station_number = 1 and t.over_type = '1' 
+			and t.over_utc &gt;= ? and t.over_utc &lt;?
+		</property>
+		<property name = "sql_updateTransport" desc = "更新车辆过站记录表">
+			update TH_VEHICLE_OVER_STATION t set t.m_seq = sys_guid() where t.over_id in (?)
+		</property>
+		
+		<property name = "sql_queryMainTainPlanSql" desc = "查询智能维保【计划】表 ">
+			SELECT
+			          A.PLAN_ID,
+			          A.MAINTAIN_ID,
+			          B.MAINTAIN_NAME,
+			          A.EXE_FREQUENCY,
+			          A.INTERVAL_MILEAGE,
+			          A.WARN_MILEAGE,
+			          A.INTERVAL_DAYS,
+			          A.WARN_DAYS,
+			          TO_CHAR(FUN_UTC2DATE(A.EXE_TIME),'YYYY-MM-DD') AS EXE_TIME,
+			          A.ENT_ID,
+			          A.ENT_NAME,
+			          A.CREATE_BY,
+			          A.CREATE_TIME,
+			          A.MODIFY_BY,
+			          A.MODIFY_TIME,
+			          A.ENABLE_FLAG	                                 
+                 FROM  TB_MAINTAIN_PLAN A,TB_MAINTAIN_CLASS B		          	          
+                    WHERE  A.MAINTAIN_ID=B.MAINTAIN_ID  AND A.ENABLE_FLAG='1'
+		</property>
+		
+		<property name = "sql_queryMainTainDetailSql" desc = "查询智能维保【明细】表">
+			 SELECT
+			                 A.VID,                  
+			                 A.C_VIN,
+			                 A.VEHICLE_NO,
+			                 B.EXE_FREQUENCY,
+			                 NVL(A.MAINTAIN_TIMES,0) AS MAINTAIN_TIMES,
+			                 NVL(C.MILEAGE,0) * 0.1 AS MILEAGE,				                 		               
+			                 NVL(B.INTERVAL_MILEAGE,0) AS INTERVAL_MILEAGE,
+			                 NVL(B.WARN_MILEAGE,0) AS WARN_MILEAGE,
+			                 NVL(B.INTERVAL_DAYS,0) AS INTERVAL_DAYS,
+			                 NVL(B.WARN_DAYS,0) AS WARN_DAYS,
+			                 TO_CHAR(FUN_UTC2DATE(B.EXE_TIME),'YYYY-MM-DD') AS EXE_TIME, 
+			                 TO_CHAR(FUN_UTC2DATE(A.MAINTAIN_DATE),'YYYY-MM-DD') AS MAINTAIN_DATE,  
+			                 NVL(A.MAINTAIN_MILEAGE,0) AS MAINTAIN_MILEAGE,            
+			                 A.MAINTAIN_ID,            
+			                 A.PLAN_ID,  
+			                 A.PLAN_CODE,    
+			                 A.ENT_ID,            
+			                 A.MAINTAIN_STAT, 
+			                 A.MAINTAIN_NAME,
+			                 A.MAINTAIN_ONTIME_STAT,
+			                 TO_CHAR(FUN_UTC2DATE(A.PLAN_MAINTAIN_DATE),'YYYY-MM-DD') as PLAN_MAINTAIN_DATE,
+			                 NVL(A.PLAN_MAINTAIN_MILEAGE,0) as PLAN_MAINTAIN_MILEAGE
+			             FROM  th_maintain_vehicle t,TH_MAINTAIN_DETAIL A,TB_MAINTAIN_PLAN B,TR_VEHICLE_LASTTRACK C,tb_vehicle V               
+			             WHERE  t.plan_id=a.plan_id
+                       		and t.vid=a.vid
+                       		and t.vid=C.vid(+)
+			                AND t.PLAN_ID=B.PLAN_ID
+							AND t.Vid=V.Vid
+							AND V.enable_flag='1'
+			                AND A.EXE_FREQUENCY='0'
+			                AND a.auto_id in (select auto_id from (
+							select t.auto_id, row_number() over (partition by plan_id, vid order by maintain_times desc) rw from th_maintain_detail t
+							) where rw = 1)
+		</property>
+		
+		<property name = "sql_updateMainTainDetailSql" desc = "更新智能维保【明细】表   MILEAGE_MESS字段 TIME_MESS字段">
+			UPDATE  TH_MAINTAIN_DETAIL A SET A.MILEAGE_MESS=?,A.TIME_MESS=? WHERE  A.PLAN_CODE=?
+		</property>
+		
+		<property name = "sql_updateMainTainDetailStatSql" desc = "更新智能维保【明细】表   MAINTAIN_ONTIME_STAT字段">
+			UPDATE  TH_MAINTAIN_DETAIL A SET A.MAINTAIN_ONTIME_STAT=? WHERE  A.PLAN_CODE=?
+		</property>
+		
+		<property name = "sql_queryVehicleMaintainTimesSql" desc = "查询车辆已维保次数">
+			SELECT NVL(MAX(TMD.MAINTAIN_TIMES), 0) AS V_TIMES
+				  FROM TH_MAINTAIN_DETAIL TMD
+				 WHERE TMD.PLAN_ID = ?
+				   AND TMD.EXE_FREQUENCY = ?
+				   AND TMD.VID = ?
+				   AND TMD.MAINTAIN_STAT = '1'
+		</property>
+		
+		<property name = "sql_queryVehicleMaintainNumSql" desc = "查询车辆最新的维护项目编号">
+			SELECT COUNT(1) + 1 AS V_PLAN_NUM
+				  FROM TH_MAINTAIN_DETAIL
+				 WHERE VID = ?
+				   AND PLAN_ID = ?
+		</property>
+		
+		<property name = "sql_queryMaintainClassSql" desc = "查询维护项目简称">
+			SELECT MAINTAIN_ABBREVIATION_NAME
+				  AS V_ABBREVIATION_NAME
+				  FROM TB_MAINTAIN_CLASS
+				 WHERE MAINTAIN_ID = ?
+		</property>
+		
+		<property name = "sql_queryExtendMaintainDetailSql" desc = "查询维护项目简称">
+			SELECT TMD.MAINTAIN_ID,
+			       TMD.MAINTAIN_NAME,
+			       TMD.PLAN_ID,
+			       SUBSTR(TMD.VEHICLE_NO, 2, 7) || '_' || ? || '_' ||
+			       LPAD(TO_CHAR(?), 3, '0') AS PLAN_CODE,
+			       TMD.EXE_FREQUENCY,
+			       TMD.VID,
+			       TMD.C_VIN,
+			       TMD.VEHICLE_NO,
+			       TMD.PROD_CODE,
+			       TMD.PROD_NAME,
+			       TMD.LINE_ID,
+			       TMD.LINE_NAME,
+			       TMD.TEAM_ID,
+			       TMD.TEAM_NAME,
+			       TMD.ENT_ID,
+			       TMD.ENT_NAME,
+			       (? + 1) AS MAINTAIN_TIMES,
+			       FUN_DATE2UTC(TO_DATE(?, 'YYYY-MM-DD')) PLAN_MAINTAIN_DATE,
+			       ? PLAN_MAINTAIN_MILEAGE,
+			       '0' MAINTAIN_ONTIME_STAT
+			  FROM TH_MAINTAIN_DETAIL TMD
+			 WHERE TMD.PLAN_ID = ?
+			   AND TMD.EXE_FREQUENCY = ?
+			   AND TMD.VID = ?
+			   AND TMD.MAINTAIN_TIMES = ?
+			   AND NOT EXISTS (SELECT 1
+			          FROM TH_MAINTAIN_DETAIL TMD
+			         WHERE TMD.PLAN_ID = ?
+			           AND TMD.EXE_FREQUENCY = ?
+			           AND TMD.VID = ?
+			           AND TMD.MAINTAIN_STAT = '0'
+			           AND TMD.MAINTAIN_TIMES = (? + 1))
+		</property>
+		
+		<property name = "sql_saveMaintainDetailSql" desc = "保存维护项目明细">
+			INSERT INTO TH_MAINTAIN_DETAIL
+				  (AUTO_ID,MAINTAIN_ID,MAINTAIN_NAME,PLAN_ID,PLAN_CODE,
+				   EXE_FREQUENCY,VID,C_VIN,VEHICLE_NO,PROD_CODE,
+				   PROD_NAME,LINE_ID,LINE_NAME,TEAM_ID,TEAM_NAME,
+				   ENT_ID,ENT_NAME,MAINTAIN_TIMES,PLAN_MAINTAIN_DATE,
+				   PLAN_MAINTAIN_MILEAGE,MAINTAIN_ONTIME_STAT)
+				   VALUES
+				   (?,?,?,?,?,?,?,?,?,?,
+				    ?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name = "sql_extendAssessSet_selectLastMonthsEndTime" desc = "查询所有企业的最后一个考核月结束时间">
+			select checkmonthset.ent_id, max(checkmonthset.end_time) last_end_time   
+            from tb_checkmonth_set checkmonthset,tb_organization orga 
+            where checkmonthset.ent_id = orga.ent_id and checkmonthset.enable_flag = '1' and orga.enable_flag='1' 
+            group by checkmonthset.ent_id
+		</property>
+		<property name = "sql_extendAssessSet_selectByEntAndEndTime" desc = "根据ent_id和end_time查询一条考核月记录">
+			SELECT *
+            FROM   tb_checkmonth_set
+            WHERE  ent_id = ?
+                   AND end_time = ? and enable_flag=1
+		</property>
+		<property name = "sql_extendAssessSet_insertToMonthSet" desc = "查询原考核月设置信息">
+           INSERT INTO tb_checkmonth_set
+              (check_time_id,
+               ent_id,
+               check_time_code,
+               check_time_desc,
+               start_time,
+               end_time,
+               create_by,
+               create_time,                           
+               enable_flag)
+            VALUES
+              (?, ?, ?, ?, ?, ?, ?, ?, ?)
+		</property>
+		<property name = "sql_queryAssessSetWithCheckTimeId" desc = "查询原考核月设置信息">
+  			 SELECT EFFECTTYPE_CODE,
+			       CHECK_TIME_ID,
+			       VBRAND_CODE,
+			       VMODULE_CODE,
+			       CLASSLINE_ID,
+			       VID,
+			       ASSESS_VALUE,
+			       CORP_ID,
+			       CORP_NAME,
+			       TEAM_ID,
+			       TEAM_NAME,
+			       CREATE_BY,
+			       CREATE_TIME,
+			       UPDATE_BY,
+			       UPDATE_TIME,
+			       ENABLE_FLAG
+			 FROM TB_ASSESSOIL_SET
+			 WHERE CHECK_TIME_ID = ?
+		</property>
+		<property name = "sql_saveAssessSetInfo" desc = "保存tb_assessoil_set表中">
+			 INSERT INTO TB_ASSESSOIL_SET
+			  (AUTO_ID,
+			   EFFECTTYPE_CODE,
+			   CHECK_TIME_ID,
+			   VBRAND_CODE,
+			   VMODULE_CODE,
+			   CLASSLINE_ID,
+			   VID,
+			   ASSESS_VALUE,
+			   CORP_ID,
+			   CORP_NAME,
+			   TEAM_ID,
+			   TEAM_NAME,
+			   CREATE_BY,
+			   CREATE_TIME,
+			   UPDATE_BY,
+			   UPDATE_TIME,
+			   ENABLE_FLAG)
+			VALUES
+			  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		</property>
+		<property name = "sql_queryVehicleScoreSetWithCheckTimeId" desc = "复制并修改check_time_id后插入到tb_vehicle_score表中">
+			 SELECT CHECK_TIME_ID,
+			       OIL_RIGHT,
+			       SPEEDING_RIGHT,
+			       SPEEDING_MIN,
+			       SPEEDING_MAX,
+			       RPM_RIGHT,
+			       RPM_MIN,
+			       RPM_MAX,
+			       LONGIDLE_RIGHT,
+			       LONGIDLE_MIN,
+			       LONGIDLE_MAX,
+			       GEARGLIDE_RIGHT,
+			       GEARGLIDE_MIN,
+			       GEARGLIDE_MAX,
+			       URGENT_SPEEDUP_RIGHT,
+			       URGENT_SPEEDUP_MIN,
+			       URGENT_SPEEDUP_MAX,
+			       AIRCOND_RIGHT,
+			       AIRCOND_MIN,
+			       AIRCOND_MAX,
+			       ECONOMIC_RIGHT,
+			       ECONOMIC_MIN,
+			       ECONOMIC_MAX,
+			       SAFE_RIGHT,
+			       ANSPEED_RIGHT,
+			       ANSPEED_MIN,
+			       ANSPEED_MAX,
+			       ANGEARGLIDE_RIGHT,
+			       ANGEARGLIDE_MIN,
+			       ANGEARGLIDE_MAX,
+			       ANURGENT_SPEEDUP_RIGHT,
+			       ANURGENT_SPEEDUP_MIN,
+			       ANURGENT_SPEEDUP_MAX,
+			       FATIGUE_RIGHT,
+			       FATIGUE_MIN,
+			       FATIGUE_MAX,
+			       OILWEAR_RIGHT,
+			       OILWEARCHK_RIGHT,
+			       CREATER,
+			       CREATE_TIME,
+			       UPDATE_BY,
+			       UPDATE_TIME,
+			       ENABLE_FLAG,
+			       CORP_ID,
+			       SPECIAL_RECORD_FLAG,
+			       URGENT_SPEEDDOWN_RIGHT,
+			       URGENT_SPEEDDOWN_MIN,
+			       URGENT_SPEEDDOWN_MAX,
+			       ANURGENT_SPEEDDOWN_RIGHT,
+			       ANURGENT_SPEEDDOWN_MIN,
+			       ANURGENT_SPEEDDOWN_MAX
+			  FROM TB_VEHICLE_SCORE
+			 WHERE CHECK_TIME_ID = ?
+		</property>
+		<property name = "sql_saveTbVehicleScore" desc = "复制并修改check_time_id后插入到tb_vehicle_score表中">
+			 INSERT INTO TB_VEHICLE_SCORE
+			  (SCORECHK_ID,
+			   CHECK_TIME_ID,
+			   OIL_RIGHT,
+			   SPEEDING_RIGHT,
+			   SPEEDING_MIN,
+			   SPEEDING_MAX,
+			   RPM_RIGHT,
+			   RPM_MIN,
+			   RPM_MAX,
+			   LONGIDLE_RIGHT,
+			   LONGIDLE_MIN,
+			   LONGIDLE_MAX,
+			   GEARGLIDE_RIGHT,
+			   GEARGLIDE_MIN,
+			   GEARGLIDE_MAX,
+			   URGENT_SPEEDUP_RIGHT,
+			   URGENT_SPEEDUP_MIN,
+			   URGENT_SPEEDUP_MAX,
+			   AIRCOND_RIGHT,
+			   AIRCOND_MIN,
+			   AIRCOND_MAX,
+			   ECONOMIC_RIGHT,
+			   ECONOMIC_MIN,
+			   ECONOMIC_MAX,
+			   SAFE_RIGHT,
+			   ANSPEED_RIGHT,
+			   ANSPEED_MIN,
+			   ANSPEED_MAX,
+			   ANGEARGLIDE_RIGHT,
+			   ANGEARGLIDE_MIN,
+			   ANGEARGLIDE_MAX,
+			   ANURGENT_SPEEDUP_RIGHT,
+			   ANURGENT_SPEEDUP_MIN,
+			   ANURGENT_SPEEDUP_MAX,
+			   FATIGUE_RIGHT,
+			   FATIGUE_MIN,
+			   FATIGUE_MAX,
+			   OILWEAR_RIGHT,
+			   OILWEARCHK_RIGHT,
+			   CREATER,
+			   CREATE_TIME,
+			   UPDATE_BY,
+			   UPDATE_TIME,
+			   ENABLE_FLAG,
+			   CORP_ID,
+			   SPECIAL_RECORD_FLAG,
+			   URGENT_SPEEDDOWN_RIGHT,
+			   URGENT_SPEEDDOWN_MIN,
+			   URGENT_SPEEDDOWN_MAX,
+			   ANURGENT_SPEEDDOWN_RIGHT,
+			   ANURGENT_SPEEDDOWN_MIN,
+			   ANURGENT_SPEEDDOWN_MAX)
+			VALUES
+			(?,?,?,?,?,?,?,?,?,?,
+			 ?,?,?,?,?,?,?,?,?,?,
+			 ?,?,?,?,?,?,?,?,?,?,
+			 ?,?,?,?,?,?,?,?,?,?,
+			 ?,?,?,?,?,?,?,?,?,?,
+			 ?,?)
+		</property>
+		
+		<property name = "sql_queryCheckMonthSetSql" desc = "查询考核月度设置表  获得本月已经进行了考核月度设置的企业 ">
+			SELECT tcs.ent_id,
+				       to_char(fun_utc2date(tcs.start_time),'YYYY-MM-DD') AS start_time,
+				       to_char(fun_utc2date(tcs.end_time),'YYYY-MM-DD') AS end_time,
+				       tcs.start_time AS l_startTime,
+				       tcs.end_time  AS l_endTime
+				FROM tb_checkmonth_set tcs 
+				WHERE tcs.check_time_code=?  
+				  AND tcs.enable_flag=1 
+				  ORDER BY tcs.ent_id
+		</property>
+		<property name = "sql_delGradeMonthStatSql" desc = "根据企业Id删除月统计的车辆评分结果表TS_GRADE_MONTHSTAT数据">
+			DELETE FROM ts_grade_monthstat tgm 
+				WHERE tgm.stat_year=? 
+				  AND tgm.stat_month=? 
+				  AND tgm.corp_id=?
+		</property>
+		<property name = "sql_queryVehicleDayStatSql" desc = "运营考核月度表 评分计算逻辑">
+								SELECT FINAL_SCORE.VID, 
+			             TV.VIN_CODE,
+			             TV.VEHICLE_NO, 
+			             TV.VBRAND_CODE,
+			             TV.PROD_CODE, 
+			             TV.EMODEL_CODE, 
+			             '' VLINE_ID,
+			             '' LINE_NAME, 
+			             (SELECT TOR.PARENT_ID FROM TB_ORGANIZATION TOR WHERE TOR.ENT_ID = TV.ENT_ID AND ROWNUM=1) AS CORP_ID,  
+			             (SELECT N.ENT_NAME FROM TB_ORGANIZATION N   
+			               WHERE N.ENT_ID = (SELECT TOR.PARENT_ID   
+			                                   FROM TB_ORGANIZATION TOR  
+			                                  WHERE TOR.ENT_ID = TV.ENT_ID) AND ROWNUM=1) AS CORP_NAME, 
+			             TV.ENT_ID AS TEAM_ID, 
+			             (SELECT TOR.ENT_NAME FROM TB_ORGANIZATION TOR WHERE TOR.ENT_ID = TV.ENT_ID AND ROWNUM=1) AS TEAM_NAME,
+			             FINAL_SCORE.MILEAGE_SUM, 
+			             FINAL_SCORE.OVERSPEED_SUM,
+			             FINAL_SCORE.OVERSPEED_TIMES,
+			             FINAL_SCORE.OIL_OVERSPEED_SCORE, 
+			             FINAL_SCORE.SAFE_OVERSPEED_SCORE, 
+			             FINAL_SCORE.OVERRPM_SUM, 
+			             FINAL_SCORE.OVERRPM_TIMES, 
+			             FINAL_SCORE.OIL_OVERRPM_SCORE, 
+			             FINAL_SCORE.GEAR_GLIDE_SUM,
+			             FINAL_SCORE.GEAR_GLIDE_TIMES, 
+			             FINAL_SCORE.OIL_GEAR_GLIDE_SCORE,
+			             FINAL_SCORE.SAFE_GEAR_GLIDE_SCORE, 
+			             FINAL_SCORE.LONG_IDLE_SUM, 
+			             FINAL_SCORE.LONG_IDLE_TIMES, 
+			             FINAL_SCORE.OIL_LONG_IDLE_SCORE, 
+			             FINAL_SCORE.FATIGUE_SUM, 
+			             FINAL_SCORE.FATIGUE_TIMES, 
+			             FINAL_SCORE.SAFE_FATIGUE_SCORE, 
+			             FINAL_SCORE.ECONOMIC_RUN_BL,
+			             FINAL_SCORE.ECONOMIC_RUN_TIMES,
+			             FINAL_SCORE.OIL_ECONOMIC_RUN_SCORE, 
+			             FINAL_SCORE.AIR_CONDITION_SUM, 
+			             FINAL_SCORE.AIR_CONDITION_TIMES, 
+			             FINAL_SCORE.OIL_AIR_CONDITION_SCORE, 
+			             FINAL_SCORE.ENGINE_ROTATE_TIMES,
+			             FINAL_SCORE.OIL_SCORE_SUM, 
+			             FINAL_SCORE.SAFE_SCORE_SUM, 
+			             FINAL_SCORE.FAT_OILWEAR_100,
+			             FINAL_SCORE.CHECK_OILWEAR_100, 
+			             FINAL_SCORE.SAVEOIL_SUM, 
+			             FINAL_SCORE.SAVEOIL_RATIO, 
+			             FINAL_SCORE.OILWEAR_SCORE_SUM AS OILWEAR_SCORE,
+			             ROUND(FINAL_SCORE.OIL_SCORE_SUM +
+			                   FINAL_SCORE.SAFE_SCORE_SUM  +
+			                   FINAL_SCORE.OILWEAR_SCORE_SUM,2) AS ALL_SCORE_SUM,
+			             FINAL_SCORE.URGENT_SPEED_NUM,      
+			             FINAL_SCORE.OIL_URGENT_SPEEDUP_SCORE,
+			             FINAL_SCORE.SAFE_URGENT_SPEEDUP_SCORE,
+			              FINAL_SCORE.URGENT_LOWDOWN_NUM,
+			             FINAL_SCORE.OIL_URGENT_SPEEDDOWN_SCORE,
+			            FINAL_SCORE.SAFE_URGENT_SPEEDDOWN_SCORE,
+			                 TV.INNER_CODE,
+			            FINAL_SCORE.OIL_WEAR_SUM
+			        FROM TB_VEHICLE TV,
+			             (SELECT BASE_SCORE.*,
+			               (OIL_OVERSPEED_SCORE +
+			                      OIL_OVERRPM_SCORE +
+			                      OIL_LONG_IDLE_SCORE +
+			                      OIL_GEAR_GLIDE_SCORE +
+			                      OIL_URGENT_SPEEDUP_SCORE +
+			                      OIL_URGENT_SPEEDDOWN_SCORE +
+			                      OIL_AIR_CONDITION_SCORE +
+			                      OIL_ECONOMIC_RUN_SCORE) AS OIL_SCORE_SUM, 
+			                     (SAFE_OVERSPEED_SCORE +
+			                           SAFE_GEAR_GLIDE_SCORE +
+			                           SAFE_URGENT_SPEEDUP_SCORE +
+			                           SAFE_URGENT_SPEEDDOWN_SCORE +
+			                           SAFE_FATIGUE_SCORE) AS SAFE_SCORE_SUM, 
+			      OILWEAR_SCORE AS OILWEAR_SCORE_SUM
+			                FROM (SELECT MONTHLY.*, 
+			                             TVS.OIL_RIGHT,
+			                             TVS.SPEEDING_RIGHT, 
+			                             TVS.RPM_RIGHT, 
+			                             TVS.LONGIDLE_RIGHT, 
+			                             TVS.GEARGLIDE_RIGHT, 
+			                             TVS.URGENT_SPEEDUP_RIGHT,
+			                             TVS.URGENT_SPEEDDOWN_RIGHT,
+			                             TVS.AIRCOND_RIGHT, 
+			                             TVS.ECONOMIC_RIGHT,
+			                             TVS.SAFE_RIGHT,
+			                             TVS.ANSPEED_RIGHT,
+			                             TVS.ANGEARGLIDE_RIGHT, 
+			                             TVS.ANURGENT_SPEEDUP_RIGHT,
+			                             TVS.ANURGENT_SPEEDDOWN_RIGHT,
+			                             TVS.FATIGUE_RIGHT, 
+			                             TVS.OILWEAR_RIGHT,
+			                             TVS.OILWEARCHK_RIGHT,
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.OVERSPEED_SUM, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.SPEEDING_MIN,?),
+			                                                               NVL(TVS.SPEEDING_MAX,?))*TVS.SPEEDING_RIGHT/100,2) AS OIL_OVERSPEED_SCORE, 
+			      
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.OVERRPM_SUM, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.RPM_MIN,?),
+			                                                               NVL(TVS.RPM_MAX,?))*TVS.RPM_RIGHT /100,2) AS OIL_OVERRPM_SCORE, 
+			      
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.LONG_IDLE_TIMES, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.LONGIDLE_MIN,?),
+			                                                               NVL(TVS.LONGIDLE_MAX,?))*TVS.LONGIDLE_RIGHT /100,2) AS OIL_LONG_IDLE_SCORE, 
+			      
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.GEAR_GLIDE_TIMES, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.GEARGLIDE_MIN,?),
+			                                                               NVL(TVS.GEARGLIDE_MAX,?))*TVS.GEARGLIDE_RIGHT /100,2) AS OIL_GEAR_GLIDE_SCORE, 
+			                                                               
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_SPEED_NUM, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.URGENT_SPEEDUP_MIN,?),
+			                                                               NVL(TVS.URGENT_SPEEDUP_MAX,?))*TVS.URGENT_SPEEDUP_RIGHT /100,2) AS OIL_URGENT_SPEEDUP_SCORE,
+			                                                               
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_LOWDOWN_NUM, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.URGENT_SPEEDDOWN_MIN,?),
+			                                                               NVL(TVS.URGENT_SPEEDDOWN_MAX,?))*TVS.URGENT_SPEEDDOWN_RIGHT /100,2) AS OIL_URGENT_SPEEDDOWN_SCORE,
+			      
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.AIR_CONDITION_TIMES, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.AIRCOND_MIN,?),
+			                                                               NVL(TVS.AIRCOND_MAX,?))*TVS.AIRCOND_RIGHT/100,2) AS OIL_AIR_CONDITION_SCORE, 
+			      
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.ECONOMIC_RUN_BL, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.ECONOMIC_MIN,?),
+			                                                               NVL(TVS.ECONOMIC_MAX,?))*TVS.ECONOMIC_RIGHT /100,2) AS OIL_ECONOMIC_RUN_SCORE, 
+			      
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.OVERSPEED_SUM, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.ANSPEED_MIN,?),
+			                                                               NVL(TVS.ANSPEED_MAX,?))*TVS.ANSPEED_RIGHT /100,2) AS SAFE_OVERSPEED_SCORE, 
+			      
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.GEAR_GLIDE_TIMES, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.ANGEARGLIDE_MIN,?),
+			                                                               NVL(TVS.ANGEARGLIDE_MAX,?))*TVS.ANGEARGLIDE_RIGHT /100,2) AS SAFE_GEAR_GLIDE_SCORE, 
+			
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_SPEED_NUM, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.ANURGENT_SPEEDUP_MIN,?),
+			                                                               NVL(TVS.ANURGENT_SPEEDUP_MAX,?))*TVS.ANURGENT_SPEEDUP_RIGHT /100,2) AS SAFE_URGENT_SPEEDUP_SCORE,
+			                                                               
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_LOWDOWN_NUM, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.ANURGENT_SPEEDDOWN_MIN,?),
+			                                                               NVL(TVS.ANURGENT_SPEEDDOWN_MAX,?))*TVS.ANURGENT_SPEEDDOWN_RIGHT /100,2) AS SAFE_URGENT_SPEEDDOWN_SCORE,
+			      
+			                             ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.FATIGUE_SUM, 
+			                                                               MONTHLY.MILEAGE_SUM,
+			                                                               NVL(TVS.FATIGUE_MIN,?),
+			                                                               NVL(TVS.FATIGUE_MAX,?))*TVS.FATIGUE_RIGHT /100,2) AS SAFE_FATIGUE_SCORE, 
+			                             
+			                             GRADE_SCORE_PACK.COUNT_FACTOILWEAR_VALUE(MONTHLY.OIL_WEAR_SUM,
+			                                                                      MONTHLY.MILEAGE_SUM) AS FAT_OILWEAR_100,
+			                                         NVL(MONTHLY.ASSESS_VALUE,0)  AS CHECK_OILWEAR_100, 
+			      
+			                             GRADE_SCORE_PACK.COUNT_SAVEOIL_VALUE(NVL(MONTHLY.ASSESS_VALUE, 0),MONTHLY.MILEAGE_SUM,MONTHLY.OIL_WEAR_SUM) AS SAVEOIL_SUM,
+			      
+			                             GRADE_SCORE_PACK.COUNT_SAVEOIL_RATIO(NVL(MONTHLY.ASSESS_VALUE, 0),MONTHLY.MILEAGE_SUM,MONTHLY.OIL_WEAR_SUM) AS SAVEOIL_RATIO, 
+			                                                          
+			                             ROUND(GRADE_SCORE_PACK.COUNT_CHECKOILWEAR_SCORE_REAL(MONTHLY.OIL_WEAR_SUM,MONTHLY.MILEAGE_SUM,
+			                                                               NVL(MONTHLY.ASSESS_VALUE,0),NVL(TVS.OILWEARCHK_MIN,0),
+			                                                               NVL(TVS.OILWEARCHK_MAX,10))*TVS.OILWEARCHK_RIGHT/100,2) AS OILWEAR_SCORE 
+			      
+			                        FROM 
+			                           (SELECT BASEINFO.*,ASSINFO.ASSESS_VALUE FROM 
+			                             (SELECT TVD.VID,   
+			                                     TVD.CORP_ID,                                      
+			                                     SUM(NVL(TVD.MILEAGE, 0)) * 0.1 AS MILEAGE_SUM, 
+			                                     SUM(NVL(TVD.OIL_WEAR, 0)) * 0.5 AS OIL_WEAR_SUM, 
+			                                     SUM(NVL(TVD.OVER_SPEED_NUM, 0)) AS OVERSPEED_SUM, 
+			                                     SUM(NVL(TVD.OVER_SPEED_TIME, 0)) AS OVERSPEED_TIMES, 
+			                                     SUM(NVL(TVD.OVER_RPM_NUM, 0)) AS OVERRPM_SUM, 
+			                                     SUM(NVL(TVD.OVER_RPM_TIME, 0)) AS OVERRPM_TIMES, 
+			                                     SUM(NVL(TVD.LONG_IDLE_NUM, 0)) AS LONG_IDLE_SUM, 
+			                                     SUM(NVL(TVD.LONG_IDLE_TIME, 0)) AS LONG_IDLE_TIMES, 
+			                                     SUM(NVL(TVD.GEAR_GLIDE_NUM, 0)) AS GEAR_GLIDE_SUM,
+			                                     SUM(NVL(TVD.GEAR_GLIDE_TIME, 0)) AS GEAR_GLIDE_TIMES,
+			                                     SUM(NVL(TVD.URGENT_SPEED_NUM, 0)) AS URGENT_SPEED_NUM,
+			                                     SUM(NVL(TVD.URGENT_SPEED_TIME, 0)) AS URGENT_SPEED_TIME,
+			                                     SUM(NVL(TVD.URGENT_LOWDOWN_NUM, 0)) AS URGENT_LOWDOWN_NUM,
+			                                     SUM(NVL(TVD.URGENT_LOWDOWN_TIME, 0)) AS URGENT_LOWDOWN_TIME, 
+			                                     SUM(NVL(TVD.AIRCONDITION_NUM, 0)) AS AIR_CONDITION_SUM,
+			                                     SUM(NVL(TVD.AIRCONDITION_TIME, 0)) AS AIR_CONDITION_TIMES, 
+			                                     0 AS FATIGUE_SUM, 
+			                                     0 AS FATIGUE_TIMES,
+			                                     SUM(NVL(TVD.ENGINE_ROTATE_TIME, 0)) AS ENGINE_ROTATE_TIMES, 
+			                                     SUM(NVL(TVD.ECONOMIC_RUN_TIME, 0)) AS ECONOMIC_RUN_TIMES, 
+			                                     NVL(ROUND(DECODE(SUM(CASE
+			                                                            WHEN TVD.ENGINE_ROTATE_TIME IS NULL THEN
+			                                                             0
+			                                                            ELSE
+			                                                             TVD.ENGINE_ROTATE_TIME
+			                                                          END),
+			                                                      0,
+			                                                      0,
+			                                                      SUM(CASE
+			                                                            WHEN TVD.ECONOMIC_RUN_TIME IS NULL THEN
+			                                                             0
+			                                                            ELSE
+			                                                             TVD.ECONOMIC_RUN_TIME
+			                                                          END) * 100 /
+			                                                      SUM(CASE
+			                                                            WHEN TVD.ENGINE_ROTATE_TIME IS NULL THEN
+			                                                             0
+			                                                            ELSE
+			                                                             TVD.ENGINE_ROTATE_TIME
+			                                                          END)),
+			                                               2),
+			                                         0) AS ECONOMIC_RUN_BL 
+			                                FROM TS_VEHICLE_OIL_NEW TVD,TB_VEHICLE TV
+			                               WHERE  TVD.VID = TV.VID
+			                               		AND (TV.PROG_ID IS NULL OR TV.PROG_ID IN (
+			                               		SELECT P.PROG_ID FROM TB_VEHICLE_CONFIGUER_PROGRAMME P,TB_VEHICLE_CONFIGUER_DETAIL D
+			                               		WHERE P.PROG_ID = D.PROG_ID 
+			                               		AND P.ENABLE_FLAG = '1'
+			                               		AND D.CODE_ID = '000100050003'
+			                               		))
+			                               	AND TVD.STAT_DATE &gt;=
+			                                     FUN_DATE2UTC(TO_DATE(?, 'YYYY-MM-DD'))
+			                                 AND TVD.STAT_DATE &lt;=
+			                                     FUN_DATE2UTC(TO_DATE(?, 'YYYY-MM-DD'))
+			                                  AND TVD.CORP_ID=?
+			                               GROUP BY TVD.VID,TVD.CORP_ID
+			                               ORDER BY TVD.VID) BASEINFO,
+			                               (SELECT ASS.VID,ASS.CORP_ID,ASS.ASSESS_VALUE FROM TB_CHECKMONTH_SET CHKMONTH,
+			              TB_ASSESSOIL_SET ASS
+			              WHERE CHKMONTH.CHECK_TIME_ID = ASS.CHECK_TIME_ID(+)
+			                    AND CHKMONTH.ENABLE_FLAG='1' AND ASS.ENABLE_FLAG='1'
+			                    AND CHKMONTH.CHECK_TIME_CODE=?
+			                    AND CORP_ID = ?) ASSINFO
+			                    WHERE BASEINFO.VID=ASSINFO.VID(+)  ) MONTHLY,
+			                     (SELECT SET0.ENT_ID,SCORE.* FROM TB_VEHICLE_SCORE SCORE,TB_CHECKMONTH_SET SET0 
+			                     WHERE SCORE.CHECK_TIME_ID = SET0.CHECK_TIME_ID
+			                     AND SCORE.ENABLE_FLAG =1 AND SET0.ENABLE_FLAG =1
+			                     AND SET0.ENT_ID=?
+			                    AND SET0.CHECK_TIME_CODE=? 
+			                    ) TVS
+			                    WHERE MONTHLY.CORP_ID = TVS.ENT_ID
+			                         ) BASE_SCORE) FINAL_SCORE
+			       WHERE FINAL_SCORE.VID = TV.VID(+)
+			        ORDER BY FINAL_SCORE.VID
+		</property>
+		<property name = "sql_insertGradeMonthStatSql" desc = "插入当月统计数据到车辆评分结果表TS_GRADE_MONTHSTAT">
+				 INSERT INTO TS_GRADE_MONTHSTAT  
+				  (STAT_YEAR,STAT_MONTH,YEAR_MONTH,VID,C_VIN,  
+				   VEHICLE_NO,VBRAND_CODE,PROD_CODE,EMODEL_CODE,VLINE_ID,
+				   VLINE_NAME,CORP_ID,CORP_NAME,TEAM_ID,TEAM_NAME,
+				   TRAVEL_MILEAGE,OVERSPEED_SUM,OVERSPEED_TIME,OIL_OVERSPEED_SCORE,SAFE_OVERSPEED_SCORE,
+				   OVERRPM_SUM,OVERRPM_TIME,OIL_OVERRPM_SCORE,GEAR_GLIDE_SUM,GEAR_GLIDE_TIME,
+				   OIL_GEAR_GLIDE_SCORE,SAFE_GEAR_GLIDE_SCORE,LONG_IDLE_SUM,LONG_IDLE_TIME,OIL_LONG_IDLE_SCORE,
+				   FATIGUE_SUM,FATIGUE_TIME,SAFE_FATIGUE_SCORE,ECONOMIC_RUN_SUM,ECONOMIC_RUN_TIME,  
+				   OIL_ECONOMIC_RUN_SCORE,AIR_CONDITION_SUM,
+				   AIR_CONDITION_TIME,OIL_AIR_CONDITION_SCORE, ENGINE_ROTATE_TIME,OIL_SCORE_SUM,SAFE_SCORE_SUM,
+				   FACT_OILWEAR,CHECK_OILWEAR,SAVEOIL_SUM,SAVEOIL_RATIO,OILWEAR_SCORE,
+				   ALL_SCORE_SUM,URGENT_LOWDOWN_NUM,OIL_URGENT_LOWDOWN_SCORE,SAFE_URGENT_LOWDOWN_SCORE,
+           URGENT_SPEED_NUM,OIL_URGENT_SPEED_SCORE,SAFE_URGENT_SPEED_SCORE,INNER_CODE,OIL_WEAR_SUM)  
+				VALUES  
+				  (?,?,?,?,?,  
+				   ?,?,?,?,?,
+				   ?,?,?,?,?,  
+				   ?,?,?,?,?,
+				   ?,?,?,?,?,
+				   ?,?,?,?,?,
+				   ?,?,?,?,?,  
+				   ?,?,?,?,?,
+				   ?,?,?,?,?,
+				   ?,?,?,?,?,
+           			?,?,?,?,?,?)
+		</property>		
+		
+		<property name = "accountGradeMonthCorpSql" desc = "统计企业月度考核">
+			INSERT INTO TS_GRADE_MONTHSTAT_CORP (
+			STAT_YEAR,
+			STAT_MONTH,
+			YEAR_MONTH,
+			CORP_ID,
+			CORP_NAME,
+			VEHICLE_SUM,
+			TRAVEL_MILEAGE,
+			OIL_WEAR_SUM,
+			OVERSPEED_SUM,
+			OVERSPEED_TIME,
+			OVERSPEED_SUM_1000,
+			OIL_OVERSPEED_SCORE,
+			SAFE_OVERSPEED_SCORE,
+			OVERRPM_SUM,
+			OVERRPM_TIME,
+			OVERRPM_SUM_1000,
+			OIL_OVERRPM_SCORE,
+			GEAR_GLIDE_SUM,
+			GEAR_GLIDE_TIME,
+			GEAR_GLIDE_SUM_1000,
+			GEAR_GLIDE_TIME_1000,
+			OIL_GEAR_GLIDE_SCORE,
+			SAFE_GEAR_GLIDE_SCORE,
+			LONG_IDLE_SUM,
+			LONG_IDLE_TIME,
+			LONG_IDLE_TIME_1000,
+			OIL_LONG_IDLE_SCORE,
+			FATIGUE_SUM,
+			FATIGUE_TIME,
+			FATIGUE_SUM_1000,
+			SAFE_FATIGUE_SCORE,
+			ECONOMIC_RUN_SUM,
+			ECONOMIC_RUN_TIME,
+			ECONOMIC_RUN_SUM_1000,
+			OIL_ECONOMIC_RUN_SCORE,
+			URGENT_SUM,
+			OIL_URGENT_SCORE,
+			SAFE_URGENT_SCORE,
+			AIR_CONDITION_SUM,
+			AIR_CONDITION_TIME,
+			AIR_CONDITION_TIME_1000,
+			OIL_AIR_CONDITION_SCORE,
+			ENGINE_ROTATE_TIME,
+			OIL_SCORE_SUM,
+			SAFE_SCORE_SUM,
+			FACT_OILWEAR,
+			CHECK_OILWEAR,
+			SAVEOIL_SUM,
+			SAVEOIL_RATIO,
+			OILWEAR_SCORE,    
+			ALL_SCORE_SUM,
+			URGENT_LOWDOWN_NUM,
+			URGENT_LOWDOWN_NUM_1000,
+			OIL_URGENT_LOWDOWN_SCORE, 
+			SAFE_URGENT_LOWDOWN_SCORE,
+			URGENT_SPEED_NUM,
+			URGENT_SPEED_NUM_1000,
+			OIL_URGENT_SPEED_SCORE,
+			SAFE_URGENT_SPEED_SCORE
+			)
+SELECT FINAL_SCORE.STAT_YEAR,
+       FINAL_SCORE.STAT_MONTH,
+       FINAL_SCORE.YEAR_MONTH,
+       FINAL_SCORE.CORP_ID,
+       FINAL_SCORE.CORP_NAME,
+       FINAL_SCORE.VEHICLE_SUM,
+       FINAL_SCORE.TRAVEL_MILEAGE,
+       FINAL_SCORE.OIL_WEAR_SUM,
+       FINAL_SCORE.OVERSPEED_SUM,
+       FINAL_SCORE.OVERSPEED_TIME, 
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.OVERSPEED_SUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  OVERSPEED_SUM_1000,
+       FINAL_SCORE.OIL_OVERSPEED_SCORE,
+       FINAL_SCORE.SAFE_OVERSPEED_SCORE,
+       FINAL_SCORE.OVERRPM_SUM,
+       FINAL_SCORE.OVERRPM_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.OVERRPM_SUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  OVERRPM_SUM_1000,
+       FINAL_SCORE.OIL_OVERRPM_SCORE,
+       FINAL_SCORE.GEAR_GLIDE_SUM,
+       FINAL_SCORE.GEAR_GLIDE_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.GEAR_GLIDE_SUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  GEAR_GLIDE_SUM_1000,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.GEAR_GLIDE_TIME/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  GEAR_GLIDE_TIME_1000,
+       FINAL_SCORE.OIL_GEAR_GLIDE_SCORE,
+       FINAL_SCORE.SAFE_GEAR_GLIDE_SCORE,
+       FINAL_SCORE.LONG_IDLE_SUM,
+       FINAL_SCORE.LONG_IDLE_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.LONG_IDLE_TIME/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  LONG_IDLE_TIME_1000,
+       FINAL_SCORE.OIL_LONG_IDLE_SCORE,
+       FINAL_SCORE.FATIGUE_SUM,
+       FINAL_SCORE.FATIGUE_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.FATIGUE_SUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  FATIGUE_SUM_1000,
+       FINAL_SCORE.SAFE_FATIGUE_SCORE,
+       FINAL_SCORE.ECONOMIC_RUN_SUM,
+       FINAL_SCORE.ECONOMIC_RUN_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.ECONOMIC_RUN_SUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  ECONOMIC_RUN_SUM_1000,
+       FINAL_SCORE.OIL_ECONOMIC_RUN_SCORE,
+       NULL,
+       NULL,
+       NULL,
+       FINAL_SCORE.AIR_CONDITION_SUM,
+       FINAL_SCORE.AIR_CONDITION_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.AIR_CONDITION_TIME/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  AIR_CONDITION_TIME_1000,
+       FINAL_SCORE.OIL_AIR_CONDITION_SCORE,
+       FINAL_SCORE.ENGINE_ROTATE_TIME,
+       FINAL_SCORE.OIL_SCORE_SUM,
+       FINAL_SCORE.SAFE_SCORE_SUM,
+       FINAL_SCORE.FACT_OILWEAR,
+       FINAL_SCORE.CHECK_OILWEAR,
+       NULL,
+       NULL,
+       FINAL_SCORE.OILWEAR_SCORE,
+       ROUND((FINAL_SCORE.OIL_SCORE_SUM + FINAL_SCORE.SAFE_SCORE_SUM +
+             FINAL_SCORE.OILWEAR_SCORE),
+             2) AS ALL_SCORE_SUM,
+       FINAL_SCORE.URGENT_LOWDOWN_NUM,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.URGENT_LOWDOWN_NUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  URGENT_LOWDOWN_NUM_1000,
+       FINAL_SCORE.OIL_URGENT_LOWDOWN_SCORE,
+       FINAL_SCORE.SAFE_URGENT_LOWDOWN_SCORE,
+       FINAL_SCORE.URGENT_SPEED_NUM,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.URGENT_SPEED_NUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  URGENT_SPEED_NUM_1000,
+       FINAL_SCORE.OIL_URGENT_SPEED_SCORE,
+       FINAL_SCORE.SAFE_URGENT_SPEED_SCORE
+  FROM (SELECT BASE_SCORE.*,
+               (OIL_OVERSPEED_SCORE + OIL_OVERRPM_SCORE +
+               OIL_LONG_IDLE_SCORE + OIL_GEAR_GLIDE_SCORE +
+               OIL_URGENT_SPEED_SCORE + OIL_URGENT_LOWDOWN_SCORE +
+               OIL_AIR_CONDITION_SCORE + OIL_ECONOMIC_RUN_SCORE) AS OIL_SCORE_SUM,
+               (SAFE_OVERSPEED_SCORE + SAFE_GEAR_GLIDE_SCORE +
+               SAFE_URGENT_SPEED_SCORE + SAFE_URGENT_LOWDOWN_SCORE +
+               SAFE_FATIGUE_SCORE) AS SAFE_SCORE_SUM
+          FROM (SELECT MONTHLY.*,
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.OVERSPEED_SUM,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.SPEEDING_MIN,
+                                                                   ?),
+                                                               NVL(TVS.SPEEDING_MAX,
+                                                                   ?)) *
+                             TVS.SPEEDING_RIGHT / 100,
+                             2) AS OIL_OVERSPEED_SCORE,
+                        ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.OVERRPM_SUM,
+                                                       MONTHLY.TRAVEL_MILEAGE,
+                                                       NVL(TVS.RPM_MIN,
+                                                           ?),
+                                                       NVL(TVS.RPM_MAX,
+                                                           ?)) *
+                             TVS.RPM_RIGHT / 100,
+                             2) AS OIL_OVERRPM_SCORE,
+                         ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.LONG_IDLE_TIME,
+                                                         MONTHLY.TRAVEL_MILEAGE,
+                                                         NVL(TVS.LONGIDLE_MIN,
+                                                             ?),
+                                                         NVL(TVS.LONGIDLE_MAX,
+                                                             ?)) *
+                       TVS.LONGIDLE_RIGHT / 100,
+                       2) AS OIL_LONG_IDLE_SCORE,
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.GEAR_GLIDE_TIME,
+                                                           MONTHLY.TRAVEL_MILEAGE,
+                                                           NVL(TVS.GEARGLIDE_MIN,
+                                                               ?),
+                                                           NVL(TVS.GEARGLIDE_MAX,
+                                                               ?)) *
+                         TVS.GEARGLIDE_RIGHT / 100,
+                         2) AS OIL_GEAR_GLIDE_SCORE,
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_SPEED_NUM,
+                                                             MONTHLY.TRAVEL_MILEAGE,
+                                                             NVL(TVS.URGENT_SPEEDUP_MIN,
+                                                                 ?),
+                                                             NVL(TVS.URGENT_SPEEDUP_MAX,
+                                                                 ?)) *
+                           TVS.URGENT_SPEEDUP_RIGHT / 100,
+                           2) AS OIL_URGENT_SPEED_SCORE,
+                          ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_LOWDOWN_NUM,
+                                                           MONTHLY.TRAVEL_MILEAGE,
+                                                           NVL(TVS.URGENT_SPEEDDOWN_MIN,
+                                                               ?),
+                                                           NVL(TVS.URGENT_SPEEDDOWN_MAX,
+                                                               ?)) *
+                         TVS.URGENT_SPEEDDOWN_RIGHT / 100,
+                         2) AS OIL_URGENT_LOWDOWN_SCORE,
+                        ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.AIR_CONDITION_TIME,
+                                                             MONTHLY.TRAVEL_MILEAGE,
+                                                             NVL(TVS.AIRCOND_MIN,
+                                                                 ?),
+                                                             NVL(TVS.AIRCOND_MAX,
+                                                                 ?)) *
+                           TVS.AIRCOND_RIGHT / 100,
+                           2) AS OIL_AIR_CONDITION_SCORE,
+                           ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.ECONOMIC_RUN_BL,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.ECONOMIC_MIN,
+                                                                   ?),
+                                                               NVL(TVS.ECONOMIC_MAX,
+                                                                   ?)) *
+                             TVS.ECONOMIC_RIGHT / 100,
+                             2) AS OIL_ECONOMIC_RUN_SCORE,
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.OVERSPEED_SUM,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.ANSPEED_MIN,
+                                                                   ?),
+                                                               NVL(TVS.ANSPEED_MAX,
+                                                                   ?)) *
+                             TVS.ANSPEED_RIGHT / 100,
+                             2) AS SAFE_OVERSPEED_SCORE,
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.GEAR_GLIDE_TIME,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.ANGEARGLIDE_MIN,
+                                                                   ?),
+                                                               NVL(TVS.ANGEARGLIDE_MAX,
+                                                                   ?)) *
+                             TVS.ANGEARGLIDE_RIGHT / 100,
+                             2) AS SAFE_GEAR_GLIDE_SCORE,
+                              
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_SPEED_NUM,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.ANURGENT_SPEEDUP_MIN,
+                                                                   ?),
+                                                               NVL(TVS.ANURGENT_SPEEDUP_MAX,
+                                                                   ?)) *
+                             TVS.ANURGENT_SPEEDUP_RIGHT / 100,
+                             2) AS SAFE_URGENT_SPEED_SCORE,
+                            ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_LOWDOWN_NUM,
+                                                           MONTHLY.TRAVEL_MILEAGE,
+                                                           NVL(TVS.ANURGENT_SPEEDDOWN_MIN,
+                                                               ?),
+                                                           NVL(TVS.ANURGENT_SPEEDDOWN_MAX,
+                                                               ?)) *
+                         TVS.ANURGENT_SPEEDDOWN_RIGHT / 100,
+                         2) AS SAFE_URGENT_LOWDOWN_SCORE,
+                     
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.FATIGUE_SUM,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.FATIGUE_MIN,
+                                                                   ?),
+                                                               NVL(TVS.FATIGUE_MAX,
+                                                                   ?)) *
+                             TVS.FATIGUE_RIGHT / 100,
+                             2) AS SAFE_FATIGUE_SCORE,
+                      
+                       GRADE_SCORE_PACK.COUNT_FACTOILWEAR_VALUE(MONTHLY.OIL_WEAR_SUM,
+                                                                MONTHLY.TRAVEL_MILEAGE) FACT_OILWEAR,
+                       ROUND(GRADE_SCORE_PACK.COUNT_CHECKOILWEAR_SCORE_REAL(MONTHLY.OIL_WEAR_SUM,
+                                                                            MONTHLY.TRAVEL_MILEAGE,
+                                                                            NVL(MONTHLY.CHECK_OILWEAR,
+                                                                                0),
+                                                                            NVL(TVS.OILWEARCHK_MIN,
+                                                                                50),
+                                                                            NVL(TVS.OILWEARCHK_MAX,
+                                                                                150)) *
+                             TVS.OILWEARCHK_RIGHT / 100,
+                             2) OILWEAR_SCORE
+                  FROM (SELECT STAT_YEAR,
+                               STAT_MONTH,
+                               YEAR_MONTH,
+                               CORP_ID,
+                               CORP_NAME,
+                               COUNT(DISTINCT VID) VEHICLE_SUM,
+                               SUM(NVL(TRAVEL_MILEAGE, 0)) TRAVEL_MILEAGE,
+                               SUM(NVL(OIL_WEAR_SUM, 0)) OIL_WEAR_SUM,
+                               SUM(NVL(OVERSPEED_SUM, 0)) OVERSPEED_SUM,
+                               SUM(NVL(OVERSPEED_TIME, 0)) OVERSPEED_TIME,
+                               SUM(NVL(OVERRPM_SUM, 0)) OVERRPM_SUM,
+                               SUM(NVL(OVERRPM_TIME, 0)) OVERRPM_TIME,
+                               SUM(NVL(GEAR_GLIDE_SUM, 0)) GEAR_GLIDE_SUM,
+                               SUM(NVL(GEAR_GLIDE_TIME, 0)) GEAR_GLIDE_TIME,
+                               SUM(NVL(LONG_IDLE_SUM, 0)) LONG_IDLE_SUM,
+                               SUM(NVL(LONG_IDLE_TIME, 0)) LONG_IDLE_TIME,
+                               SUM(NVL(FATIGUE_SUM, 0)) FATIGUE_SUM,
+                               SUM(NVL(FATIGUE_TIME, 0)) FATIGUE_TIME,
+                               SUM(NVL(ECONOMIC_RUN_SUM, 0)) ECONOMIC_RUN_SUM,
+                               SUM(NVL(ECONOMIC_RUN_TIME, 0)) ECONOMIC_RUN_TIME,
+                               SUM(NVL(URGENT_SUM, 0)) URGENT_SUM,
+                               SUM(NVL(AIR_CONDITION_SUM, 0)) AIR_CONDITION_SUM,
+                               SUM(NVL(AIR_CONDITION_TIME, 0)) AIR_CONDITION_TIME,
+                               SUM(NVL(ENGINE_ROTATE_TIME, 0)) ENGINE_ROTATE_TIME,
+                               AVG(CHECK_OILWEAR) CHECK_OILWEAR,
+                               SUM(NVL(URGENT_LOWDOWN_NUM, 0)) URGENT_LOWDOWN_NUM,
+                               SUM(NVL(URGENT_SPEED_NUM, 0)) URGENT_SPEED_NUM,
+                               NVL(ROUND(DECODE(SUM(CASE
+                                                      WHEN ENGINE_ROTATE_TIME IS NULL THEN
+                                                       0
+                                                      ELSE
+                                                       ENGINE_ROTATE_TIME
+                                                    END),
+                                                0,
+                                                0,
+                                                SUM(CASE
+                                                      WHEN ECONOMIC_RUN_TIME IS NULL THEN
+                                                       0
+                                                      ELSE
+                                                       ECONOMIC_RUN_TIME
+                                                    END) * 100 /
+                                                SUM(CASE
+                                                      WHEN ENGINE_ROTATE_TIME IS NULL THEN
+                                                       0
+                                                      ELSE
+                                                       ENGINE_ROTATE_TIME
+                                                    END)),
+                                         2),
+                                   0) AS ECONOMIC_RUN_BL
+                          FROM TS_GRADE_MONTHSTAT GM WHERE GM.YEAR_MONTH = ?
+                         GROUP BY STAT_YEAR,
+                                  STAT_MONTH,
+                                  YEAR_MONTH,
+                                  CORP_ID,
+                                  CORP_NAME) MONTHLY,
+                       (SELECT SET0.ENT_ID, SET0.CHECK_TIME_CODE, SCORE.*
+                          FROM TB_VEHICLE_SCORE SCORE, TB_CHECKMONTH_SET SET0
+                         WHERE SCORE.CHECK_TIME_ID = SET0.CHECK_TIME_ID
+                           AND SCORE.ENABLE_FLAG = 1
+                           AND SET0.ENABLE_FLAG = 1) TVS
+                 WHERE MONTHLY.CORP_ID = TVS.ENT_ID
+                   AND MONTHLY.YEAR_MONTH = TVS.CHECK_TIME_CODE) BASE_SCORE) FINAL_SCORE
+		</property>
+		
+		<property name = "accountGradeMonthTeamSql" desc = "统计车队月度考核">
+						INSERT INTO TS_GRADE_MONTHSTAT_TEAM (
+			STAT_YEAR,
+			STAT_MONTH,
+			YEAR_MONTH,
+			CORP_ID,
+			CORP_NAME,
+            TEAM_ID,
+            TEAM_NAME,
+			VEHICLE_SUM,
+			TRAVEL_MILEAGE,
+			OIL_WEAR_SUM,
+			OVERSPEED_SUM,
+			OVERSPEED_TIME,
+			OVERSPEED_SUM_1000,
+			OIL_OVERSPEED_SCORE,
+			SAFE_OVERSPEED_SCORE,
+			OVERRPM_SUM,
+			OVERRPM_TIME,
+			OVERRPM_SUM_1000,
+			OIL_OVERRPM_SCORE,
+			GEAR_GLIDE_SUM,
+			GEAR_GLIDE_TIME,
+			GEAR_GLIDE_SUM_1000,
+			GEAR_GLIDE_TIME_1000,
+			OIL_GEAR_GLIDE_SCORE,
+			SAFE_GEAR_GLIDE_SCORE,
+			LONG_IDLE_SUM,
+			LONG_IDLE_TIME,
+			LONG_IDLE_TIME_1000,
+			OIL_LONG_IDLE_SCORE,
+			FATIGUE_SUM,
+			FATIGUE_TIME,
+			FATIGUE_SUM_1000,
+			SAFE_FATIGUE_SCORE,
+			ECONOMIC_RUN_SUM,
+			ECONOMIC_RUN_TIME,
+			ECONOMIC_RUN_SUM_1000,
+			OIL_ECONOMIC_RUN_SCORE,
+			URGENT_SUM,
+			OIL_URGENT_SCORE,
+			SAFE_URGENT_SCORE,
+			AIR_CONDITION_SUM,
+			AIR_CONDITION_TIME,
+			AIR_CONDITION_TIME_1000,
+			OIL_AIR_CONDITION_SCORE,
+			ENGINE_ROTATE_TIME,
+			OIL_SCORE_SUM,
+			SAFE_SCORE_SUM,
+			FACT_OILWEAR,
+			CHECK_OILWEAR,
+			SAVEOIL_SUM,
+			SAVEOIL_RATIO,
+			OILWEAR_SCORE,    
+			ALL_SCORE_SUM,
+			URGENT_LOWDOWN_NUM,
+			URGENT_LOWDOWN_NUM_1000,
+			OIL_URGENT_LOWDOWN_SCORE, 
+			SAFE_URGENT_LOWDOWN_SCORE,
+			URGENT_SPEED_NUM,
+			URGENT_SPEED_NUM_1000,
+			OIL_URGENT_SPEED_SCORE,
+			SAFE_URGENT_SPEED_SCORE
+			)
+SELECT FINAL_SCORE.STAT_YEAR,
+       FINAL_SCORE.STAT_MONTH,
+       FINAL_SCORE.YEAR_MONTH,
+       FINAL_SCORE.CORP_ID,
+       FINAL_SCORE.CORP_NAME,
+       FINAL_SCORE.TEAM_ID,
+       FINAL_SCORE.TEAM_NAME,
+       FINAL_SCORE.VEHICLE_SUM,
+       FINAL_SCORE.TRAVEL_MILEAGE,
+       FINAL_SCORE.OIL_WEAR_SUM,
+       FINAL_SCORE.OVERSPEED_SUM,
+       FINAL_SCORE.OVERSPEED_TIME, 
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.OVERSPEED_SUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  OVERSPEED_SUM_1000,
+       FINAL_SCORE.OIL_OVERSPEED_SCORE,
+       FINAL_SCORE.SAFE_OVERSPEED_SCORE,
+       FINAL_SCORE.OVERRPM_SUM,
+       FINAL_SCORE.OVERRPM_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.OVERRPM_SUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  OVERRPM_SUM_1000,
+       FINAL_SCORE.OIL_OVERRPM_SCORE,
+       FINAL_SCORE.GEAR_GLIDE_SUM,
+       FINAL_SCORE.GEAR_GLIDE_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.GEAR_GLIDE_SUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  GEAR_GLIDE_SUM_1000,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.GEAR_GLIDE_TIME/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  GEAR_GLIDE_TIME_1000,
+       FINAL_SCORE.OIL_GEAR_GLIDE_SCORE,
+       FINAL_SCORE.SAFE_GEAR_GLIDE_SCORE,
+       FINAL_SCORE.LONG_IDLE_SUM,
+       FINAL_SCORE.LONG_IDLE_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.LONG_IDLE_TIME/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  LONG_IDLE_TIME_1000,
+       FINAL_SCORE.OIL_LONG_IDLE_SCORE,
+       FINAL_SCORE.FATIGUE_SUM,
+       FINAL_SCORE.FATIGUE_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.FATIGUE_SUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  FATIGUE_SUM_1000,
+       FINAL_SCORE.SAFE_FATIGUE_SCORE,
+       FINAL_SCORE.ECONOMIC_RUN_SUM,
+       FINAL_SCORE.ECONOMIC_RUN_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.ECONOMIC_RUN_SUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  ECONOMIC_RUN_SUM_1000,
+       FINAL_SCORE.OIL_ECONOMIC_RUN_SCORE,
+       NULL,
+       NULL,
+       NULL,
+       FINAL_SCORE.AIR_CONDITION_SUM,
+       FINAL_SCORE.AIR_CONDITION_TIME,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.AIR_CONDITION_TIME/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  AIR_CONDITION_TIME_1000,
+       FINAL_SCORE.OIL_AIR_CONDITION_SCORE,
+       FINAL_SCORE.ENGINE_ROTATE_TIME,
+       FINAL_SCORE.OIL_SCORE_SUM,
+       FINAL_SCORE.SAFE_SCORE_SUM,
+       FINAL_SCORE.FACT_OILWEAR,
+       FINAL_SCORE.CHECK_OILWEAR,
+       NULL,
+       NULL,
+       FINAL_SCORE.OILWEAR_SCORE,
+       ROUND((FINAL_SCORE.OIL_SCORE_SUM + FINAL_SCORE.SAFE_SCORE_SUM +
+             FINAL_SCORE.OILWEAR_SCORE),
+             2) AS ALL_SCORE_SUM,
+       FINAL_SCORE.URGENT_LOWDOWN_NUM,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.URGENT_LOWDOWN_NUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  URGENT_LOWDOWN_NUM_1000,
+       FINAL_SCORE.OIL_URGENT_LOWDOWN_SCORE,
+       FINAL_SCORE.SAFE_URGENT_LOWDOWN_SCORE,
+       FINAL_SCORE.URGENT_SPEED_NUM,
+       ROUND(CASE FINAL_SCORE.TRAVEL_MILEAGE
+         WHEN 0 THEN 0
+           ELSE
+             (FINAL_SCORE.URGENT_SPEED_NUM/FINAL_SCORE.TRAVEL_MILEAGE)*1000
+             END,2)  URGENT_SPEED_NUM_1000,
+       FINAL_SCORE.OIL_URGENT_SPEED_SCORE,
+       FINAL_SCORE.SAFE_URGENT_SPEED_SCORE
+  FROM (SELECT BASE_SCORE.*,
+               (OIL_OVERSPEED_SCORE + OIL_OVERRPM_SCORE +
+               OIL_LONG_IDLE_SCORE + OIL_GEAR_GLIDE_SCORE +
+               OIL_URGENT_SPEED_SCORE + OIL_URGENT_LOWDOWN_SCORE +
+               OIL_AIR_CONDITION_SCORE + OIL_ECONOMIC_RUN_SCORE) AS OIL_SCORE_SUM,
+               (SAFE_OVERSPEED_SCORE + SAFE_GEAR_GLIDE_SCORE +
+               SAFE_URGENT_SPEED_SCORE + SAFE_URGENT_LOWDOWN_SCORE +
+               SAFE_FATIGUE_SCORE) AS SAFE_SCORE_SUM
+          FROM (SELECT MONTHLY.*,
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.OVERSPEED_SUM,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.SPEEDING_MIN,
+                                                                   ?),
+                                                               NVL(TVS.SPEEDING_MAX,
+                                                                   ?)) *
+                             TVS.SPEEDING_RIGHT / 100,
+                             2) AS OIL_OVERSPEED_SCORE,
+                        ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.OVERRPM_SUM,
+                                                       MONTHLY.TRAVEL_MILEAGE,
+                                                       NVL(TVS.RPM_MIN,
+                                                           ?),
+                                                       NVL(TVS.RPM_MAX,
+                                                           ?)) *
+                             TVS.RPM_RIGHT / 100,
+                             2) AS OIL_OVERRPM_SCORE,
+                         ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.LONG_IDLE_TIME,
+                                                         MONTHLY.TRAVEL_MILEAGE,
+                                                         NVL(TVS.LONGIDLE_MIN,
+                                                             ?),
+                                                         NVL(TVS.LONGIDLE_MAX,
+                                                             ?)) *
+                       TVS.LONGIDLE_RIGHT / 100,
+                       2) AS OIL_LONG_IDLE_SCORE,
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.GEAR_GLIDE_TIME,
+                                                           MONTHLY.TRAVEL_MILEAGE,
+                                                           NVL(TVS.GEARGLIDE_MIN,
+                                                               ?),
+                                                           NVL(TVS.GEARGLIDE_MAX,
+                                                               ?)) *
+                         TVS.GEARGLIDE_RIGHT / 100,
+                         2) AS OIL_GEAR_GLIDE_SCORE,
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_SPEED_NUM,
+                                                             MONTHLY.TRAVEL_MILEAGE,
+                                                             NVL(TVS.URGENT_SPEEDUP_MIN,
+                                                                 ?),
+                                                             NVL(TVS.URGENT_SPEEDUP_MAX,
+                                                                 ?)) *
+                           TVS.URGENT_SPEEDUP_RIGHT / 100,
+                           2) AS OIL_URGENT_SPEED_SCORE,
+                          ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_LOWDOWN_NUM,
+                                                           MONTHLY.TRAVEL_MILEAGE,
+                                                           NVL(TVS.URGENT_SPEEDDOWN_MIN,
+                                                               ?),
+                                                           NVL(TVS.URGENT_SPEEDDOWN_MAX,
+                                                               ?)) *
+                         TVS.URGENT_SPEEDDOWN_RIGHT / 100,
+                         2) AS OIL_URGENT_LOWDOWN_SCORE,
+                        ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.AIR_CONDITION_TIME,
+                                                             MONTHLY.TRAVEL_MILEAGE,
+                                                             NVL(TVS.AIRCOND_MIN,
+                                                                 ?),
+                                                             NVL(TVS.AIRCOND_MAX,
+                                                                 ?)) *
+                           TVS.AIRCOND_RIGHT / 100,
+                           2) AS OIL_AIR_CONDITION_SCORE,
+                           ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.ECONOMIC_RUN_BL,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.ECONOMIC_MIN,
+                                                                   ?),
+                                                               NVL(TVS.ECONOMIC_MAX,
+                                                                   ?)) *
+                             TVS.ECONOMIC_RIGHT / 100,
+                             2) AS OIL_ECONOMIC_RUN_SCORE,
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.OVERSPEED_SUM,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.ANSPEED_MIN,
+                                                                   ?),
+                                                               NVL(TVS.ANSPEED_MAX,
+                                                                   ?)) *
+                             TVS.ANSPEED_RIGHT / 100,
+                             2) AS SAFE_OVERSPEED_SCORE,
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.GEAR_GLIDE_TIME,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.ANGEARGLIDE_MIN,
+                                                                   ?),
+                                                               NVL(TVS.ANGEARGLIDE_MAX,
+                                                                   ?)) *
+                             TVS.ANGEARGLIDE_RIGHT / 100,
+                             2) AS SAFE_GEAR_GLIDE_SCORE,
+                              
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_SPEED_NUM,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.ANURGENT_SPEEDUP_MIN,
+                                                                   ?),
+                                                               NVL(TVS.ANURGENT_SPEEDUP_MAX,
+                                                                   ?)) *
+                             TVS.ANURGENT_SPEEDUP_RIGHT / 100,
+                             2) AS SAFE_URGENT_SPEED_SCORE,
+                            ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.URGENT_LOWDOWN_NUM,
+                                                           MONTHLY.TRAVEL_MILEAGE,
+                                                           NVL(TVS.ANURGENT_SPEEDDOWN_MIN,
+                                                               ?),
+                                                           NVL(TVS.ANURGENT_SPEEDDOWN_MAX,
+                                                               ?)) *
+                         TVS.ANURGENT_SPEEDDOWN_RIGHT / 100,
+                         2) AS SAFE_URGENT_LOWDOWN_SCORE,
+                     
+                       ROUND(GRADE_SCORE_PACK.COUNT_BASE_SCORE(MONTHLY.FATIGUE_SUM,
+                                                               MONTHLY.TRAVEL_MILEAGE,
+                                                               NVL(TVS.FATIGUE_MIN,
+                                                                   ?),
+                                                               NVL(TVS.FATIGUE_MAX,
+                                                                   ?)) *
+                             TVS.FATIGUE_RIGHT / 100,
+                             2) AS SAFE_FATIGUE_SCORE,
+                      
+                       GRADE_SCORE_PACK.COUNT_FACTOILWEAR_VALUE(MONTHLY.OIL_WEAR_SUM,
+                                                                MONTHLY.TRAVEL_MILEAGE) FACT_OILWEAR,
+                       ROUND(GRADE_SCORE_PACK.COUNT_CHECKOILWEAR_SCORE_REAL(MONTHLY.OIL_WEAR_SUM,
+                                                                            MONTHLY.TRAVEL_MILEAGE,
+                                                                            NVL(MONTHLY.CHECK_OILWEAR,
+                                                                                0),
+                                                                            NVL(TVS.OILWEARCHK_MIN,
+                                                                                50),
+                                                                            NVL(TVS.OILWEARCHK_MAX,
+                                                                                150)) *
+                             TVS.OILWEARCHK_RIGHT / 100,
+                             2) OILWEAR_SCORE
+                  FROM (SELECT STAT_YEAR,
+                               STAT_MONTH,
+                               YEAR_MONTH,
+                               CORP_ID,
+                               CORP_NAME,
+                               TEAM_ID,
+                               TEAM_NAME,
+                               COUNT(DISTINCT VID) VEHICLE_SUM,
+                               SUM(NVL(TRAVEL_MILEAGE, 0)) TRAVEL_MILEAGE,
+                               SUM(NVL(OIL_WEAR_SUM, 0)) OIL_WEAR_SUM,
+                               SUM(NVL(OVERSPEED_SUM, 0)) OVERSPEED_SUM,
+                               SUM(NVL(OVERSPEED_TIME, 0)) OVERSPEED_TIME,
+                               SUM(NVL(OVERRPM_SUM, 0)) OVERRPM_SUM,
+                               SUM(NVL(OVERRPM_TIME, 0)) OVERRPM_TIME,
+                               SUM(NVL(GEAR_GLIDE_SUM, 0)) GEAR_GLIDE_SUM,
+                               SUM(NVL(GEAR_GLIDE_TIME, 0)) GEAR_GLIDE_TIME,
+                               SUM(NVL(LONG_IDLE_SUM, 0)) LONG_IDLE_SUM,
+                               SUM(NVL(LONG_IDLE_TIME, 0)) LONG_IDLE_TIME,
+                               SUM(NVL(FATIGUE_SUM, 0)) FATIGUE_SUM,
+                               SUM(NVL(FATIGUE_TIME, 0)) FATIGUE_TIME,
+                               SUM(NVL(ECONOMIC_RUN_SUM, 0)) ECONOMIC_RUN_SUM,
+                               SUM(NVL(ECONOMIC_RUN_TIME, 0)) ECONOMIC_RUN_TIME,
+                               SUM(NVL(URGENT_SUM, 0)) URGENT_SUM,
+                               SUM(NVL(AIR_CONDITION_SUM, 0)) AIR_CONDITION_SUM,
+                               SUM(NVL(AIR_CONDITION_TIME, 0)) AIR_CONDITION_TIME,
+                               SUM(NVL(ENGINE_ROTATE_TIME, 0)) ENGINE_ROTATE_TIME,
+                               AVG(CHECK_OILWEAR) CHECK_OILWEAR,
+                               SUM(NVL(URGENT_LOWDOWN_NUM, 0)) URGENT_LOWDOWN_NUM,
+                               SUM(NVL(URGENT_SPEED_NUM, 0)) URGENT_SPEED_NUM,
+                               NVL(ROUND(DECODE(SUM(CASE
+                                                      WHEN ENGINE_ROTATE_TIME IS NULL THEN
+                                                       0
+                                                      ELSE
+                                                       ENGINE_ROTATE_TIME
+                                                    END),
+                                                0,
+                                                0,
+                                                SUM(CASE
+                                                      WHEN ECONOMIC_RUN_TIME IS NULL THEN
+                                                       0
+                                                      ELSE
+                                                       ECONOMIC_RUN_TIME
+                                                    END) * 100 /
+                                                SUM(CASE
+                                                      WHEN ENGINE_ROTATE_TIME IS NULL THEN
+                                                       0
+                                                      ELSE
+                                                       ENGINE_ROTATE_TIME
+                                                    END)),
+                                         2),
+                                   0) AS ECONOMIC_RUN_BL
+                          FROM TS_GRADE_MONTHSTAT GM WHERE GM.YEAR_MONTH = ?
+                         GROUP BY STAT_YEAR,
+                                  STAT_MONTH,
+                                  YEAR_MONTH,
+                                  CORP_ID,
+                                  CORP_NAME,
+                                  TEAM_ID,
+                                  TEAM_NAME) MONTHLY,
+                       (SELECT SET0.ENT_ID, SET0.CHECK_TIME_CODE, SCORE.*
+                          FROM TB_VEHICLE_SCORE SCORE, TB_CHECKMONTH_SET SET0
+                         WHERE SCORE.CHECK_TIME_ID = SET0.CHECK_TIME_ID
+                           AND SCORE.ENABLE_FLAG = 1
+                           AND SET0.ENABLE_FLAG = 1) TVS
+                 WHERE MONTHLY.CORP_ID = TVS.ENT_ID
+                   AND MONTHLY.YEAR_MONTH = TVS.CHECK_TIME_CODE) BASE_SCORE) FINAL_SCORE
+		</property>
+		<property name = "sql_deleteGradeCorp" desc = "删除企业考核月数据">
+			DELETE FROM TS_GRADE_MONTHSTAT_CORP TS WHERE TS.YEAR_MONTH = ?
+		</property>
+		<property name = "sql_deleteGradeTeam" desc = "删除车队考核月数据">
+			DELETE FROM TS_GRADE_MONTHSTAT_TEAM TS WHERE TS.YEAR_MONTH = ?
+		</property>
+		
+		
+		<property name ="sql_saveGasPressureDayStat" desc = "存储进气压力">
+			 INSERT INTO TH_GASPRESSURE_DIST_DAY_NEW (
+			  AUTO_ID               ,
+			  VID                   ,
+			  VEHICLE_NO            ,
+			  VIN_CODE              ,
+			  STAT_TIME             ,
+			  PRESSURE_0            ,
+			  PRESSURE_0_TIME       ,
+			  PRESSURE_0_50         ,
+			  PRESSURE_0_50_TIME    ,
+			  PRESSURE_50_55        ,
+			  PRESSURE_50_55_TIME   ,
+			  PRESSURE_55_60        ,
+			  PRESSURE_55_60_TIME   ,
+			  PRESSURE_60_65        ,
+			  PRESSURE_60_65_TIME   ,
+			  PRESSURE_65_70        ,
+			  PRESSURE_65_70_TIME   ,
+			  PRESSURE_70_75        ,
+			  PRESSURE_70_75_TIME   ,
+			  PRESSURE_75_80        ,
+			  PRESSURE_75_80_TIME   ,
+			  PRESSURE_80_85        ,
+			  PRESSURE_80_85_TIME   ,
+			  PRESSURE_85_90        ,
+			  PRESSURE_85_90_TIME   ,
+			  PRESSURE_90_95        ,
+			  PRESSURE_90_95_TIME   ,
+			  PRESSURE_95_100       ,
+			  PRESSURE_95_100_TIME  ,
+			  PRESSURE_100_105      ,
+			  PRESSURE_100_105_TIME ,
+			  PRESSURE_105_110      ,
+			  PRESSURE_105_110_TIME ,
+			  PRESSURE_110_115      ,
+			  PRESSURE_110_115_TIME ,
+			  PRESSURE_115_120      ,
+			  PRESSURE_115_120_TIME ,
+			  PRESSURE_120_MAX      ,
+			  PRESSURE_120_MAX_TIME ,
+			  MAX_PRESSURE          ,
+			  MIN_PRESSURE          
+			)
+			  VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name ="sql_saveOilPressureDayStat" desc = "存储机油压力">
+			 INSERT INTO TH_OILPRESSUREDIST_DAY_NEW
+				  (AUTO_ID               ,
+				  VID                   ,
+				  VEHICLE_NO            ,
+				  VIN_CODE              ,
+				  STAT_TIME             ,
+				  PRESSURE_0            ,
+				  PRESSURE_0_TIME       ,
+				  PRESSURE_0_50         ,
+				  PRESSURE_0_50_TIME    ,
+				  PRESSURE_50_100       ,
+				  PRESSURE_50_100_TIME  ,
+				  PRESSURE_100_150      ,
+				  PRESSURE_100_150_TIME ,
+				  PRESSURE_150_200      ,
+				  PRESSURE_150_200_TIME ,
+				  PRESSURE_200_250      ,
+				  PRESSURE_200_250_TIME ,
+				  PRESSURE_250_300      ,
+				  PRESSURE_250_300_TIME ,
+				  PRESSURE_300_350      ,
+				  PRESSURE_300_350_TIME ,
+				  PRESSURE_350_400      ,
+				  PRESSURE_350_400_TIME ,
+				  PRESSURE_400_450      ,
+				  PRESSURE_400_450_TIME ,
+				  PRESSURE_450_500      ,
+				  PRESSURE_450_500_TIME ,
+				  PRESSURE_500_550      ,
+				  PRESSURE_500_550_TIME ,
+				  PRESSURE_550_600      ,
+				  PRESSURE_550_600_TIME ,
+				  PRESSURE_600_650      ,
+				  PRESSURE_600_650_TIME ,
+				  PRESSURE_650_700      ,
+				  PRESSURE_650_700_TIME ,
+				  PRESSURE_700_750      ,
+				  PRESSURE_700_750_TIME ,
+				  PRESSURE_750_800      ,
+				  PRESSURE_750_800_TIME ,
+				  PRESSURE_800_MAX      ,
+				  PRESSURE_800_MAX_TIME ,
+				  MAX_PRESSURE          ,
+				  MIN_PRESSURE) 
+				  VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name ="sql_saveCoolLiquidtemDayStat" desc = "存储冷却液温度">
+			 INSERT INTO TH_COOLLIQUIDTEM_DIST_DAY_NEW (
+				  AUTO_ID                  ,
+				  VID                      ,
+				  VEHICLE_NO               ,
+				  VIN_CODE                 ,
+				  STAT_TIME                ,
+				  TEMPERATURE_0            ,
+				  TEMPERATURE_0_TIME       ,
+				  TEMPERATURE_0_5          ,
+				  TEMPERATURE_0_5_TIME     ,
+				  TEMPERATURE_5_10         ,
+				  TEMPERATURE_5_10_TIME    ,
+				  TEMPERATURE_10_15        ,
+				  TEMPERATURE_10_15_TIME   ,
+				  TEMPERATURE_15_20        ,
+				  TEMPERATURE_15_20_TIME   ,
+				  TEMPERATURE_20_25        ,
+				  TEMPERATURE_20_25_TIME   ,
+				  TEMPERATURE_25_30        ,
+				  TEMPERATURE_25_30_TIME   ,
+				  TEMPERATURE_30_35        ,
+				  TEMPERATURE_30_35_TIME   ,
+				  TEMPERATURE_35_40        ,
+				  TEMPERATURE_35_40_TIME   ,
+				  TEMPERATURE_40_45        ,
+				  TEMPERATURE_40_45_TIME   ,
+				  TEMPERATURE_45_50        ,
+				  TEMPERATURE_45_50_TIME   ,
+				  TEMPERATURE_50_55        ,
+				  TEMPERATURE_50_55_TIME   ,
+				  TEMPERATURE_55_60        ,
+				  TEMPERATURE_55_60_TIME   ,
+				  TEMPERATURE_60_65        ,
+				  TEMPERATURE_60_65_TIME   ,
+				  TEMPERATURE_65_70        ,
+				  TEMPERATURE_65_70_TIME   ,
+				  TEMPERATURE_70_75        ,
+				  TEMPERATURE_70_75_TIME   ,
+				  TEMPERATURE_75_80        ,
+				  TEMPERATURE_75_80_TIME   ,
+				  TEMPERATURE_80_85        ,
+				  TEMPERATURE_80_85_TIME   ,
+				  TEMPERATURE_85_90        ,
+				  TEMPERATURE_85_90_TIME   ,
+				  TEMPERATURE_90_95        ,
+				  TEMPERATURE_90_95_TIME   ,
+				  TEMPERATURE_95_100       ,
+				  TEMPERATURE_95_100_TIME  ,
+				  TEMPERATURE_100_105      ,
+				  TEMPERATURE_100_105_TIME ,
+				  TEMPERATURE_105_110      ,
+				  TEMPERATURE_105_110_TIME ,
+				  TEMPERATURE_110_115      ,
+				  TEMPERATURE_110_115_TIME ,
+				  TEMPERATURE_115_120      ,
+				  TEMPERATURE_115_120_TIME ,
+				  TEMPERATURE_120_MAX      ,
+				  TEMPERATURE_120_MAX_TIME ,
+				  MAX_TEMPERATURE          ,
+				  MIN_TEMPERATURE          
+				)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name ="sql_saveSpeeddistDayStat" desc = "车速分析存储">
+			 insert into TH_SPEEDDIST_DAY_NEW (AUTO_ID, VID, VEHICLE_NO, C_VIN, STAT_TIME, SPEED_0, SPEED_0_TIME,
+		      SPEED_0_10, SPEED_0_10_TIME, SPEED_10_20, SPEED_10_20_TIME, SPEED_20_30, SPEED_20_30_TIME,
+		      SPEED_30_40, SPEED_30_40_TIME, SPEED_40_50, SPEED_40_50_TIME, SPEED_50_60, SPEED_50_60_TIME,
+		      SPEED_60_70, SPEED_60_70_TIME, SPEED_70_80, SPEED_70_80_TIME, SPEED_80_90, SPEED_80_90_TIME,
+		      SPEED_90_100, SPEED_90_100_TIME, SPEED_100_110, SPEED_100_110_TIME, SPEED_110_120,
+		      SPEED_110_120_TIME, SPEED_120_130, SPEED_120_130_TIME, SPEED_130_140, SPEED_130_140_TIME,
+		      SPEED_140_150, SPEED_140_150_TIME, SPEED_150_160, SPEED_150_160_TIME, SPEED_160_170,
+		      SPEED_160_170_TIME, SPEED_170_180, SPEED_170_180_TIME, SPEED_180_190, SPEED_180_190_TIME,
+		      SPEED_190_200, SPEED_190_200_TIME, SPEED_MAX, SPEED_MAX_TIME, MAX_SPEED, MIN_SPEED)				      
+		    values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+		      ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+		      ?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name ="sql_saveRotateDayStat" desc = "转速分析存储">
+			insert into TH_ROTATESPEED_DAY_NEW (ROTATE_ID, VID, VEHICLE_NO, C_VIN, TERMINAL_UTC, CREATE_TIME,
+		      ROTATE_SPEED_0, ROTATE_SPEED_0_TIME, ROTATE_SPEED_0_100, ROTATE_SPEED_0_100_TIME,
+		      ROTATE_SPEED_100_200, ROTATE_SPEED_100_200_TIME, ROTATE_SPEED_200_300,
+		      ROTATE_SPEED_200_300_TIME, ROTATE_SPEED_300_400, ROTATE_SPEED_300_400_TIME,
+		      ROTATE_SPEED_400_500, ROTATE_SPEED_400_500_TIME, ROTATE_SPEED_500_600,
+		      ROTATE_SPEED_500_600_TIME, ROTATE_SPEED_600_700, ROTATE_SPEED_600_700_TIME,
+		      ROTATE_SPEED_700_800, ROTATE_SPEED_700_800_TIME, ROTATE_SPEED_800_900,
+		      ROTATE_SPEED_800_900_TIME, ROTATE_SPEED_900_1000, ROTATE_SPEED_900_1000_TIME,
+		      ROTATE_SPEED_1000_1100, ROTATE_SPEED_1000_1100_TIME, ROTATE_SPEED_1100_1200,
+		      ROTATE_SPEED_1100_1200_TIME, ROTATE_SPEED_1200_1300, ROTATE_SPEED_1200_1300_TIME,
+		      ROTATE_SPEED_1300_1400, ROTATE_SPEED_1300_1400_TIME, ROTATE_SPEED_1400_1500,
+		      ROTATE_SPEED_1400_1500_TIME, ROTATE_SPEED_1500_1600, ROTATE_SPEED_1500_1600_TIME,
+		      ROTATE_SPEED_1600_1700, ROTATE_SPEED_1600_1700_TIME, ROTATE_SPEED_1700_1800,
+		      ROTATE_SPEED_1700_1800_TIME, ROTATE_SPEED_1800_1900, ROTATE_SPEED_1800_1900_TIME,
+		      ROTATE_SPEED_1900_2000, ROTATE_SPEED_1900_2000_TIME, ROTATE_SPEED_2000_2100,
+		      ROTATE_SPEED_2000_2100_TIME, ROTATE_SPEED_2100_2200, ROTATE_SPEED_2100_2200_TIME,
+		      ROTATE_SPEED_2200_2300, ROTATE_SPEED_2200_2300_TIME, ROTATE_SPEED_2300_2400,
+		      ROTATE_SPEED_2300_2400_TIME, ROTATE_SPEED_2400_2500, ROTATE_SPEED_2400_2500_TIME,
+		      ROTATE_SPEED_2500_2600, ROTATE_SPEED_2500_2600_TIME, ROTATE_SPEED_2600_2700,
+		      ROTATE_SPEED_2600_2700_TIME, ROTATE_SPEED_2700_2800, ROTATE_SPEED_2700_2800_TIME,
+		      ROTATE_SPEED_2800_2900, ROTATE_SPEED_2800_2900_TIME, ROTATE_SPEED_2900_3000,
+		      ROTATE_SPEED_2900_3000_TIME, ROTATE_SPEED_MAX, ROTATE_SPEED_MAX_TIME, PERCENT_60_80_FUHELV,
+		      MIN_ROTATE_SPEED, MAX_ROTATE_SPEED)
+		    values (?,?,?,?,
+		      ?,?,?,?,?,?,?,?,?,?,?,?,
+		      ?,?,?,?,?,?,?,?,?,?,?,?,
+		      ?,?,?,?,?,?,?,?,?,?,?,?,?,
+		      ?,?,?,?,?,?,?,?,?,?,?,?,
+		      ?,?,?,?,?,?,?,?,?,?,?,?,
+		      ?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name ="sql_saveVoltageDayStat" desc = "蓄电池电压">
+			insert into TH_VOLTAGEDIST_DAY_NEW (AUTO_ID, VID, VEHICLE_NO, VIN_CODE, STAT_TIME, VOLTAGE_0,
+		      VOLTAGE_0_TIME, VOLTAGE_0_20, VOLTAGE_0_20_TIME, VOLTAGE_20_21_1, VOLTAGE_20_21_1_TIME,
+		      VOLTAGE_20_21_2, VOLTAGE_20_21_2_TIME, VOLTAGE_21_22_1, VOLTAGE_21_22_1_TIME, VOLTAGE_21_22_2,
+		      VOLTAGE_21_22_2_TIME, VOLTAGE_22_23_1, VOLTAGE_22_23_1_TIME, VOLTAGE_22_23_2,
+		      VOLTAGE_22_23_2_TIME, VOLTAGE_23_24_1, VOLTAGE_23_24_1_TIME, VOLTAGE_23_24_2,
+		      VOLTAGE_23_24_2_TIME, VOLTAGE_24_25_1, VOLTAGE_24_25_1_TIME, VOLTAGE_24_25_2,
+		      VOLTAGE_24_25_2_TIME, VOLTAGE_25_26_1, VOLTAGE_25_26_1_TIME, VOLTAGE_25_26_2,
+		      VOLTAGE_25_26_2_TIME, VOLTAGE_26_27_1, VOLTAGE_26_27_1_TIME, VOLTAGE_26_27_2,
+		      VOLTAGE_26_27_2_TIME, VOLTAGE_27_28_1, VOLTAGE_27_28_1_TIME, VOLTAGE_27_28_2,
+		      VOLTAGE_27_28_2_TIME, VOLTAGE_28_29_1, VOLTAGE_28_29_1_TIME, VOLTAGE_28_29_2,
+		      VOLTAGE_28_29_2_TIME, VOLTAGE_29_MAX, VOLTAGE_29_MAX_TIME, MAX_VOLTAGE, MIN_VOLTAGE, SUMTIME,
+		      SUMCOUNT, VOLTAGE_0_12_1, VOLTAGE_0_12_1_TIME, VOLTAGE_0_12_2, VOLTAGE_0_12_2_TIME,
+		      VOLTAGE_12_13_1, VOLTAGE_12_13_1_TIME, VOLTAGE_12_13_2, VOLTAGE_12_13_2_TIME, VOLTAGE_13_14_1,
+		      VOLTAGE_13_14_1_TIME, VOLTAGE_13_14_2, VOLTAGE_13_14_2_TIME, VOLTAGE_14_1, VOLTAGE_14_1_TIME,
+		      VOLTAGE_14_MAX, VOLTAGE_14_MAX_TIME)
+		    values (?,?,?,?,
+		      ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+		      ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+		      ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,
+		      ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name ="sql_saveAirTemperture" desc = "存储进气温度">
+			INSERT INTO TH_ENTERING_AIR_TEMP_NEW
+			(
+			  AUTO_ID                 ,
+			  VID                     ,
+			  VEHICLE_NO              ,
+			  VIN_CODE                ,
+			  STAT_TIME               ,
+			  TEMPERATURE_0           ,
+			  TEMPERATURE_0_TIME      ,
+			  TEMPERATURE_0_10        ,
+			  TEMPERATURE_0_10_TIME   ,
+			  TEMPERATURE_10_20       ,
+			  TEMPERATURE_10_20_TIME  ,
+			  TEMPERATURE_20_25       ,
+			  TEMPERATURE_20_25_TIME  ,
+			  TEMPERATURE_25_30       ,
+			  TEMPERATURE_25_30_TIME  ,
+			  TEMPERATURE_30_35       ,
+			  TEMPERATURE_30_35_TIME  ,
+			  TEMPERATURE_35_40       ,
+			  TEMPERATURE_35_40_TIME  ,
+			  TEMPERATURE_40_45       ,
+			  TEMPERATURE_40_45_TIME  ,
+			  TEMPERATURE_45_50       ,
+			  TEMPERATURE_45_50_TIME  ,
+			  TEMPERATURE_50_60       ,
+			  TEMPERATURE_50_60_TIME  ,
+			  TEMPERATURE_60_70       ,
+			  TEMPERATURE_60_70_TIME  ,
+			  TEMPERATURE_70_MAX      ,
+			  TEMPERATURE_70_MAX_TIME ,
+			  MAX_TEMPERATURE         ,
+			  MIN_TEMPERATURE         
+			)
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+	</config>
+	
+	<tasks>
+		<task name="OilWearTask" enable="false" threadNum = "4" desc="油耗油量统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.trackservice.task.OilWearTask</class>		
+			<properties desc="自定义配置">
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+		
+		<task name="VehicleRunningMileageTask" enable="false" threadNum = "4" desc="行驶里程统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.trackservice.task.VehicleRunningMileageTask</class>	
+			<properties desc="自定义配置">	
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+		
+		<task name="VehicleRunningMileageMonthTask" enable="false" threadNum = "0" desc="行驶里程月统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.trackservice.task.VehicleRunningMileageMonthTask</class>		
+			<properties desc="自定义配置">
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+		<task name="VehicleRunningTask" enable="true" threadNum = "4" desc="车辆运行统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.trackservice.task.VehicleRunningTask</class>		
+			<properties desc="自定义配置">
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+						
+		<task name="VehicleRunningMonthTask" enable ="false" threadNum = "0" desc="车辆运行统计月统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.trackservice.task.VehicleRunningMonthTask</class>		
+			<properties desc="自定义配置">
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+		
+		<task name="VehicleReportTask" enable="false" threadNum = "4" desc="单车分析报告统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.trackservice.task.VehicleReportTask</class>		
+			<properties desc="自定义配置">			
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+		
+		<task name="TransportTask" enable="true" threadNum = "0" desc="趟次统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.trackservice.task.TransportTask</class>			
+			<properties desc="自定义配置">
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+		
+		<task name="MaintenanceTask" enable="false" threadNum = "0" desc="智能维保统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.trackservice.task.MaintenanceTask</class>			
+			<properties desc="自定义配置">
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+				
+		<task name="GradeStatisticTask" enable="true" threadNum = "0" desc="运营考核统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.trackservice.task.GradeStatisticTask</class>			
+			<properties desc="自定义配置">
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+		<task name="AutoExtendAssessSetTask" enable="false" threadNum = "0" desc="自动扩展统计">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.trackservice.task.AutoExtendAssessSetTask</class>			
+			<properties desc="自定义配置">
+				<property name = "batchNum" desc = "提交数">1000</property>
+				<property name = "batchTime" desc = "提交间隔(秒)">30</property>
+			</properties>
+		</task>
+	</tasks>
+	
+</configuration>

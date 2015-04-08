@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<monitor>
+	<person>
+		<tel>15013783241</tel>
+		<desribe>张平</desribe>
+	</person>
+	
+	<nimbus>
+		<alarm>[Storm Alarm]:Nimubs has stopped, pls start.</alarm>
+		<describe>Nimbus  </describe>
+	</nimbus>
+	<Supervisor>
+		<!--Supervisor的个数  -->
+		<Supervisor-sum>5</Supervisor-sum>
+		<alarm>[Storm Alarm]:Supervisor is ${num},the right is 5.</alarm>
+	</Supervisor>
+	
+	<Topology>
+		<!-- 需要监控的 topology name -->
+		<topology-name>Exclam</topology-name>
+		<topology-name>test2</topology-name>
+		<alarm>[Storm Alarm]:Topology ${name} is down, pls check and start.</alarm>
+	</Topology>
+	
+	<zookeeper>
+		<!-- zk的配置 -->
+		<host>10.2.1.1:2181,10.2.1.2:2181,10.2.1.3:2181</host>
+		<timeout>3000</timeout>
+	</zookeeper>
+</monitor>
+
+
+

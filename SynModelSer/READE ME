@@ -1,0 +1,6 @@
+项目：同步模块
+描述：1.实现了同步车机注册后的DB的数据到Memcached中，共前置机鉴权使用。
+	  2.实现了更新车机注册后数据，更新车辆，终端的注册的状态。
+主类：com.ctfo.synmodelser.server.ModelServer
+使用：1.将工程打包，执行java -jar jar_name -H
+      2.直接执行ModelServer类，指定响应的参数

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<contextName>spannedstatistics</contextName>
+	
+	<!--appender 输出目的地 ROLLING 文件 日志按小时记录 最多保存3个小时的数据 每个小时内的文件按100M分块， -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>/logs/spannedstatistics/spannedstatistics.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> 
+			<fileNamePattern>/logs/spannedstatistics/spannedstatistics-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>3</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date [%contextName][%logger]-[%le] - %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 日志级别 -->
+	<root level="WARN">
+		<appender-ref ref="FILE" />
+	</root>
+</configuration>
+

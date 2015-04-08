@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TbServiceview">
+	<typeAlias type="com.ctfo.local.obj.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<resultMap id="TbServiceviewManage" class="com.ctfo.memorymysql.beans.TbServiceviewManage">
+		<result column="VID" property="vid" jdbcType="INTEGER" />
+		<result column="CORP_ID" property="corpId" jdbcType="INTEGER" />
+		<result column="CORP_NAME" property="corpName" jdbcType="VARCHAR" />
+		<result column="TEAM_ID" property="teamId" jdbcType="INTEGER" />
+		<result column="TEAM_NAME" property="teamName" jdbcType="VARCHAR" />
+		<result column="OEMCODE" property="oemcode" jdbcType="VARCHAR" />
+		<result column="OEMNAME" property="oemname" jdbcType="VARCHAR" />
+		<result column="COMMADDR" property="commaddr" jdbcType="VARCHAR" />
+		<result column="TID" property="tid" jdbcType="INTEGER" />
+		<result column="T_MAC" property="tMac" jdbcType="VARCHAR" />
+		<result column="CID" property="cid" jdbcType="INTEGER" />
+		<result column="CNAME" property="cname" jdbcType="VARCHAR" />
+		<result column="CCARD_ID" property="ccardId" jdbcType="VARCHAR" />
+		<result column="SID" property="sid" jdbcType="INTEGER" />
+		<result column="VEHICLENO" property="vehicleno" jdbcType="VARCHAR" />
+		<result column="PLATE_COLOR_ID" property="plateColorId" jdbcType="INTEGER" />
+		<result column="TRANS_TYPE_CODE" property="transTypeCode" jdbcType="VARCHAR" />
+		<result column="VEHICLETYPE_ID" property="vehicletypeId" jdbcType="INTEGER" />
+		<result column="TYPE_NAME" property="typeName" jdbcType="VARCHAR" />
+		<result column="PTYPE_NAME" property="ptypeName" jdbcType="VARCHAR" />
+		<result column="LAT" property="lat" jdbcType="INTEGER" />
+		<result column="LON" property="lon" jdbcType="INTEGER" />
+		<result column="MAPLON" property="maplon" jdbcType="DECIMAL" />
+		<result column="MAPLAT" property="maplat" jdbcType="DECIMAL" />
+		<result column="HEAD" property="head" jdbcType="INTEGER" />
+		<result column="SPEED" property="speed" jdbcType="INTEGER" />
+		<result column="UTC" property="utc" jdbcType="BIGINT" />
+		<result column="ALARMCODE" property="alarmcode" jdbcType="VARCHAR" />
+		<result column="ALARMUTC" property="alarmutc" jdbcType="BIGINT" />
+		<result column="ALARMDESC" property="alarmdesc" jdbcType="VARCHAR" />
+		<result column="ISONLINE" property="isonline" jdbcType="INTEGER" />
+		<result column="AREA_CODE" property="areaCode" jdbcType="INTEGER" />
+		<result column="SP_ID" property="spId" jdbcType="INTEGER" />
+		<result column="ACCESS_CODE" property="accessCode" jdbcType="INTEGER" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="SYN_UTC" property="synUtc" jdbcType="BIGINT" />
+		<result column="T_IDENTIFYNO" property="tIdentifyno" jdbcType="VARCHAR" />
+		<result column="OCODE" property="ocode" jdbcType="VARCHAR" />
+		<result column="BELONG_SPIDS" property="belongSpids" jdbcType="VARCHAR" />
+		<result column="BELONG_CORPIDS" property="belongCorpids" jdbcType="VARCHAR" />
+		<result column="BELONG_TEAMIDS" property="belongTeamids" jdbcType="VARCHAR" />
+		<result column="VEHICLE_STATUS" property="vehicleStatus" jdbcType="INTEGER" />
+		<result column="HEIGHT" property="height" jdbcType="INTEGER" />
+		<result column="CUR_AREA_CODE" property="curAreaCode" jdbcType="INTEGER" />
+		<result column="UPDATETIME" property="updatetime" jdbcType="BIGINT" />
+		<result column="ENGINE_ROTATE_SPEED" property="engineRotateSpeed" jdbcType="INTEGER" />
+		<result column="OIL_INSTANT" property="oilInstant" jdbcType="DOUBLE" />
+	</resultMap>
+	<sql id="columns">
+		VID,CORP_ID,CORP_NAME,TEAM_ID,TEAM_NAME,OEMCODE,OEMNAME,COMMADDR,TID,T_MAC,CID,CNAME,CCARD_ID,SID,
+		VEHICLENO,PLATE_COLOR_ID,TRANS_TYPE_CODE,VEHICLETYPE_ID,TYPE_NAME,PTYPE_NAME,LAT,LON,MAPLON,MAPLAT,
+		HEAD,SPEED,UTC,ALARMCODE,ALARMUTC,ALARMDESC,ISONLINE,AREA_CODE,SP_ID,ACCESS_CODE,STATUS,SYN_UTC,
+		T_IDENTIFYNO,OCODE,BELONG_SPIDS,BELONG_CORPIDS,BELONG_TEAMIDS,VEHICLE_STATUS,HEIGHT,CUR_AREA_CODE,
+		UPDATETIME,ENGINE_ROTATE_SPEED,OIL_INSTANT
+	</sql>
+	<sql id="table">
+		TB_SERVICEVIEW
+  	</sql>
+	<sql id="set">
+		<dynamic prepend="set">
+			VID = #vid:INTEGER#
+			,CORP_ID = #corpId:INTEGER#
+			,CORP_NAME = #corpName:VARCHAR#
+			,TEAM_ID = #teamId:INTEGER#
+			,TEAM_NAME = #teamName:VARCHAR#
+			,OEMCODE = #oemcode:VARCHAR#
+			,OEMNAME = #oemname:VARCHAR#
+			,COMMADDR = #commaddr:VARCHAR#
+			,TID = #tid:INTEGER#
+			,T_MAC = #tMac:VARCHAR#
+			,CID = #cid:INTEGER#
+			,CNAME = #cname:VARCHAR#
+			,CCARD_ID = #ccardId:VARCHAR#
+			,SID = #sid:INTEGER#
+			,TRANS_TYPE_CODE = #transTypeCode:VARCHAR#
+			,VEHICLETYPE_ID = #vehicletypeId:INTEGER#
+			,TYPE_NAME = #typeName:VARCHAR#
+			,PTYPE_NAME = #ptypeName:VARCHAR#
+			,LAT = #lat:INTEGER#
+			,LON = #lon:INTEGER#
+			,MAPLON = #maplon:DECIMAL#
+			,MAPLAT = #maplat:DECIMAL#
+			,HEAD = #head:INTEGER#
+			,SPEED = #speed:INTEGER#
+			,UTC = #utc:BIGINT#
+			,ALARMCODE = #alarmcode:VARCHAR#
+			,ALARMUTC = #alarmutc:BIGINT#
+			,ALARMDESC = #alarmdesc:VARCHAR#
+			,ISONLINE = #isonline:INTEGER#
+			,AREA_CODE = #areaCode:INTEGER#
+			,SP_ID = #spId:INTEGER#
+			,ACCESS_CODE = #accessCode:INTEGER#
+			,STATUS = #status:VARCHAR#
+			,SYN_UTC = #synUtc:BIGINT#
+			,T_IDENTIFYNO = #tIdentifyno:VARCHAR#
+			,OCODE = #ocode:VARCHAR#
+			,BELONG_SPIDS = #belongSpids:VARCHAR#
+			,BELONG_CORPIDS = #belongCorpids:VARCHAR#
+			,BELONG_TEAMIDS = #belongTeamids:VARCHAR#
+			,VEHICLE_STATUS = #vehicleStatus:INTEGER#
+			,HEIGHT = #height:INTEGER#
+			,CUR_AREA_CODE = #curAreaCode:INTEGER#
+			,UPDATETIME = #updatetime:BIGINT#
+			,ENGINE_ROTATE_SPEED = #engineRotateSpeed:INTEGER#
+			,OIL_INSTANT = #oilInstant:DOUBLE#
+    </dynamic>
+	</sql>
+	<sql id="setParam">
+		<dynamic prepend="set">
+			VID = #updateValue.vid:INTEGER#
+			CORP_ID = #updateValue.corpId:INTEGER#
+			CORP_NAME = #updateValue.corpName:VARCHAR#
+			TEAM_ID = #updateValue.teamId:INTEGER#
+			TEAM_NAME = #updateValue.teamName:VARCHAR#
+			OEMCODE = #updateValue.oemcode:VARCHAR#
+			OEMNAME = #updateValue.oemname:VARCHAR#
+			COMMADDR = #updateValue.commaddr:VARCHAR#
+			TID = #updateValue.tid:INTEGER#
+			T_MAC = #updateValue.tMac:VARCHAR#
+			CID = #updateValue.cid:INTEGER#
+			CNAME = #updateValue.cname:VARCHAR#
+			CCARD_ID = #updateValue.ccardId:VARCHAR#
+			SID = #updateValue.sid:INTEGER#
+			TRANS_TYPE_CODE = #updateValue.transTypeCode:VARCHAR#
+			VEHICLETYPE_ID = #updateValue.vehicletypeId:INTEGER#
+			TYPE_NAME = #updateValue.typeName:VARCHAR#
+			PTYPE_NAME = #updateValue.ptypeName:VARCHAR#
+			LAT = #updateValue.lat:INTEGER#
+			LON = #updateValue.lon:INTEGER#
+			MAPLON = #updateValue.maplon:DECIMAL#
+			MAPLAT = #updateValue.maplat:DECIMAL#
+			HEAD = #updateValue.head:INTEGER#
+			SPEED = #updateValue.speed:INTEGER#
+			UTC = #updateValue.utc:BIGINT#
+			ALARMCODE = #updateValue.alarmcode:VARCHAR#
+			ALARMUTC = #updateValue.alarmutc:BIGINT#
+			ALARMDESC = #updateValue.alarmdesc:VARCHAR#
+			ISONLINE = #updateValue.isonline:INTEGER#
+			AREA_CODE = #updateValue.areaCode:INTEGER#
+			SP_ID = #updateValue.spId:INTEGER#
+			ACCESS_CODE = #updateValue.accessCode:INTEGER#
+			STATUS = #updateValue.status:VARCHAR#
+			SYN_UTC = #updateValue.synUtc:BIGINT#
+			T_IDENTIFYNO = #updateValue.tIdentifyno:VARCHAR#
+			OCODE = #updateValue.ocode:VARCHAR#
+			BELONG_SPIDS = #updateValue.belongSpids:VARCHAR#
+			BELONG_CORPIDS = #updateValue.belongCorpids:VARCHAR#
+			BELONG_TEAMIDS = #updateValue.belongTeamids:VARCHAR#
+			VEHICLE_STATUS = #updateValue.vehicleStatus:INTEGER#
+			HEIGHT = #updateValue.height:INTEGER#
+			CUR_AREA_CODE = #updateValue.curAreaCode:INTEGER#
+			UPDATETIME = #updateValue.updatetime:BIGINT#
+			ENGINE_ROTATE_SPEED = #updateValue.engineRotateSpeed:INTEGER#
+			OIL_INSTANT = #updateValue.oilInstant:DOUBLE#
+		</dynamic>
+	</sql>
+	<sql id="equal_WHERE">
+		<isNotNull prepend="AND" property="equal.plateColorId">
+			PLATE_COLOR_ID = #equal.plateColorId:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.vehicleno">
+			VEHICLENO = #equal.vehicleno:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.vid">
+			VID = #equal.vid:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.corpId">
+			CORP_ID = #equal.corpId:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.corpName">
+			CORP_NAME = #equal.corpName:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.teamId">
+			TEAM_ID = #equal.teamId:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.teamName">
+			TEAM_NAME = #equal.teamName:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.oemcode">
+			OEMCODE = #equal.oemcode:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.oemname">
+			OEMNAME = #equal.oemname:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.commaddr">
+			COMMADDR = #equal.commaddr:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.tid">
+			TID = #equal.tid:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.tMac">
+			T_MAC = #equal.tMac:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.cid">
+			CID = #equal.cid:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.cname">
+			CNAME = #equal.cname:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.ccardId">
+			CCARD_ID = #equal.ccardId:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.sid">
+			SID = #equal.sid:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.transTypeCode">
+			TRANS_TYPE_CODE = #equal.transTypeCode:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.vehicletypeId">
+			VEHICLETYPE_ID = #equal.vehicletypeId:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.typeName">
+			TYPE_NAME = #equal.typeName:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.ptypeName">
+			PTYPE_NAME = #equal.ptypeName:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.lat">
+			LAT = #equal.lat:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.lon">
+			LON = #equal.lon:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.maplon">
+			MAPLON = #equal.maplon:DECIMAL#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.maplat">
+			MAPLAT = #equal.maplat:DECIMAL#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.head">
+			HEAD = #equal.head:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.speed">
+			SPEED = #equal.speed:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.utc">
+			UTC = #equal.utc:BIGINT#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.alarmcode">
+			ALARMCODE = #equal.alarmcode:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.alarmutc">
+			ALARMUTC = #equal.alarmutc:BIGINT#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.alarmdesc">
+			ALARMDESC = #equal.alarmdesc:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.isonline">
+			ISONLINE = #equal.isonline:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.areaCode">
+			AREA_CODE = #equal.areaCode:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.spId">
+			SP_ID = #equal.spId:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.accessCode">
+			ACCESS_CODE = #equal.accessCode:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.status">
+			STATUS = #equal.status:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.synUtc">
+			SYN_UTC = #equal.synUtc:BIGINT#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.tIdentifyno">
+			T_IDENTIFYNO = #equal.tIdentifyno:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.ocode">
+			OCODE = #equal.ocode:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.belongSpids">
+			BELONG_SPIDS = #equal.belongSpids:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.belongCorpids">
+			BELONG_CORPIDS = #equal.belongCorpids:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.belongTeamids">
+			BELONG_TEAMIDS = #equal.belongTeamids:VARCHAR#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.vehicleStatus">
+			VEHICLE_STATUS = #equal.vehicleStatus:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.height">
+			HEIGHT = #equal.height:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.curAreaCode">
+			CUR_AREA_CODE = #equal.curAreaCode:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.updatetime">
+			UPDATETIME = #equal.updatetime:BIGINT#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.engineRotateSpeed">
+			ENGINE_ROTATE_SPEED = #equal.engineRotateSpeed:INTEGER#
+    	</isNotNull>
+		<isNotNull prepend="AND" property="equal.oilInstant">
+			OIL_INSTANT = #equal.oilInstant:DOUBLE#
+    	</isNotNull>
+	</sql>
+	<sql id="like_WHERE">
+		<isNotNull prepend="AND" property="like.corpName">
+			CORP_NAME like '%' || #like.corpName:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.teamName">
+			TEAM_NAME like '%' || #like.teamName:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.oemcode">
+			OEMCODE like '%' || #like.oemcode:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.oemname">
+			OEMNAME like '%' || #like.oemname:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.commaddr">
+			COMMADDR like '%' || #like.commaddr:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.tMac">
+			T_MAC like '%' || #like.tMac:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.cname">
+			CNAME like '%' || #like.cname:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.ccardId">
+			CCARD_ID like '%' || #like.ccardId:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.transTypeCode">
+			TRANS_TYPE_CODE like '%' || #like.transTypeCode:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.typeName">
+			TYPE_NAME like '%' || #like.typeName:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.ptypeName">
+			PTYPE_NAME like '%' || #like.ptypeName:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.alarmcode">
+			ALARMCODE like '%' || #like.alarmcode:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.alarmdesc">
+			ALARMDESC like '%' || #like.alarmdesc:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.status">
+			STATUS like '%' || #like.status:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.tIdentifyno">
+			T_IDENTIFYNO like '%' || #like.tIdentifyno:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.ocode">
+			OCODE like '%' || #like.ocode:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.belongSpids">
+			BELONG_SPIDS like '%' || #like.belongSpids:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.belongCorpids">
+			BELONG_CORPIDS like '%' || #like.belongCorpids:VARCHAR# || '%'
+    	</isNotNull>
+		<isNotNull prepend="AND" property="like.belongTeamids">
+			BELONG_TEAMIDS like '%' || #like.belongTeamids:VARCHAR# || '%'
+    	</isNotNull>
+	</sql>
+	<sql id="no_equal_WHERE">
+		<isNotEmpty prepend="AND" property="noId">
+			COMBO_ID !=#noId:VARCHAR#
+    	</isNotEmpty>
+	</sql>
+	<sql id="order">
+		<dynamic prepend="ORDER BY">
+			<isNotEmpty prepend="AND" property="order">
+				#order# $sort$
+      		</isNotEmpty>
+		</dynamic>
+	</sql>
+	<!--车辆ID数组 where条件 -->
+	<sql id="vidArray_in_where">
+		<isNotNull property="idarray">
+          <![CDATA[ WHERE VID in ]]>
+			<iterate property="idarray" conjunction="," open="(" close=")">
+				#idarray[]:Long#
+          	</iterate>
+		</isNotNull>
+	</sql>
+	<sql id="where_param">
+		<include refid="where" />
+		<include refid="equal_WHERE" />
+		<include refid="no_equal_WHERE" />
+		<include refid="like_WHERE" />
+	</sql>
+	<sql id="where">
+		WHERE ENABLE_FLAG!=-1
+  	</sql>
+	<insert id="insert" parameterClass="com.ctfo.memorymysql.beans.TbServiceviewManage">
+		<selectKey resultClass="INTEGER" keyProperty="plateColorId">
+			SELECT SEQ_ID.NEXTVAL AS VALUE FROM DUAL 
+    	</selectKey>
+		insert into TB_SERVICEVIEW (PLATE_COLOR_ID, VEHICLENO, VID, CORP_ID, CORP_NAME, TEAM_ID,
+		TEAM_NAME, OEMCODE, OEMNAME, COMMADDR, TID, T_MAC, CID, CNAME, CCARD_ID, SID, TRANS_TYPE_CODE,
+		VEHICLETYPE_ID, TYPE_NAME, PTYPE_NAME, LAT, LON, MAPLON, MAPLAT, HEAD, SPEED, UTC, ALARMCODE,
+		ALARMUTC, ALARMDESC, ISONLINE, AREA_CODE, SP_ID, ACCESS_CODE, STATUS, SYN_UTC, T_IDENTIFYNO,
+		OCODE, BELONG_SPIDS,
+		BELONG_CORPIDS, BELONG_TEAMIDS, VEHICLE_STATUS, HEIGHT, CUR_AREA_CODE,
+		UPDATETIME, ENGINE_ROTATE_SPEED, OIL_INSTANT)
+		values (#plateColorId:INTEGER#, #vehicleno:VARCHAR#, #vid:INTEGER#, #corpId:INTEGER#,
+		#corpName:VARCHAR#, #teamId:INTEGER#, #teamName:VARCHAR#, #oemcode:VARCHAR#,
+		#oemname:VARCHAR#, #commaddr:VARCHAR#, #tid:INTEGER#, #tMac:VARCHAR#, #cid:INTEGER#,
+		#cname:VARCHAR#, #ccardId:VARCHAR#,
+		#sid:INTEGER#, #transTypeCode:VARCHAR#,
+		#vehicletypeId:INTEGER#, #typeName:VARCHAR#, #ptypeName:VARCHAR#, #lat:INTEGER#,
+		#lon:INTEGER#, #maplon:DECIMAL#, #maplat:DECIMAL#, #head:INTEGER#, #speed:INTEGER#,
+		#utc:BIGINT#, #alarmcode:VARCHAR#, #alarmutc:BIGINT#, #alarmdesc:VARCHAR#, #isonline:INTEGER#,
+		#areaCode:INTEGER#, #spId:INTEGER#, #accessCode:INTEGER#, #status:VARCHAR#, #synUtc:BIGINT#,
+		#tIdentifyno:VARCHAR#, #ocode:VARCHAR#, #belongSpids:VARCHAR#, #belongCorpids:VARCHAR#,
+		#belongTeamids:VARCHAR#, #vehicleStatus:INTEGER#, #height:INTEGER#, #curAreaCode:INTEGER#,
+		#updatetime:BIGINT#, #engineRotateSpeed:INTEGER#, #oilInstant:DOUBLE#)
+	</insert>
+	<delete id="delete" parameterClass="Long">
+		delete from
+		<include refid="table" />
+		where PLATE_COLOR_ID = #plateColorId:INTEGER#
+		and VEHICLENO = #vehicleno:VARCHAR#
+	</delete>
+	<update id="update" parameterClass="com.ctfo.memorymysql.beans.TbServiceviewManage">
+		update
+		<include refid="table" />
+		<include refid="set" />
+		<include refid="where" />
+		and PLATE_COLOR_ID = #plateColorId:INTEGER#
+		and VEHICLENO = #vehicleno:VARCHAR#
+	</update>
+	<update id="updateParam" parameterClass="dynamicSqlParameter">
+		update
+		<include refid="table" />
+		<include refid="setParam" />
+		<include refid="where" />
+		<include refid="equal_WHERE" />
+	</update>
+	<select id="select" resultMap="TbServiceviewManage">
+		select
+		<include refid="columns" />
+		from
+		<include refid="table" />
+		<include refid="where" />
+	</select>
+	<select id="count" resultClass="int">
+		SELECT COUNT(1) FROM
+		<include refid="table" />
+	</select>
+	<select id="selectParam" resultMap="TbServiceviewManage" parameterClass="dynamicSqlParameter">
+		select
+		<include refid="columns" />
+		from
+		<include refid="table" />
+		<include refid="where_param" />
+	</select>
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter">
+		SELECT COUNT(1) FROM
+		<include refid="table" />
+		<include refid="where_param" />
+	</select>
+	<select id="selectPk" parameterClass="com.ctfo.memorymysql.beans.TbServiceviewManage" resultMap="TbServiceviewManage">
+		select
+		<include refid="columns" />
+		from
+		<include refid="table" />
+		where PLATE_COLOR_ID = #plateColorId:INTEGER#
+		and VEHICLENO = #vehicleno:VARCHAR#
+	</select>
+	<select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbServiceviewManage">
+		select
+		<include refid="columns" />
+		FROM (SELECT BB.*,ROWNUM r FROM (SELECT * FROM
+		<include refid="table" />
+		<include refid="where_param" />
+		) BB
+		<dynamic prepend="WHERE">
+			<isGreaterEqual prepend="" property="endNum" compareValue="0">
+        		<![CDATA[  ROWNUM <= #endNum#  ]]>
+			</isGreaterEqual>
+		</dynamic>
+		) tt
+		<dynamic prepend="WHERE">
+			<isGreaterEqual prepend="AND" property="startNum" compareValue="0">
+        		<![CDATA[  tt.r > #startNum# ]]>
+			</isGreaterEqual>
+		</dynamic>
+	</select>
+	<select id="selectByIdArray" parameterClass="java.util.Map" resultMap="TbServiceviewManage">
+		select
+		<include refid="columns" />
+		from
+		<include refid="table" />
+		<include refid="vidArray_in_where" />
+	</select>
+</sqlMap>

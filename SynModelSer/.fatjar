@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Sun Feb 19 15:19:59 CST 2012
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=SynModelSer.jar
+manifest.mergeall=true
+manifest.mainclass=com.ctfo.synmodelser.server.ModelServer
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=

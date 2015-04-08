@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<!-- 日志存储路径 -->
+	<property name="log.base" value="/logs/syncservice" /> 
+	<!--appender 输出目的地 file 文件   -->
+	<appender name="ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.base}/syncservice.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.base}/syncservice-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<!-- 编码格式解析器 -->
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} [%logger{5}]-[%le] - %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<root level="DEBUG" desc="DEBUG模式会导致性能下降">
+		<appender-ref ref="ROLLING_FILE" />
+	</root>
+
+</configuration>

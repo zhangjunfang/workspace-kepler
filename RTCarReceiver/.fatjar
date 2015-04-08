@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Wed Feb 26 17:50:04 CST 2014
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=RTCarReceiver-1.1.jar
+manifest.mergeall=true
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=<po|RTCarReceiver>~jts-1.12.jar;<po|RTCarReceiver>~log4j-1.2.17.jar;<po|RTCarReceiver>~log4j.properties;<po|RTCarReceiver>~RTCarProject-2.2.7.jar;<jar|log4j-1.2.17.jar>;<jar|jts-1.12.jar>;<jar|RTCarProject-2.2.7.jar>
+includes=

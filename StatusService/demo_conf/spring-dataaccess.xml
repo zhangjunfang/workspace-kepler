@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!-- =================================================== 数据库连接部分 ==================================== -->
+	<!-- 配置的资源文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/system.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 系统配置 -->
+	<bean id="systemConfig" class="com.ctfo.statusservice.model.SystemConfig">
+		<property name="managementPort" value="${managementPort}"/>
+	</bean>
+
+	<!-- =================================================== redis 连接部分 ==================================== -->
+	<!-- 后台服务redis数据库连接 -->
+	<bean id="redisConnectionPool" class="com.ctfo.statusservice.dao.RedisConnectionPool">
+		<constructor-arg index="0" ref="redisProperties"/>
+	</bean>
+
+	<!-- redis服务 -->
+	<bean id="redisProperties" class="com.ctfo.statusservice.model.RedisProperties">
+		<property name="host" value="${redisHost}" />
+		<property name="port" value="${redisPort}" />
+		<property name="pwd" value="${redisPwd}" />
+		<property name="maxActive" value="${redisMaxActive}" />
+		<property name="maxIdle" value="${redisMaxIdle}" />
+		<property name="maxWait" value="${redisMaxWait}" />
+		<property name="redisTimeout" value="${redisTimeout}" />
+	</bean>
+	
+	<!-- ================================================= Oracle 部分 ==================================== -->
+	<!-- 配置数据源-oracle 连接池Druid-->
+	<bean id="oracleDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 基本属性 url、user、password -->
+		<property name="url" value="${oracleUrl}" />
+		<property name="username" value="${oracleUserName}" />
+		<property name="password" value="${oraclePassword}" />
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="5" />
+		<property name="minIdle" value="1" />
+		<property name="maxActive" value="30" />
+		<!-- 配置获取连接等待超时的时间。 单位是毫秒 -->
+		<property name="maxWait" value="60000" />
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+		<property name="poolPreparedStatements" value="true" />
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+		<!-- 配置监控统计拦截的filters -->
+		<property name="filters" value="stat" />
+	</bean>
+	
+	<bean id="oracleConnectionPool" class="com.ctfo.statusservice.dao.OracleConnectionPool">
+		<constructor-arg index="0" ref="oracleDataSource"/>
+	</bean>
+	
+	<!-- 数据服务层 -->
+	<bean id="oracleProperties" class="com.ctfo.statusservice.model.OracleProperties">
+		<!-- oracle数据库连接 -->
+		<property name="sql_initAllVehilceCache">
+			<value>
+				SELECT V.VEHICLE_NO,
+				       S.SUID,
+				       V.VID         AS VID,
+				       V.PLATE_COLOR AS PLATE_COLOR_ID,
+				       M.COMMADDR    AS T_IDENTIFYNO,
+				       T.OEM_CODE    AS OEMCODE,
+				       T.TMODEL_CODE,
+				       T.TID,
+				       V.VIN_CODE,
+				       V.CITY_ID,
+				       V.ENT_ID      AS TEAM_ID,
+				       TEAM.ENT_NAME AS TEAM_NAME,
+				       ENT.ENT_ID,
+				       ENT.ENT_NAME
+				  FROM TB_SIM M
+				 INNER JOIN TR_SERVICEUNIT S
+				    ON S.SID = M.SID
+				 INNER JOIN TB_VEHICLE V
+				    ON V.VID = S.VID
+				 INNER JOIN TB_TERMINAL T
+				    ON T.TID = S.TID
+				  JOIN TB_ORGANIZATION TEAM
+				    ON V.ENT_ID = TEAM.ENT_ID
+				  JOIN TB_ORGANIZATION ENT
+				    ON TEAM.PARENT_ID = ENT.ENT_ID
+				 WHERE COMMADDR IS NOT NULL
+				   AND V.ENABLE_FLAG = '1'
+				   AND T.ENABLE_FLAG = '1'
+				   AND TEAM.ENABLE_FLAG = '1'
+				   AND ENT.ENABLE_FLAG = '1'
+			</value>
+		</property>
+		<property name="sql_update3GPhotoVehicleInfo">
+			<value>
+			  SELECT S.SUID,
+			         V.VID         AS VID,
+			         V.PLATE_COLOR AS PLATE_COLOR_ID,
+			         M.COMMADDR    AS T_IDENTIFYNO,
+			         T.OEM_CODE    AS OEMCODE,
+			         T.TMODEL_CODE,
+			         T.TID,
+			         VEHICLE_NO,
+			         TD.DVR_SIMNUM,
+			         V.VIN_CODE,
+			         V.CITY_ID,
+			         V.ENT_ID      AS TEAM_ID,
+			         TEAM.ENT_NAME AS TEAM_NAME,
+			         ENT.ENT_ID,
+			         ENT.ENT_NAME
+			    FROM TB_SIM M
+			   INNER JOIN TR_SERVICEUNIT S
+			      ON S.SID = M.SID
+			   INNER JOIN TB_VEHICLE V
+			      ON V.VID = S.VID
+			   INNER JOIN TB_TERMINAL T
+			      ON T.TID = S.TID
+			   INNER JOIN KCPT.TB_DVR TD
+			      ON TD.DVR_ID = S.DVR_ID
+			    JOIN KCPT.TB_ORGANIZATION TEAM
+			      ON V.ENT_ID = TEAM.ENT_ID
+			    JOIN KCPT.TB_ORGANIZATION ENT
+			      ON TEAM.PARENT_ID = ENT.ENT_ID
+			   WHERE TD.DVR_SIMNUM IS NOT NULL
+			     AND V.ENABLE_FLAG = '1'
+			     AND T.ENABLE_FLAG = '1'
+			     AND T.TER_STATE = 2
+			     AND TEAM.ENABLE_FLAG = '1'
+			</value>
+		</property>
+		
+		<!-- 更新3g设备车辆缓存信息 -->
+		<property name="sql_update3GVehicle">
+			<value>
+			SELECT S.SUID,
+			       V.VID         AS VID,
+			       V.PLATE_COLOR AS PLATE_COLOR_ID,
+			       M.COMMADDR    AS T_IDENTIFYNO,
+			       T.OEM_CODE    AS OEMCODE,
+			       T.TMODEL_CODE,
+			       T.TID,
+			       VEHICLE_NO,
+			       TD.DVR_SIMNUM,
+			       V.VIN_CODE,
+			       V.CITY_ID,
+			       V.ENT_ID      AS TEAM_ID,
+			       TEAM.ENT_NAME AS TEAM_NAME,
+			       ENT.ENT_ID,
+			       ENT.ENT_NAME
+			  FROM TB_SIM M
+			 INNER JOIN TR_SERVICEUNIT S
+			    ON S.SID = M.SID
+			 INNER JOIN TB_VEHICLE V
+			    ON V.VID = S.VID
+			 INNER JOIN TB_TERMINAL T
+			    ON T.TID = S.TID
+			 INNER JOIN KCPT.TB_DVR TD
+			    ON TD.DVR_ID = S.DVR_ID
+			  JOIN TB_ORGANIZATION TEAM
+			    ON V.ENT_ID = TEAM.ENT_ID
+			  JOIN TB_ORGANIZATION ENT
+			    ON TEAM.PARENT_ID = ENT.ENT_ID
+			 WHERE TD.DVR_SIMNUM IS NOT NULL
+			   AND V.ENABLE_FLAG = '1'
+			   AND T.ENABLE_FLAG = '1'
+			   AND T.TER_STATE = 2
+			   AND TEAM.ENABLE_FLAG = '1'
+			   AND ENT.ENABLE_FLAG = '1'
+			   AND (M.UPDATE_TIME >= ? OR M.CREATE_TIME >= ? OR
+			       S.UPDATE_TIME >= ? OR S.CREATE_TIME >= ? OR
+			       V.UPDATE_TIME >= ? OR V.CREATE_TIME >= ? OR
+			       T.UPDATE_TIME >= ? OR T.CREATE_TIME >= ? OR
+			       TEAM.UPDATE_TIME >= ? OR TEAM.CREATE_TIME >= ? OR
+			       ENT.UPDATE_TIME >= ? OR ENT.CREATE_TIME >= ? OR
+			       TD.UPDATE_TIME >= ? OR TD.CREATE_TIME >= ?)
+			</value>
+		</property>
+		<!-- 更新车辆缓存信息 -->
+		<property name="sql_updateVehicle">
+			<value>
+				SELECT V.VEHICLE_NO,
+				       S.SUID,
+				       V.VID         AS VID,
+				       V.PLATE_COLOR AS PLATE_COLOR_ID,
+				       M.COMMADDR    AS T_IDENTIFYNO,
+				       T.OEM_CODE    AS OEMCODE,
+				       T.TMODEL_CODE,
+				       T.TID,
+				       V.VIN_CODE,
+				       V.CITY_ID,
+				       V.ENT_ID      AS TEAM_ID,
+				       TEAM.ENT_NAME AS TEAM_NAME,
+				       ENT.ENT_ID,
+				       ENT.ENT_NAME
+				  FROM TB_SIM M
+				 INNER JOIN TR_SERVICEUNIT S
+				    ON S.SID = M.SID
+				 INNER JOIN TB_VEHICLE V
+				    ON V.VID = S.VID
+				 INNER JOIN TB_TERMINAL T
+				    ON T.TID = S.TID
+				  JOIN TB_ORGANIZATION TEAM
+				    ON V.ENT_ID = TEAM.ENT_ID
+				  JOIN TB_ORGANIZATION ENT
+				    ON TEAM.PARENT_ID = ENT.ENT_ID
+				 WHERE COMMADDR IS NOT NULL
+				   AND V.ENABLE_FLAG = '1'
+				   AND T.ENABLE_FLAG = '1'
+				   AND TEAM.ENABLE_FLAG = '1'
+				   AND ENT.ENABLE_FLAG = '1'
+				   AND (M.UPDATE_TIME >= ? OR M.CREATE_TIME >= ? OR S.UPDATE_TIME >= ? OR
+				       S.CREATE_TIME >= ? OR V.UPDATE_TIME >= ? OR V.CREATE_TIME >= ? OR
+				       T.UPDATE_TIME >= ? OR T.CREATE_TIME >= ? OR TEAM.UPDATE_TIME >= ? OR
+				       TEAM.CREATE_TIME >= ? OR ENT.UPDATE_TIME >= ? OR
+				       ENT.CREATE_TIME >= ?)
+			</value>
+		</property>
+		<!-- 查询车辆对应企业SQL	-->
+		<property name="sql_queryVehicleOrgMap">
+			<value>
+			SELECT TV.ENT_ID, TV.VID
+			  FROM (SELECT T.ENT_ID
+			          FROM TB_ORGANIZATION T
+			         WHERE T.ENABLE_FLAG != '0'
+			           AND T.ENT_TYPE = 2
+			         START WITH T.PARENT_ID = '1'
+			        CONNECT BY PRIOR T.ENT_ID = T.PARENT_ID) ET,
+			       KCPT.TB_VEHICLE TV
+			 WHERE TV.ENABLE_FLAG = '1'
+			   AND TV.VEHICLE_STATE = '2'
+			   AND TV.ENT_ID = ET.ENT_ID
+			</value>
+		</property>
+		<!-- 查询企业对应报警编码SQL -->
+		<property name="sql_queryOrgAlarmCodeMap">
+			<value>
+				SELECT ENT_ID,','||ALARM_CODE || ',' AS ALARM_CODE FROM (SELECT ENT_ID,TO_CHAR(WMSYS.WM_CONCAT(ALARM_CODE)) ALARM_CODE FROM MVIEW_ALARM_CONF T GROUP BY ENT_ID) A
+			</value>
+		</property>
+		<!-- 存储跨域统计SQL -->
+		<property name="sql_insertSpannedStatistics">
+			<value>INSERT INTO TH_SPANNED_STATISTICS(SUID,LOCAL_CODE,CURRENT_CODE,CURRENT_TIME,LOCAL_CITY_CODE,CURRENT_CITY_CODE,LOCAL_PROVINCE_CODE,CURRENT_PROVINCE_CODE) VALUES(?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储报警开始SQL -->
+		<property name="sql_saveAlarmStart">
+			<value>INSERT INTO TH_VEHICLE_ALARM(ALARM_ID,VID,UTC,LON,LAT,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,MILEAGE,OIL_TOTAL,ALARM_CODE,SYSUTC,ALARM_STATUS,ALARM_START_UTC,ALARM_DRIVER,VEHICLE_NO,BGLEVEL,BASESTATUS,EXTENDSTATUS,ALARM_ADD_INFO_START,TEAM_ID,TEAM_NAME,CORP_ID,CORP_NAME,DRIVER_ID,DRIVER_SRC) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储报警结束SQL -->
+		<property name="sql_saveAlarmEnd">
+			<value>UPDATE TH_VEHICLE_ALARM SET ALARM_END_UTC = ?,END_LAT=?,END_LON=?,END_MAPLAT=?,END_MAPLON=?,END_ELEVATION=?,END_DIRECTION=?,END_GPS_SPEED=?,END_MILEAGE=?,END_OIL_TOTAL=?, ALARM_STATUS=0,ALARM_ADD_INFO_END =?,MAX_RPM=?,MAX_SPEED=?,AVG_SPEED=? WHERE ALARM_ID = ?</value>
+		</property>
+		<!-- 车队父级组织查询SQL -->
+		<property name="sql_orgParentSync">
+			<value>SELECT ORG.ENT_ID AS MOTORCADE,PAR.ENT_NAME,  ',' || (SELECT TO_CHAR(WM_CONCAT(T.ENT_ID)) FROM KCPT.TB_ORGANIZATION T WHERE T.ENABLE_FLAG = '1' AND T.ENT_TYPE = 1  START WITH T.ENT_ID = ORG.PARENT_ID CONNECT BY PRIOR T.PARENT_ID = T.ENT_ID) || ',' PARENT_ID  FROM KCPT.TB_ORGANIZATION ORG,  KCPT.TB_ORGANIZATION PAR WHERE ORG.PARENT_ID=PAR.ENT_ID  AND ORG.ENABLE_FLAG = '1' AND ORG.ENT_TYPE = 2</value>
+		</property>
+	</bean>
+
+	<!-- =================================================== 通讯部分 ==================================== -->
+	<!-- 数据处理器 -->
+	<bean id="ioHandler" class="com.ctfo.statusservice.io.IoHandler">
+		<property name="userName" value="${msgLoginName}" />
+		<property name="password" value="${msgLoginPassword}" />
+		<property name="groupId" value="${msgLoginGroupId}" />
+		<property name="group" value="${msgLoginGroup}" />
+		<property name="loginType" value="${msgLoginType}" />
+	</bean>
+	<!-- 连接客户端 -->
+	<bean id="ioClient" class="com.ctfo.statusservice.io.IoClient">
+		<property name="handler" ref="ioHandler" />
+		<property name="host" value="${msgLoginIp}" />
+		<property name="port" value="${msgLoginPort}" />
+	</bean>
+	
+	<!-- ===================================================定时任务部分 ==================================== -->
+	<!-- 告警设置缓存更新任务 -->
+	<bean id="entAlarmSettingSyncTask" class="com.ctfo.statusservice.task.EntAlarmSettingSyncTask">
+		<constructor-arg index="0" ref="oracleProperties"/>
+		<constructor-arg index="1" value="${entAlarmSettingIntervalTime}"/>
+	</bean>
+	
+	<!-- 不存在的车辆缓存更新任务 -->
+	<bean id="syncUpdateOrAddVehicheCacheTask" class="com.ctfo.statusservice.task.SyncUpdateOrAddVehicheCacheTask">
+		<constructor-arg index="0" ref="oracleProperties"/>
+		<constructor-arg index="1" value="${vehicheCacheIntervalTime}"/>
+	</bean>
+	
+	<!-- 车辆清除更新任务 -->
+	<bean id="vehicleClearUpdate" class="com.ctfo.statusservice.task.VehicleClearUpdate">
+		<constructor-arg index="0" ref="oracleProperties"/>
+		<constructor-arg index="1" value="${clearUpdateTime}"/>
+	</bean>
+	
+	<!-- 驾驶员缓存任务 -->
+	<bean id="driverTaskProperties" class="com.ctfo.statusservice.model.TaskProperties">
+		<property name="delay" value="${driverTaskDelay}"/> 
+		<property name="period" value="${driverTaskPeriod}"/> 
+		<property name="unit" value="${driverTaskUnit}"/> 
+	</bean>
+	
+	<!-- ======= ActiveMQ部分  ============================================================================== -->
+	<bean id="orgActiveMQ" class="com.ctfo.statusservice.task.OrgActiveMQ" init-method="start"> 
+		<property name="brokerURL" value="${brokerURL}" />
+		<property name="oracleProperties" ref="oracleProperties"/>
+		<property name="topicName" value="${topicName}"/> 
+	</bean>
+    
+	<!-- ================================================= 指令解析分配部分 ==================================== -->
+	<!-- 指令解析管理-->
+	<!-- <bean id="commandParseManage" class="com.ctfo.statusservice.parse.CommandParseManage">
+		<constructor-arg index="0" ref="commandParseThread"/>
+	</bean> --> 
+	<!-- 指令解析线程-->
+	<bean id="commandParseThread" class="com.ctfo.statusservice.parse.CommandParseThread">  
+		<constructor-arg index="0" value="${speedLimit}"/>
+	</bean>
+	<!-- 发送消息分配管理类-->
+	<bean id="sendMsgManage" class="com.ctfo.statusservice.handler.SendMsgManage">
+		<constructor-arg index="0" ref="sendMsgThread"/>
+	</bean> 
+	<!-- 发送消息线程-->
+	<bean id="sendMsgThread" class="com.ctfo.statusservice.handler.SendMsgThread"/>  
+	
+	<!-- 指令分配管理-->
+	<bean id="allocationInstructionManage" class="com.ctfo.statusservice.parse.AllocationInstructionManage">
+		<constructor-arg index="0" ref="allocationInstructionThread"/>
+	</bean> 
+	<!-- 指令分配线程-->
+	<bean id="allocationInstructionThread" class="com.ctfo.statusservice.parse.AllocationInstructionThread">
+		<constructor-arg index="0" value="${threadSize}"/> 
+		<constructor-arg index="1" ref="oracleProperties"/>
+		<constructor-arg index="2" value="${treeName}"/>
+		<constructor-arg index="3" value="${alarmBatchTime}"/>
+		<constructor-arg index="4" value="${alarmBatchSize}"/>
+		<constructor-arg index="5" value="${regionBatchSize}"/>
+		<constructor-arg index="6" value="${regionBatchTime}"/>
+		<constructor-arg index="7" value="${expiredSeconds}"/>
+		<constructor-arg index="8" value="true"/><!-- 显示负载均衡 -->
+	</bean>
+	
+</beans>

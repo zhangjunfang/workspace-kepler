@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<!-- 区域协查 -->
+	<bean id="memTbServiceviewManageServiceRmi"
+		class="com.ctfo.regionfileser.filemanager.service.impl.MemTbServiceviewManageServiceRmiImpl">
+
+		<property name="memTbServiceviewManageDao" ref="memTbServiceviewManageDao" />
+		<property name="savePathWindow" value="${savePathWindow}" />
+		<property name="savePathLinux" value="${savePathLinux}" />
+		<property name="jedisSerPool" ref="jedisSerPool" />
+		<property name="redisPass" value="${redisPass}" />
+		<property name="redisIndex" value="${redisIndex}" />
+	</bean>
+
+
+
+	<!-- 轨迹信息DAO -->
+	<bean id="memTbServiceviewManageDao"
+		class="com.ctfo.regionfileser.memorymysql.daoImpl.MemTbServiceviewManageDaoImpl">
+
+		<property name="selectsql" value="${selectsql}" />
+
+		<property name="dbdriver" value="${mysql_xaDataSourceClassName}" />
+
+		<property name="dburl" value="${mysql_url}" />
+
+		<property name="username" value="${mysql_user}" />
+
+		<property name="password" value="${mysql_password}" />
+
+	</bean>
+
+	<!-- 配置数据源 -->
+	<bean id="jedisDataSource" class="com.ctfo.redis.JedisDataSource">
+		<property name="host" value="${redisHost}" />
+		<property name="port" value="${redisPort}" />
+		<property name="pass" value="${redisPass}" />
+	</bean>
+	<!-- 配置jedis池 -->
+	<bean id="jedisSerPool" class="com.ctfo.redis.pool.JedisSerPool">
+		<constructor-arg index="0" ref="jedisDataSource" />
+	</bean>
+
+	
+</beans>

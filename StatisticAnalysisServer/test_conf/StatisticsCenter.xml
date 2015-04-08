@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xconf>
+	<app>StatisticsCenter</app>
+	<ver>1.0.0.0</ver>
+	<logo>SaveCenter</logo>
+	<submit>com.ctfo.lbs.analysiscenter.xconf.SubmitCfg</submit>
+	<target>StatisticsCenter.xml</target>
+	<desc>轨迹分析器配置</desc>
+	<status></status>
+	<sql>
+		<import resource="sql.xml"/>
+	</sql>
+	<database>
+		<import resource="database.xml"/>
+	</database>
+	<addins>
+		<import resource="addins.xml"/>
+	</addins>
+	
+	<ManagePort isload="true">
+		<value>7354</value>
+		<type>integer</type>
+		<comments>管理端口,如果设置不加载，则使用服务自定义管理端口</comments>
+		<check></check>
+	</ManagePort>
+	<alarmfileurl>
+		<value>/logs/file/alarm</value>
+		<type>string</type>
+		<comments>轨迹文件目录/usr/local/lbs/file/alarm</comments>
+		<check></check>
+	</alarmfileurl>
+	<trackfileurl>
+		<value>/logs/file/track</value>
+		<type>string</type>
+		<comments>轨迹文件目录/usr/local/lbs/file/track</comments>
+		<check></check>
+	</trackfileurl>
+	<eventfileurl>
+		<value>/logs/file/event</value>
+		<type>string</type>
+		<comments>事件文件目录/usr/local/lbs/file/event</comments>
+		<check></check>
+	</eventfileurl>
+	<eloaddistFileUrl>
+		<value>/logs/file/eloaddist</value>
+		<type>string</type>
+		<comments>发动机负荷率文件目录/usr/local/lbs/file/eloaddist</comments>
+		<check></check>
+	</eloaddistFileUrl>
+	<oilUrl>
+		<value>/logs/file/oilUrl</value>
+		<type>string</type>
+		<comments>油量监控文件目录/usr/local/lbs/file/oilUrl</comments>
+		<check></check>
+	</oilUrl>
+	
+	<crossdays>
+		<value>40</value>
+		<type>string</type>
+		<comments>文件备份跨越天数</comments>
+		<check></check>
+	</crossdays>
+	<crossalarmfileurl>
+		<value>/logs/file_bak/alarm</value>
+		<type>string</type>
+		<comments>轨迹文件目录/usr/local/lbs/file/alarm</comments>
+		<check></check>
+	</crossalarmfileurl>
+	<crosstrackfileurl>
+		<value>/logs/file_bak/track</value>
+		<type>string</type>
+		<comments>轨迹文件目录/usr/local/lbs/file/track</comments>
+		<check></check>
+	</crosstrackfileurl>
+	<crosseventfileurl>
+		<value>/logs/file_bak/event</value>
+		<type>string</type>
+		<comments>事件文件目录/usr/local/lbs/file/event</comments>
+		<check></check>
+	</crosseventfileurl>
+	<crosseloaddistFileUrl>
+		<value>/logs/file_bak/eloaddist</value>
+		<type>string</type>
+		<comments>发动机负荷率文件目录/usr/local/lbs/file/eloaddist</comments>
+		<check></check>
+	</crosseloaddistFileUrl>
+	<crossoilUrl>
+		<value>/logs/file_bak/oilUrl</value>
+		<type>string</type>
+		<comments>油量监控文件目录/usr/local/lbs/file/oilUrl</comments>
+		<check></check>
+	</crossoilUrl>
+	
+	<!-- redis缓存服务配置 -->
+	<redisHost value="10.8.3.163"/>
+	<redisPort value="6379"/>
+	<redisPwd value="kcpt" />
+	<redisMaxActive value="1000"/>
+	<redisMaxIdle value="300" />
+	<redisMaxWait value="1000" />
+	<redisTimeout value="3000" />
+	
+	<params isload="true">
+		<param name="reportSystem" isload="false">
+			<value>http://192.168.100.51:8888/Report/synKcptData.do?flag=1</value>
+			<type>string</type>
+			<comments>报表系统同步服务URL</comments>
+		</param>
+		<param name="dayCount" isload="true">
+			<value>7</value>
+			<type>string</type>
+			<comments>同步日天数</comments>
+		</param>
+		<param name="weekCount" isload="true">
+			<value>7</value>
+			<type>string</type>
+			<comments>同步周数</comments>
+		</param>
+		<param name="monthCount" isload="true">
+			<value>6</value>
+			<type>string</type>
+			<comments>同步月数</comments>
+		</param>
+		<param name="gis_url" isload="true">
+			<value>http://srv.transmap.com.cn/PMService/ecalculatemileage2.xml?flag=0</value>
+			<type>string</type>
+			<comments>gis计算里程URL</comments>
+		</param>
+		<param name="mileage_interval" isload="true">
+			<value>5</value>
+			<type>string</type>
+			<comments>里程10S间隔最大值</comments>
+		</param>
+		<param name="oil_interval" isload="true">
+			<value>3</value>
+			<type>string</type>
+			<comments>油耗60S间隔最大值</comments>
+		</param>
+		<param name="sendcommand_url" isload="true">
+			<value>http://10.8.3.164:8000/mccproxy/remoteMcc.action</value>
+			<type>string</type>
+			<comments>发送指令服务地址</comments>
+		</param>
+		<param name="time_open_control_str" isload="true">
+			<value>0001111100011111</value>
+			<type>string</type>
+			<comments>定时触发拍照通道控制字符串</comments>
+		</param>
+		<param name="distance_open_control_str" isload="true">
+			<value>0001111100011111</value>
+			<type>string</type>
+			<comments>定距触发拍照通道控制字符串</comments>
+		</param>
+		<param name="addOrStealingOil_time_interval" isload="true">
+			<value>120</value>
+			<type>INTEGER</type>
+			<comments>加油和偷油时间间隔(单位：S)</comments>
+		</param>
+		<param name="costingOil_time_interval" isload="true">
+			<value>120</value>
+			<type>INTEGER</type>
+			<comments>正常消耗时间间隔(单位：S)</comments>
+		</param>
+		<param name="stealingOil_interval" isload="true">
+			<value>30</value>
+			<type>INTEGER</type>
+			<comments>偷油最小间隔(单位：L)</comments>
+		</param>
+		<param name="addingOil_interval" isload="true">
+			<value>50</value>
+			<type>INTEGER</type>
+			<comments>加油最小间隔(单位：L)</comments>
+		</param>
+		<param name="photosetting_sleepTime" isload="true">
+			<value>1</value>
+			<type>INTEGER</type>
+			<comments>触发拍照设置任务休眠时间(单位：Minute)</comments>
+		</param>
+		<param name="speedLimit" isload="true">
+			<value>1400</value>
+			<type>INTEGER</type>
+			<comments>车辆速度过滤阀值(单位：0.1KM/H)</comments>
+		</param>
+	</params>
+</xconf>

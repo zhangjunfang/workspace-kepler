@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<contextName>spannedstatistics</contextName>
+	<!--appender 输出目的地 file 文件 日志按天记录 最多保存7天的数据 每天的文件按256M分块， -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>/logs/spannedstatistics/spannedstatistics.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>/logs/spannedstatistics/spannedstatistics-%d{yyyy-MM-dd}-%i.log
+			</fileNamePattern>
+			<maxHistory>7</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>256MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<!-- 编码格式解析器 -->
+		<encoder>
+			<pattern>%date [%contextName][%logger]-[%le] - %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 日志级别 -->
+	<root level="DEBUG">
+		<appender-ref ref="FILE" />
+	</root>
+
+</configuration>

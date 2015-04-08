@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<contextName>spannedstatistics</contextName>
+
+	<!--appender 输出目的地 console 控制台 -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender" target="System.out">
+		<encoder charset="UTF-8">
+			<pattern>%date [%contextName][%logger]-[%le] - %m%n</pattern>
+		</encoder>
+		<target>System.out</target>
+	</appender>
+
+	<!--appender 输出目的地 file 文件 -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>d:/testlogs/spannedstatistics/spannedstatistics.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>d:/testlogs/spannedstatistics/spannedstatistics-%d{yyyy-MM-dd-HH-mm}.%i.log
+			</fileNamePattern>
+			<maxHistory>2</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date [%contextName][%logger]-[%le] - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="DEBUG">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+</configuration>

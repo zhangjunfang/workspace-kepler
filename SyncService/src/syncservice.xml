@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SyncService desc="同步服务" version="SyncService-2.0.0.0-20131216">
+	<systemparam desc="系统参数配置">
+		<property name="systemecode" desc="系统编码">UTF-8</property>
+		<property name="managehost" desc="系统状态管理绑定IP">127.0.0.1</property>
+		<property name="manageport" desc="系统状态管理端口">8450</property>
+		<property name="sysversion" desc="服务版本">SyncService-2.0.0.0-20131216</property>
+	</systemparam>
+	
+	<rediscache desc="Redis缓存服务客户端配置">
+		<property name="host" desc="Redis服务器IP">192.168.2.162</property>
+		<property name="port" desc="Redis服务器端口">6379</property>
+		<property name="pass" desc="Redis密码">kcpt</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="maxIdle" desc="最大空闲连接数">20</property>
+		<property name="maxWait" desc="最大等待时间(毫秒)">60000</property>
+		<property name="timeOut" desc="连接超时时间">60000</property>
+	</rediscache>
+	
+	<oracledb desc="Oracle数据库客户端配置">
+		<property name="driver" desc="数据库驱动">oracle.jdbc.driver.OracleDriver</property>
+		<property name="url" desc="数据库URL">jdbc:oracle:thin:@//192.168.2.225:1521/kcpt</property>
+		<property name="username" desc="用户名">kcpt</property>
+		<property name="password" desc="密码">zjkc_2012_PT</property>
+		<property name="initialSize" desc="初始连接数">11</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="minIdle" desc="最小空闲数">1</property>
+		<property name="maxWait" desc="连接等待超时">60000</property>
+		<property name="removeAbandoned" desc="删除未使用的连接">false</property>
+	</oracledb>
+	
+	<tasks desc="任务列表">
+ 		<task name="auth" enable="false" desc="同步鉴权任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.AuthTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="0" desc="任务执行周期">2</period>
+			<properties desc="自定义配置">
+				<property name="clearTime" desc="清空更新时间">02</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_syncAll" desc="全量同步查询语句">
+					SELECT SIM.COMMADDR,
+					       TT.AUTH_CODE || ',' || TT.TMODEL_CODE || ',' || TT.TMAC || ',' ||
+					       TV.PLATE_COLOR || ',' || TV.VEHICLE_NO || ',' || TV.VIN_CODE || ',' ||
+					       TT.OEM_CODE || ',' || DECODE(TT.TER_STATE,3,1,TT.TER_STATE,0)   || ',,' ||
+		             	   TV.AREA_CODE   AS AUTH_CODE
+					  FROM KCPT.TR_SERVICEUNIT TS,
+					       KCPT.TB_VEHICLE     TV,
+					       KCPT.TB_TERMINAL    TT,
+					       KCPT.TB_SIM         SIM
+					 WHERE TS.VID = TV.VID
+					   AND TS.TID = TT.TID
+					   AND TS.SID = SIM.SID
+					   AND TV.ENABLE_FLAG = '1'
+					   AND TT.ENABLE_FLAG = '1'
+					   AND SIM.ENABLE_FLAG ='1'
+				</property>
+				<property name="sql_syncIncrements" desc="增量同步查询语句">
+					SELECT SIM.COMMADDR,
+			             TT.AUTH_CODE || ',' || TT.TMODEL_CODE || ',' || TT.TMAC || ',' ||
+			             TV.PLATE_COLOR || ',' || TV.VEHICLE_NO || ',' || TV.VIN_CODE || ',' ||
+			             TT.OEM_CODE || ',' || DECODE(TT.TER_STATE,3,1,TT.TER_STATE,0)  || ',,' ||
+			             TV.AREA_CODE   AS AUTH_CODE
+			        FROM KCPT.TR_SERVICEUNIT TS,
+			             KCPT.TB_VEHICLE     TV,
+			             KCPT.TB_TERMINAL    TT,
+			             KCPT.TB_SIM         SIM
+			       WHERE TS.VID = TV.VID
+			         AND TS.TID = TT.TID
+			         AND TS.SID = SIM.SID
+			         AND TV.ENABLE_FLAG = '1'
+			         AND TT.ENABLE_FLAG = '1'
+			         AND SIM.ENABLE_FLAG = '1'
+			         AND (TV.CREATE_TIME >= ? OR TV.UPDATE_TIME >= ?
+			         	  OR TS.CREATE_TIME >= ? OR TS.UPDATE_TIME >= ?
+						  OR SIM.CREATE_TIME >= ? OR SIM.UPDATE_TIME >= ?
+						  OR TT.CREATE_TIME >= ? OR TT.UPDATE_TIME >= ? )
+				</property>
+			</properties>
+		</task>
+		
+		<task name="authNonGB" enable="false" desc="同步非国标鉴权任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.AuthNonGBTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="0" desc="任务执行周期">2</period>
+			<properties desc="自定义配置">
+				<property name="clearTime" desc="清空更新时间">02</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_syncAll" desc="全量同步查询语句">
+					SELECT TT.TMAC,	TT.AUTH_CODE, TT.OEM_CODE, TV.VID, TV.VEHICLE_STATE, TV.REG_STATUS,
+					       TV.VEHICLE_NO, TV.PLATE_COLOR, TT.TID, SIM.COMMADDR, TT.REG_STATUS, TT.TER_STATE, SIM.SID
+					  FROM KCPT.TR_SERVICEUNIT TS,
+					       KCPT.TB_VEHICLE     TV,
+					       KCPT.TB_TERMINAL    TT,
+					       KCPT.TB_SIM         SIM
+					 WHERE TS.VID = TV.VID
+					   AND TS.TID = TT.TID
+					   AND TS.SID = SIM.SID
+					   AND TV.ENABLE_FLAG = '1'
+					   AND TT.ENABLE_FLAG = '1'
+					   AND SIM.ENABLE_FLAG = '1'
+				</property>
+				<property name="sql_syncIncrements" desc="增量同步查询语句">
+					SELECT TT.TMAC,	TT.AUTH_CODE, TT.OEM_CODE, TV.VID, TV.VEHICLE_STATE, TV.REG_STATUS,
+					       TV.VEHICLE_NO, TV.PLATE_COLOR, TT.TID, SIM.COMMADDR, TT.REG_STATUS, TT.TER_STATE, SIM.SID
+					  FROM KCPT.TR_SERVICEUNIT TS,
+			             KCPT.TB_VEHICLE     TV,
+			             KCPT.TB_TERMINAL    TT,
+			             KCPT.TB_SIM         SIM
+			       WHERE TS.VID = TV.VID
+			         AND TS.TID = TT.TID
+			         AND TS.SID = SIM.SID
+			         AND TV.ENABLE_FLAG = '1'
+			         AND TT.ENABLE_FLAG = '1'
+			         AND SIM.ENABLE_FLAG = '1'
+			         AND (TV.CREATE_TIME >= ? OR TV.UPDATE_TIME >= ?
+			         	  OR TS.CREATE_TIME >= ? OR TS.UPDATE_TIME >= ?
+						  OR SIM.CREATE_TIME >= ? OR SIM.UPDATE_TIME >= ?
+						  OR TT.CREATE_TIME >= ? OR TT.UPDATE_TIME >= ? )
+				</property>
+			</properties>
+		</task>
+		
+		<task name="driverVerified" enable="false" desc="同步驾驶员验证信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.DriverVerifiedTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="0" desc="任务执行周期">10</period>
+			<properties desc="自定义配置">
+				<property name="clearTime" desc="清空更新时间">03</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_syncAll" desc="全量同步查询语句">
+					SELECT TE.BUSSINESS_ID AS KEYS,TE.STAFF_NAME || ',' || TE.DRIVERCARD_DEP AS VAL  FROM TB_EMPLOYEE TE WHERE TE.BUSSINESS_ID IS NOT NULL AND TE.ENABLE_FLAG='1'
+				</property>
+				<property name="sql_syncIncrements" desc="增量同步查询语句">
+					SELECT TE.BUSSINESS_ID AS KEYS,TE.STAFF_NAME || ',' || TE.DRIVERCARD_DEP AS VAL FROM TB_EMPLOYEE TE WHERE TE.BUSSINESS_ID IS NOT NULL AND TE.ENABLE_FLAG='1' AND (TE.CREATE_TIME >=? OR TE.UPDATE_TIME >= ? )
+				</property>
+			</properties>
+		</task>
+		
+		<task name="driverQuery" enable="false" desc="同步驾驶员验证信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.DriverQueryTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="0" desc="任务执行周期">10</period>
+			<properties desc="自定义配置">
+				<property name="clearTime" desc="清空更新时间">03</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_syncAll" desc="全量同步查询语句">
+					SELECT TV.PLATE_COLOR || '_' || TV.VEHICLE_NO AS KEYS, DRIVERS.VAL
+					  FROM (SELECT T.VID,
+					               MAX(T.DRIVER_NAME) || ',' || MAX(T.DRIVER_IDNO) || ',' ||
+					               MAX(T.DEVICE_NO) || ',' || MAX(T.QUALIFICATION_NO) || ',' ||
+					               MAX(T.ISSUE_NAME) AS VAL
+					          FROM TH_DRIVER_LOGIN_RECORD T
+					         GROUP BY T.VID) DRIVERS
+					  LEFT JOIN TB_VEHICLE TV
+					    ON DRIVERS.VID = TV.VID
+				</property>
+			</properties>
+		</task>
+		
+		<task name="driverBind" enable="true" desc="同步驾驶员信息任务(平台驾驶员纬度相关)">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.DriverBindTask</class>
+			<period unit="minute" delay="1" desc="任务执行周期">1</period>"时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认60分钟)">3</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_driverInfo" desc="全量同步查询语句">SELECT MYE.VID,E.STAFF_ID,E.STAFF_NAME,E.SEX,E.MOBILEPHONE,E.CARD_ID,E.BUSSINESS_ID,E.DRIVERCARD_DEP,E.ADDRESS,E.ARCHIVENO FROM KCPT.TB_EMPLOYEE E JOIN (SELECT VS.VID,MIN(VS.STAFF_ID) AS STAFFID FROM  KCPT.TR_VEHICLE_STAFF VS GROUP BY VS.VID) MYE ON E.STAFF_ID=MYE.STAFFID LEFT JOIN KCPT.TB_VEHICLE V ON MYE.VID=V.VID</property>
+				<property name="sql_driverInfoIncremental" desc="全量同步查询语句">SELECT MYE.VID,E.STAFF_ID,E.STAFF_NAME,E.SEX,E.MOBILEPHONE,E.CARD_ID,E.BUSSINESS_ID,E.DRIVERCARD_DEP,E.ADDRESS,E.ARCHIVENO FROM KCPT.TB_EMPLOYEE E JOIN (SELECT VS.VID,MIN(VS.STAFF_ID) AS STAFFID FROM  KCPT.TR_VEHICLE_STAFF VS GROUP BY VS.VID) MYE ON E.STAFF_ID=MYE.STAFFID LEFT JOIN KCPT.TB_VEHICLE V ON MYE.VID=V.VID  WHERE (E.UPDATE_TIME >= ? OR E.CREATE_TIME >= ?)</property>
+			</properties>
+		</task>
+		
+		<task name="driverList" enable="true" desc="同步驾驶员信息任务(平台驾驶员纬度相关)">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.DriverListTask</class>
+			<period unit="minute" delay="1" desc="任务执行周期">2</period>"时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认5分钟)">3</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_driverListAll"  desc="全量同步查询语句   "      >SELECT E.BUSSINESS_ID AS BUSSINESS_ID, ':'||E.STAFF_ID||':'||E.STAFF_NAME||':'||E.SEX||':'||E.MOBILEPHONE||':'||E.CARD_ID||':'||E.BUSSINESS_ID||':'||E.DRIVERCARD_DEP||':'||E.ADDRESS||':'||E.ARCHIVENO||':0' AS VAL FROM KCPT.TB_EMPLOYEE E WHERE E.ENABLE_FLAG=1 AND E.BUSSINESS_ID IS NOT NULL</property>
+				<property name="sql_driverListIncremental" desc="增量同步查询语句">SELECT E.BUSSINESS_ID AS BUSSINESS_ID, ':'||E.STAFF_ID||':'||E.STAFF_NAME||':'||E.SEX||':'||E.MOBILEPHONE||':'||E.CARD_ID||':'||E.BUSSINESS_ID||':'||E.DRIVERCARD_DEP||':'||E.ADDRESS||':'||E.ARCHIVENO||':0' AS VAL FROM KCPT.TB_EMPLOYEE E WHERE E.ENABLE_FLAG=1 AND E.BUSSINESS_ID IS NOT NULL AND (E.UPDATE_TIME >= ? OR E.CREATE_TIME >= ?)</property>
+			</properties>
+		</task>
+		
+		<task name="hubeiDriver" enable="true" desc="同步湖北驾驶员信息任务(平台驾驶员纬度相关)">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.HubeiDriverTask</class>
+			<period unit="minute" delay="1" desc="任务执行周期">1</period>"时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认30分钟)">30</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_hubeiDriver" desc="全量同步查询语句"           >SELECT SIM.COMMADDR, V.PLATE_COLOR || ',' ||V.VEHICLE_NO|| ',' || REPLACE(WMSYS.WM_CONCAT(E.STAFF_NAME),',','，') || ',' || REPLACE(WMSYS.WM_CONCAT(E.MOBILEPHONE),',','，') || ',' ||P.ENT_NAME||',' AS VAL, V.TRANSTYPE_CODE FROM KCPT.TB_EMPLOYEE E JOIN KCPT.TR_VEHICLE_STAFF VS   ON E.STAFF_ID = VS.STAFF_ID RIGHT JOIN KCPT.TB_VEHICLE V   ON VS.VID = V.VID   RIGHT JOIN KCPT.TB_ORGANIZATION ORG   ON ORG.ENT_ID=V.ENT_ID   RIGHT JOIN KCPT.TB_ORGANIZATION P   ON ORG.PARENT_ID=P.ENT_ID   RIGHT JOIN KCPT.TR_SERVICEUNIT TV   ON V.VID=TV.VID   RIGHT JOIN KCPT.TB_SIM SIM   ON TV.SID=SIM.SID   WHERE E.ENABLE_FLAG=1 AND VS.VID IS NOT NULL  GROUP BY V.VID,V.PLATE_COLOR,V.VEHICLE_NO,P.ENT_NAME,SIM.COMMADDR, V.TRANSTYPE_CODE</property>
+				<property name="sql_hubeiDriverIncremental" desc="增量同步查询语句">SELECT SIM.COMMADDR, V.PLATE_COLOR || ',' ||V.VEHICLE_NO|| ',' || REPLACE(WMSYS.WM_CONCAT(E.STAFF_NAME),',','，') || ',' || REPLACE(WMSYS.WM_CONCAT(E.MOBILEPHONE),',','，') || ',' ||P.ENT_NAME||',' AS VAL, V.TRANSTYPE_CODE FROM KCPT.TB_EMPLOYEE E JOIN KCPT.TR_VEHICLE_STAFF VS   ON E.STAFF_ID = VS.STAFF_ID RIGHT JOIN KCPT.TB_VEHICLE V   ON VS.VID = V.VID   RIGHT JOIN KCPT.TB_ORGANIZATION ORG   ON ORG.ENT_ID=V.ENT_ID   RIGHT JOIN KCPT.TB_ORGANIZATION P   ON ORG.PARENT_ID=P.ENT_ID   RIGHT JOIN KCPT.TR_SERVICEUNIT TV   ON V.VID=TV.VID   RIGHT JOIN KCPT.TB_SIM SIM   ON TV.SID=SIM.SID   WHERE E.ENABLE_FLAG=1 AND VS.VID IS NOT NULL AND (E.UPDATE_TIME >= ? OR E.CREATE_TIME >= ?) GROUP BY V.VID,V.PLATE_COLOR,V.VEHICLE_NO,P.ENT_NAME,SIM.COMMADDR, V.TRANSTYPE_CODE</property>
+			</properties>
+		</task>
+		
+		<task name="shenzhenInfo" enable="true" desc="同步深圳平台静态信息任务(平台驾驶员纬度相关)">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.ShenzhenInfoTask</class>
+			<period unit="minute" delay="1" desc="任务执行周期">1</period>"时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认60分钟)">3</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_shenzhenInfo" desc="全量同步查询语句">
+				SELECT SIM.COMMADDR, V.PLATE_COLOR || ',' ||V.VEHICLE_NO|| ','|| V.VEHICLE_TYPE || ',' ||P.ENT_NAME||',1011000001010' AS VAL 
+				FROM  KCPT.TB_VEHICLE V RIGHT JOIN KCPT.TB_ORGANIZATION ORG ON ORG.ENT_ID=V.ENT_ID   RIGHT JOIN KCPT.TB_ORGANIZATION P   ON ORG.PARENT_ID=P.ENT_ID  RIGHT JOIN KCPT.TR_SERVICEUNIT TV   ON V.VID=TV.VID   RIGHT JOIN KCPT.TB_SIM SIM   ON TV.SID=SIM.SID   
+				WHERE V.ENABLE_FLAG=1 AND SIM.ENABLE_FLAG = 1 AND V.VID IS NOT NULL
+				GROUP BY V.VID,V.PLATE_COLOR,V.VEHICLE_NO,P.ENT_NAME,SIM.COMMADDR,V.VEHICLE_TYPE
+				</property>
+				<property name="sql_shenzhenInfoIncremental" desc="增量同步查询语句">
+				SELECT SIM.COMMADDR, V.PLATE_COLOR || ',' ||V.VEHICLE_NO|| ','|| V.VEHICLE_TYPE || ',' ||P.ENT_NAME||',1011000001010' AS VAL 
+				FROM  KCPT.TB_VEHICLE V RIGHT JOIN KCPT.TB_ORGANIZATION ORG ON ORG.ENT_ID=V.ENT_ID RIGHT JOIN KCPT.TB_ORGANIZATION P   ON ORG.PARENT_ID=P.ENT_ID  RIGHT JOIN KCPT.TR_SERVICEUNIT TV   ON V.VID=TV.VID   RIGHT JOIN KCPT.TB_SIM SIM   ON TV.SID=SIM.SID   
+				WHERE V.ENABLE_FLAG=1 AND SIM.ENABLE_FLAG = 1 AND (V.UPDATE_TIME >= ? OR V.CREATE_TIME >= ?) AND V.VID IS NOT NULL
+				GROUP BY V.VID,V.PLATE_COLOR,V.VEHICLE_NO,P.ENT_NAME,SIM.COMMADDR,V.VEHICLE_TYPE
+				</property>
+			</properties>
+		</task>
+		
+		<task name="simBindCode" enable="false" desc="同步sim卡区域信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.SimBindCodeTask</class>
+			<period unit="minute" delay="1" desc="任务执行周期">2</period>"时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认5分钟)">3</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_simAreaListAll"  desc="全量同步查询语句   ">
+					SELECT TV.AREA_CODE,TS.COMMADDR FROM TB_VEHICLE TV,TB_SIM TS,TR_SERVICEUNIT TSE WHERE TV.VID = TSE.VID AND TSE.SID = TS.SID AND TS.ENABLE_FLAG = '1'
+				</property>
+				<property name="sql_simAreaListIncremental" desc="增量同步查询语句">
+					SELECT TV.AREA_CODE,TS.COMMADDR FROM TB_VEHICLE TV,TB_SIM TS,TR_SERVICEUNIT TSE WHERE TV.VID = TSE.VID AND TSE.SID = TS.SID AND TS.ENABLE_FLAG = '1' AND (TS.UPDATE_TIME >= ? OR TS.CREATE_TIME >= ?)
+				</property>
+				
+				<property name="sql_simCityListAll"  desc="全量同步查询语句   ">
+					SELECT TV.CITY_ID,TS.COMMADDR FROM TB_VEHICLE TV,TB_SIM TS,TR_SERVICEUNIT TSE WHERE TV.VID = TSE.VID AND TSE.SID = TS.SID AND TS.ENABLE_FLAG = '1'
+				</property>
+				<property name="sql_simCityListIncremental" desc="增量同步查询语句">
+					SELECT TV.CITY_ID,TS.COMMADDR FROM TB_VEHICLE TV,TB_SIM TS,TR_SERVICEUNIT TSE WHERE TV.VID = TSE.VID AND TSE.SID = TS.SID AND TS.ENABLE_FLAG = '1' AND (TS.UPDATE_TIME >= ? OR TS.CREATE_TIME >= ?)
+				</property>
+			</properties>
+		</task>
+		<task name="car" enable="false" desc="同步车辆静态信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.CarTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="0" desc="任务执行周期">5</period>
+			<properties desc="自定义配置">
+				<property name="clearTime" desc="清空更新时间">03</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_syncAll" desc="全量同步查询语句">
+					SELECT TV.PLATE_COLOR || '_' ||  TV.VEHICLE_NO AS KEYS,
+					       'VIN:=' || TV.VEHICLE_NO || 
+					       ';VEHICLE_COLOR:=' || TV.PLATE_COLOR ||
+					       ';VEHICLE_TYPE:=' || TV.VEHICLE_TYPE || 
+					       ';TRANS_TYPE:=' || TV.TRANSTYPE_CODE || 
+					       ';VEHICLE_NATIONALITY:=' || TV.CITY_ID ||
+					       ';OWERS_ID:=' || TEAM.PARENT_ID || 
+					       ';OWERS_NAME:=' || ENT.ENT_NAME ||
+					       ';OWERS_TEL:=' || SIM.COMMADDR AS VAL
+					  FROM TB_VEHICLE      TV,
+					       TB_ORGANIZATION TEAM,
+					       TB_ORGANIZATION ENT,
+					       TR_SERVICEUNIT  TS,
+					       TB_SIM          SIM
+					 WHERE TV.VID = TS.VID
+					   AND TS.SID = SIM.SID
+					   AND TV.ENT_ID = TEAM.ENT_ID
+					   AND TEAM.PARENT_ID = ENT.ENT_ID
+					   AND TV.ENABLE_FLAG = '1' 
+				</property>
+				<property name="sql_syncIncrements" desc="增量同步查询语句">
+					SELECT TV.PLATE_COLOR || '_' ||  TV.VEHICLE_NO AS KEYS,
+					       'VIN:=' || TV.VEHICLE_NO || 
+					       ';VEHICLE_COLOR:=' || TV.PLATE_COLOR ||
+					       ';VEHICLE_TYPE:=' || TV.VEHICLE_TYPE || 
+					       ';TRANS_TYPE:=' || TV.TRANSTYPE_CODE || 
+					       ';VEHICLE_NATIONALITY:=' || TV.CITY_ID ||
+					       ';OWERS_ID:=' || TEAM.PARENT_ID || 
+					       ';OWERS_NAME:=' || ENT.ENT_NAME ||
+					       ';OWERS_TEL:=' || SIM.COMMADDR AS VAL
+					  FROM TB_VEHICLE      TV,
+					       TB_ORGANIZATION TEAM,
+					       TB_ORGANIZATION ENT,
+					       TR_SERVICEUNIT  TS,
+					       TB_SIM          SIM
+					 WHERE TV.VID = TS.VID
+					   AND TS.SID = SIM.SID
+					   AND TV.ENT_ID = TEAM.ENT_ID
+					   AND TEAM.PARENT_ID = ENT.ENT_ID
+					   AND TV.ENABLE_FLAG = '1'
+					   AND (  TV.CREATE_TIME >= ? OR TV.UPDATE_TIME >= ?
+					       OR SIM.CREATE_TIME >= ? OR SIM.UPDATE_TIME >= ?
+					       OR TS.CREATE_TIME >= ? OR TS.UPDATE_TIME >= ?
+					       OR ENT.CREATE_TIME >= ? OR ENT.UPDATE_TIME >= ?
+					       OR TEAM.CREATE_TIME >= ?  OR TEAM.UPDATE_TIME >= ? )
+				</property>
+			</properties>
+		</task>
+		
+		<task name="eticket" enable="false" desc="同步电子运单信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.EticketTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="0" desc="任务执行周期">5</period>
+			<properties desc="自定义配置">
+				<property name="clearTime" desc="清空更新时间">04</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_syncAll" desc="全量同步查询语句">
+					SELECT V.PLATE_COLOR || '_' || V.VEHICLE_NO AS KEYS, E.ETICKET  AS VAL
+					  FROM TB_VEHICLE V
+					 RIGHT JOIN (SELECT TE.VID, MAX(TE.UTC), MAX(TE.CONTENT) AS ETICKET
+					               FROM TH_VEHICLE_ETICKET TE
+					              GROUP BY TE.VID, TE.CONTENT) E
+					    ON E.VID = V.VID
+				</property>
+				<property name="sql_syncIncrements" desc="增量同步查询语句">
+					SELECT V.PLATE_COLOR || '_' || V.VEHICLE_NO AS KEYS, E.ETICKET AS VAL
+					  FROM TB_VEHICLE V
+					 RIGHT JOIN (SELECT TE.VID, MAX(TE.UTC), MAX(TE.CONTENT) AS ETICKET
+					               FROM TH_VEHICLE_ETICKET TE
+					              WHERE TE.UTC >= ?
+					              GROUP BY TE.VID, TE.CONTENT) E
+					    ON E.VID = V.VID
+				</property>
+			</properties>
+		</task>
+		
+		<task name="phone" enable="false" desc="同步车牌号获取手机号信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.PhoneTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="0" desc="任务执行周期">2</period>
+			<properties desc="自定义配置">
+				<property name="clearTime" desc="清空更新时间">04</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_syncAll" desc="全量同步查询语句">
+					SELECT TV.PLATE_COLOR || '_' ||  TV.VEHICLE_NO AS KEYS,
+				       TT.OEM_CODE ||   '_' || SIM.COMMADDR AS VAL
+				      FROM TB_VEHICLE      TV,
+				           TR_SERVICEUNIT  TS,
+				           TB_SIM          SIM,
+				           TB_TERMINAL     TT
+				     WHERE TV.VID = TS.VID
+				       AND TS.SID = SIM.SID
+				       AND TT.TID = TS.TID
+				       AND TV.ENABLE_FLAG = '1'
+				</property>
+				<property name="sql_syncIncrements" desc="增量同步查询语句">
+					SELECT TV.PLATE_COLOR || '_' ||  TV.VEHICLE_NO AS KEYS,
+				       TT.OEM_CODE ||   '_' || SIM.COMMADDR AS VAL
+				      FROM TB_VEHICLE      TV,
+				           TR_SERVICEUNIT  TS,
+				           TB_SIM          SIM,
+				           TB_TERMINAL     TT
+				     WHERE TV.VID = TS.VID
+				       AND TS.SID = SIM.SID
+				       AND TT.TID = TS.TID
+				       AND TV.ENABLE_FLAG = '1'
+				       AND (  TV.CREATE_TIME >= ? OR TV.UPDATE_TIME >= ?
+				             OR TS.CREATE_TIME >= ? OR TS.UPDATE_TIME >= ?
+				             OR SIM.CREATE_TIME >= ? OR SIM.UPDATE_TIME >= ?
+				             OR TT.CREATE_TIME >= ? OR TT.UPDATE_TIME >= ? )
+				</property>
+			</properties>
+		</task>
+		
+		<task name="generalCode" enable="false" desc="同步码表信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.GeneralCodeTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="3" desc="任务执行周期">5</period>
+			<properties desc="自定义配置">
+				<property name="syncGeneralSql" desc="通用编码表查询语句">
+					SELECT T.GENERAL_CODE, T.CODE_NAME, T.PARENT_GENERAL_CODE
+					  FROM SYS_GENERAL_CODE T
+					 WHERE T.ENABLE_FLAG != '0'
+				</property>
+				<property name="syncAreaSql" desc="获取行政区域编码语句">
+					SELECT T.AREA_CODE, T.AREA_NAME, T.AREA_LEVEL
+					  FROM SYS_AREA_INFO T
+					 WHERE T.AREA_LEVEL IN (0, 1)
+					 ORDER BY AREA_CODE
+				</property>
+			</properties>
+		</task>
+		
+		<task name="network" enable="false" desc="同步多组织信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.NetWorkStatisticsTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="0" desc="任务执行周期">1</period>
+			<properties desc="自定义配置">
+				<property name="sql_network" desc="入网车辆查询语句">
+					WITH TEAM_CNT AS
+					 (SELECT TV.ENT_ID, COUNT(1) CNT
+					    FROM TB_VEHICLE TV, TR_SERVICEUNIT TS
+					   WHERE TV.VID = TS.VID
+					     AND TV.VEHICLE_STATE = '2'
+					     AND TV.ENABLE_FLAG = '1'
+					   GROUP BY TV.ENT_ID),
+					ORG_CNT AS
+					 (SELECT A.ENT_ID, A.PARENT_ID, A.ENT_TYPE, C.CNT
+					    FROM TB_ORGANIZATION A, TEAM_CNT C
+					   WHERE A.ENT_ID = C.ENT_ID(+)
+					     AND A.ENABLE_FLAG = '1')
+					SELECT ENT_ID ENTID, SUM(NVL(CONNECT_BY_ROOT(CNT), 0)) STATISTICVEHICLE
+					  FROM ORG_CNT
+					 START WITH ENT_TYPE = 2
+					CONNECT BY PRIOR PARENT_ID = ENT_ID
+					 GROUP BY ENT_ID
+				</property>
+				<property name="sql_rates" desc="营运状态查询语句">
+					WITH TEAM_CNT AS
+					 (SELECT TV.ENT_ID, COUNT(1) CNT
+					    FROM TB_VEHICLE TV, TR_SERVICEUNIT TS
+					   WHERE TV.VID = TS.VID
+					     AND TV.VEHICLE_OPERATION_STATE = 10
+					     AND TV.VEHICLE_STATE = '2'
+					     AND TV.ENABLE_FLAG = '1'
+					   GROUP BY TV.ENT_ID),
+					ORG_CNT AS
+					 (SELECT A.ENT_ID, A.PARENT_ID, A.ENT_TYPE, C.CNT
+					    FROM TB_ORGANIZATION A, TEAM_CNT C
+					   WHERE A.ENT_ID = C.ENT_ID(+)
+					     AND A.ENABLE_FLAG = '1')
+					SELECT ENT_ID ENTID, SUM(NVL(CONNECT_BY_ROOT(CNT), 0)) STATISTICVEHICLE
+					  FROM ORG_CNT
+					 START WITH ENT_TYPE = 2
+					CONNECT BY PRIOR PARENT_ID = ENT_ID
+					 GROUP BY ENT_ID
+				</property>
+				<property name="sql_online" desc="在线车辆查询语句">
+					WITH MID1 AS
+					 (SELECT A.ENT_ID, A.PARENT_ID, LEVEL LVL, CONNECT_BY_ROOT(ENT_ID) ROOT_ID
+					    FROM TB_ORGANIZATION A
+					   START WITH ENT_ID IN (SELECT DISTINCT ENT_ID FROM TR_ONLINE_VEHICLE_TIME)
+					  CONNECT BY PRIOR ENT_ID = PARENT_ID
+					         AND A.ENABLE_FLAG = '1'),
+					MID2 AS
+					 (SELECT ENT_ID, MIN(LVL) LVL FROM MID1 M GROUP BY ENT_ID),
+					ORG_MAP AS 
+					 (SELECT M1.ENT_ID, ROOT_ID
+					    FROM MID1 M1, MID2 M2
+					   WHERE M1.ENT_ID = M2.ENT_ID
+					     AND M1.LVL = M2.LVL),
+					ORG_ONLINE_TIME AS
+					 (SELECT O.*, T.ONLINE_TIME
+					    FROM ORG_MAP O, TR_ONLINE_VEHICLE_TIME T
+					   WHERE O.ROOT_ID = T.ENT_ID),
+					TEAM_CNT AS
+					 (SELECT TV.ENT_ID, COUNT(1) CNT
+					    FROM TB_VEHICLE           TV,
+					         TR_SERVICEUNIT       TS,
+					         TR_VEHICLE_LASTTRACK TR,
+					         ORG_ONLINE_TIME      O
+					   WHERE TV.VID = TS.VID
+					     AND TV.VID = TR.VID
+					     AND TV.ENT_ID = O.ENT_ID
+					     AND TV.ENABLE_FLAG = '1'
+					     AND TV.VEHICLE_STATE = '2'
+					     AND TV.VEHICLE_OPERATION_STATE = '10'
+					     AND TR.SYSUTC >= FUN_DATE2UTC(SYSDATE) - O.ONLINE_TIME
+					   GROUP BY TV.ENT_ID),
+					ORG_CNT AS
+					 (SELECT A.ENT_ID, A.PARENT_ID, A.ENT_TYPE, C.CNT
+					    FROM TB_ORGANIZATION A, TEAM_CNT C
+					   WHERE A.ENT_ID = C.ENT_ID(+)
+					     AND A.ENABLE_FLAG = '1')
+					SELECT ENT_ID ENTID, SUM(NVL(CONNECT_BY_ROOT(CNT), 0)) STATISTICVEHICLE
+					  FROM ORG_CNT
+					 START WITH ENT_TYPE = 2
+					CONNECT BY PRIOR PARENT_ID = ENT_ID
+					 GROUP BY ENT_ID
+				</property>
+				<property name="sql_driving" desc="行驶车辆查询语句">
+					WITH TEAM_CNT AS
+					 (SELECT TV.ENT_ID, COUNT(1) CNT
+					    FROM TB_VEHICLE TV, TR_SERVICEUNIT TS, TR_VEHICLE_LASTTRACK TR
+					   WHERE TV.VID = TS.VID
+					     AND TV.VID = TR.VID
+					     AND TV.VEHICLE_STATE = '2'
+					     AND TV.ENABLE_FLAG = '1'
+					     AND TR.SYSUTC >= FUN_DATE2UTC(SYSDATE) - 600000
+					     AND TR.GPS_SPEED >= 5
+					     AND TR.ISONLINE = 1
+					     AND TR.ISVALID = 0
+					     AND TV.VEHICLE_OPERATION_STATE = 10
+					   GROUP BY TV.ENT_ID),
+					ORG_CNT AS
+					 (SELECT A.ENT_ID, A.PARENT_ID, A.ENT_TYPE, C.CNT
+					    FROM TB_ORGANIZATION A, TEAM_CNT C
+					   WHERE A.ENT_ID = C.ENT_ID(+)
+					     AND A.ENABLE_FLAG = '1')
+					SELECT ENT_ID ENTID, SUM(NVL(CONNECT_BY_ROOT(CNT), 0)) STATISTICVEHICLE
+					  FROM ORG_CNT
+					 START WITH ENT_TYPE = 2
+					CONNECT BY PRIOR PARENT_ID = ENT_ID
+					 GROUP BY ENT_ID
+				</property>
+			</properties>
+		</task>
+		
+		<task name="roadCondition" enable="false" desc="同步组织信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.RoadConditionTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="2" desc="任务执行周期">10</period>
+			<properties desc="自定义配置">
+				<property name="provinceCode" desc="区域代码">110000,120000,130000,410000,430000,450000,460000,520000,610000,620000,630000,650000</property>
+				<property name="requestUrl" desc="请求地址">http://tspub{0}ic.yootu.com/YTEVENT2?valiCode=20091201</property>
+				<property name="areaStr" desc="区域代码说明">北京#110000,天津#120000,河北#130000,河南#410000,湖南#430000,广西#450000,海南#460000,贵州#520000,陕西#610000,甘肃#620000,青海#630000,新疆#650000</property>
+				<property name="enCoding" desc="数据编码格式">GBK</property>
+			</properties>
+		</task>
+		
+		<task name="top" enable="false" desc="同步排行榜信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.VehicleAndTeamTop</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="0" desc="任务执行周期">1</period>
+			<properties desc="自定义配置">
+				<property name="top_hours" desc="排行榜统计时">03</property>
+				<property name="top_minute" desc="排行榜统计分">20</property>
+				<property name="sql_top_org" desc="组织查询语句">
+					select ENT_ID,ENT_NAME from TB_ORGANIZATION T WHERE T.ENABLE_FLAG='1'  AND T.ENT_STATE='1'
+				</property>
+				<property name="sql_vehicleTop" desc="车辆排行查询语句">
+					SELECT tt.* FROM (SELECT BB.*,ROWNUM AS SEQID FROM (SELECT A.stat_year,A.stat_month,A.vid,A.c_vin,A.vehicle_no,A.vbrand_code,A.prod_code,(select spt.PROD_NAME from SYS_PRODUCT_TYPE spt where spt.PROD_CODE(+)=A.prod_code AND ROWNUM=1) AS PROD_NAME,A.emodel_code,A.vline_id,A.vline_name,A.corp_id,A.corp_name,A.team_id,A.team_name,A.travel_mileage,A.overspeed_sum,A.overspeed_time,A.oil_overspeed_score,A.safe_overspeed_score,A.overrpm_sum,A.overrpm_time,A.oil_overrpm_score,A.gear_glide_sum,A.gear_glide_time,A.oil_gear_glide_score,A.safe_gear_glide_score,A.long_idle_sum,A.long_idle_time,A.oil_long_idle_score,A.fatigue_sum,A.fatigue_time,A.safe_fatigue_score,A.economic_run_sum,A.economic_run_time,A.oil_economic_run_score,A.urgent_sum,A.oil_urgent_score,A.safe_urgent_score,A.air_condition_sum,A.air_condition_time,A.oil_air_condition_score,A.engine_rotate_time,A.oil_score_sum,A.safe_score_sum,A.fact_oilwear,A.check_oilwear,A.saveoil_sum,A.saveoil_ratio,A.oilwear_score,A.all_score_sum FROM TS_GRADE_MONTHSTAT A,(select t.ent_id from TB_ORGANIZATION t, TB_ORG_INFO c WHERE t.ENT_ID = c.ENT_ID and t.ENABLE_FLAG != 0 start with t.PARENT_ID = ? connect by prior t.ENT_ID = t.PARENT_ID union select t.ent_id from TB_ORGANIZATION t, TB_ORG_INFO c where t.ENT_ID = c.ENT_ID and t.ENT_ID =?) B WHERE A.CORP_ID = B.ENT_ID AND A.STAT_YEAR = ? AND A.STAT_MONTH = ? ORDER BY A.all_score_sum DESC ) BB WHERE ROWNUM &lt;= 10 ) tt WHERE tt.SEQID &gt; 0
+				</property>
+				<property name="sql_vehicleTeamTop" desc="车队排行查询语句">
+					SELECT CC.SEQID,CC.corp_name,CC.team_id,CC.team_name,CC.Oil_Overspeed_Score,CC.Oil_Overrpm_Score,CC.OIL_GEAR_GLIDE_SCORE,CC.Oil_Long_Idle_Score,CC.Oil_Urgent_Score,CC.Oil_Air_Condition_Score,CC.Oil_Economic_Run_Score,CC.Oil_Score_Sum,CC.safe_Overspeed_Score,CC.safe_GEAR_GLIDE_SCORE,CC.SAFE_FATIGUE_SCORE,CC.safe_Urgent_Score,CC.safe_Score_Sum,CC.oilwear_score,CC.all_score_sum FROM (SELECT tt.*, ROWNUM AS SEQID FROM (SELECT BB.* FROM (SELECT A.team_id,(case when (select isdeteam from tb_org_info where ent_id=A.team_id)=1 then A.corp_name else A.team_name end) as team_name,A.corp_name,grade_score_pack.count_average_score(SUM(A.Oil_Overspeed_Score),COUNT(1)) AS Oil_Overspeed_Score,grade_score_pack.count_average_score(SUM(A.Oil_Overrpm_Score),COUNT(1)) AS Oil_Overrpm_Score,grade_score_pack.count_average_score(SUM(A.OIL_GEAR_GLIDE_SCORE),COUNT(1)) AS OIL_GEAR_GLIDE_SCORE,grade_score_pack.count_average_score(SUM(A.Oil_Long_Idle_Score),COUNT(1)) AS Oil_Long_Idle_Score, grade_score_pack.count_average_score(SUM(A.Oil_Urgent_Score),COUNT(1)) AS Oil_Urgent_Score,grade_score_pack.count_average_score(SUM(A.Oil_Air_Condition_Score),COUNT(1)) AS Oil_Air_Condition_Score,grade_score_pack.count_average_score(SUM(A.Oil_Economic_Run_Score), COUNT(1)) AS Oil_Economic_Run_Score,grade_score_pack.count_average_score(SUM(A.Oil_Score_Sum), COUNT(1)) AS Oil_Score_Sum,grade_score_pack.count_average_score(SUM(A.safe_Overspeed_Score),COUNT(1)) AS safe_Overspeed_Score,grade_score_pack.count_average_score(SUM(A.safe_GEAR_GLIDE_SCORE),COUNT(1)) AS safe_GEAR_GLIDE_SCORE,grade_score_pack.count_average_score(SUM(A.SAFE_FATIGUE_SCORE),COUNT(1)) AS SAFE_FATIGUE_SCORE,grade_score_pack.count_average_score(SUM(A.safe_Urgent_Score),COUNT(1)) AS safe_Urgent_Score,grade_score_pack.count_average_score(SUM(A.safe_Score_Sum),COUNT(1)) AS safe_Score_Sum,grade_score_pack.count_average_score(SUM(A.oilwear_score),COUNT(1)) AS oilwear_score,grade_score_pack.count_average_score(SUM(A.all_score_sum),COUNT(1)) AS all_score_sum FROM TS_GRADE_MONTHSTAT A,(select t.ent_id from TB_ORGANIZATION t, TB_ORG_INFO c WHERE t.ENT_ID = c.ENT_ID and t.ENABLE_FLAG != 0 start with t.PARENT_ID = ? connect by prior t.ENT_ID = t.PARENT_ID union select t.ent_id from TB_ORGANIZATION t, TB_ORG_INFO c where t.ENT_ID = c.ENT_ID and t.ENT_ID = ?) B WHERE A.CORP_ID = B.ENT_ID AND A.STAT_YEAR = ? AND A.STAT_MONTH = ? GROUP BY A.team_id, A.team_name, A.corp_name) BB WHERE ROWNUM &lt;= 10 ORDER BY BB.all_score_sum DESC, BB.safe_score_sum DESC) tt) CC WHERE CC.SEQID &gt; 0
+				</property>
+			</properties>
+		</task>
+		
+		<task name="vehicle" enable="true" desc="同步车辆信息任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.VehicleServiceTask</class>
+			sql_syncAll_Auth sql_Increments_Auth unit="时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<period unit="minute" delay="1" desc="任务执行周期">2</period>
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认60分钟)">60</property>
+				<property name="limit" desc="时间误差限制(单位:分钟 ; 默认3分钟)">3</property>
+				<property name="sql_syncAll" desc="全量查询语句">
+					SELECT V.VID,
+				       NVL(TVL.LAT, 0) || ':' || NVL(TVL.LON, 0) || ':' ||
+				       NVL(TVL.MAPLON, 0) || ':' || NVL(TVL.MAPLAT, 0) || ':' ||
+				       NVL(TVL.GPS_SPEED, 0) || ':0:' || NVL(TVL.UTC, 0) || ':' ||
+				       TVL.ALARM_CODE || ':0:0:0:0:0:0:0:0:0:' || TVL.VEHICLE_SPEED ||
+				       ':0:0:0:0:0:::' || TVL.SPEED_FROM || '::' || TVL.ELEVATION || '::' ||
+				       V.VID || ':' || V.PLATE_COLOR || ':' || V.VEHICLE_NO || ':' ||
+				       SIM.COMMADDR || ':' || TT.TID || ':' || TT.TMAC || ':' ||
+				       TO_CHAR(STAFF.STAFF_NAME) || ':' || ENT.ENT_NAME || ':' ||
+				       TEAM.ENT_ID || ':' || ENT.ENT_ID || ':' ||
+				       TT.OEM_CODE || ':' || TVL.SYSUTC || ':' || TVL.ISONLINE || ':' ||
+				       TVL.ISVALID || ':' || TVL.MSGID || ':' || TEAM.ENT_NAME AS STR
+				  FROM KCPT.TB_VEHICLE V
+				  JOIN KCPT.TR_VEHICLE_LASTTRACK TVL
+				    ON V.VID = TVL.VID
+				   AND V.ENABLE_FLAG = '1'
+				  JOIN KCPT.TR_SERVICEUNIT TS
+				    ON TS.VID = V.VID
+				  JOIN KCPT.TB_TERMINAL TT
+				    ON TS.TID = TT.TID
+				  JOIN KCPT.TB_SIM SIM
+				    ON TS.SID = SIM.SID
+				  LEFT JOIN KCPT.TB_ORGANIZATION TEAM
+				    ON TEAM.ENT_ID = V.ENT_ID
+				  LEFT JOIN KCPT.TB_ORGANIZATION ENT
+				    ON TEAM.PARENT_ID = ENT.ENT_ID
+				  LEFT JOIN (SELECT SF.VID VID, WM_CONCAT(EP.STAFF_NAME) STAFF_NAME
+				               FROM KCPT.TB_EMPLOYEE EP, KCPT.TR_VEHICLE_STAFF SF
+				              WHERE EP.STAFF_ID = SF.STAFF_ID
+				                AND EP.ENABLE_FLAG = '1'
+				              GROUP BY SF.VID) STAFF
+				    ON V.VID = STAFF.VID
+				</property>
+				<property name="sql_syncIncrements" desc="增量查询语句">
+					SELECT V.VID,
+				       NVL(TVL.LAT, 0) || ':' || NVL(TVL.LON, 0) || ':' ||
+				       NVL(TVL.MAPLON, 0) || ':' || NVL(TVL.MAPLAT, 0) || ':' ||
+				       NVL(TVL.GPS_SPEED, 0) || ':0:' || NVL(TVL.UTC, 0) || ':' ||
+				       TVL.ALARM_CODE || ':0:0:0:0:0:0:0:0:0:' || TVL.VEHICLE_SPEED ||
+				       ':0:0:0:0:0:::' || TVL.SPEED_FROM || '::' || TVL.ELEVATION || '::' ||
+				       V.VID || ':' || V.PLATE_COLOR || ':' || V.VEHICLE_NO || ':' ||
+				       SIM.COMMADDR || ':' || TT.TID || ':' || TT.TMAC || ':' ||
+				       TO_CHAR(STAFF.STAFF_NAME) || ':' || ENT.ENT_NAME || ':' ||
+				       TEAM.ENT_ID || ':' || ENT.ENT_ID || ':' ||
+				       TT.OEM_CODE || ':' || TVL.SYSUTC || ':' || TVL.ISONLINE || ':' ||
+				       TVL.ISVALID || ':' || TVL.MSGID || ':' || TEAM.ENT_NAME AS STR
+				  FROM KCPT.TB_VEHICLE V,
+				       KCPT.TR_VEHICLE_LASTTRACK TVL,
+				       KCPT.TR_SERVICEUNIT TS,
+				       KCPT.TB_TERMINAL TT,
+				       KCPT.TB_SIM SIM,
+				       KCPT.TB_ORGANIZATION TEAM,
+				       KCPT.TB_ORGANIZATION ENT,
+				       (SELECT SF.VID, WM_CONCAT(EP.STAFF_NAME) STAFF_NAME
+				          FROM KCPT.TB_EMPLOYEE EP, KCPT.TR_VEHICLE_STAFF SF
+				         WHERE EP.STAFF_ID = SF.STAFF_ID
+				           AND EP.ENABLE_FLAG = '1'
+				         GROUP BY SF.VID) STAFF
+				 WHERE V.VID = TVL.VID
+				   AND V.ENABLE_FLAG = '1'
+				   AND TS.VID = V.VID
+				   AND TS.TID = TT.TID
+				   AND TS.SID = SIM.SID
+				   AND V.ENT_ID = TEAM.ENT_ID(+)
+				   AND TEAM.PARENT_ID = ENT.ENT_ID(+)
+				   AND TS.VID = STAFF.VID(+)
+				   AND (TEAM.CREATE_TIME &gt;= ? OR TEAM.UPDATE_TIME &gt;= ? OR
+				        ENT.CREATE_TIME &gt;= ? OR ENT.UPDATE_TIME &gt;= ? OR
+				        V.CREATE_TIME &gt;= ? OR V.UPDATE_TIME &gt;= ? OR
+				        TT.CREATE_TIME &gt;= ? OR TT.UPDATE_TIME &gt;= ? OR
+				        SIM.CREATE_TIME &gt;= ? OR SIM.UPDATE_TIME &gt;= ? )
+				</property>
+				
+				<property name="sql_syncDriver" desc="驾驶员查询语句">
+					SELECT SF.VID, WM_CONCAT(EP.STAFF_NAME) AS DRIVERNAME
+					  FROM TR_VEHICLE_STAFF SF, TB_VEHICLE V, TB_EMPLOYEE EP
+					 WHERE V.ENABLE_FLAG = '1'
+					   AND V.VEHICLE_STATE = '2'
+					   AND SF.VID = V.VID
+					   AND EP.STAFF_ID = SF.STAFF_ID
+					 GROUP BY SF.VID
+				</property>
+			</properties>
+		</task>
+		<task name="OrgInfoTask_byFile" enable="true" desc="企业组织静态信息同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.OrgInfoTask</class>
+			<period unit="minute" delay="1" desc="任务执行周期">2</period>"时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认5分钟)">36000</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="filePath" desc ="文件路径">C:\Users\fanta\Desktop\dispatch\org.txt</property>
+				<property name="dispatchCode" desc ="接入码">510031_510000</property>
+				<property name="mccUrl" desc ="mcc接口">http://192.168.2.163/mccproxy/remoteMcc.action</property>
+				<property name="sql_orgInfoListAll"  desc="全量同步查询语句   ">
+					select o.ent_name, t.SPECIAL_ID , t.BUSINESS_SCOPE,t.corp_city, t.LICENCE_WORD,t.org_address, t.org_cname, t.org_cno  from TB_ORG_INFO t,TB_ORGANIZATION o where t.ent_id = o.ent_id and t.CORP_PROVINCE = '510000' and o.enable_flag ='1' and o.ENT_TYPE ='1'
+				</property>
+				<property name="sql_orgInfoListIncremental" desc="增量同步查询语句">
+					select o.ent_name, t.corp_city, t.org_address, t.org_cname, t.org_cno  from TB_ORG_INFO t,TB_ORGANIZATION o where t.ent_id = o.ent_id and t.CORP_PROVINCE = '510000' and o.enable_flag ='1' and o.ENT_TYPE ='1' and (o.update_time >=? or o.create_time >=?)
+				</property>
+			</properties>
+		</task>
+		<task name="VehicleInfoTask_byFile" enable="true" desc="车辆静态信息同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.VehicleInfoTask</class>
+			<period unit="minute" delay="1" desc="任务执行周期">10</period>"时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认5分钟)">36000</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="filePath" desc ="文件路径">C:\Users\fanta\Desktop\dispatch\vehicle.txt</property>
+				<property name="dispatchCode" desc ="接入码">510031_510000</property>
+				<property name="mccUrl" desc ="mcc接口">http://192.168.2.163/mccproxy/remoteMcc.action</property>
+				<property name="sql_vehicleInfoListAll"  desc="全量同步查询语句   ">
+					select v.VIN_CODE, v.VEHICLE_NO, v.PLATE_COLOR, v.CITY_ID, v.PROD_CODE, v.ROAD_TRANSPORT, v.CERTIFICATE_TYPE, v.MAXIMAL_PEOPLE, v.ENGINE_NO, e.STAFF_NAME,ts.COMMADDR  from TB_VEHICLE v,TR_VEHICLE_STAFF s, TB_EMPLOYEE e,TR_SERVICEUNIT ser, TB_SIM ts 
+					where v.vid = s.vid and s.staff_id = e.staff_id and ts.sid = ser.sid and ser.vid = v.vid and v.enable_flag = '1' and v.area_code ='510000'
+				</property>
+				<property name="sql_vehicleInfoListIncremental" desc="增量同步查询语句">
+					select v.VIN_CODE, v.VEHICLE_NO, v.PLATE_COLOR, v.CITY_ID, v.PROD_CODE, v.ROAD_TRANSPORT, v.CERTIFICATE_TYPE, v.MAXIMAL_PEOPLE, v.ENGINE_NO, e.STAFF_NAME,ts.COMMADDR  from TB_VEHICLE v,TR_VEHICLE_STAFF s, TB_EMPLOYEE e,TR_SERVICEUNIT ser, TB_SIM ts 
+					where v.vid = s.vid and s.staff_id = e.staff_id and ts.sid = ser.sid and ser.vid = v.vid and v.enable_flag = '1' and v.area_code ='510000' and (v.update_time >=? or v.create_time >=?)
+				</property>
+			</properties>
+		</task>
+			
+		<task name="EmployeeInfoTask_byFile" enable="true" desc="驾驶员静态信息同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.EmployeeInfoTask</class>
+			<period unit="minute" delay="1" desc="任务执行周期">2</period>"时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认5分钟)">36000</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="filePath" desc ="文件路径">C:\Users\fanta\Desktop\dispatch\emp.txt</property>
+				<property name="dispatchCode" desc ="接入码">510031_510000</property>
+				<property name="mccUrl" desc ="mcc接口">http://192.168.2.163/mccproxy/remoteMcc.action</property>
+				<property name="sql_employeeInfoListAll"  desc="全量同步查询语句   ">
+				SELECT E.CARD_ID, E.STAFF_NAME, E.SEX, V.VIN_CODE,E.DRIVER_NO, E.MOBILEPHONE ,E.ADDRESS FROM TB_EMPLOYEE E ,TB_VEHICLE V,TR_VEHICLE_STAFF S 
+				WHERE V.VID = S.VID AND S.STAFF_ID = E.STAFF_ID AND E.ENABLE_FLAG = '1' AND V.AREA_CODE ='510000'
+				</property>
+				<property name="sql_employeeInfoListIncremental" desc="增量同步查询语句">
+				SELECT E.CARD_ID, E.STAFF_NAME, E.SEX, V.VIN_CODE,E.DRIVER_NO, E.MOBILEPHONE ,E.ADDRESS FROM TB_EMPLOYEE E ,TB_VEHICLE V,TR_VEHICLE_STAFF S 
+				WHERE V.VID = S.VID AND S.STAFF_ID = E.STAFF_ID AND E.ENABLE_FLAG = '1' AND V.AREA_CODE ='510000' AND (E.update_time >=? or E.create_time >=?)
+				</property>
+			</properties>
+		</task>
+		
+		<task name= "DispatchInfoTask" enable="true" desc="转网信息同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.DispatchInfoTask</class>
+			<period unit="minute" delay="1" desc="任务执行周期">2</period>"时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时"
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认5分钟)">36000</property>02代表每天凌晨2点进行一次清除更新操作
+				<property name="sql_dispatchInfoAll"  desc="全量同步查询语句   ">
+					select p.platform_no, c.commaddr, r.status from tb_third_platform p ,tb_transit_config c ,tr_transit r where p.id = c.platform_id and c.vid = r.vid 
+					SELECT R.STATUS, P.PLATFORM_NO, DECODE(C.COMMADDR,NULL, (SELECT A.COMMADDR  FROM TB_SIM A, TR_SERVICEUNIT B WHERE A.SID = B.SID AND B.VID = R.VID),C.COMMADDR) COMMADDR FROM TR_TRANSIT R JOIN TB_THIRD_PLATFORM P ON R.PLATFORM_ID = P.ID LEFT JOIN TB_TRANSIT_CONFIG C ON R.VID = C.VID AND R.PLATFORM_ID = C.PLATFORM_ID
+				</property>
+				<property name="sql_dispatchInfoIncremental" desc="增量同步查询语句">
+					SELECT R.STATUS, P.PLATFORM_NO, DECODE(C.COMMADDR,NULL, (SELECT A.COMMADDR  FROM TB_SIM A, TR_SERVICEUNIT B WHERE A.SID = B.SID AND B.VID = R.VID),C.COMMADDR) COMMADDR FROM TR_TRANSIT R JOIN TB_THIRD_PLATFORM P ON R.PLATFORM_ID = P.ID LEFT JOIN TB_TRANSIT_CONFIG C ON R.VID = C.VID AND R.PLATFORM_ID = C.PLATFORM_ID AND (R.UPDATE_TIME >= ? OR R.CREATE_TIME >= ?)
+				</property>	
+				<property name="sql_dispatchInfoAll_platform"  desc="全量同步查询语句   ">
+					select decode(p.protocol_id,'1','JT808','2','JT809') protocol_id, p.platform_no, p.access_code, p.ip_address, p.port, p.user_name, p.password, decode(p.reg_auth,'1','0','0','1') reg_auth, decode(p.status,'1','0','0','1') status from tb_third_platform p where p.enable_flag = '1'
+				</property>
+				<property name="sql_dispatchInfoIncremental_platform" desc="增量同步查询语句">
+					select decode(p.protocol_id,'1','JT808','2','JT809') protocol_id, p.platform_no, p.access_code, p.ip_address, p.port, p.user_name, p.password, decode(p.reg_auth,'1','0','0','1') reg_auth, decode(p.status,'1','0','0','1') status from tb_third_platform p where p.enable_flag = '1' and (p.update_time >=? or p.create_time >=?)
+				</property>
+				
+				<property name="sql_dispatchInfoAll_tmc"  desc="全量同步查询语句   ">
+					select p.platform_no, c.commaddr, c.plate_color, c.vehicle_no, t.oem_code, c.tmodel_code,c.tmac  from tb_transit_config c,  tb_third_platform p, tb_terminal t, tr_serviceunit ser, tb_sim sim where c.platform_id = p.id and  c.commaddr = sim.commaddr and sim.sid  = ser.sid and ser.tid  = t.tid
+				</property>
+				<property name="sql_dispatchInfoIncremental_tmc" desc="增量同步查询语句">
+					select p.platform_no, c.commaddr, c.plate_color, c.vehicle_no, t.oem_code, c.tmodel_code,c.tmac  from tb_transit_config c,  tb_third_platform p, tb_terminal t,tr_serviceunit ser, tb_sim sim where c.platform_id = p.id and  c.commaddr = sim.commaddr and sim.sid  = ser.sid and ser.tid  = t.tid and (c.update_time >=? or c.create_time >=?)
+				</property>
+			</properties>
+		</task>
+		
+		<task name= "DispatchPlatformTask" enable="true" desc="转网第三方信息同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.syncservice.task.DispatchPlatformTask</class>
+			<period unit="minute" delay="0" desc="任务执行周期">2</period><!-- "时间单位(day/hour/minute/second),为day时内容为(HH:mm:ss)格式" delay="首次执行延时" -->
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认5分钟)">1</property><!-- 02代表每天凌晨2点进行一次清除更新操作 -->
+				<property name="sql_dispatchInfoAll"  desc="全量同步查询语句   ">
+					select t.platform_no,t.update_time from tb_third_platform t  
+				</property>
+				<property name="sql_updateInfo" desc="更新同步查询语句">
+					update tb_third_platform t set t.ip_address = ?,t.port = ?,t.update_time = ? where t.platform_no = ?
+				</property>	
+				<property name="sql_insertInfo"  desc="插入同步查询语句   ">
+					insert into tb_third_platform t (id,platform_no,platform_name,platform_type,ip_address,port,reg_auth,status,enable_flag,update_time)
+					values(?,?,?,?,?,?,'1','1','1',?)
+				</property>
+			</properties>
+		</task>
+	</tasks>
+</SyncService>
