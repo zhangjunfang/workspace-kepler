@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-lazy-init="false"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+	
+	<bean id="c2ppConfigurer"
+		class="com.kypt.configuration.C2ppCfg">
+		<property name="locations">
+			<list>
+			<value>classpath:c2pp.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="terminalConfigurer"
+		class="com.kypt.configuration.C2ppTerminalParamCfg">
+		<property name="locations">
+			<list>
+			<value>classpath:terminalparam.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="SupCommunicateService"
+		class="com.kypt.c2pp.nio.SupCommunicateService" init-method="init" destroy-method="destroy">
+	</bean>
+
+</beans>

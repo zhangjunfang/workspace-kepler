@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="CLW_C" basedir="." default="help">
+	<!-- import properties (app settings, classpath, jar file locations) -->
+	<import file="properties.xml" />
+
+	<target name="help">
+		<echo message="" />
+		<echo message="${webapp.name} build file" />
+		<echo message="-----------------------------------" />
+		<echo message="native2ascii -->转换文件编码" />
+	</target>
+
+	<target name="native2ascii">
+		<native2ascii src="${language.resource.dir}"
+			dest="${resource.dir}" includes="*.properties" encoding="UTF-8" />
+	</target>
+	<target name="clean">
+		<delete file="${webapp.name}.war" />
+		<delete dir="${web.dir}/temp" />
+		<delete dir="${web.dir}/uploadfolder" />
+	</target>
+	<target name="mkwar" depends="clean">
+		<war webxml="${web.dir}/WEB-INF/web.xml"
+			destfile="${webapp.name}.war" basedir="${web.dir}" />
+	</target>
+</project>
