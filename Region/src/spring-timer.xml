@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<!-- 定时器配置 -->
+<beans>
+	<!-- 统计数据更新定时器 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<!-- 添加触发器 -->
+		<property name="triggers">
+			<list>
+				<ref local="cronTrigger1" />
+			</list>
+		</property>
+	</bean>
+	<!-- 配置触发器一 -->
+	<bean id="cronTrigger1" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="methodInvokingJobDetail1" />
+		</property>
+		<property name="cronExpression" value="${regionFileExpression}" />
+	</bean>
+	
+	<!-- 启动器 1 -->
+	<bean id="methodInvokingJobDetail1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="tbServiceTimer" />
+		</property>
+		<property name="targetMethod">
+			<value>timerTbService</value>
+		</property>
+	</bean>
+
+
+	<!-- 定时将轨迹数据写入文件 -->
+	<bean name="tbServiceTimer" class="com.ctfo.region.timer.RegionServiceTimer">
+		<property name="regionServiceRmi" ref="regionServiceRmi" />
+	</bean>
+</beans>

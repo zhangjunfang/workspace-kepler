@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<contextName>region</contextName>
+	<!-- 日志输出目录 -->
+	<substitutionProperty name="log.base" value="/home/kcpt/logs/region" />
+	<!--appender 输出目的地 file 文件 日志按小时记录 最多保存3个小时的数据 每个小时内的文件按256M分块， -->
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.base}/region.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.base}/region-%d{yyyy-MM-dd-HH}-%i.log
+			</fileNamePattern>
+			<maxHistory>3</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>256MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<!-- 编码格式解析器 -->
+		<encoder>
+			<pattern>%date [%contextName][%logger]-[%le] - %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 日志级别 -->
+	<root level="DEBUG">
+		<appender-ref ref="file" />
+	</root>
+
+</configuration>

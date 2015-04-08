@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<contextName>region</contextName>
+	<substitutionProperty name="log.base2" value="d:\\region" />
+	<!--appender 输出目的地 console 控制台 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender"
+		target="System.out">
+		<encoder charset="UTF-8">
+			<pattern>%date [%contextName][%logger]-[%le] - %m%n</pattern>
+		</encoder>
+		<target>System.out</target>
+	</appender>
+
+
+	<!--appender 输出目的地 file 文件 -->
+	<appender name="file"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.base2}/region.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.base2}/region-%d{yyyy-MM-dd-HH-mm}.%i.log
+			</fileNamePattern>
+			<maxHistory>2</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>10MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date [%contextName][%logger]-[%le] - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="logfile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<File>${log.base2}/cds.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base2}/cds-%d{yyyy-MM-dd HH-mm}-%i.log
+			</FileNamePattern>
+			<MaxHistory>2</MaxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>1MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date [%contextName][%logger]-[%le] - %m%n</pattern>
+		</layout>
+	</appender>
+
+
+	<root level="DEBUG">
+		<appender-ref ref="file" />
+		<appender-ref ref="console" />
+	</root>
+
+</configuration>

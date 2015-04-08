@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+
+	<!-- 区域协查 -->
+	<bean id="regionServiceRmi" class="com.ctfo.region.service.impl.RegionServiceRmiImpl">
+		<property name="savePathWindow" value="${savePathWindow}" />
+		<property name="savePathLinux" value="${savePathLinux}" />
+		<property name="redisHost" value="${redisHost}" />
+		<property name="redisPort" value="${redisPort}" />
+		<property name="redisPass" value="${redisPass}" />
+		<property name="redisIndex" value="${redisIndex}" />
+	</bean>
+
+	<!-- 区域工具 -->
+  	<bean id="GridUtil" class="com.ctfo.region.util.GridUtil" scope="singleton" >
+        <property name="startx" value="${grid_x}" />
+    	<property name="starty" value="${grid_y}" />
+    	<property name="len" value="${grid_len}" />
+   </bean>
+</beans>
