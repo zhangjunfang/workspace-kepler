@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isg.yutong.com/contact/" targetNamespace="http://isg.yutong.com/contact/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://isgqas.yutong.com:2222/ISG/obtainXsd?serviceID=queryContact" namespace="http://isg.yutong.com/contact/" />
+    </xsd:schema>
+  </types>
+  <message name="queryContact">
+    <part name="parameters" element="tns:queryContact" />
+  </message>
+  <message name="queryContactResponse">
+    <part name="parameters" element="tns:queryContactResponse" />
+  </message>
+  <portType name="portTypeName">
+    <operation name="queryContact">
+      <input message="tns:queryContact" />
+      <output message="tns:queryContactResponse" />
+    </operation>
+  </portType>
+  <binding name="portTypeNameBinding" type="tns:portTypeName">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="queryContact">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="portTypeService">
+    <port name="portTypeName" binding="tns:portTypeNameBinding">
+      <soap:address location="https://isgqas.yutong.com:2222/ISG/ws/invokeService" />
+    </port>
+  </service>
+</definitions>

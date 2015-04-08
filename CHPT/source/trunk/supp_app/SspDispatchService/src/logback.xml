@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration >
+	<property name="log.base" value="d:/logs/dispatchservice" />
+<!--appender 输出目的地 console 控制台 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender"
+		target="System.out">
+		<encoder>   
+        	<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+	        <pattern>%date{yyyy-MM-dd HH:mm:ss} [%logger{5}]-[%le] - %m%n</pattern>
+	        <charset>UTF-8</charset> 
+      	</encoder> 
+		<target>System.out</target>
+	</appender>
+
+	<!--appender requestLogFile 输出目的地 file 文件   -->
+	<appender name="requestLogFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.base}/reqDispatchservice.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->  
+	        <fileNamePattern>${log.base}/reqDispatchservice-%d{yyyy-MM-dd}.%i.log</fileNamePattern>  
+	        <maxHistory>30</maxHistory>   
+	        <timeBasedFileNamingAndTriggeringPolicy  
+	            class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+	        	<!-- or whenever the file size reaches 100MB -->  
+	        	<maxFileSize>20MB</maxFileSize>  
+	        </timeBasedFileNamingAndTriggeringPolicy> 
+		</rollingPolicy>
+ 		<encoder>   
+        	<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+	        <pattern>%date{yyyy-MM-dd HH:mm:ss} [%logger{5}]-[%le] - %m%n</pattern>
+	        <charset>UTF-8</charset> 
+      	</encoder> 
+	</appender>
+	
+	<!--appender file 输出目的地 file 文件   -->
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.base}/dispatchservice.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- rollover daily -->  
+	        <fileNamePattern>${log.base}/dispatchservice-%d{yyyy-MM-dd}.%i.log</fileNamePattern>  
+	        <maxHistory>30</maxHistory>   
+	        <timeBasedFileNamingAndTriggeringPolicy  
+	            class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">  
+	        	<!-- or whenever the file size reaches 100MB -->  
+	        	<maxFileSize>20MB</maxFileSize>  
+	        </timeBasedFileNamingAndTriggeringPolicy> 
+		</rollingPolicy>
+ 		<encoder>   
+        	<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+	        <pattern>%date{yyyy-MM-dd HH:mm:ss} [%logger{5}]-[%le] - %m%n</pattern>
+	        <charset>UTF-8</charset> 
+      	</encoder> 
+	</appender>
+	
+	<logger name="requestLog" level="INFO" additivity="false"> 
+        <appender-ref ref="requestLogFile" /> 
+    </logger> 
+    
+    <root level="DEBUG"> 
+        <appender-ref ref="file" /> 
+        <appender-ref ref="console" />
+    </root> 
+
+</configuration>

@@ -1,0 +1,82 @@
+<!--公告管理 announceManage-->
+<!--sidebox-->
+    <div class="sidebox leftTreeContainer">
+    </div>
+<!--main-->
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>当前位置：</font>
+            <font>系统管理</font> ->
+            <font>公告管理</font>
+        </div>
+        <div class="m3">
+            <div class="">
+            	<!--查询条件 -->
+                <div class=" lineS69c h90 p5 tit5 overh vehicleTeamTerm">
+                    <form name="announceManageForm">
+                        <input type="hidden" name="corpManagerSearch" value="1">
+                        <input type="hidden" name="parentId" value="1">
+                        <input type="hidden" name="grandpaId" value="">
+						<div class=" h35">
+                        	<span class="btn4 fl mr10 addButton">新 增</span>
+                        	<span class="btn4 fl mr10 detailButton">查 看</span>
+                        	<span class="btn4 fl mr10 editButton">编 辑</span>
+                        	<span class="btn4 fl mr10 applyButton ">审核</span>
+                        	<span class="btn4 fl mr10 returnButton ">撤 回</span>
+    						<span class="btn4 fl mr10 publishButton">发 布</span>
+                        	<span class="btn4 fl mr10 removeButton ">删 除</span>
+                            <span class="btn4 fl mr10 exportGrid">导 出</span>
+                        	<span class="btn4 fl mr10 operaterLogButton">操作记录</span>
+                    	</div>
+                        <div class=" h30">
+                            <div class="h25 lh25 fl w180">
+                                关键字：
+                                <input type="text" name="mainWord" value="" />
+                            </div>
+                            <div class="h25 lh25 fl w180">
+                                状态：
+                                <select name="annouceStatus">
+                                     <option value="">请选择</option>
+                                     <option value="0">草稿</option>
+                                     <option value="1">已发布</option>
+                                     <option value="2">待审核</option>
+                                     <option value="3">已撤回</option>
+                                     <option value="4">驳回</option>  
+                                </select>
+                            </div>
+                            <div class="h25 lh25 fl w300">
+                                发布时间：
+                                 <input id="d037" type="text" readonly="readonly" class="Wdate" name="releaseDateStart" value="" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d038\')||\'2020-10-01\'}'})"/> 
+                                 至
+                                 <input id="d038" type="text" readonly="readonly" class="Wdate" name="releaseDateEnd" value="" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d037\')||\'2020-10-01\'}'})"/>
+                            </div>
+                        </div>
+                        <div class=" h30">
+                            <div class="h25 lh25 fl w180">
+                                接收方：
+                                <select name = "comCode" ><option value="">请选择...</option></select>
+                            </div>
+                            <div class="h25 lh25 fl w180">
+                                发布组织：
+                                <select name="annouceDept"><option value="">请选择...</option></select>
+                            </div>
+                            <div class="h25 lh25 fl w180">
+                                发布人：
+                                <select name="annoucePeopleId"><option value="">请选择...</option></select>
+                            </div>
+                            <div class="h25 lh25 fl w260">
+                                <span class="btn1 cFFF fl mr10 queryButton">查询</span>
+                                <span class="btn4 fl mr10 resetButton">清除</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!--数据显示-->
+                <div class=" lineS mt3 bcFFF gridContainerWrap">
+                    <div class="gridContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>

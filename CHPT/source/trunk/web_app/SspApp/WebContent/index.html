@@ -1,0 +1,1979 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	style="height:100%;width: 100%;">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<title>车后平台支撑系统</title>
+
+<link rel="shortcut icon" href="img/logo.ico" />
+<link rel="Bookmark" href="img/logo.ico" />
+<link rel="stylesheet" name="styleLink" type="text/css"
+	href="css/base.css" />
+<link rel="stylesheet" type="text/css" href="css/built.css" />
+<script type="text/javascript" src="dist/plugin/doT/doT.js"></script>
+<script type="text/javascript" src="version.js"></script>
+<script type="text/javascript" data-main="script/main"
+	src="dist/plugin/requirejs/require.js"></script>
+
+</head>
+
+<body style="width: 100%; height: 100%;">
+	<!--heardbox-->
+	<div class="heardbox" id="header">
+		<!-- <div class="box mr0"> -->
+		<div class="logo">
+			<h1 class="tnone"></h1>
+		</div>
+
+
+		<!--User-Info-->
+		<div class="user_info">
+			<p>
+				<span></span> <span></span>
+			</p>
+			<p>
+				<span></span> <span class="c0F0"></span>
+			</p>
+			<p>
+				<span class="hand"></span> <span></span> <span class="hand"></span>
+				<span></span> <span class="hand"></span>
+			</p>
+		</div>
+
+		<!--NavBox-->
+		<div class="navbox"></div>
+
+		<!-- </div> -->
+	</div>
+
+	<!--content 设置默认高度, 不让header和footer贴在一起-->
+	<div class="content" style="height: 1400px;">
+		<div class="mutiLablebox pt5 h25 lh25 lineS_b pl5 tc none"></div>
+	</div>
+
+	<!--foot-->
+	<div class="footbox" id="footer">
+		<div class="fl lh25 ml10 cFFF w100 hand pt3 commitLog">
+			<span class="ico1121"></span> <span></span>
+		</div>
+		<div class="fl h25 lh25 ml10 cFFF w200 pt3 commandReturnStatus none"
+			id="commandStatusReturn"></div>
+		<div class="fl lh25 ml10 cFFF w210 hand pt3 onlineVehicleCount none"></div>
+		<div class="fl lh25 ml100 cFFF w150 pt3 onOffLineText none"></div>
+		<div class="eurocargoBox none"></div>
+    <div class="pl10 pr10 h25">
+      <div class="fr">
+          <span class="cFFF txt1"></span>
+      </div>
+      <div class="fr pl10 pr10">
+          <span class="cFFF">|</span>
+      </div>
+      <div class="fr">
+          <span class="cFFF txt2"></span>
+      </div>
+      <div class="fl">
+          <span class="cFFF txt3"></span>
+          <span class="cFFF txt4"></span>
+      </div>
+      <div class="fl pl10 pr10">
+          <span class="cFFF">|</span>
+      </div>
+      <div class="fl">
+          <span class="cFFF txt5"></span>
+      </div>
+    </div>
+		<div class="alarmBox pr pl10 pr10 h25 none">
+			<div>
+				<span class="hand ico1145 shadow "></span>
+			</div>
+			<div
+				class="pa w280 pt10 pl10 pr10 bcFFF h140 lineS06c radius3 alarmContent none"
+				style="bottom: 20px; right: -20px; z-index: 600000;">
+
+				<ul class="alarmList h120">
+				</ul>
+				<div class="h20 lh20 tr hand alarmMore"></div>
+			</div>
+		</div>
+		<div class="alarmVoice pl10 pr5">
+			<span class=""></span>
+		</div>
+		<div style="height: 0px;" id="flashVoiceDiv"></div>
+	</div>
+	<div id="popLayerContainer"></div>
+</body>
+</html>
+<!-- 框架,菜单模板 -->
+<!-- {{ if (!it.auth || (it.auth && it.auth.indexOf(CTFO.cache.authStr) > -1)) { }} -->
+<script id="menu_tmpl" type="text/x-dot-template">
+  <ul class="{{=it.l === 0 ? 'nav' : 'subnav'}}">
+    {{ for (var i = 0, l = it.c.length; i < l; i++) { var item = it.c[i]; if (item) { }}
+
+        {{ if(it.c[i].l === 1) { }}
+          <li class="{{='li_' + item.l + '_' + i}}" url="{{=item.url}}" mid="{{=item.mid}}" auth="{{=item.auth || '' }}" isframe="{{=item.isFrame || 0}}">
+            <div class="firstLevelNav {{=item.icon}}">{{=item.name}}</div>
+          </li>
+        {{ } else { }}
+          <ol url="{{=item.url}}" mid="{{=item.mid}}" auth="{{=item.auth || '' }}" isframe="{{=item.isFrame || 0}}">
+            <span class="{{=item.icon}}"></span>{{=item.name}}
+          </ol>
+        {{ } }}
+      {{ } }}
+    {{ } }}
+  </ul>
+</script>
+
+<!-- 框架,手风琴模板 -->
+<!-- {{ if (!it.auth || (it.auth && it.auth.indexOf(CTFO.cache.authStr) > -1)) { }} -->
+<script id="accordion_tmpl" type="text/x-dot-template">
+  <ul class="{{=it.l === 0 ? 'accordion' : 'subaccordion'}}">
+    {{ for (var i = 0, l = it.c.length; i < l; i++) { var item = it.c[i]; if (item) { }}
+        {{ if(item.isHomePage) continue; }}
+        {{ if(item.l === 1 ) { }}
+          <li class="{{='li_' + item.l + '_' + i}}" url="{{=item.url}}" mid="{{=item.mid}}" auth="{{=item.auth || '' }}" isframe="{{=item.isFrame || 0}}">
+            <div class="firstLevelAccordion tit2 pl15 h25 lh25 hand cBlue2">
+              <span class=" ico146"></span>
+              {{=item.name}}
+            </div>
+          </li>
+        {{ } else { }}
+          <ol class="{{=(item.isHidden=="1")?"none":""}}" url="{{=item.url}}" mid="{{=item.mid}}" auth="{{=item.auth || '' }}" isframe="{{=item.isFrame || 0}}" class="pt5 pb5">
+            <div class="pl30 h25 lh25 hand">
+              <span class="{{=item.icon}}"></span>
+              {{=item.name}}
+            </div>
+          </ol>
+        {{ } }}
+      {{ } }}
+    {{ } }}
+  </ul>
+</script>
+<!-- 系统管理 -> 公司管理 新增 编辑 模板 -->
+<script id="company_manage_detail_tmpl" type="text/x-dot-template">
+	<input name="comId" type="hidden" value="{{=it.comId || '' }}" /> 
+    <ul>
+        <li class="h25 lh25 fl w33b mb10">
+            <div class="fl w90 tr">公司编码：</div>
+            <span class="pr fl">
+            <input name="comCode" disabled="disabled" type="text" class="mt2 abs_left {required:true,specialchars: true,noChinese:true}"  value="{{=it.comCode || '' }}">
+            </span>
+        </li>
+        <li class="h25 lh25 fl w33b mb10">
+            <div class="fl w90 tr"><font class="fb cF00">* </font>公司名称：</div>
+            <span class="pr fl">
+            <input name="comName" type="text" class="mt2 abs_left {required:true,specialchars:true,maxlength:50}"  value="{{=it.comCode || '' }}">
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b mb10">
+            <div class="fl w90 tr"><font class="fb cF00">* </font>所属省：</div>
+            <span class="pr fl">
+            <select name="province" class="mt2 abs_left {required:true}"></select>
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b mb10">
+            <div class="fl w90 tr"><font class="fb cF00">* </font>所属市：</div>
+            <span class="pr fl">
+            <select name="city" class="mt2 abs_left {required:true}"></select>
+        </span>
+        </li>
+         <li class="h25 lh25 fl w33b mb10">
+            <div class="fl w90 tr">所属县：</div>
+            <span class="pr fl">
+            <select name="county" class="mt2 abs_left "></select>
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b mb10">
+            <div class="fl w90 tr">联系地址：</div>
+            <span class="pr fl">
+            <input name="comAddress" type="text" class="mt2 abs_left {specialchars:true,maxlength:50}"  value="{{=it.comAddress || '' }}">
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b mb10">
+            <div class="fl w90 tr">邮编：</div>
+            <span class="pr fl">
+            <input name="zipCode" type="text" class="mt2 abs_left {intNumber:true,minlength:6}"  value="{{=it.zipCode || '' }}">
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b mb10">
+            <div class="fl w90 tr">法人|负责人：</div>
+            <span class="pr fl">
+            <input name="comLegal" type="text" class="mt2 abs_left {maxlength:20,specialchars: true}"  value="{{=it.comLegal || '' }}">
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b  mb10">
+            <div class="fl w90 tr">联系人：</div>
+            <span class="pr fl">
+            <input name="comContact" type="text" class="mt2 abs_left {maxlength:20,specialchars: true}"  value="{{=it.comContact || '' }}">
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b  mb10">
+            <div class="fl w90 tr">联系电话：</div>
+            <span class="pr fl">
+            <input name="comTel" type="text" class="mt2 abs_left "  value="{{=it.comTel || '' }}">
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b mb10">
+            <div class="fl w90 tr">电子邮件：</div><span class="pr fl">
+            <input name="comEmail" type="text" class="mt2 {emailExtend:true,maxlength:50}"  value="{{=it.comEmail || '' }}"></span>
+        </li>
+        <li class="h25 lh25 fl w33b  mb10">
+            <div class="fl w90 tr">传真：</div>
+            <span class="pr fl">
+            <input name="comFax" type="text" class="mt2 abs_left {intNumber:true,minlength:7}"  value="{{=it.comFax || '' }}">
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b  mb10">
+            <div class="fl w90 tr">网址：</div>
+            <span class="pr fl">
+            <input name="comWebsite" type="text" class="mt2 abs_left "  value="{{=it.comWebsite || '' }}">
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b mb10">
+            <div class="fl w90 tr">备注：</div>
+            <span class="pr fl">
+            <input type="text" name="remark" class=" abs_left  mt2 w150 {maxlength:500,specialchars: true}" value="{{=it.remark || '' }}" />
+        </span>
+        </li>
+        <li class="h25 lh25 fl w33b  mb10">
+               <div class="fl w90 tr">创建人：</div>
+               <span class="pr fl">
+               <input name="createBy" type="text"  value="{{=it.createBy || '' }}">
+           </span>
+        </li>
+        <li class="h25 lh25 fl w33b  mb10">
+               <div class="fl w90 tr">创建时间：</div>
+               <span class="pr fl">
+               <input name="createTime" type="text" class="mt2 abs_left {htmlSpecialhars: true}"  value="{{=CTFO.utilFuns.dateFuns.utc2date(it.createTime) || '' }}">
+           </span>
+        </li>
+        <li class="h25 lh25 fl w33b  mb10">
+               <div class="fl w90 tr">最后编辑人：</div>
+               <span class="pr fl">
+               <input name="updateBy" type="text" value="{{=it.updateBy || '' }}">
+           </span>
+        </li>
+        <li class="h25 lh25 fl w33b  mb10">
+               <div class="fl w90 tr">最后编辑时间：</div>
+               <span class="pr fl">
+               <input name="updateTime" type="text" class="mt2 abs_left {htmlSpecialhars: true}"  value="{{=CTFO.utilFuns.dateFuns.utc2date(it.updateTime) || '' }}">
+           </span>
+        </li>
+        <li class="h25 lh25 fl w33b  mb10">
+               <div class="fl w90 tr">状态：</div>
+               <span class="pr fl">
+                <select name="status" class="mt2 ">
+                    <option value="1">启动</option>
+                    <option value="0">吊销</option>
+                </select>
+           </span>
+        </li>
+    </ul>
+</script>
+<!-- 系统管理 -> 用户管理 新增 编辑 模板 -->
+<script id="user_manage_detail_tmpl" type="text/x-dot-template">
+		<input name="entId" type="hidden" value="{{=it.entId || '' }}" />
+		<input name="createBy" type="hidden"  value="{{=it.createBy || '' }}"/>
+		<input name="opId" type="hidden"  value="{{=it.opId || '' }}"/>
+		<input name="parentOrgCode" type="hidden"  value="{{=it.parentOrgCode || '' }}" />
+          <ul>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>人员编码：
+              </div>
+              <span class="pr fl">
+              <input name="opCode" type="hidden" value="{{=it.opCode || '' }}">
+              <input name="opCodeTxt" disabled="disabled" type="text" class="mt2 abs_left " value="{{=it.opCode || '' }}">
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>账号：
+              </div>
+              <span class="pr fl">
+              <input name="opLoginname" type="text" class="mt2 abs_left {required:true,specialchars: true,noChinese:true}" value="{{=it.opLoginname || '' }}">
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">
+              <font class="fb cF00">* </font>是否操作员：</div>
+              <select name="isOperator" class="mt2 {required:true}">
+                <option value="">请选择</option>
+                <option {{=(it.isOperator=="0")?"selected":""}} value="0">普通用户</option>
+                <option {{=(it.isOperator=="1")?"selected":""}} value="1">操作员</option>
+            </select>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>姓名：
+              </div>
+              <span class="pr fl">
+              <input name="opName" type="text" class="mt2 abs_left {required:true,specialchars: true}" value="{{=it.opName || '' }}">
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10 passwordBox">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>密码：
+              </div>
+              <span class="pr fl">
+              <input name="opPass" type="password" class="mt2 abs_left {isPasswordCode:true,required:true}" value="{{=it.password || '' }}" id="opPass"> </span>
+            </li>
+
+            <li class="h25 lh25 fl w33b mb10 passwordBox">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>确认密码：
+              </div>
+              <span class="pr fl">
+              <input type="password" class="mt2 abs_left {required:true,equalTo:'#opPass'}" value="{{=it.password || '' }}">
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+                <div class="fl w90 tr"><font class="fb cF00">* </font>所属公司：</div>
+                <span class="pr fl">
+                  <select name = "comId" class="{required:true}"></select>
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+                <div class="fl w90 tr"><font class="fb cF00">* </font>所属组织：</div>
+                <span class="pr fl">
+                  <select name = "entId" class="{required:true}"></select>
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>所属角色：
+              </div>
+              <span class="pr fl">
+                  <select name = "roleId" class="{required:true}"></select>
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">用户性别：</div>
+              <select name="opSex" class="mt2 ">
+                <option value="">请选择</option>
+                <option {{=(it.opSex=="1")?"selected":""}} value="1">男</option>
+                <option {{=(it.opSex=="0")?"selected":""}} value="0">女</option>
+            </select>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">固话：</div>
+              <span class="pr fl">
+              <input name="opPhone" type="text" class="mt2 abs_left" value="{{=it.opPhone || '' }}">
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">证件类型：</div>
+              <select name="documentType" class="mt2 ">
+                <option value="">请选择</option>
+                <option {{=(it.documentType=="1")?"selected":""}} value="1">身份证</option>
+                <option {{=(it.documentType=="2")?"selected":""}} value="2">军官证</option>
+                <option {{=(it.documentType=="3")?"selected":""}} value="3">驾驶证</option>
+            </select>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">证件号码：</div>
+              <span class="pr fl">
+              <input name="opIdentityId" type="text" class="mt2 abs_left {isidcardno:true}" value="{{=it.opIdentityId || '' }}">
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b  mb10">
+              <div class="fl w90 tr">传真：</div>
+              <span class="pr fl">
+                <input name="opFax" type="text" class="mt2 abs_left" value="{{=it.opFax || '' }}">
+              </span>
+            </li>
+
+            <li class="h25 lh25 fl w33b  mb10">
+              <div class="fl w90 tr">手机：</div>
+              <span class="pr fl">
+                <input name="opMobile" type="text" class="mt2 abs_left {mobile:true}" value="{{=it.opMobile || '' }}">
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">邮箱：</div>
+              <span class="pr fl">
+                <input name="opEmail" type="text" class="mt2 {emailExtend:true,maxlength:50}" value="{{=it.opEmail || '' }}">
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+                <div class="fl w90 tr">所属省：</div>
+                <span class="pr fl">
+                <select name="opProvince" class="mt2 abs_left "></select>
+            </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+                <div class="fl w90 tr">所属市：</div>
+                <span class="pr fl">
+  <select name="opCity" class="mt2 abs_left "></select>
+            </span>
+            </li>
+             <li class="h25 lh25 fl w33b mb10">
+                <div class="fl w90 tr">所属县：</div>
+                <span class="pr fl">
+  <select name="opCountry" class="mt2 abs_left "></select>
+            </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">联系地址：</div>
+              <span class="pr fl">
+                <input name="opAddress" type="text" class="mt2 abs_left {maxlength:10,specialchars: true}" value="{{=it.opAddress || '' }}">
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b mb10">
+              <div class="fl w90 tr">备注：</div>
+              <span class="pr fl">
+                <input type="text" name="opMem" class=" abs_left  mt2 w150 {maxlength:200,htmlSpecialhars: true}" value="{{=it.opMem || '' }}" />
+              </span>
+            </li>
+            <li class="h25 lh25 fl w33b  mb10">
+                   <div class="fl w90 tr">创建人：</div>
+                   <span class="pr fl">
+                   <input name="createBy" type="text"  value="{{=it.createBy || '' }}">
+               </span>
+            </li>
+            <li class="h25 lh25 fl w33b  mb10">
+                   <div class="fl w90 tr">创建时间：</div>
+                   <span class="pr fl">
+                   <input name="createTime" type="text" class="mt2 abs_left {htmlSpecialhars: true}"  value="{{=CTFO.utilFuns.dateFuns.utc2date(it.createTime) || '' }}">
+               </span>
+            </li>
+            <li class="h25 lh25 fl w33b  mb10">
+                   <div class="fl w90 tr">最后编辑人：</div>
+                   <span class="pr fl">
+                   <input name="updateBy" type="text" value="{{=it.updateBy || '' }}">
+               </span>
+            </li>
+            <li class="h25 lh25 fl w33b  mb10">
+                   <div class="fl w90 tr">最后编辑时间：</div>
+                   <span class="pr fl">
+                   <input name="updateTime" type="text" class="mt2 abs_left {htmlSpecialhars: true}"  value="{{=CTFO.utilFuns.dateFuns.utc2date(it.updateTime) || '' }}">
+               </span>
+            </li>
+            <li class="h25 lh25 fl w33b  mb10">
+                   <div class="fl w90 tr">状态：</div>
+                   <span class="pr fl">
+                    <select name="opStatus" class="mt2 ">
+                        <option value="1">启动</option>
+                        <option value="0">吊销</option>
+                    </select>
+               </span>
+            </li>
+          </ul>
+</script>
+
+<!-- 用户管理> 用户详情 -->
+<script id="user_manage_detail_tmpl_slelet" type="text/x-dot-template">
+<div class="p10">
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">人员编码：</span>
+          <span class=" tl">{{=it.opCode}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">账号：</span>
+          <span class=" tl">{{=it.opLoginname}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">是否操作员：</span>
+          <span class=" tl">{{=it.isOperator}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">用户性别：</span>
+          <span class=" tl">{{=it.opSex}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">固话：</span>
+          <span class=" tl">{{=it.opPhone}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">证件类型：</span>
+          <span class=" tl">{{=it.documentType}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">证件号码：</span>
+          <span class=" tl">{{=it.opIdentityId}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">传真：</span>
+          <span class=" tl">{{=it.opFax}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">手机：</span>
+          <span class=" tl">{{=it.opMobile}}</span>
+      </li>
+     <li class=" h25 overh fl w50b">
+          <span class=" tr c060">邮箱：</span>
+          <span class=" tl">{{=it.opEmail}}</span>
+      </li>
+     <li class=" h25 overh fl w50b">
+          <span class=" tr c060">所属地：</span>
+          <span class=" tl">{{=it.county}}</span>
+      </li>
+     <li class=" h25 overh fl w50b">
+          <span class=" tr c060">联系地址：</span>
+          <span class=" tl">{{=it.opAddress}}</span>
+      </li>
+     <li class=" h25 overh fl w50b">
+          <span class=" tr c060">备注：</span>
+          <span class=" tl">{{=it.opMem}}</span>
+      </li>
+    </ul>
+    <div class="cb"></div>
+    </div>
+</div>
+</script>
+<!-- 数据分析 -> 维修单统计 详情底部 模板 -->
+<script id="repair_stat_bottom_tmpl" type="text/x-dot-template">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">部门：</span>
+          <span class=" tl">{{=it.orgName}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">经办人：</span>
+          <span class=" tl">{{=it.responsibleName}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">创建人：</span>
+          <span class=" tl">{{=it.createName}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">创建时间：</span>
+          <span class=" tl">{{=CTFO.utilFuns.dateFuns.utc2date(it.createTime)}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">最后编辑人：</span>
+          <span class=" tl">{{=it.updateName}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">最后修改时间：</span>
+          <span class=" tl">{{=CTFO.utilFuns.dateFuns.utc2date(it.updateTime)}}</span>
+      </li>
+    </ul>
+</script>
+<!-- 首页,企业基本信息模板 -->
+<script id="corp_basic_info_tmpl" type="text/x-dot-template">
+  <ul style="height:200px; " class="f14 pt5">  
+    <li class=" pl10 pr10 h30 lh30"> 
+      <span> 用户：</span><span class="">{{=it.opLoginname}} </span><span class="cBlue itemBox hand pl10" mid="personalProfile">个人设置 </span>
+    </li>    
+    <li class=" pl10 pr10 h30 lh30"> 
+      <span> 公司：</span><span class="">{{=it.comName}} </span>
+    </li>   
+    <li class=" pl10 pr10 h30 lh30">
+      <span> 部门：</span><span class="">{{=it.entName}}  </span>
+    </li>   
+    <li class=" pl10 pr10 h30 lh30">
+      <span> 角色：</span><span class="">{{=it.roleName}} </span>
+    </li> 
+    <li class=" pl10 pr10 h30 lh30">
+      <span> 登陆时间：</span><span class="">{{=CTFO.utilFuns.dateFuns.utc2date(it.loginTime)}}</span>
+    </li>
+    <li class=" pl10 pr10 h30 lh30">
+      <span> 登陆IP：</span><span class="">{{=it.loginIp}}</span>
+    </li>
+  </ul>
+</script>
+
+<!-- 首页,企业系统信息模板 -->
+<script id="corp_system_info_tmpl" type="text/x-dot-template">
+  <ul style="height:200px; " class="f14 pt5">  
+    <li class=" pl10 pr10 h30 lh30"> 
+      <span> 客户(维修站)总数：</span><span class="cBlue itemBox hand" mid="archivesManage">{{=it.serStaTotal}} </span>
+    </li>
+    <li class=" pl10 pr10 h30 lh30"> 
+      <span> 在线客户(维修站)：</span><span class="cBlue itemBox hand" mid="userFileListManage">{{=it.onlineStaTotal}}</span>
+    </li>
+    <li class=" pl10 pr10 h30 lh30">
+      <span> 帐套总数：</span><span class="cBlue itemBox hand" mid="archivesManage">{{=it.setbookTotal}}</span>
+    </li>
+    <li class=" pl10 pr10 h30 lh30">
+      <span> 启用帐套：</span><span class="cBlue itemBox hand" mid="archivesManage">{{=it.useSetbookTotal}} </span>
+    </li>
+  </ul>
+</script>
+
+<!-- 首页,首页待办模板 -->
+<script id="corp_todo_tmpl" type="text/x-dot-template">
+  <ul style="height:200px; " class="f14 pt5">
+    <li class=" pl10 pr10 h30 lh30">
+      <span> 待审批鉴权：</span><span class="cBlue itemBox hand" mid="authManage">{{=it.totaltodoAuth}} </span>
+    </li>
+  </ul>
+</script>
+
+<!-- 运营管理 > 车队管理 > 新增车队/修改车队 -->
+<script id="vehicle_team_update_tmpl" type="text/x-dot-template">
+  <form name="vehicleTeamModifyForm" id="vehicleTeamModifyForm" action="">
+    <div class=" lineS69c_b p10">
+        <h3 class=" h25 lh25 mb20 pl10 bcBlue3 lineD">所属企业：<font class=" c00F "> {{=it.parentName || ''}} </font></h3>
+        <input name="parentId" type="hidden" value="{{=it.parentId || ''}}" />
+        <input name="entId" type="hidden" value="{{=it.entId || ''}}" />
+
+        <ul class="lh25 h380">
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>企业编码：</div>
+                <div class="fl pr"><input name="corpCode" class="abs_left mt2 " type="text" value="{{=it.corpCode || ''}}"/></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>企业名称：</div>
+                <div class="fl pr"><input class="abs_left mt2 " name="entName" type="text" value="{{=it.entName || ''}}"/></div>
+            </li>
+             <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>企业性质：</div>
+                <div class="fl pr"><select  name="corpQuale" class="abs_left mt2 "></select></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>组织类型：</div>
+                <div class="fl pr"><select name="entType"  class="abs_left mt2 "><option value="1" >企业</option><option value="2" >车队</option></select></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>企业简称：</div>
+                <div class="fl pr"><input class="abs_left mt2 " name="orgShortname" type="text" value="{{=it.orgShortname || ''}}" /></div>
+            </li>
+
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>企业级别：</div>
+                <div class="fl pr"><select  name="corpLevel" class="abs_left mt2 "></select></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr">网址：</div>
+                <div class="fl pr"><input class="abs_left mt2 " name="url" type="text" value="{{=it.url || ''}}" /></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr">企业地址：</div>
+                <div class="fl pr"><input class="abs_left mt2 " name="orgAddress" type="text" value="{{=it.orgAddress || ''}}"/></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr">电子邮件：</div>
+                <div class="fl pr"><input class="abs_left mt2 "  name="orgCmail" type="text" value="{{=it.orgCmail || ''}}"/></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr">邮政编码：</div>
+                <div class="fl pr"><input class="abs_left mt2 " name="orgCzip" type="text" value="{{=it.orgCzip || ''}}"/></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>所属省份：</div>
+                <div class="fl pr"><select  name="corpProvince" class="abs_left mt2 "></select></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>所属城市：</div>
+                <div class="fl pr"><select  name="corpCity" class="abs_left mt2 "></select></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr">联系人员：</div>
+                <div class="fl pr"><input class="abs_left mt2 "  name="orgCname" type="text" value="{{=it.orgCname || ''}}"/></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr">传真号码：</div>
+                <div class="fl pr"><input class="abs_left mt2 "  name="orgCfax" type="text" value="{{=it.orgCfax || ''}}"/></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr">联系电话：</div>
+                <div class="fl pr"><input class="abs_left mt2 "  name="orgCphone" type="text" value="{{=it.orgCphone || ''}}"/></div>
+            </li>
+        </ul>
+        <div class="cb"></div>
+    </div>
+    <div class="  bcBlue l-dialog-buttons">
+        <span class=" btn4 fr mr20 cancelButton" type="button" value="取消">取 消</span>
+        <span class=" btn4 fr mr20 saveButton" type="button" value="提交">提 交</span>
+    </div>
+  </form>
+</script>
+
+<!-- 运营管理 > 车队管理 > 车队详情 -->
+<script id="vehicle_team_detail_tmpl" type="text/x-dot-template">
+<div class="p10">
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">所属公司：</span>
+          <span class=" tl">{{=it.comName}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">组织编码：</span>
+          <span class=" tl">{{=it.corpCode}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">组织名称：</span>
+          <span class=" tl">{{=it.entName}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">联系人：</span>
+          <span class=" tl">{{=it.orgCname}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">联系电话：</span>
+          <span class=" tl">{{=it.orgCphone}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">备注：</span>
+          <span class=" tl">{{=it.memo}}</span>
+      </li>
+    </ul>
+    <div class="cb"></div>
+    </div>
+</div>
+</script>
+<!-- 业务管理 -> 云备份管理 -> 云备份详情 -->
+<script id="clound_backup_detail_tmpl" type="text/x-dot-template">
+<div class="p10">
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">云备份主键：</span>
+          <span class=" tl">{{=it.cloudId}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">公司编码：</span>
+          <span class=" tl">{{=it.comCode}}</span>
+      </li>
+	  <li class=" h25 overh fl w50b">
+          <span class=" tr c060">公司名称：</span>
+          <span class=" tl">{{=it.comName}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">帐套编码：</span>
+          <span class=" tl">{{=it.setbookId}}</span>
+      </li>
+	     <li class=" h25 overh fl w50b">
+          <span class=" tr c060">公司帐套名称：</span>
+          <span class=" tl">{{=it.setbookName}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">云空间大小：</span>
+          <span class=" tl">{{=it.cloudSize}}</span>
+      </li>
+	  <li class=" h25 overh fl w50b">
+          <span class=" tr c060">已用空间：</span>
+          <span class=" tl">{{=it.usedSpace}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">可用空间：</span>
+          <span class=" tl">{{=parseInt(it.cloudSize) - parseInt(it.usedSpace)}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">云空间有效期：</span>
+          <span class=" tl">
+				{{=CTFO.utilFuns.dateFuns.utc2date(it.cloudValidTime)}}
+		  </span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">云备份文件数：</span>
+          <span class=" tl">{{=it.fileNums}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">创建人：</span>
+          <span class=" tl">{{=it.createBy}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">创建时间：</span>
+          <span class=" tl">{{=CTFO.utilFuns.dateFuns.utc2date(it.createTime)}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">备注：</span>
+          <span class=" tl">{{=it.remark}}</span>
+      </li>
+    </ul>
+    <div class="cb"></div>
+    </div>
+</div>
+</script>
+<!-- 系统管理 -> 公告管理 -> 审核公告详情 -->
+<script id="examine_bulletin_manage_detail" type="text/x-dot-template">
+<div class="p10">
+    <form>
+    	<input name="annoucId" type="hidden" value="{{=it.annoucId}}" />
+        <div class="p5 radius3 bcBlue3 lineD">
+        	<p class="h30 lh25">
+            <span class="fl w">请选择您的审核意见：</span>
+        	</p>
+        	<p class="h30 lh25">
+
+            <span class="fl w checkbox">
+                <input type="radio" checked name="msgExamineType" class="w20" value="1" />
+                通过审核并发布本公告
+            </span>
+        	</p>
+        	<p class="h30 lh25">
+            <span class="fl w checkbox">
+                <input type="radio" name="msgExamineType" class="w20" value="2" />
+                驳回本公告不予发布
+            </span>
+        	</p>
+    	</div>
+        <div class="bcBlue l-dialog-buttons">
+            <span class=" btn4 fr cancelButton" type="button" value="取消">取 消</span>
+            <span class=" btn4 fr mr10 saveButton" type="button" value="提交">提 交</span>
+        </div>
+    </form>
+</div>
+</script>
+
+
+<!-- 系统管理 -> 公告管理 -> 编辑公告详情 -->
+<script id="modify_bulletin_manage_detail" type="text/x-dot-template">
+<div class="p10">
+<form name="modifyBulletinManageForm" action="" enctype="multipart/form-data" >
+    <input name="annoucId" type="hidden" value="{{=it.annoucId}}" />
+    <input type="hidden" name="comName" value="" />
+    <input type="hidden" name="setbookName" value="" />
+    <input type="hidden" name="annouceDeptName" value="" />
+    <input type="hidden" name="annoucePeople" value="" />
+    <input type="hidden" name="isRelease" value="0" />
+    <div class="p5 radius3 bcBlue3 lineD">
+        <ul class="  h85">
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>
+                公告标题：
+              </div>
+              <span class=" pr fl">
+        				<input class="w200 mt2 abs_left {required:true}" name="annoucSubject" type="text" value="{{=it.annoucSubject}}"/>
+        		  </span>
+          </li>
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                发布日期：
+              </div>
+              <span class=" pr fl">
+                <input type="text"  class=" mt2 abs_left Wdate w140" name="releaseDate" value="{{=CTFO.utilFuns.dateFuns.utc2date(it.releaseDate)}}" />
+              </span>
+          </li>
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>
+                接收方：
+              </div>
+              <span class=" pr fl">
+                <select  class=" mt2 abs_left {required:true}" name="comCode"></select>
+              </span>
+          </li>
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>
+                公司帐套：
+              </div>
+              <span class=" pr fl">
+                <select  class=" mt2 abs_left {required:true}" name="setbookId"></select>
+              </span>
+          </li>
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>
+                发布组织：
+              </div>
+              <span class=" pr fl">
+                <select  class=" mt2 abs_left {required:true}" name="annouceDept"></select>
+              </span>
+          </li>
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>
+                发布人：
+              </div>
+              <span class=" pr fl">
+                <select  class=" mt2 abs_left {required:true}" name="annoucePeopleId"></select>
+              </span>
+          </li>
+        </ul>
+    </div>
+    <div class="mt5 lineSccc">
+      <textarea name = "annouceContent"  class="infoContent" style="height:290px; width:100%" >
+        {{=it.annouceContent}}
+      </textarea>
+    </div>
+
+    <div  class="attachment_list"></div>
+
+    <div class="bcBlue l-dialog-buttons">
+        <span class=" btn4 fr mr20 cancelButton" type="button" value="取消">取 消</span>
+        <span class=" btn4 fr mr20 saveButton" type="button" value="提交">提 交</span>
+    </div>
+
+</form>
+</div>
+</script>
+
+
+<!-- 系统管理 -> 公告管理 -> 编辑公告详情 -> 附件列表 -->
+<script id="modify_bulletin_attachment_list_tr" type="text/x-dot-template">
+    <div class="h25 item emptyItem">
+        <ul class=" lh25 h25">
+          <li class=" h25 overh fl w25b">
+            <input type = "text" class="w150" name = "attachAliasName" value = "" maxlength = "30"/>
+          </li>
+          <li class=" h25 overh fl w25b">
+            <input style="height:20px;font-size:11px;" type ="file" class="w150" name = "attachName"  />
+          </li>
+          <li class=" h25 overh fl w25b">
+            <input type = "text" class="w150" name = "remark"  />
+          </li>
+          <li class=" h25 overh fl w25b">
+            <span class="ico1163 hand removeAttachmentButton"></span>
+          </li>
+        </ul>
+    </div>
+</script>
+<!-- 系统管理 -> 公告管理 -> 编辑公告详情 -> 附件列表 -->
+<script id="modify_bulletin_attachment_list" type="text/x-dot-template">
+    <div class="h25">
+        <ul class=" lh25 h25">
+          <li class=" h25 overh fl w25b">
+            <span class=" tr c060">附件名称</span>
+          </li>
+          <li class=" h25 overh fl w25b">
+            <span class=" tr c060">文件详情</span>
+          </li>
+          <li class=" h25 overh fl w25b">
+            <span class=" tr c060">备注</span>
+          </li>
+          <li class=" h25 overh fl w25b">
+            <span class=" tr c060"><span class="ico1162 hand addAttachmentButton"></span></span>
+          </li>
+        <ul>
+    </div>
+    <div class="h90 emptyItemBox">
+        {{ for (var i = 0, l = it.length; i < l; i++) { var item = it[i];  }}
+        <div class="h25 item">
+            <ul class=" lh25 h25">
+              <li class=" h25 overh fl w25b">
+                <input type = "hidden" name = "attachId" value = "{{=item.attachId}}" />
+                <input type = "hidden" name = "annoucId" value = "{{=item.annoucId}}" />
+                <input type = "hidden" name = "attachCategory" value = "{{=item.attachCategory}}"/>
+                <input type = "hidden" name = "attachAliasName" value = "{{=item.attachAliasName}}" />
+                <span class=" tr c060">{{=item.attachAliasName}}</span>
+              </li>
+              <li class=" h25 overh fl w25b">
+                <span class=" tr "><a href = "{{=(item.filePath+item.attachName)}}">{{=item.attachName}}(点击查看)</a></span>
+              </li>
+              <li class=" h25 overh fl w25b">
+                <span class=" tr c060">{{=item.remark}}</span>
+              </li>
+              <li class=" h25 overh fl w25b">
+                <span class="ico1163 hand removeAttachmentButton"></span>
+              </li>
+            </ul>
+        </div>
+        {{ } }}
+    </div>
+</script>
+
+<!-- 系统管理 -> 公告管理 -> 新增公告详情 -->
+<script id="add_bulletin_manage_detail" type="text/x-dot-template">
+<div class="p10">
+<form name="addBulletinManageForm" id="addBulletinManageForm" action="" enctype="multipart/form-data">
+    <input type="hidden" name="comName" value="" />
+    <input type="hidden" name="setbookName" value="" />
+    <input type="hidden" name="annouceDeptName" value="" />
+    <input type="hidden" name="annoucePeople" value="" />
+    <input type="hidden" name="isRelease" value="0" />
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class="  h85">
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>
+                公告标题：
+              </div>
+              <span class=" pr fl">
+                <input class="w200 mt2 abs_left {required:true}" name="annoucSubject" type="text" value="{{=it.annoucSubject||''}}"/>
+              </span>
+          </li>
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                发布日期：
+              </div>
+              <span class=" pr fl">
+                <input type="text"  class=" mt2 abs_left Wdate w140" name="releaseDate" value="{{=CTFO.utilFuns.dateFuns.utc2date(it.releaseDate)}}" />
+              </span>
+          </li>
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>
+                接收方：
+              </div>
+              <span class=" pr fl">
+                <select  class=" mt2 abs_left {required:true}" name="comCode"></select>
+              </span>
+          </li>
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>
+                公司帐套：
+              </div>
+              <span class=" pr fl">
+                <select  class=" mt2 abs_left {required:true}" name="setbookId"></select>
+              </span>
+          </li>
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>
+                发布组织：
+              </div>
+              <span class=" pr fl">
+                <select  class=" mt2 abs_left {required:true}" name="annouceDept"></select>
+              </span>
+          </li>
+          <li class=" h25 lh25 fl w50b mb5">
+              <div class="fl w90 tr">
+                <font class="fb cF00">* </font>
+                发布人：
+              </div>
+              <span class=" pr fl">
+                <select  class=" mt2 abs_left {required:true}" name="annoucePeopleId"></select>
+              </span>
+          </li>
+        </ul>
+		</div>
+		<div class="mt5 lineSccc">
+         <textarea name = "annouceContent" style="height:290px; width:100%" ></textarea>
+		</div>
+    <div  class="attachment_list"></div>
+    <div class="bcBlue l-dialog-buttons">
+        <span class=" btn4 fr mr20 cancelButton" type="button" value="取消">取 消</span>
+        <span class=" btn4 fr mr20 saveButton" type="button" value="保存">保存</span>
+        <span class=" btn4 fr mr20 releaseButton" type="button" value="发布">发布</span>
+    </div>
+</form>
+</div>
+</script>
+<!-- 系统管理 -> 公告管理 -> 公告详情 -->
+<script id="bulletin_manage_detail" type="text/x-dot-template">
+<div class="p10">
+    <div class="p5 radius3 bcBlue3 lineD">
+      <input type = "hidden" name = "annoucId" value = "{{=it.annoucId}}" />
+      <ul class=" h100 ">
+        <li class=" h25 overh fl w50b">
+            <span class=" tr c060">主题：</span>
+            <span class=" tl">{{=it.annoucSubject}}</span>
+        </li>
+  	    <li class=" h25 overh fl w50b">
+            <span class=" tr c060">关键字：</span>
+            <span class=" tl">{{=it.mainWord}}</span>
+        </li>
+        <li class=" h25 overh fl w50b">
+            <span class=" tr c060">发布日期：</span>
+            <span class=" tl">
+      			{{=CTFO.utilFuns.dateFuns.utc2date(it.releaseDate)}}
+      		  </span>
+        </li>
+  	    <li class=" h25 overh fl w50b">
+            <span class=" tr c060">接收方：</span>
+            <span class=" tl">{{=it.comName}}</span>
+        </li>
+        <li class=" h25 overh fl w50b">
+            <span class=" tr c060">发布组织：</span>
+            <span class=" tl">{{=it.annouceDeptName}}</span>
+        </li>
+  	    <li class=" h25 overh fl w50b">
+            <span class=" tr c060">发布人：</span>
+            <span class=" tl">{{=it.annoucePeople}}</span>
+        </li>
+        <li class=" h25 overh fl w50b">
+            <span class=" tr c060">发布状态：</span>
+            <span class=" tl">
+      			{{=it.annouceStatus}}
+      		  </span>
+        </li>
+        <li class=" h25 overh fl w50b">
+            <span class=" tr c060">公司帐套：</span>
+            <span class=" tl">
+            {{=it.setbookName}}
+            </span>
+        </li>
+      </ul>
+    </div>
+		<div class="mt5 lineSccc">
+         <textarea disabled="disabled" style="height:310px; width:100%">{{=it.annouceContent}}</textarea>
+    </div>
+
+    <table width="100%">
+    	<tr>
+    		<!--td>审核人：{{=it.auditorBy}}</td>
+    		<td>审核时间：{{=CTFO.utilFuns.dateFuns.utc2date(it.auditorTime)}}</td>
+    		<td>最后编辑人：{{=it.updateBy}}</td-->
+    		<td>最后编辑时间：{{=CTFO.utilFuns.dateFuns.utc2date(it.updateTime)}}</td>
+    	</tr>
+    </table>
+    <div  class="attachment_list"></div>
+
+</div>
+</script>
+
+
+<!-- 数据管理 -> 用户档案 > 公司详情 -->
+<script id="archivesManage_company_detail_tmpl" type="text/x-dot-template">
+<div class="p10">
+  <div>注册信息：</div>
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">公司名称：</span>
+          <span class=" tl">{{=it.comName || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">法人：</span>
+          <span class=" tl">{{=it.legalPerson || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">开户银行：</span>
+          <span class=" tl">{{=it.openingBank || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">所在地：</span>
+          <span class=" tl">{{=it.county || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">地址：</span>
+          <span class=" tl">{{=it.postalAddress || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">邮编：</span>
+          <span class=" tl">{{=it.zipCode || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">公司网址：</span>
+          <span class=" tl">{{=it.companyWebSite || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">电子邮件：</span>
+          <span class=" tl">{{=it.email || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系人：</span>
+          <span class=" tl">{{=it.contact || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系人电话：</span>
+          <span class=" tl">{{=it.contactTelephone || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">状态：</span>
+          <span class=" tl">{{=it.status || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">创建人：</span>
+          <span class=" tl">{{=it.createBy || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">创建时间：</span>
+          <span class=" tl">{{=it.createTime || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">修改人：</span>
+          <span class=" tl">{{=it.updateBy || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">修改时间：</span>
+          <span class=" tl">{{=it.updateTime || ''}}</span>
+      </li>
+    </ul>
+    <div class="cb"></div>
+   </div>
+</div>
+</script>
+
+<!-- 业务管理 > 注册鉴权 > 详情 -->
+<script id="auth_detail_tmpl" type="text/x-dot-template">
+<div class="p10">
+	<div>注册信息：</div>
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">公司名称：</span>
+          <span class=" tl">{{=it.comName || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系人：</span>
+          <span class=" tl">{{=it.comContact || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">所在地：</span>
+          <span class=" tl">{{=it.county || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系地址：</span>
+          <span class=" tl">{{=it.comAddress || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系电话：</span>
+          <span class=" tl">{{=it.comTel || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">邮编：</span>
+          <span class=" tl">{{=it.zipCode || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">维修资质：</span>
+          <span class=" tl">{{=it.repairQualification || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">法人|负责人：</span>
+          <span class=" tl">{{=it.legalPerson || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">单位性质：</span>
+          <span class=" tl">{{=it.unitProperties || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">电子邮件：</span>
+          <span class=" tl">{{=it.comEmail || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">热线电话：</span>
+          <span class=" tl">{{=it.hotLtel || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">传真：</span>
+          <span class=" tl">{{=it.comFax || ''}}</span>
+      </li>
+    </ul>
+    <div class="cb"></div>
+   </div>
+   <div>
+	<div class="pt5">
+		软件鉴权信息：
+	</div>
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w33b">
+			<span class=" tr c060">注册时间：</span>
+			<span class=" tl">
+		  	{{=CTFO.utilFuns.dateFuns.utc2date(it.registTime || '')}}
+			</span>
+      </li>
+	  <li class=" h25 overh fl w33b">
+			<span class=" tr c060">注册IP：</span>
+			<span class=" tl">{{=it.registIp || ''}}</span>
+	   </li>
+       <li class=" h25 overh fl w33b">
+		  <span class=" tr c060">鉴权情况：</span>
+		  <span class=" tl">
+			{{=it.registerAuthenticationTxt || ''}}
+		  </span>
+       </li>
+	   <li class=" h25 overh fl w33b">
+			<span class=" tr c060">处理状态：</span>
+			<span class=" tl">
+			{{=it.status || ''}}
+			</span>
+	   </li>
+       <li class=" h25 overh fl w33b">
+			<span class=" tr c060">账号：</span>
+			<span class=" tl">
+			{{=it.comAccount || ''}}
+			</span>
+       </li>
+	   <li class=" h25 overh fl w33b">
+			<span class=" tr c060">鉴权码：</span>
+			<span class=" tl">
+			{{=it.authCode || ''}}
+			</span>
+	   </li>
+       <li class=" h25 overh fl w33b">
+			<span class=" tr c060">有效期至：</span>
+          	<span class=" tl">
+			{{=CTFO.utilFuns.dateFuns.utc2date(it.validDate) || ''}}
+			</span>
+       </li>
+       <li class=" h25 overh fl w33b">
+			<span class=" tr c060">审批人：</span>
+		  	<span class=" tl">
+			{{=it.approverTxt || ''}}
+			</span>
+       </li>
+	   <li class=" h25 overh fl w33b">
+			<span class=" tr c060">审批意见：</span>
+		 	<span class=" tl">
+			{{=it.approvalAdvice || ''}}
+		 	</span>
+	   </li>
+     <li class=" h25 overh fl w {{=(it.registerAuthentication == '2'?'none':'')}}">
+      <span class=" tr c060">软件授权码：</span>
+        <span class=" tl">
+      {{=it.authorizationCode || ''}}
+        </span>
+     </li>
+       <li class=" h25 overh fl w">
+      <span class=" tr c060">机器序列号：</span>
+        <span class=" tl">
+      {{=it.machineSerial || ''}}
+        </span>
+       </li>
+	   <li class=" h25 overh fl w">
+			<span class=" tr c060">服务站id：</span>
+		  	<span class=" tl">
+			{{=it.comId || ''}}
+		  	</span>
+	   </li>
+	   <li class=" h25 overh fl w" >
+			<span class=" tr c060">备注：</span>
+         	<span class=" tl">
+			{{=it.remark || ''}}
+			</span>
+	   </li>
+    </ul>
+    <div class="cb"></div>
+   </div>
+  <!--数据显示-->
+   <div class="pt10">
+      <div class="gridContainerDeail"></div>
+   </div>
+</div>
+</script>
+<!-- 业务管理 > 注册鉴权 > 管理 -->
+<script id="auth_manual_tmpl" type="text/x-dot-template">
+<div class="p10">
+	<div>注册信息：</div>
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">公司名称：</span>
+          <span class=" tl">{{=it.comName || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系人：</span>
+          <span class=" tl">{{=it.comContact || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">所在地：</span>
+          <span class=" tl">{{=it.county || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系地址：</span>
+          <span class=" tl">{{=it.comAddress || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系电话：</span>
+          <span class=" tl">{{=it.comTel || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">邮编：</span>
+          <span class=" tl">{{=it.zipCode || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">维修资质：</span>
+          <span class=" tl">{{=it.repairQualification || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">法人|负责人：</span>
+          <span class=" tl">{{=it.legalPerson || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">单位性质：</span>
+          <span class=" tl">{{=it.unitProperties || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">电子邮件：</span>
+          <span class=" tl">{{=it.comEmail || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">热线电话：</span>
+          <span class=" tl">{{=it.hotLtel || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">传真：</span>
+          <span class=" tl">{{=it.comFax || ''}}</span>
+      </li>
+    </ul>
+    <div class="cb"></div>
+   </div>
+   <div>
+	<div class="pt5">软件鉴权信息：</div>
+     <form name="authApprovalForm" id="authApprovalForm" action="">
+      <input name="comId" type="hidden" value="{{=it.comId || ''}}" />
+	<ul>
+      <li class=" h25 overh fl w33b">
+			<span class=" tr c060">注册时间：</span>
+			<span class=" tl">
+		  	{{=CTFO.utilFuns.dateFuns.utc2date(it.registTime || '')}}
+			</span>
+      </li>
+	  <li class=" h25 overh fl w33b">
+			<span class=" tr c060">注册IP：</span>
+			<span class=" tl">{{=it.registIp || ''}}</span>
+	   </li>
+       <li class=" h25 overh fl w33b">
+		  <span class=" tr c060">鉴权情况：</span>
+		  <span class=" tl">
+			{{=it.registerAuthenticationTxt || ''}}
+		  </span>
+       </li>
+	   <li class=" h25 overh fl w33b">
+			<span class=" tr c060">处理状态：</span>
+			<span class=" tl">
+			{{=it.status || ''}}
+			</span>
+	   </li>
+       <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">账号：</span>
+		  </div>
+          <div class="fl pr">
+			{{=it.comAccount || ''}}
+		  </div>
+       </li>
+       <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">密码：</span>
+		  </div>
+          <div class="fl pr">
+			{{=it.comPassWord || ''}}
+		  </div>
+       </li>
+	   <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">鉴权码：</span>
+		  </div>
+          <div class="fl pr">
+			{{=it.authCode || ''}}
+		  </div>
+	   </li>
+	   <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">软件授权码：</span>
+		  </div>
+          <div class="fl pr">
+			{{=it.authorizationCode || ''}}
+		  </div>
+	   </li>
+       <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">有效期至：</span>
+		  </div>
+          <div class="fl pr">
+			<input type="text" class="Wdate w140" name="validDate" value="{{=CTFO.utilFuns.dateFuns.utc2date(it.validDate) || ''}}"/>
+		  </div>
+       </li>
+       <li class=" h25 lh25 overh fl w50b">
+      <span class=" tr c060">机器序列号：</span>
+        <span class=" tl">
+      {{=it.machineSerial || ''}}
+        </span>
+       </li>
+     <li class=" h25 lh25 overh fl w50b">
+      <span class=" tr c060">服务站id：</span>
+        <span class=" tl">
+      {{=it.comId || ''}}
+        </span>
+     </li>
+       <li class=" h25 overh fl w50b">
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">审批人：</span>
+		  </div>
+		  <div class="fl pr">
+			<select id="approver" name="approver" class="abs_left mt2 "></select>
+		  </div>
+       </li>
+	   <li class=" h25 overh fl w50b">
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">审批意见：</span>
+		  </div>
+		  <div class="fl pr">
+			<select id="approvalAdvice" name="approvalAdvice" class="abs_left mt2 ">
+            <option {{=(it.approvalAdvice=="0")?"selected":""}} value="0">请选择...</option>
+            <option {{=(it.approvalAdvice=="授权通过")?"selected":""}} value="0">授权通过</option>
+			<option {{=(it.approvalAdvice=="授权拒绝")?"selected":""}} value="1">授权拒绝</option>
+			</select>
+		  </div>
+	   </li>
+	   <li class=" h60 overh fl w" >
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">备注：</span>
+		  </div>
+          <div class="fl pr">
+			<textarea class="{maxlength:50}" rows="5" cols="50" name="remark" style="width: 450px; height: 50px;">
+				{{=it.remark || ''}}
+			</textarea>
+		  </div>
+	   </li>
+	</ul>
+	</form>
+	 <div class="cb"></div>
+   </div>
+  <!--数据显示-->
+   <div>
+      <div class="gridContainerDeail pt5"></div>
+	  <div class="gridContainerDeailManage"></div>
+   </div>
+    <div class="bcBlue l-dialog-buttons">
+        <span class=" btn4 fr mr20 cancelButton" type="button" value="取消">取 消</span>
+        <span class=" btn4 fr mr20 saveButton" type="button" value="提交">提 交</span>
+    </div>
+</div>
+</script>
+<!-- 业务管理 > 注册鉴权 > 新增离线授权 -->
+<script id="auth_down_auth_tmpl" type="text/x-dot-template">
+  <form name="addAppForm" id="addAppForm" action="">
+    <div class="p10">
+	<font style=" font-weight:normal">注册信息：</font>
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <font class="fb cF00">* </font>
+          <span class=" tr c060">公司名称：</span>
+        </div>
+        <div class="fl pr">
+          <input name="comName"  type="text" class="{required:true,maxlength:12}"/>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <font class="fb cF00">* </font>
+          <span class=" tr c060">联系人：</span>
+        </div>
+        <div class="fl pr">
+          <input name="comContact" type="text" class="{required:true,maxlength:12}"/>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <font class="fb cF00">* </font>
+          <span class=" tr c060">所在省：</span>
+        </div>
+        <div class="fl pr">
+          <select name="province" class="{required:true}"></select>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <font class="fb cF00">* </font>
+          <span class=" tr c060">所在市：</span>
+        </div>
+        <div class="fl pr">
+          <select name="city" class="{required:true}"></select>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <span class=" tr c060">所在县：</span>
+        </div>
+        <div class="fl pr">
+          <select name="county"></select>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <span class=" tr c060">联系地址：</span>
+        </div>
+        <div class="fl pr">
+          <input name="comAddress" type="text"/>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <font class="fb cF00">* </font>
+          <span class=" tr c060">联系电话：</span>
+        </div>
+        <div class="fl pr">
+          <input name="comTel" type="text" class="{required:true,maxlength:12}"/>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <span class=" tr c060">邮编：</span>
+        </div>
+        <div class="fl pr">
+          <input name="zipCode" type="text" class="{zipcode: true}"/>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <span class=" tr c060">维修资质：</span>
+        </div>
+        <div class="fl pr">
+          <select name="repairQualification">
+            <option value="">请选择</option>
+            <option value="1">3A</option>
+            <option value="2">2A</option>
+            <option value="3">1A</option>
+            <option value="4">快修</option>
+            <option value="5">特许</option>
+          </select>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+        <span class=" tr c060">法人|负责人：</span>
+        </div>
+        <div class="fl pr">
+        <input name="legalPerson" type="text" class="{maxlength: 12}"/>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <span class=" tr c060">单位性质：</span>
+        </div>
+        <div class="fl pr">
+          <select name="unitProperties">
+            <option value="">请选择</option>
+            <option value="1">国营</option>
+            <option value="2">民营</option>
+            <option value="3">合资</option>
+            <option value="4">其它</option>
+          </select>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <span class=" tr c060">电子邮件：</span>
+        </div>
+        <div class="fl pr">
+          <input name="comEmail" type="text" class="{emailExtend: true,maxlength: 40}"/>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <span class=" tr c060">热线电话：</span>
+        </div>
+        <div class="fl pr">
+          <input name="hotLtel" type="text"  class="{maxlength: 12}"/>
+        </div>
+      </li>
+      <li class=" h25 overh fl w33b">
+        <div class="lh25 w80 fl tr">
+          <span class=" tr c060">传真：</span>
+        </div>
+        <div class="fl pr">
+          <input name="comFax" type="text"/>
+        </div>
+      </li>
+    </ul>
+    <div class="cb"></div>
+   </div>
+   <div>
+  <div class="pt10">
+    <font style=" font-weight:normal">软件鉴权信息：</font>
+  </div>
+	<ul class=" lh25 ">
+      <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl tr">
+			<span class=" tr c060">注册时间：</span>
+		  </div>
+		  <div class="fl pr">
+			<input type="text" readonly="readonly" class="w140 Wdate" name="registTime" value="" />
+		  </div>
+      </li>
+	  <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl tr">
+			<span class=" tr c060">注册IP：</span>
+		  </div>
+		  <div class="fl pr">
+			<input name="registIp" type="text" disabled="disabled"/>
+		  </div>
+	   </li>
+       <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl tr">
+			<span class=" tr c060">账号：</span>
+		  </div>
+		  <div class="fl pr">
+			<input name="comAccount" type="text" disabled="disabled"/>
+		  </div>
+       </li>
+       <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl tr">
+			<span class=" tr c060">密码：</span>
+		  </div>
+		  <div class="fl pr">
+			<input name="comPassWord" type="text" disabled="disabled"/>
+		  </div>
+       </li>
+	   <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl tr">
+			<span class=" tr c060">鉴权码：</span>
+		  </div>
+		  <div class="fl pr">
+			<input name="authCode" type="text" disabled="disabled"/>
+		  </div>
+	   </li>
+       <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl tr">
+          <font class="fb cF00">* </font>
+			<span class=" tr c060">机器序列号：</span>
+		  </div>
+		  <div class="fl pr">
+			<input name="machineSerial" type="text" class="{required: true,maxlength: 32 }" value="{{=it.machineSerial || ''}}"/>
+		  </div>
+       </li>
+	   <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl tr">
+			<span class=" tr c060">软件授权码：</span>
+		  </div>
+		  <div class="fl pr">
+			<input name="authorizationCode" type="text" value="{{=it.authorizationCode || ''}}"  class="{required: true}" disabled="disabled"/>
+		  </div>
+	   </li>
+       <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl tr">
+			<span class=" tr c060">有效期至：</span>
+		  </div>
+          <div class="fl pr">
+			<input type="text" class="w140 Wdate" name="validDate" value="{{=CTFO.utilFuns.dateFuns.utc2date(it.validDate) || ''}}" class="{required: true}" />
+		  </div>
+       </li>
+       <li class=" h25 overh fl w33b">
+          <div class="lh25 w80 fl tr">
+          <font class="fb cF00">* </font>
+			<span class=" tr c060">审批人：</span>
+		  </div>
+		  <div class="fl pr">
+			 <select name="approver" class="abs_left mt2 {required: true}" ></select>
+		  </div>
+       </li>
+	   <li class=" h25 overh mb5 fl w33b">
+          <div class="lh25 w80 fl tr">
+			<span class=" tr c060">审批意见：</span>
+		  </div>
+		  <div class="fl pr">
+			<select class="{required: true}" name="approvalAdvice" class="abs_left mt2 ">
+            <option {{=(it.approvalAdvice=="0")?"selected":""}} value="0">授权通过</option>
+            <option {{=(it.approvalAdvice=="1")?"selected":""}} value="1">授权拒绝</option>
+			</select>
+		  </div>
+	   </li>
+	   <li class=" h60 overh fl w" >
+          <div class="lh25 w80 fl tr">
+			<span class=" tr c060">备注：</span>
+		  </div>
+          <div class="fl pr">
+			<textarea class="{maxlength:5}" rows="5" cols="50" name="remark" style="width: 450px; height: 50px;">
+				{{=it.remark || ''}}
+			</textarea>
+		  </div>
+	   </li>
+	 <div class="cb"></div>
+	</ul>
+   </div>
+</form>
+   <div>
+      <div class="gridAddApp"></div>
+   </div>
+    <div class="bcBlue l-dialog-buttons">
+        <span class=" btn4 fr mr20 cancelButton" type="button" value="取消">取 消</span>
+        <span class=" btn4 fr mr20 saveButton" type="button" value="提交">提 交</span>
+    </div>
+</script>
+<!-- 业务管理 > 注册鉴权 > 审批 -->
+<script id="auth_approval_tmpl" type="text/x-dot-template">
+<div class="p10">
+<form name="authApprovalForm" id="authApprovalForm" action="">
+<input name="comId" type="hidden" value="{{=it.comId || ''}}" />
+<input name="authorizationCode" type="hidden" value="{{=it.authorizationCode || ''}}" />
+<font style=" font-weight:normal">注册信息：</font>
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">公司名称：</span>
+          <span class=" tl">{{=it.comName || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系人：</span>
+          <span class=" tl">{{=it.comContact || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">所在地：</span>
+          <span class=" tl">{{=it.county || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系地址：</span>
+          <span class=" tl">{{=it.comAddress || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">联系电话：</span>
+          <span class=" tl">{{=it.comTel || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">邮编：</span>
+          <span class=" tl">{{=it.zipCode || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">维修资质：</span>
+          <span class=" tl">{{=it.repairQualification || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">法人|负责人：</span>
+          <span class=" tl">{{=it.legalPerson || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">单位性质：</span>
+          <span class=" tl">{{=it.unitProperties || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">电子邮件：</span>
+          <span class=" tl">{{=it.comEmail || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">热线电话：</span>
+          <span class=" tl">{{=it.hotLtel || ''}}</span>
+      </li>
+      <li class=" h25 overh fl w33b">
+          <span class=" tr c060">传真：</span>
+          <span class=" tl">{{=it.comFax || ''}}</span>
+      </li>
+    </ul>
+    <div class="cb"></div>
+   </div>
+   <div class="pt10">
+    <font style=" font-weight:normal">软件鉴权信息：</font>
+    </div>
+   <div>
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w33b">
+			<span class=" tr c060">注册时间：</span>
+			<span class=" tl">
+		  	{{=CTFO.utilFuns.dateFuns.utc2date(it.registTime || '')}}
+			</span>
+      </li>
+	  <li class=" h25 overh fl w33b">
+			<span class=" tr c060">注册IP：</span>
+			<span class=" tl">{{=it.registIp || ''}}</span>
+	   </li>
+       <li class=" h25 overh fl w33b">
+		  <span class=" tr c060">鉴权情况：</span>
+		  <span class=" tl">
+			{{=it.registerAuthenticationTxt || ''}}
+		  </span>
+       </li>
+	   <li class=" h25 overh fl w33b">
+			<span class=" tr c060">处理状态：</span>
+			<span class=" tl">
+			{{=it.status || ''}}
+			</span>
+	   </li>
+       <li class=" h25 overh fl w33b">
+			<span class=" tr c060">账号：</span>
+			<span class=" tl">
+			{{=it.comAccount || ''}}
+			</span>
+       </li>
+	   <li class=" h25 overh fl w33b">
+			<span class=" tr c060">鉴权码：</span>
+			<span class=" tl">
+			{{=it.authCode || ''}}
+			</span>
+	   </li>
+       <li class=" h25 overh fl w33b">
+      <span class=" tr c060">有效期至：</span>
+            <span class=" tl">
+      {{=CTFO.utilFuns.dateFuns.utc2date(it.validDate) || ''}}
+      </span>
+       </li>
+       <li class=" h25 overh fl w33b">
+			<span class=" tr c060">机器序列号：</span>
+		  	<span class=" tl">
+			{{=it.machineSerial || ''}}
+		  	</span>
+       </li>
+	   <li class=" h25 overh fl w50b">
+			<span class=" tr c060">服务站id：</span>
+		  	<span class=" tl">
+			{{=it.comId || ''}}
+		  	</span>
+	   </li>
+       <li class=" h25 overh fl w50b">
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">审批人：</span>
+		  </div>
+		  <div class="fl pr">
+			<select name="approver" class="abs_left mt2 {required:true}"></select>
+		  </div>
+       </li>
+	   <li class=" h25 overh fl w50b">
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">审批意见：</span>
+		  </div>
+		  <div class="fl pr">
+			<select name="approvalAdvice" class="abs_left mt2 {required:true}">
+            <option selected = selected value="">请选择...</option>
+            <option {{=(it.approvalAdvice=="0")?"selected":""}} value="0">授权通过</option>
+            <option {{=(it.approvalAdvice=="1")?"selected":""}} value="1">授权拒绝</option>
+			</select>
+		  </div>
+	   </li>
+	   <li class=" h60 overh fl w pt5" >
+          <div class="lh25 w80 fl">
+			<span class=" tr c060">备注：</span>
+		  </div>
+          <div class="fl pr">
+			<textarea  class="{maxlength:50}" rows="5" cols="50" name="remark" style="width: 450px; height: 50px;">
+        	{{=it.remark || ''}}
+			</textarea>
+		  </div>
+	   </li>
+    </ul>
+	 <div class="cb"></div>
+   </div>
+</form>
+  <!--数据显示-->
+   <div>
+      <div class="gridContainerDeail"></div>
+   </div>
+    <div class="bcBlue l-dialog-buttons">
+        <span class=" btn4 fr mr20 cancelButton" type="button" value="取消">取 消</span>
+        <span class=" btn4 fr mr20 saveButton" type="button" value="提交">提 交</span>
+    </div>
+
+</div>
+
+</script>
+<!-- 公司管理> 公司详情 -->
+<script id="company_detail_tmpl" type="text/x-dot-template">
+<div class="p10">
+    <div class="p5 radius3 bcBlue3 lineD">
+    <ul class=" lh25 ">
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">公司编码：</span>
+          <span class=" tl">{{=it.comCode}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">公司名称：</span>
+          <span class=" tl">{{=it.comName}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">所在地：</span>
+          <span class=" tl">{{=it.county}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">联系地址：</span>
+          <span class=" tl">{{=it.comAddress}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">邮编：</span>
+          <span class=" tl">{{=it.zipCode}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">法人|负责人：</span>
+          <span class=" tl">{{=it.comLegal}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">联系人：</span>
+          <span class=" tl">{{=it.comContact}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">联系电话：</span>
+          <span class=" tl">{{=it.comTel}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">电子邮件：</span>
+          <span class=" tl">{{=it.comEmail}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">传真：</span>
+          <span class=" tl">{{=it.comFax}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">网址：</span>
+          <span class=" tl">{{=it.comWebsite}}</span>
+      </li>
+      <li class=" h25 overh fl w50b">
+          <span class=" tr c060">备注：</span>
+          <span class=" tl">{{=it.remark}}</span>
+      </li>
+    </ul>
+    <div class="cb"></div>
+    </div>
+</div>
+</script>

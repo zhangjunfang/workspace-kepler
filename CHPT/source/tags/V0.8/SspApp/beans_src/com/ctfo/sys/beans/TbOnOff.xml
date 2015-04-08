@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="TbOnOff">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <resultMap class="com.ctfo.sys.beans.TbOnOff" id="TbOnOff">
+    <result column="on_off_id" property="onOffId" jdbcType="VARCHAR" />
+    <result column="auto_matic_status" property="autoMaticStatus" jdbcType="VARCHAR" />
+    <result column="announce_audit_status" property="announceAuditStatus" jdbcType="VARCHAR" />
+    <result column="permission_audit" property="permissionAudit" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="columns">
+	on_off_id, auto_matic_status, announce_audit_status, permission_audit
+  </sql>
+  <sql id="table">
+    tb_ssp_on_off
+  </sql>
+  <select id="selectPk" parameterClass="string" resultMap="TbOnOff">
+  	SELECT 
+	<include refid="columns" />
+	FROM 
+	<include refid="table" />
+	where on_off_id = #onOffId:VARCHAR#
+  </select>
+  <update id="updateOnOff" parameterClass="map">
+	  UPDATE <include refid="table" />
+	   SET 
+	   auto_matic_status = #autoMaticStatus#,
+	   announce_audit_status = #announceAuditStatus#,
+	   permission_audit = #permissionAudit#
+	  WHERE on_off_id = #onOffId#
+  </update>
+</sqlMap>

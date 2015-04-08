@@ -1,0 +1,20 @@
+/* CSS Document */
+
+/*首页私有样式*/
+.carInfo{ background:url(../../img/home.png) 0px 0px no-repeat; height:75px; overflow:hidden;}
+.carNum{ float:left; padding-left:120px; padding-top:35px; display: block;}
+.carNum li{ float:left; width:22px; height:35px; margin-right:2px; line-height:35px; color:#FFF; background:#000; text-align:center; font-size:18px; font-weight:bold; border:1px solid #111; border-radius:3px; }
+.carData{ float:right; width:100px; height:60px; margin-top:10px; display: block;line-height:20px; color:#369; font-weight:bold;}
+
+
+/*统计图表信息*/
+.statisticsBox{ height:320px; overflow:hidden;}
+.statisticsFlash{ height:290px; position:relative; overflow:hidden;}
+.viewSwitching{ width:88px; height:25px; position:absolute; bottom:0; right:0; overflow:hidden; z-index:5;}
+.statisticChartBox{height:290px; width:478px;}
+
+.car_list,.car_team{background:url(../../img/home.png) 2px -144px no-repeat; height:265px; overflow:hidden;}
+.car_list li,.car_team li{border-bottom:1px dotted #999; height:25px;line-height:25px; float:left; clear:both; width:100%; overflow:hidden;}
+
+
+

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://isg.yutong.com/part/" targetNamespace="http://isg.yutong.com/part/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" namespace="http://schemas.xmlsoap.org/soap/envelope/" />
+  <xs:element name="partQuery" type="tns:partQuery" />
+  <xs:element name="partQueryResponse" type="tns:partQueryResponse" />
+  <xs:complexType name="partQuery">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="RequestUser" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestTime" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestType" type="xs:string" />
+      <xs:element minOccurs="1" name="update_date" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="clientInfo" type="tns:clientInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="partQueryResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Result" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="state" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="errorMsg" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ReturnTime" type="xs:string" />
+      <xs:element name="Details" type="tns:Details" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Details">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Detail" nillable="true" type="tns:part" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="part">
+    <xs:sequence>
+      <xs:element name="car_parts_code" type="xs:string" />
+      <xs:element name="parts_name" type="xs:string" />
+      <xs:element name="model" type="xs:string" />
+      <xs:element name="status" type="xs:string" />
+      <xs:element name="unit_code" type="xs:string" />
+      <xs:element name="unit_name" type="xs:string" />
+      <xs:element name="retail" type="xs:string" />
+      <xs:element name="price3a" type="xs:string" />
+      <xs:element name="price2a" type="xs:string" />
+      <xs:element name="basic_unit_code" type="xs:string" />
+      <xs:element name="basic_unit_name" type="xs:string" />
+      <xs:element name="unit_name_quantity" type="xs:string" />
+      <xs:element name="basic_unit_quantity" type="xs:string" />
+      <xs:element name="part_type" type="xs:string" />
+      <xs:element name="partReplace" nillable="true" type="tns:partReplace" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="partReplace">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="replaceDetail" nillable="true" type="tns:replaceDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="replaceDetail">
+    <xs:sequence>
+      <xs:element name="repl_parts_code" type="xs:string" />
+      <xs:element name="repl_parts_status" type="xs:string" />
+      <xs:element name="repl_remark" type="xs:string" />
+      <xs:element name="change" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="clientInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="clientID" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="serviceID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

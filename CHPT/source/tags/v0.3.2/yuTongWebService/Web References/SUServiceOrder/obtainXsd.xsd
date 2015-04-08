@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://isg.yutong.com/serviceOrderSU/" targetNamespace="http://isg.yutong.com/serviceOrderSU/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" namespace="http://schemas.xmlsoap.org/soap/envelope/" />
+  <xs:element name="serviceOrderSU" type="tns:serviceOrderSU" />
+  <xs:element name="serviceOrderSUResponse" type="tns:serviceOrderSUResponse" />
+  <xs:complexType name="serviceOrderSU">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="RequestUser" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestTime" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestType" type="xs:string" />
+      <xs:element minOccurs="1" name="serviceOrder" type="tns:serviceOrder" />
+      <xs:element minOccurs="1" maxOccurs="1" name="clientInfo" type="tns:clientInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="serviceOrderSUResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Result" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="state" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="errorMsg" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="crm_service_bill_code" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="dsn_service_bill_code" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="serviceOrder">
+    <xs:sequence>
+      <xs:element name="crm_service_bill_code" type="xs:string" />
+      <xs:element name="sap_code" type="xs:string" />
+      <xs:element name="service_station_name" type="xs:string" />
+      <xs:element name="bill_type_yt" type="xs:string" />
+      <xs:element name="whether_go_out" type="xs:string" />
+      <xs:element name="refit_case" type="xs:string" />
+      <xs:element name="repairs_time" type="xs:string" />
+      <xs:element name="create_time" type="xs:string" />
+      <xs:element name="depot_no" type="xs:string" />
+      <xs:element name="vehicle_no" type="xs:string" />
+      <xs:element name="travel_mileage" type="xs:string" />
+      <xs:element name="vehicle_use" type="xs:string" />
+      <xs:element name="vehicle_location" type="xs:string" />
+      <xs:element name="vehicle_location_name" type="xs:string" />
+      <xs:element name="vehicle_use_corp" type="xs:string" />
+      <xs:element name="linkman" type="xs:string" />
+      <xs:element name="link_man_mobile" type="xs:string" />
+      <xs:element name="repairer_name" type="xs:string" />
+      <xs:element name="repairer_mobile" type="xs:string" />
+      <xs:element name="driver_name" type="xs:string" />
+      <xs:element name="driver_mobile" type="xs:string" />
+      <xs:element name="start_work_time" type="xs:string" />
+      <xs:element name="complete_work_time" type="xs:string" />
+      <xs:element name="appraiser_name" type="xs:string" />
+      <xs:element name="travel_desc" type="xs:string" />
+      <xs:element name="approve_by_people" type="xs:string" />
+      <xs:element name="apply_rescue_place" type="xs:string" />
+      <xs:element name="travel_lookup_code" type="xs:string" />
+      <xs:element name="depart_time" type="xs:string" />
+      <xs:element name="back_time" type="xs:string" />
+      <xs:element name="rescue_mileage" type="xs:string" />
+      <xs:element name="travel_employees" type="xs:string" />
+      <xs:element name="hour_amount" type="xs:string" />
+      <xs:element name="mile_allowance" type="xs:string" />
+      <xs:element name="hotel_fee" type="xs:string" />
+      <xs:element name="traffic_fee" type="xs:string" />
+      <xs:element name="travel_amount" type="xs:string" />
+      <xs:element name="other_item_sum_money" type="xs:string" />
+      <xs:element name="other_remarks" type="xs:string" />
+      <xs:element name="should_sum" type="xs:string" />
+      <xs:element name="remarks" type="xs:string" />
+      <xs:element name="approve_status_yt" type="xs:string" />
+      <xs:element name="fault_class_code" type="xs:string" />
+      <xs:element name="fault_class_name" type="xs:string" />
+      <xs:element name="fault_assembly_code" type="xs:string" />
+      <xs:element name="fault_assembly_name" type="xs:string" />
+      <xs:element name="fault_part_code" type="xs:string" />
+      <xs:element name="fault_part_name" type="xs:string" />
+      <xs:element name="fault_mode_code" type="xs:string" />
+      <xs:element name="fault_mode_name" type="xs:string" />
+      <xs:element name="fault_cause" type="xs:string" />
+      <xs:element name="repair_man" type="xs:string" />
+      <xs:element name="reason_analysis" type="xs:string" />
+      <xs:element name="dispose_result" type="xs:string" />
+      <xs:element name="approver_name_yt" type="xs:string" />
+      <xs:element name="policy_approval_no" type="xs:string" />
+      <xs:element name="policy_cost_type" type="xs:string" />
+      <xs:element name="describe" type="xs:string" />
+      <xs:element name="product_notice_no" type="xs:string" />
+      <xs:element name="activity_cost_type" type="xs:string" />
+      <xs:element name="luxury_cost_type" type="xs:string" />
+      <xs:element name="fault_duty_corp" type="xs:string" />
+      <xs:element name="fault_describe" type="xs:string" />
+      <xs:element name="man_hour_cost" type="xs:string" />
+      <xs:element name="parts_cost" type="xs:string" />
+      <xs:element name="parts_buy_time" type="xs:string" />
+      <xs:element name="parts_buy_corp" type="xs:string" />
+      <xs:element name="contain_man_hour_cost" type="xs:string" />
+      <xs:element name="car_parts_code" type="xs:string" />
+      <xs:element name="parts_name" type="xs:string" />
+      <xs:element name="first_install_station" type="xs:string" />
+      <xs:element name="part_guarantee_period" type="xs:string" />
+      <xs:element name="part_lot" type="xs:string" />
+      <xs:element name="feedback_num" type="xs:string" />
+      <xs:element name="is_special_agreed_warranty" type="xs:string" />
+      <xs:element name="ChangePartsDetails" type="tns:ChangePartsDetails" />
+      <xs:element name="RepairItemsDetails" type="tns:RepairItemsDetails" />
+      <xs:element name="FilesDetails" type="tns:FilesDetails" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChangePartsDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ChangePartsDetail" nillable="true" type="tns:ChangePartsDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RepairItemsDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RepairItems" nillable="true" type="tns:RepairItems" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FilesDetails">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Files" nillable="true" type="tns:Files" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChangePartsDetail">
+    <xs:sequence>
+      <xs:element name="parts_source" type="xs:string" />
+      <xs:element name="parts_name" type="xs:string" />
+      <xs:element name="car_parts_code" type="xs:string" />
+      <xs:element name="unit" type="xs:string" />
+      <xs:element name="remarks" type="xs:string" />
+      <xs:element name="unit_price" type="xs:string" />
+      <xs:element name="quantity" type="xs:string" />
+      <xs:element name="sum_money" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RepairItems">
+    <xs:sequence>
+      <xs:element name="item_no" type="xs:string" />
+      <xs:element name="item_name" type="xs:string" />
+      <xs:element name="remarks" type="xs:string" />
+      <xs:element name="man_hour_type" type="xs:string" />
+      <xs:element name="man_hour_unitprice" type="xs:string" />
+      <xs:element name="sum_money" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Files">
+    <xs:sequence>
+      <xs:element name="doc_name" type="xs:string" />
+      <xs:element name="accessory_name" type="xs:string" />
+      <xs:element name="Doc" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="clientInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="clientID" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="serviceID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

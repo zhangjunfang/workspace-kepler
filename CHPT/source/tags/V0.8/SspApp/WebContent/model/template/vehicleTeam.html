@@ -1,0 +1,84 @@
+<!-- 运营管理 > 车队管理 > 新增车队/修改车队 -->
+<form name="vehicleTeamModifyForm" id="vehicleTeamModifyForm" action="">
+  <div class=" lineS69c_b p10">
+      <h3 class=" h25 lh25 mb20 pl10 bcBlue3 lineD">所属企业：<font class=" c00F "> {{=it.parentName || ''}} </font></h3>
+      <input name="parentId" type="hidden" value="{{=it.parentId || ''}}" />
+      <input name="entId" type="hidden" value="{{=it.entId || ''}}" />
+
+      <ul class="lh25 h380">
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>企业编码：</div>
+              <div class="fl pr"><input name="corpCode" class="abs_left mt2 " type="text" value="{{=it.corpCode || ''}}" /></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>企业名称：</div>
+              <div class="fl pr"><input class="abs_left mt2 " name="entName" type="text" value="{{=it.entName || ''}}"/></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>企业简称：</div>
+              <div class="fl pr"><input class="abs_left mt2 " name="orgShortname" type="text" value="{{=it.orgShortname || ''}}" /></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>组织类型：</div>
+              <div class="fl pr"><select name="entType"  class="abs_left mt2 "><option value="1" >企业</option><option value="2" >车队</option></select></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr">网址：</div>
+              <div class="fl pr"><input class="abs_left mt2 " name="url" type="text" value="{{=it.url || ''}}" /></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr">企业地址：</div>
+              <div class="fl pr"><input class="abs_left mt2 " name="orgAddress" type="text" value="{{=it.orgAddress || ''}}"/></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr">电子邮件：</div>
+              <div class="fl pr"><input class="abs_left mt2 "  name="orgCmail" type="text" value="{{=it.orgCmail || ''}}"/></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr">邮政编码：</div>
+              <div class="fl pr"><input class="abs_left mt2 " name="orgCzip" type="text" value="{{=it.orgCzip || ''}}"/></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>所属省份：</div>
+              <div class="fl pr"><select  name="corpProvince" class="abs_left mt2 "></select></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>所属城市：</div>
+              <div class="fl pr"><select  name="corpCity" class="abs_left mt2 "></select></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>企业性质：</div>
+              <div class="fl pr"><select  name="corpQuale" class="abs_left mt2 "></select></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>企业级别：</div>
+              <div class="fl pr"><select  name="corpLevel" class="abs_left mt2 "></select></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr">许可证号：</div>
+              <div class="fl pr"><input name="businessLicense" class="abs_left mt2 " type="text" value="{{=it.businessLicense || ''}}" /></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr">联系人员：</div>
+              <div class="fl pr"><input class="abs_left mt2 "  name="orgCname" type="text" value="{{=it.orgCname || ''}}"/></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr">传真号码：</div>
+              <div class="fl pr"><input class="abs_left mt2 "  name="orgCfax" type="text" value="{{=it.orgCfax || ''}}"/></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr">联系电话：</div>
+              <div class="fl pr"><input class="abs_left mt2 "  name="orgCphone" type="text" value="{{=it.orgCphone || ''}}"/></div>
+          </li>
+          <li class=" h25 mb10 fl w50b">
+              <div class="lh25 w80 fl tr">企业简介：</div>
+              <div class="fl pr"><input class="abs_left mt2 "  name="orgMem" type="text" value="{{=it.orgMem || ''}}"/></div>
+          </li>
+      </ul>
+      <div class="cb"></div>
+  </div>
+  <div class="  bcBlue l-dialog-buttons">
+      <span class=" btn4 fr mr20" type="button" name="cancelButton" value="取消">取消</span>
+      <span class=" btn4 fr mr20" type="button" name="saveButton" value="提交">提交</span>
+  </div>
+</form>

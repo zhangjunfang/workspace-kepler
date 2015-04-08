@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://isg.yutong.com/hitchMode/" targetNamespace="http://isg.yutong.com/hitchMode/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" namespace="http://schemas.xmlsoap.org/soap/envelope/" />
+  <xs:element name="hitchModeQuery" type="tns:hitchModeQuery" />
+  <xs:element name="hitchModeQueryResponse" type="tns:hitchModeQueryResponse" />
+  <xs:complexType name="hitchModeQuery">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="RequestUser" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestTime" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestType" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="clientInfo" type="tns:clientInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="hitchModeQueryResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Result" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="state" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="errorMsg" type="xs:string" />
+      <xs:element minOccurs="0" name="faultPositions" type="tns:faultPositions" />
+      <xs:element minOccurs="0" name="faultModes" type="tns:faultModes" />
+      <xs:element minOccurs="0" name="faultRules" type="tns:faultRules" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="faultPositions">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="faultPosition" nillable="true" type="tns:faultPosition" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="faultModes">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="faultMode" nillable="true" type="tns:faultMode" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="faultRules">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="faultRule" nillable="true" type="tns:faultRule" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="faultPosition">
+    <xs:sequence>
+      <xs:element name="system_category" type="xs:string" />
+      <xs:element name="system_code" type="xs:string" />
+      <xs:element name="system_name" type="xs:string" />
+      <xs:element name="system_index_code" type="xs:string" />
+      <xs:element name="assembly_code" type="xs:string" />
+      <xs:element name="assembly_name" type="xs:string" />
+      <xs:element name="assembly_index_code" type="xs:string" />
+      <xs:element name="part_code" type="xs:string" />
+      <xs:element name="part_name" type="xs:string" />
+      <xs:element name="part_index_code" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="faultMode">
+    <xs:sequence>
+      <xs:element name="fmea_code" type="xs:string" />
+      <xs:element name="fmea_name" type="xs:string" />
+      <xs:element name="fmea_index_code" type="xs:string" />
+      <xs:element name="category_name" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="faultRule">
+    <xs:sequence>
+      <xs:element name="rule_part_code" type="xs:string" />
+      <xs:element name="rule_fmea_code" type="xs:string" />
+      <xs:element name="limit_condition" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="clientInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="clientID" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="serviceID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://isg.yutong.com/partReturnCreate/" targetNamespace="http://isg.yutong.com/partReturnCreate/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" namespace="http://schemas.xmlsoap.org/soap/envelope/" />
+  <xs:element name="partReturnCreate" type="tns:partReturnCreate" />
+  <xs:element name="partReturnCreateResponse" type="tns:partReturnCreateResponse" />
+  <xs:complexType name="partReturnCreate">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="RequestUser" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestTime" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestType" type="xs:string" />
+      <xs:element name="create_time_start" type="xs:string" />
+      <xs:element name="create_time_end" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="clientInfo" type="tns:clientInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="partReturnCreateResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Result" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="state" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="errorMsg" type="xs:string" />
+      <xs:element name="info_status_yt" type="xs:string" />
+      <xs:element name="old_bill_num" type="xs:string" />
+      <xs:element name="com_code" type="xs:string" />
+      <xs:element name="create_time_start" type="xs:string" />
+      <xs:element name="create_time_end" type="xs:string" />
+      <xs:element name="PartDetails">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="PartDetail">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="service_no" type="xs:string" />
+                  <xs:element name="car_parts_code" type="xs:string" />
+                  <xs:element name="parts_remarks" type="xs:string" />
+                  <xs:element name="change_num" type="xs:string" />
+                  <xs:element name="send_num" type="xs:string" />
+                  <xs:element name="process_mode" type="xs:string" />
+                  <xs:element name="remarks" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="clientInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="clientID" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="serviceID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

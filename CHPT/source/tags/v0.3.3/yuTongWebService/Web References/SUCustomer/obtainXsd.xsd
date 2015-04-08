@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://isg.yutong.com/customer/" targetNamespace="http://isg.yutong.com/customer/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" namespace="http://schemas.xmlsoap.org/soap/envelope/" />
+  <xs:element name="customerSU" type="tns:customerSU" />
+  <xs:element name="customerSUResponse" type="tns:customerSUResponse" />
+  <xs:complexType name="customerSU">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="RequestUser" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestTime" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestType" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="customer" type="tns:customer" />
+      <xs:element minOccurs="1" maxOccurs="1" name="clientInfo" type="tns:clientInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customerSUResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Result" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="state" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="errorMsg" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="cust_crm_guid" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="customer">
+    <xs:sequence>
+      <xs:element name="cust_crm_guid" type="xs:string" />
+      <xs:element name="cust_name" type="xs:string" />
+      <xs:element name="cust_code" type="xs:string" />
+      <xs:element name="province" type="xs:string" />
+      <xs:element name="city" type="xs:string" />
+      <xs:element name="county" type="xs:string" />
+      <xs:element name="cust_address" type="xs:string" />
+      <xs:element name="cust_relation" type="xs:string" />
+      <xs:element name="zip_code" type="xs:string" />
+      <xs:element name="cust_phone" type="xs:string" />
+      <xs:element name="cust_fax" type="xs:string" />
+      <xs:element name="email" type="xs:string" />
+      <xs:element name="cust_website" type="xs:string" />
+      <xs:element name="indepen_legalperson" type="xs:string" />
+      <xs:element name="market_segment" type="xs:string" />
+      <xs:element name="institution_code" type="xs:string" />
+      <xs:element name="ent_qualification" type="xs:string" />
+      <xs:element name="com_constitution" type="xs:string" />
+      <xs:element name="registered_capital" type="xs:string" />
+      <xs:element name="business_scope" type="xs:string" />
+      <xs:element name="credit_rating" type="xs:string" />
+      <xs:element name="status" type="xs:string" />
+      <xs:element name="agency" type="xs:string" />
+      <xs:element name="sap_code" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="clientInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="clientID" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="serviceID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

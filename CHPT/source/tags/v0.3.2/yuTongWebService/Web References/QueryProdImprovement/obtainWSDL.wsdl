@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isg.yutong.com/prodImprovemen/" targetNamespace="http://isg.yutong.com/prodImprovemen/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://isgqas.yutong.com:2222/ISG/obtainXsd?serviceID=prodImprovementQuery" namespace="http://isg.yutong.com/prodImprovemen/" />
+    </xsd:schema>
+  </types>
+  <message name="prodImprovementQuery">
+    <part name="parameters" element="tns:prodImprovementQuery" />
+  </message>
+  <message name="prodImprovementQueryResponse">
+    <part name="parameters" element="tns:prodImprovementQueryResponse" />
+  </message>
+  <portType name="prodImprovementQueryPort">
+    <operation name="prodImprovementQuery">
+      <input message="tns:prodImprovementQuery" />
+      <output message="tns:prodImprovementQueryResponse" />
+    </operation>
+  </portType>
+  <binding name="prodImprovementQueryBinding" type="tns:prodImprovementQueryPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="prodImprovementQuery">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="prodImprovementQueryService">
+    <port name="prodImprovementQueryPort" binding="tns:prodImprovementQueryBinding">
+      <soap:address location="https://isgqas.yutong.com:2222/ISG/ws/invokeService" />
+    </port>
+  </service>
+</definitions>

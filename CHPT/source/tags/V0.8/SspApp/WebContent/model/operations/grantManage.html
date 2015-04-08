@@ -1,0 +1,59 @@
+<!--系统管理 - 授权管理 grantManage-->
+<!--sidebox-->
+    <div class="sidebox leftTreeContainer">
+    </div>
+<!--main-->
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>当前位置：</font>
+            <font>系统管理</font> ->
+            <font>授权管理</font>
+        </div>
+        <div class="m3">
+            <div class="">
+            	<!--查询条件-->
+                <div class=" lineS69c h50 p5 tit5 overh vehicleTeamTerm">
+                    <form name="vehicleTeamForm">
+                        <input type="hidden" name="corpManagerSearch" value="1">
+                        <input type="hidden" name="parentId" value="1">
+                        <input type="hidden" name="grandpaId" value="">
+                        <div class=" h25 lh25">所属企业：<font class=" c00F parentCorpDesc"> 全部 </font></div>
+<!--                         <div class="h25 lh25 fl w180"> -->
+<!--                             企业编码： -->
+<!--                             <input type="text" name="corpCode" value="" title="企业编码"/> -->
+<!--                         </div> -->
+<!--                         <div class="h25 lh25 fl w180"> -->
+<!--                             企业名称： -->
+<!--                             <input type="text" name="entName" value="" title="企业名称"/> -->
+<!--                         </div> -->
+                        <div class="h25 lh25 fl w180">
+                            子企业：
+                            <select name="subCorpTeam">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+                        <div class="h25 lh25 fl w180">
+                            所属省份：
+                            <select name="corpProvince"></select>
+                        </div>
+                        <div class="h25 lh25 fl w180">
+                            所属城市：
+                            <select name="corpCity"></select>
+                        </div>
+                        <div class="h25 lh25 w">
+                            <span class="btn7 fr  mr20 addVehicleTeam">添 加</span>
+                            <span class="btn6 fr  mr20 exportGrid">导 出</span>
+                            <span class="btn1 cFFF fl mr20 queryButton">查询</span>
+                        </div>
+                    </form>
+                </div>
+                <!--数据显示-->
+                <div class=" lineS mt3 bcFFF gridContainerWrap">
+                    <div class="gridContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>

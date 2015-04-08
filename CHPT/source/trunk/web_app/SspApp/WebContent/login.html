@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>车后平台支撑系统-登录中心</title>
+  <link rel="shortcut icon" href="img/logo.ico" />
+  <link rel="Bookmark" href="img/logo.ico"/>
+  <link rel="stylesheet" type="text/css" href="css/base.css"/>
+  <link rel="stylesheet" type="text/css" href="css/built.css"/>
+  <link rel="stylesheet" type="text/css" href="css/login.css"/>
+  <script type="text/javascript" src="version.js"></script>
+  <script type="text/javascript" data-main="dist/main.login" src="dist/plugin/requirejs/require.js" defer async="true" ></script>
+</head>
+<body>
+<!--<div class="Browser"><span title="关闭">关闭</span><div class="fr ml10 f12 hand remind mr10">不再提醒</div><div class=" ml20 mr20">尊敬的用户您好！欢迎使用车后平台支撑系统，如需获得更快的浏览速度，推荐您使用谷歌浏览器。<font><a href="model/help/ChromeSetup.exe">点击此处下载</a></font></div></div> -->
+  <!--主体内容堆栈-->
+  <div class="login_wrap">
+    <div class="box">
+      <div class="login_content">
+        <div class="login_box">
+          <!--form-->
+          <form name="loginForm">
+            <ul class=" pt20">
+
+              <li class="h35 pb15">
+                <!--<div class=" fl w60 tr lh25 h25">用户名：</div>
+              -->
+              <input class="w250" type="text" name="userName" value="用户名" title="用户名" />
+            </li>
+
+            <li class="h35 pb15 pr password">
+              <div class="abs_left lh35 h25 pl3">密 码</div>
+              <input class="w250" type="password" name="password" value="" title="密码" />
+            </li>
+
+            <li class="h35 pb15">
+              <!--<div class=" fl w60 tr lh25 h25">企业编码：</div>
+            -->
+            <input class="w250" type="text" name="corpCode" value="组织编码" title="组织编码" />
+          </li>
+
+          <li class="h35 pb15 checkcode">
+            <!--<div class=" fl w60 tr lh25 h25">验证码：</div>
+          -->
+          <input class="fl w140" name="imgCode" type="text" value="验证码" title="验证码" />
+          <img class=" fr w100 imgCode h35 lineS" src="img/bata/1.png" alt="验证码，如看不清请点击刷新" />
+        </li>
+        <li class="lh25 h35  pb5">
+          <div class="fl w100">
+            <div class=" h25 lh25 checkbox">
+              <input class="w20" name="userStorage" type="checkbox" />
+              记住用户名
+            </div>
+          </div>
+          <!--div class=" h25 lh25 fr w40 tc cBlue hand saveFavorite">收藏</div-->
+        </li>
+
+        <li class="h50 lh25 ">
+          <a class="login_submit tnone" href="javascript:void(0);">登录</a>
+          <div class=" cF00 overh errorTip w200 h20 tc mauto"></div>
+        </li>
+
+      </ul>
+    </form>
+
+  </div>
+
+
+ 
+</div>
+
+
+</div>
+</div>
+
+
+</body>
+</html>

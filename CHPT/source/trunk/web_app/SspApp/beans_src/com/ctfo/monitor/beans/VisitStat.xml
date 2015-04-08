@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="VisitStat">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <resultMap class="com.ctfo.monitor.beans.VisitStat" id="VisitStat">
+  
+    <result column="com_name" property="comName" jdbcType="VARCHAR" />
+    <result column="setbook_name" property="setbookName" jdbcType="VARCHAR" />
+    <result column="fun_name" property="funName" jdbcType="VARCHAR" />
+    <result column="total" property="total" jdbcType="VARCHAR" />
+    
+    <result column="access_time_start" jdbcType="VARCHAR" property="accessTimeStart" />
+    <result column="access_time_end" jdbcType="VARCHAR" property="accessTimeEnd" />
+  </resultMap>
+  <sql id="where">
+    WHERE 1=1
+  </sql> 
+  <sql id="where_param">
+    <include refid="where" />
+    <include refid="equal_WHERE" />
+    <include refid="like_WHERE" />
+  </sql>
+  <sql id="like_WHERE">
+  <isNotNull prepend="AND" property="like.comName">
+      m.COM_NAME like CONCAT('%',#like.comName:VARCHAR#,'%')
+  </isNotNull>
+  <isNotNull prepend="AND" property="like.setbookName">
+      m.setbook_name like CONCAT('%',#like.setbookName:VARCHAR#,'%')
+  </isNotNull>
+  </sql> 
+  <sql id="equal_WHERE">
+  <isNotNull prepend="AND" property="equal.accessTimeStart">
+      <![CDATA[(#equal.accessTimeStart:VARCHAR# <= m.watch_time )]]>
+  </isNotNull>
+  <isNotNull prepend="AND" property="equal.accessTimeEnd">
+      <![CDATA[(#equal.accessTimeEnd:VARCHAR# >= m.watch_time )]]>
+  </isNotNull> 
+  <isNotNull prepend="AND" property="equal.funId">
+      fun_id = #equal.funId:VARCHAR#
+  </isNotNull> 
+  </sql> 
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+	SELECT count(1) FROM 
+    (
+	SELECT 
+	  m.online_type AS fun_name,
+	  m.com_name,
+	  m.setbook_name,
+	  COUNT(m.online_type) AS total,
+	  #equal.accessTimeStart:VARCHAR# access_time_start,
+	  #equal.accessTimeEnd:VARCHAR# access_time_end
+	FROM
+	   tb_ssp_user_behavior_monitor m
+	   <include refid="where_param" />
+	   GROUP BY m.online_type,m.com_name
+	   ORDER BY m.setbook_name
+    ) BB
+  </select>
+  <select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="VisitStat">
+	SELECT BB.* FROM 
+    (
+	SELECT 
+	  m.online_type AS fun_name,
+	  m.com_name,
+	  m.setbook_name,
+	  COUNT(m.online_type) AS total,
+	  #equal.accessTimeStart:VARCHAR# access_time_start,
+	  #equal.accessTimeEnd:VARCHAR# access_time_end
+	FROM
+	   tb_ssp_user_behavior_monitor m
+	   <include refid="where_param" />
+	   GROUP BY m.online_type,m.com_name
+	   ORDER BY m.setbook_name
+    ) BB
+    LIMIT #startNum#,#pagesize#
+  </select>
+  
+</sqlMap>

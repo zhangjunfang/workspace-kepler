@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="UserBehavior">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <resultMap class="com.ctfo.monitor.beans.UserBehavior" id="UserBehavior">
+    <result column="watch_time" property="watchTime" jdbcType="DECIMAL" />
+    <result column="online_type" property="onlineType" jdbcType="VARCHAR" />
+    <result column="client_account" property="clientAccount" jdbcType="VARCHAR" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="client_account_orgid" property="clientAccountOrgid" jdbcType="VARCHAR" />
+    <result column="com_name" property="comName" jdbcType="VARCHAR" />
+    <result column="setbook_name" property="setbookName" jdbcType="VARCHAR" />
+    <result column="load_id_addr" property="loadIdAddr" jdbcType="VARCHAR" />
+    <result column="client_mac" property="clientMac" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="where">
+    WHERE 1=1
+  </sql> 
+  <sql id="where_param">
+    <include refid="where" />
+    <include refid="equal_WHERE" />
+    <include refid="like_WHERE" />
+  </sql>
+  <sql id="like_WHERE">
+  <isNotNull prepend="AND" property="like.comName">
+      m.com_name like CONCAT('%',#like.comName:VARCHAR#,'%')
+  </isNotNull>
+  <isNotNull prepend="AND" property="like.setbookName">
+      m.setbook_name like CONCAT('%',#like.setbookName:VARCHAR#,'%')
+  </isNotNull>
+  <isNotNull prepend="AND" property="like.clientAccount">
+      m.client_account like CONCAT('%',#like.clientAccount:VARCHAR#,'%')
+  </isNotNull>
+  </sql> 
+  <sql id="equal_WHERE">
+  <isNotNull prepend="AND" property="equal.timeStart">
+      <![CDATA[(#equal.timeStart:VARCHAR# <= m.watch_time )]]>
+  </isNotNull>
+  <isNotNull prepend="AND" property="equal.timeEnd">
+      <![CDATA[(#equal.timeEnd:VARCHAR# >= m.watch_time )]]>
+  </isNotNull>  
+  </sql> 
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1) FROM 
+    (SELECT 
+	    m.watch_time,
+	    m.online_type,
+	    m.com_name,
+	    m.setbook_name,
+	    m.client_account,
+	    m.role_name,
+	    m.org_name AS client_account_orgid,
+	    m.load_id_addr,
+	    m.client_mac 
+	  FROM
+	    tb_ssp_user_behavior_monitor m 
+	  <include refid="where_param" />
+	  ) BB
+  </select>
+  <select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="UserBehavior">
+	SELECT BB.* FROM 
+    (SELECT 
+	    m.watch_time,
+	    m.online_type,
+	    m.com_name,
+	    m.setbook_name,
+	    m.client_account,
+	    m.role_name,
+	    m.org_name AS client_account_orgid,
+	    m.load_id_addr,
+	    m.client_mac 
+	  FROM
+	    tb_ssp_user_behavior_monitor m 
+	  <include refid="where_param" />
+	  ORDER BY m.watch_time DESC
+    ) BB
+    LIMIT #startNum#,#pagesize#
+  </select>
+  
+</sqlMap>

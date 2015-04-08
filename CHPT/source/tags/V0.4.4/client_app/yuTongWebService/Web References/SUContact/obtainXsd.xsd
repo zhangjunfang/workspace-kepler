@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://isg.yutong.com/contactSU/" targetNamespace="http://isg.yutong.com/contactSU/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" namespace="http://schemas.xmlsoap.org/soap/envelope/" />
+  <xs:element name="contactSU" type="tns:contactSU" />
+  <xs:element name="contactSUResponse" type="tns:contactSUResponse" />
+  <xs:complexType name="contactSU">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="RequestUser" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestTime" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestType" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="contact" type="tns:contact" />
+      <xs:element minOccurs="1" maxOccurs="1" name="clientInfo" type="tns:clientInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="contactSUResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Result" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="state" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="errorMsg" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="contact_guid" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="doc_type" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="contact">
+    <xs:sequence>
+      <xs:element name="crmcont_guid" type="xs:string" />
+      <xs:element name="sex" type="xs:string" />
+      <xs:element name="cont_name" type="xs:string" />
+      <xs:element name="nation" type="xs:string" />
+      <xs:element name="parent_customer" type="xs:string" />
+      <xs:element name="cont_phone" type="xs:string" />
+      <xs:element name="cont_post" type="xs:string" />
+      <xs:element name="cont_post_remark" type="xs:string" />
+      <xs:element name="status" type="xs:string" />
+      <xs:element name="doc_type" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="clientInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="clientID" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="serviceID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

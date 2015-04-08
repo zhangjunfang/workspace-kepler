@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="TbSetbook">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <resultMap class="com.ctfo.operation.beans.TbSetbook" id="TbSetbook">
+
+    <result column="SETBOOK_ID" jdbcType="VARCHAR" property="setbookId" />
+    <result column="SETBOOK_NAME" jdbcType="VARCHAR" property="setbookName" />
+    <result column="SETBOOK_CODE" jdbcType="VARCHAR" property="setbookCode" />
+    <result column="COM_ID" jdbcType="VARCHAR" property="comId" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="BIGINT" property="createTime" nullValue="0" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy"  />
+    <result column="UPDATE_TIME" jdbcType="BIGINT" property="updateTime" nullValue="0"/>
+    <result column="status" jdbcType="VARCHAR" property="status"  />
+    
+  </resultMap>
+  <sql id="columns">
+    SETBOOK_ID,SETBOOK_NAME,SETBOOK_CODE,COM_ID,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME,status
+  </sql>
+  <sql id="table">
+    sys_setbook
+  </sql>
+  
+<sql id="where">
+    WHERE  1 = 1 
+  </sql>
+  <sql id="equal_WHERE">
+    <isNotNull prepend="AND" property="equal.status">
+      status =  #equal.status:VARCHAR#
+    </isNotNull>  
+  </sql>
+  <sql id="where_param">
+    <include refid="where" />
+    <include refid="equal_WHERE" />
+  </sql>
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1) FROM 
+    <include refid="table" />
+    <include refid="where_param" />    
+  </select>  
+
+  <select id="selectPageForParam" parameterClass="dynamicSqlParameter"  resultMap="TbSetbook">
+    SELECT BB.* FROM 
+	    (SELECT 
+		    <include refid="columns" /> 
+		     FROM 
+		    <include refid="table" />
+		    <include refid="where_param" />
+	     ) BB LIMIT #startNum#,#pagesize#
+  </select>
+</sqlMap>

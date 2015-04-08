@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Html Editor</title>
+		<script charset="utf-8" src="kindeditor-min.js"></script>
+		<script charset="utf-8" src="lang/zh_CN.js"></script>
+		<script>
+		window.onerror=function(){return true;};
+			var editor;
+			var contentSeted=false;
+			KindEditor.ready(function(K) {
+				editor = K.create('#details', {
+					allowFileManager : false,
+					allowImageUpload:false,
+					items:[
+				        'image','table', 'hr', 'link', 'unlink','source',  '/',
+				         'undo', 'redo', 
+				          '|',
+				        'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+				        'italic', 'underline', 'strikethrough',
+				         'justifyleft', 'justifycenter', 'justifyright',
+				        'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
+				        'superscript','|', 'clearhtml', 'quickformat', 
+				        
+				         'lineheight', 'removeformat'
+						],
+					fullscreenMode:true,
+					afterChange:function(){
+						if(editor&&contentSeted)
+							window.external.RequestContent(editor.html());
+					}
+				});
+				setContent(window.external.GetContent());
+
+			});
+			function setContent(content){
+				if(editor){
+				    contentSeted=false;
+					editor.html(content);
+					contentSeted=true;
+				}
+			}
+
+		</script>
+	</head>
+	<body>
+			<textarea id="details" style="display: block;width:100%;height:100%;visibility:hidden;"></textarea>
+	</body>
+</html>

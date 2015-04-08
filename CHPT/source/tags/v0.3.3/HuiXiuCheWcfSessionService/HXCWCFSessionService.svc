@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="HuiXiuCheWcfSessionService.Service1" CodeBehind="HXCWCFSessionService.svc.cs" %>

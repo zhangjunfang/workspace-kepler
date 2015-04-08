@@ -1,0 +1,293 @@
+<!----用户档案列表（userFileListManage）-->
+<!--sidebox-->
+    <div class="sidebox leftTreeContainer">
+    </div>
+<!--main-->
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>当前位置：</font>
+            <font>数据管理</font> ->
+            <font>用户档案列表</font>
+        </div>
+        <div class="m3">
+            <div class="userManageContent">
+            	<!--查询条件-->
+                <div class=" lineS69c h90 p5 tit5 overh userFileTerm">
+            	<form name="userFileForm">
+                    <div class=" h35">
+                    	<span class="btn4 fl mr10 cancelSave">返 回</span>
+                    	<span class="btn4 fl mr10 exportGrid">导 出</span>
+                    	</div>
+                    	<div class=" h25 lh25">
+	                    	<div class="h25 lh25 fl w180">
+	                     	   账号：<input type="text" name="clientAccount"/>
+	                    	</div>
+	                    	<div class="h25 lh25 fl w180">
+	                     	   公司名称：<input type="text" name="comName"/>
+	                    	</div>
+	                    	<div class="h25 lh25 fl w180">
+	                     	   帐套名称：<input type="text" name="setbookName"/>
+	                    	</div>
+                        </div>
+                        <div>
+	            	        <div class="h25 lh25 w320 fl">
+	            	        	账号创建时间：
+		                         <input id="d025" type="text" readonly="readonly" class="Wdate" name="registerTimeStart" value="" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d026\')||\'2020-10-01\'}'})"/> 至
+		                         <input id="d026" type="text" readonly="readonly" class="Wdate" name="registertTimeEnd" value="" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d025\')||\'2020-10-01\'}'})"/>
+	                    	</div>
+	            	        <div class="h25 lh25 w300 fl">
+	            	        	最后时间：
+		                         <input id="d027" type="text" readonly="readonly" class="Wdate" name="loadTimeStart" value="" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d028\')||\'2020-10-01\'}'})"/> 至
+		                         <input id="d028" type="text" readonly="readonly" class="Wdate" name="loadTimeEnd" value="" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d027\')||\'2020-10-01\'}'})"/>
+	                    	</div>
+                        </div>
+                        <span class="btn1 cFFF fl ml10 queryButton">查询</span>
+                        <span class="btn4 fl ml10 resetButton">清除</span>
+                </form>
+                </div>
+                <!--数据显示-->
+                <div class=" lineS mt3 bcFFF gridContainerWrap">
+                    <div class="gridContainer"></div>
+                </div>
+            </div>
+
+		       	<div class="userManageContent none">
+		            <div class=" lineS69c h25 p5 tit5 overh userFileTerm">
+		  						<form name="repairStatForm">
+				            <div class=" h25">
+				              <span name='cancelSave' class="btn4 fl ml10 mr20">返 回</span>
+				          	</div>
+		  						</form>
+		            </div>
+								<form name="userFileDetailForm">
+								 <div class="w pt20">
+									  <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">人员编码：</div>
+								          <span class="pr fl">
+								        	  <input name="userCode" type="text"  value="" disabled="disabled">
+								          </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">手机：</div>
+								          <span class="pr fl">
+								            <input name="userPhone" type="text"  value="" disabled="disabled">
+								          </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">所属公司：</div>
+								          <span class="pr fl">
+								          <input name="comNmae" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">人员姓名：</div>
+								          <span class="pr fl">
+								          <input name="userName" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">固话：</div>
+								          <input name="userTelephone" type="text"  value="" disabled="disabled">
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">所属组织：</div>
+								          <input name="orgId" type="text"  value="" disabled="disabled">
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">性别：</div>
+								          <span class="pr fl">
+								          <input name="sex" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">传真：</div>
+								          <span class="pr fl">
+								          <input name="userFax" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">是否操作员：</div>
+								          <span class="pr fl">
+								         <input name="isOperator" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">证件类型：</div>
+								          <span class="pr fl">
+								 			<input name="idcardType" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">邮箱：</div>
+								          <span class="pr fl">
+											<input name="userEmail" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">账号：</div>
+								          <span class="pr fl">
+								          <input name="landName" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">证件号码：</div>
+								          <span class="pr fl">
+								          <input name="idcardNum" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">联系地址：</div>
+								          <span class="pr fl">
+								          <input name="userAddress" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b  mb10">
+								          <div class="fl w90 tr">备注：</div>
+								          <span class="pr fl">
+								           <input name="remark" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b  mb10">
+								          <div class="fl w90 tr">创建人：</div>
+								          <span class="pr fl">
+								            <input name="createBy" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b  mb10">
+								          <div class="fl w90 tr">创建时间：</div>
+								          <span class="pr fl">
+								          <input name="createTime" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">状态：</div>
+											<span class="pr fl">
+												<input name="status" type="text"  value="" disabled="disabled">
+											</span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">最后编辑人：</div>
+								          <span class="pr fl">
+								          <input name="updateBy" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">最后编辑时间：</div>
+								          <span class="pr fl">
+								          <input name="updateTime" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">数据来源：</div>
+								          <span class="pr fl">
+								          <input name="dataSources" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">民族：</div>
+								          <span class="pr fl">
+								          <input name="nation" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">毕业学校：</div>
+								          <span class="pr fl">
+								          <input name="graduateInstitutions" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">技能特长：</div>
+								          <span class="pr fl">
+								          <input name="technicalExpertise" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">身高：</div>
+								          <span class="pr fl">
+								          <input name="userHeight" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">籍贯：</div>
+								          <span class="pr fl">
+								          <input name="nativePlace" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">专业：</div>
+								          <span class="pr fl">
+								          <input name="specialty" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">入职日期：</div>
+								          <span class="pr fl">
+								          <input name="entryDate" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li> 
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">体重：</div>
+								          <span class="pr fl">
+								          <input name="userVeight" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">户口所在地：</div>
+								          <span class="pr fl">
+								          <input name="registerAddress" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">毕业时间：</div>
+								          <span class="pr fl">
+								          <input name="graduateDate" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								  		<li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">工资：</div>
+								          <span class="pr fl">
+								          <input name="wage" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">出生日期：</div>
+								          <span class="pr fl">
+								          <input name="birthday" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">学历：</div>
+								          <span class="pr fl">
+								          <input name="education" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">岗位：</div>
+								          <span class="pr fl">
+								          <input name="position" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								  	  <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">健康状况：</div>
+								          <span class="pr fl">
+								          <input name="health" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">政治面貌：</div>
+								          <span class="pr fl">
+								          <input name="politicalStatus" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb10">
+								          <div class="fl w90 tr">级别：</div>
+								          <span class="pr fl">
+								          <input name="level" type="text"  value="" disabled="disabled">
+								      </span>
+							      </div>
+								</form>
+		       	</div>
+        </div>
+    </div>

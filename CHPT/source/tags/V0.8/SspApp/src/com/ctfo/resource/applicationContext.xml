@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<bean id="propertyConfigurer" class="com.ctfo.context.CustomizedPropertyPlaceholderConfigurer">
+		<property name="locations"> 
+			<list> 
+				<value>classpath:/system.properties</value> 
+				<value>classpath:/jdbc.properties</value>
+				<value>classpath:/redis.properties</value>  
+				<value>classpath:/mondb.properties</value>  
+			</list> 
+		</property> 	
+	</bean>
+	
+	<bean id="dataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"	init-method="init" destroy-method="close">
+		<description>jdbc datasource</description>
+		<property name="uniqueResourceName" value="${jdbc_resourceName}" />
+		<property name="xaDataSourceClassName" value="${jdbc_xaDataSourceClassName}" />
+		<property name="xaProperties">
+			<props>
+				<prop key="user">${jdbc_user}</prop>
+				<prop key="password">${jdbc_password}</prop>
+				<prop key="URL">${jdbc_url}</prop>
+			</props>
+		</property>
+		<!-- 测试失效链接 -->
+		<!--<property name="testQuery"> <value>select 1 from dual</value> </property>-->
+		<property name="poolSize" value="${jdbc_poolSize}" />
+		<property name="maxPoolSize" value="${jdbc_maxPoolSize}" />    
+		<!-- 最大空闲时间，超过空闲时间的连接将被丢弃。为0或负数则永不丢弃。默认为0秒 -->
+		<property name="maxIdleTime" value="${jdbc_maxIdleTime}" />
+		<property name="borrowConnectionTimeout" value="${borrowConnectionTimeout}" /> 
+	</bean>
+	
+	<!-- 注入ibaits配置文件 -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">  
+		<property name="configLocation"> 
+			<value>classpath:com/ctfo/resource/SqlMapConfig.xml</value>
+		</property>
+		<property name="dataSource" ref="dataSource" />  
+	</bean> 
+    
+	<bean id="lyptClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<!-- oracle库dao抽象类 -->
+	<bean id="lyptGenericIbatisAbstract" class="com.ctfo.local.daoImpl.GenericIbatisAbstract"
+		abstract="true">
+		<property name="sqlMapClientTemplate">
+			<ref bean="lyptClientTemplate" />
+		</property>
+	</bean>
+		
+	<bean id="atomikosUserTransaction"	class="com.atomikos.icatch.jta.UserTransactionImp">
+		<description>UserTransactionImp1</description>
+		<property name="transactionTimeout" value="${TransactionTimeout}"/>
+	</bean>
+
+	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close">
+		<description>UserTransactionManager1</description>
+		<property name="forceShutdown">	
+			<value>true</value>
+		</property>
+	</bean>
+
+	<bean id="springTransactionManager"	class="org.springframework.transaction.jta.JtaTransactionManager">
+		<description>JtaTransactionManager1</description>
+		<property name="transactionManager">
+			<ref bean="atomikosTransactionManager" />
+		</property>
+		<property name="userTransaction">
+			<ref bean="atomikosUserTransaction" />
+		</property>
+	</bean>
+	<!-- 事务的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="springTransactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="add*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="modify*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="delete*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="update*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="deal*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />	
+			<tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* com.ctfo.*..dao..*DAO*.*(..))" advice-ref="txAdvice"/>
+	</aop:config>
+	<!-- 支持上传文件 -->  
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 上传文件的大小限制5M=5120000  -->
+		<property name= "maxUploadSize" value="15360000"></property> 
+		<property name="resolveLazily" value="true"></property>
+	</bean>
+	<!-- 初始化mongoDB -->
+	<bean name="mongoDB" class="com.ctfo.util.MongoDataSource" init-method="init">
+		<property name="host" value="${datasource.host}" />
+		<property name="port" value="${datasource.port}" />
+		<property name="dbname" value="${datasource.dbname}" />
+		<property name="dbnamemongoFileDir" value="${datasource.dbnamemongoFileDir}" />
+		<property name="url" value="${datasource.url}" />
+	</bean>	
+	<!-- 用户 -->
+	<bean id="sysSpOperatorDAO" class="com.ctfo.sys.dao.impl.SysSpOperatorDAOImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="SysSpOperator"></property>
+	</bean>
+	
+	<!-- 机构 -->
+	<bean id="tbOrgDAO" class="com.ctfo.sys.dao.impl.TbOrgDAOImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbOrg"></property>
+	</bean>
+	
+	<!-- 机构出树表 -->
+	<bean id="tbOrganizationDAO" class="com.ctfo.sys.dao.impl.TbOrganizationDAOImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbOrganization"></property>
+	</bean>
+	
+	<!-- 权限 -->
+	<bean id="sysFunctionDAO" class="com.ctfo.sys.dao.impl.SysFunctionDAOImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="SysFunction"></property>
+	</bean>
+	
+	<!-- 角色 -->
+	<bean id="sysSpRoleDAO" class="com.ctfo.sys.dao.impl.SysSpRoleDAOImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="SysSpRole"></property>
+	</bean>
+	<!-- 注册鉴权 -->
+	<bean id="authManageDAO" class="com.ctfo.operation.dao.impl.AuthManageDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="CompanyInfo"></property>
+	</bean>	
+	<!-- 增值应用 -->
+	<bean id="addAppDao" class="com.ctfo.operation.dao.impl.AddAppDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="AddApp"></property>
+	</bean>		
+	<!-- 云备份 -->
+	<bean id="cloudBackUpDao" class="com.ctfo.operation.dao.impl.CloudBackUpDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbCloudBackUp"></property>
+	</bean>
+	<!-- 维修单 -->
+	<bean id="repairDao" class="com.ctfo.analysis.dao.impl.RepairDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="RepairInfo"></property>
+	</bean>
+	<!-- 结算单 -->
+	<bean id="repairSingleDao" class="com.ctfo.analysis.dao.impl.RepairSingleDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="RepairSingle"></property>
+	</bean>
+	<!-- 维修项目 -->
+	<bean id="repairProjectDao" class="com.ctfo.analysis.dao.impl.RepairProjectDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="RepairProject"></property>
+	</bean>
+	<!-- 维修用料 -->
+	<bean id="repairMaterialsDao" class="com.ctfo.analysis.dao.impl.RepairMaterialsDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="RepairMaterials"></property>
+	</bean>		
+	<!-- 其他项目收费 -->
+	<bean id="repairChargeDao" class="com.ctfo.analysis.dao.impl.RepairChargeDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="RepairCharge"></property>
+	</bean>
+	<!-- 附件信息 -->
+	<bean id="repairAnnexDao" class="com.ctfo.analysis.dao.impl.RepairAnnexDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="RepairAnnex"></property>
+	</bean>		
+	<!-- 服务端在线情况 -->
+	<bean id="onlineDao" class="com.ctfo.monitor.dao.impl.OnlineDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="CompanyInfo"></property>
+	</bean>
+	<!-- 用户在线 -->
+	<bean id="onlineUsersDao" class="com.ctfo.monitor.dao.impl.OnlineUsersDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="OnlineUsers"></property>
+	</bean>	
+	<!-- 用户行为监控 -->
+	<bean id="userBehaviorDao" class="com.ctfo.monitor.dao.impl.UserBehaviorDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="UserBehavior"></property>
+	</bean>
+	<!-- 访问统计 -->	
+	<bean id="visitDao" class="com.ctfo.monitor.dao.impl.VisitDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="VisitStat"></property>
+	</bean>			
+	<!-- 用户档案 -->	
+	<bean id="archivesDao" class="com.ctfo.archives.dao.impl.ArchivesDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="Archives"></property>
+	</bean>	
+	<!-- 用户档案明细 -->	
+	<bean id="archivesDetailDao" class="com.ctfo.archives.dao.impl.ArchivesDetailDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="ArchivesDetail"></property>
+	</bean>		
+	<!-- 公告管理 -->
+	<bean id="bulletinManageDao" class="com.ctfo.sysmanage.dao.impl.BulletinManageDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="BulletinManage"></property>
+	</bean>
+
+	<!-- 省市县初始化 -->
+	<bean id="sysGeneralCodeDao" class="com.ctfo.baseinfo.dao.impl.SysGeneralCodeDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="SysAreaInfo"></property>
+	</bean>
+	<!-- 设置开关-->
+	<bean id="tbOnOffDao" class="com.ctfo.sysmanage.dao.impl.TbOnOffDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbOnOff"></property>
+	</bean>
+	<!-- 公司管理-->
+	<bean id="sysCompanyDao" class="com.ctfo.sysmanage.dao.impl.SysCompanyDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="SysComInfo"></property>
+	</bean>
+	<!-- 帐套-->
+	<bean id="tbSetbookDao" class="com.ctfo.operation.dao.impl.TbSetbookDaoImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbSetbook"></property>
+	</bean>
+	<!-- 操作记录 -->
+	<bean id="sysOperateLogDao" class="com.ctfo.sys.dao.impl.SysOperateLogDAOImpl" scope="prototype" parent="lyptGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="SysOperateLog"></property>
+	</bean>
+	<!-- jedis pool配置 -->
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">  
+        <property name="maxTotal" value="${REDIS.pool.maxActive}" />  
+		<property name="maxIdle" value="${REDIS.pool.maxIdle}" />  
+		<property name="maxWaitMillis" value="${REDIS.pool.maxWait}" />  
+		<property name="testOnBorrow" value="${REDIS.pool.testOnBorrow}" />  
+    </bean>  
+	
+	<!-- redis连接池主 -->
+	<bean id="writeJedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy">  
+		<constructor-arg ref="jedisPoolConfig"></constructor-arg>
+		<constructor-arg value="${REDIS.HOST.MAIN}"></constructor-arg>  
+        <constructor-arg value="${REDIS.PORT.MAIN}"></constructor-arg>  
+        <constructor-arg value="${REDIS.pool.redis.timeout}"></constructor-arg>  
+        <constructor-arg value="${REDIS.PASSWORD.MAIN}"></constructor-arg>  
+        <constructor-arg value="${REDIS.default.db}"></constructor-arg>     
+	</bean>  
+      
+	<!-- redis连接池从 -->
+	<bean id="readJedisPool" class="redis.clients.jedis.JedisPool" destroy-method="destroy">  
+		<constructor-arg ref="jedisPoolConfig"></constructor-arg>
+		<constructor-arg value="${REDIS.HOST.FROM}"></constructor-arg>  
+        <constructor-arg value="${REDIS.PORT.FROM}"></constructor-arg>  
+        <constructor-arg value="${REDIS.pool.redis.timeout}"></constructor-arg>  
+        <constructor-arg value="${REDIS.PASSWORD.MAIN}"></constructor-arg>  
+        <constructor-arg value="${REDIS.default.db}"></constructor-arg>
+	</bean>  
+     
+    <!-- 服务站信息初始化 -->
+	<bean name="companyRedisInit" class="com.ctfo.travel.basic.controller.CompanyRedisInit" init-method="init">
+		<property name="writeJedisPool" ref="writeJedisPool"></property>
+		<property name="authManageDAO" ref="authManageDAO"></property>
+	</bean>
+	
+	<!-- 初始化编码 -->
+	<bean name="autoCodeInit" class="com.ctfo.travel.basic.controller.AutoCodeInit" init-method="init">
+		<property name="sysCompanyDao" ref="sysCompanyDao"></property>
+		<property name="tbOrgDAO" ref="tbOrgDAO"></property>
+		<property name="sysSpOperatorDAO" ref="sysSpOperatorDAO"></property>
+		<property name="sysSpRoleDAO" ref="sysSpRoleDAO"></property>
+	</bean>	
+	<bean id="covertTable" class="com.ctfo.init.CovertTable" init-method="init" scope="singleton">
+		<property name="fileName">
+			<value>convertTable.xml</value>
+		</property>
+	</bean>
+	
+	<!--添加调度  --> 
+	<bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="onlineUserTrigger" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 定时缓存路况信息 -->
+	<bean id="onlineUserTimer" class="com.ctfo.timer.OnlineUserTimer" />
+	<bean id="onlineUserJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="onlineUserTimer" />
+		</property>
+		<property name="targetMethod">
+			<value>timerOnlineUser</value>
+		</property>
+	</bean>
+	<bean id="onlineUserTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="onlineUserJob" />
+		<property name="cronExpression">
+			<!-- 秒-分-时-每月第几天-月-每星期第几天-年 -->
+			<value>10 0/10 * * * ?</value>
+			<!-- 测试Timer -->
+			<!-- <value>30 * * * * ?</value> -->
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!-- =================================================== 数据库连接部分 ==================================== -->
+	<!-- 配置的资源文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/system.properties</value>
+			</list>
+		</property>
+	</bean>
+	<!-- 系统配置 -->
+	<bean id="systemConfig" class="com.ctfo.commandservice.model.SystemConfig">
+		<property name="managementPort" value="${managementPort}"/>
+	</bean>
+
+	<!-- ================================================= redis 部分 ==================================== -->
+	<!-- 数据服务层 -->
+	<bean id="oracleProperties" class="com.ctfo.commandservice.model.OracleProperties">
+		<!-- 存储控制指令 -->
+		<property name="sql_saveControlCommand">
+			<value>
+				INSERT INTO TH_VEHICLE_COMMAND(OP_ID,VID,VEHICLE_NO,CO_SUTC,CO_TYPE,CO_FROM,CO_SEQ,CO_CHANNEL,CO_PARM,CO_COMMAND,CO_SUBTYPE,CREATE_BY,CREATE_TIME,CO_OEMCODE,AUTO_ID) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+			</value>
+		</property>
+		<!-- 存储多媒体数据 -->
+		<property name="sql_saveMultMedia">
+			<value>INSERT INTO TH_VEHICLE_MEDIA (MEDIA_ID,MULT_MEDIA_ID,VID,DEVICE_NO,MTYPE_CODE,MFORMAT_CODE,EVENT_TYPE,UTC,MEDIA_URI,LENS_NO,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,STATUS_CODE,ENABLE_FLAG,EVENT_TRIGGER_TIME,SYSUTC,DEV_TYPE) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,1,?,?,?)</value>
+		</property>
+		<!-- 存储车辆调度信 -->
+		<property name="sql_saveVehicleDispatchMsg">
+			<value>INSERT INTO TH_VEHICLE_DISPATCH_MSG (VID,VEHICLE_NO,DMSG_UTC,SEND_FLAG,SEQ,VEHICLE_COLOR,UMSG_SRTIME,UMSG_CONTENT,DMSG_ID) VALUES(?,?,?,?,?,?,?,?,?) </value>
+		</property>
+		<!-- 更新终端终端版本号 -->
+		<property name="sql_updateTernimalVersion">
+			<value>UPDATE TB_TERMINAL SET TER_HARDVER =?,TER_SOFTVER = ? WHERE TID = ?</value>
+		</property>
+		<!-- 查询终端版本记录VID -->
+		<property name="sql_queryTernimalRecord">
+			<value>SELECT DISTINCT VID FROM TH_TERMINAL_VERSION_RECORD</value>
+		</property>
+		<!--  更新终端版本记录-->
+		<property name="sql_updateTernimalRecord">
+			<value> UPDATE TH_TERMINAL_VERSION_RECORD SET RECORD_TIME = ?,VIN_CODE = ?,VEHICLE_NO = ?,PLATE_COLOR = ?,COMMADDR = ?,
+				         ICCID_ELECTRON = ?, TMAC = ?,TPROTOCOL_VERSION = ?,HARDWARE_VERSION = ?,FIRMWARE_VERSION = ?,
+				         DISPLAY_HARD_VERSION = ?,DISPALY_FIRM_VERSION = ?,VCR_HARD_VERSION = ?,VCR_FIRM_VERSION = ?,
+				         READER_HARD_VERSION = ?,READER_FIRM_VERSION = ?
+				   WHERE VID = ?
+			</value>
+		</property>
+		<!-- 插入终端版本记录 -->
+		<property name="sql_insertTernimalRecord">
+			<value>
+				INSERT /*+append*/ INTO TH_TERMINAL_VERSION_RECORD(ID,VID,VIN_CODE,VEHICLE_NO,PLATE_COLOR,COMMADDR,
+				     ICCID_ELECTRON,TMAC,TPROTOCOL_VERSION,HARDWARE_VERSION,FIRMWARE_VERSION,DISPLAY_HARD_VERSION,
+				     DISPALY_FIRM_VERSION,VCR_HARD_VERSION,VCR_FIRM_VERSION,READER_HARD_VERSION,READER_FIRM_VERSION,RECORD_TIME)
+				  VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+			</value>
+		</property>
+		<!-- 更新SIM卡ICCID -->
+		<property name="sql_updateSIMICCID">
+			<value>UPDATE TB_SIM SET ICCID_ELECTRON = ? WHERE COMMADDR = ?  AND ENABLE_FLAG = 1</value>
+		</property>
+		<!-- 存储多媒体事件信息 -->
+		<property name="sql_saveMultimediaEvent">
+			<value>INSERT INTO TH_VEHICLE_MULTIMEDIA_EVENT(PID,VID,MULTIMEDIA_TYPE,MULTIMEDIA_FORMAT,EVENT_NUM,CHANNEL_ID,TAKINGSEQ,EVENT_TRIGGER_TIME,SYSUTC,MULT_MEDIA_ID) VALUES(?,?,?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储电子运单历史 -->
+		<property name="sql_saveEticket">
+			<value>INSERT INTO TH_VEHICLE_ETICKET(PID,VID,CONTENT,UTC) VALUES(?,?,?,?)</value>
+		</property>
+		<!-- 存储终端注册信息 -->
+		<property name="sql_saveTernimalRegisterInfo">
+			<value>INSERT INTO TH_TERMINAL_REGISTER(TID,OEM_CODE,PROVINCE_ID,CITY_ID,MANUFACTURER_ID,VEHICLE_NO,VEHICLE_COLOR,UTC,RESULT,COMMADDR,AUTO_ID) VALUES(?,?,?,?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储终端注销SQL -->
+		<property name="sql_saveVehicleLogOff">
+			<value>INSERT INTO TH_VEHICLE_LOGOFF(PID,VID,RESULT,SEQ,UTC,RESULTUTC,OEM_CODE) VALUES(?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 更新车辆注销SQL -->
+		<property name="sql_updateVehicleLogOff">
+			<value>UPDATE TH_TERMINAL_REGISTER  SET LOGOFFUTC =? WHERE UTC = (SELECT MAX(UTC)  FROM TH_TERMINAL_REGISTER  WHERE commaddr =? ) AND RESULT = 0 AND commaddr =?</value>
+		</property>
+		<!-- 存储终端鉴权信息 SQL -->
+		<property name="sql_saveVehicleAKey">
+			<value>INSERT /*+append*/  INTO TH_VEHICLE_CHECKED(PID,COMMADDR,AKEY,RESULT,SEQ,UTC,RESULTUTC,OEM_CODE) VALUES(?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储驾驶员身份信息  SQL -->
+		<property name="sql_saveDriverInfo">
+			<value>INSERT INTO TH_VEHICLE_DRIVER(PID,VID,DRIVER_NAME,DRIVER_NO,DRIVER_CERTIFICATE,CERTIFICATE_AGENCY,UTC,STATUS) VALUES(?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储驾驶员登录信息 SQL -->
+		<property name="sql_saveDriverWork">
+			<value>INSERT INTO TH_DRIVER_LOGIN_RECORD(AUTO_ID,VID,DEVICE_NO,DRIVER_NAME,DRIVER_IDNO,QUALIFICATION_NO,ISSUE_NAME,ON_LINE_TIME,STATUS,UP_STATUS,ENT_ID,EXPIRY_DATE,SYSUTC,VEHICLE_NO,VEHICLE_COLOR,ENT_NAME) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 更新驾驶员登录信息 SQL -->
+		<property name="sql_updateDriverWork">
+			<value>UPDATE TH_DRIVER_LOGIN_RECORD t SET t.OFF_LINE_TIME=?,t.UP_STATUS=2 WHERE t.AUTO_ID=?</value>
+		</property>
+		<!-- 存储事件IDSQL -->
+		<property name="sql_saveEventId">
+			<value>INSERT INTO TH_VEHICLE_EVENTS (PID,VID,EVENT_ID,UTC) VALUES(?,?,?,?)</value>
+		</property>
+		<!-- 更新历史提问SQL -->
+		<property name="sql_updateQuerstionAnswer">
+			<value>UPDATE TH_QUESTION_ANSWER T SET T.REPLY_UTC = ?, T.ANSWER_CONTENT = ? WHERE T.SEQ = ?</value>
+		</property>
+		<!-- 存储油量变化记录SQL -->
+		<property name="sql_saveOilChanged">
+			<value>INSERT INTO TH_OILMASS_CHANGE_DETAIL (CHANGE_TYPE,VID,UTC,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,SYSUTC,CURR_OILLEVEL,CURR_OILMAS,CHANGE_OILMASS,CHANGE_ID) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储偷油告警SQL -->
+		<property name="sql_saveStealingOilAlarm">
+			<value>INSERT INTO TH_VEHICLE_ALARM (ALARM_ID,VID,UTC,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,ALARM_CODE,SYSUTC,ALARM_START_UTC,BGLEVEL,ALARM_END_UTC,END_LAT,END_LON,END_MAPLAT,END_MAPLON,END_ELEVATION,END_DIRECTION,END_GPS_SPEED,ALARM_STATUS) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0)</value>
+		</property>
+		<!-- 删除发动机版本信息SQL -->
+		<property name="sql_deleteEngVersionInfo">
+			<value>DELETE FROM KCPT.TB_ENG_VERSION WHERE VID=? AND VIN_CODE=? AND COMMADDR=?</value>
+		</property>
+		<!-- 存储发动机版本信息SQL -->
+		<property name="sql_saveEngVersionInfo">
+			<value>INSERT INTO KCPT.TB_ENG_VERSION(VERSION_ID,VID,VEHICLE_NO,VIN_CODE,COMMADDR,VERSION_CODE,VERSION_VAULE,REPORT_TIME) VALUES(?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储发动机故障信息SQL -->
+		<property name="sql_saveEngBug">
+			<value>INSERT INTO KCPT.TH_ENG_BUG(BUG_ID,VID,VEHICLE_NO,VIN_CODE,COMMADDR,STATUS,BUG_CODE,BUG_DESC,BUG_FLAG,BASIC_CODE,LAT,LON,MAPLAT,MAPLON,ELEVATION,DIRECTION,GPS_SPEEDING,REPORT_TIME) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) </value>
+		</property>
+		<!-- 存储数据上行透传SQL -->
+		<property name="sql_saveBridge">
+			<value>INSERT INTO TH_VEHICLE_BRIDGE (PID,VID,UTC,CONTENT,TYPE,MSGTYPE) VALUES(?,?,?,?,0,?)</value>
+		</property>
+		<!-- 存储行驶记录仪SQL -->
+		<property name="sql_saveRecorder">
+			<value>INSERT INTO TH_VEHICLE_RECORDER (PID,VID,UTC,CONTENT,CO_SEQ) VALUES(?,?,?,?,?)</value>
+		</property>
+		<!-- 存储信息点播取消SQL -->
+		<property name="sql_saveInfoplay">
+			<value>INSERT INTO TH_VEHICLE_INFOPLAY (PID,VID,TYPE,UTC,STATUS) VALUES(?,?,?,?,?)</value>
+		</property>
+		<!-- 更新照片状态SQL -->
+		<property name="sql_updateControlCommand">
+			 <value>UPDATE TH_VEHICLE_COMMAND SET CO_STATUS=? ,CR_TIME=?,CR_RESULT=? WHERE CO_SEQ=?</value>
+		</property>
+		<!-- 更新触发拍照状态表SQL -->
+		<property name="sql_updatePhotoSetting">
+			<value>UPDATE TH_PHOTO_SETTINGS_LOG SET SEND_STATUS = ? WHERE COMMAND_SEQ = ?</value>
+		</property>
+		<!--更新终端参数历史SQL -->
+		<property name="sql_updateTerminalHisParam">
+			<value>UPDATE TB_TERMINAL_HISTORY_PARAM SET SET_RESULT = ?, UPDATE_TIME = ?,UPDATE_BY = ? WHERE SEQ = ?</value>
+		</property>
+		<!-- 更新电子围栏线路信息SQL -->
+		<property name="sql_updateLineSetting">
+			<value>UPDATE TR_LINE_VEHICLE SET SEND_COMMAND_STATUS = ?, UPDATE_TIME = ? WHERE SEQ = ?</value>
+		</property>
+		<!-- 更新电子围栏设置SQL -->
+		<property name="sql_updateAreaSetting">
+			<value>UPDATE TR_BIND_AREA SET SEND_STATUS = ?, RECEIVE_UTC = ? WHERE SEQ = ?</value>
+		</property>
+		<!-- 更新电子围栏设置SQL -->
+		<property name="sql_updateLockVehicleStatus">
+			<value>UPDATE KCPT.TB_LOCK_VEHICLE_DETAIL SET VEHICLE_STATUS=?,UPDATE_TIME=? WHERE VID=?</value>
+		</property>
+		<!-- 更新发动机故障处理信息SQL -->
+		<property name="sql_updateEngBugDispose">
+			<value>UPDATE KCPT.TH_ENG_BUG_DISPOSE SET CLEAR_FLAG=? WHERE CO_SEQ=?</value>
+		</property>
+		<!-- 根据终端ID查询数据库终端参数值SQL -->
+		<property name="sql_selectDBTerminalParam">
+			<value>SELECT T.PARAM_ID FROM TB_TERMINAL_PARAM T WHERE T.TID = ?</value>
+		</property>
+		<!-- 存储参数设置SQL -->
+		<property name="sql_saveBatchTernimalParam">
+			<value>INSERT INTO TB_TERMINAL_PARAM (TID,PARAM_ID,PARAM_VALUE,CREATE_TIME,UPDATE_TIME) VALUES(?,?,?,?,?)</value>
+		</property>
+		<!-- 更新参数设置SQL -->
+		<property name="sql_updateBatchTernimalParam">
+			<value>UPDATE TB_TERMINAL_PARAM SET UPDATE_TIME=?,PARAM_VALUE=? WHERE PARAM_ID=? AND TID=?</value>
+		</property>
+		<!-- 存储或者更新远程锁车信息表SQL -->
+		<property name="sql_saveOrUpdateLockVehicleDetail">
+			<value>
+					MERGE INTO TB_LOCK_VEHICLE_DETAIL T1
+						USING (SELECT ? AS PID,? AS VID,? AS VEHICLE_STATUS,? AS LOCK_TYPE,? AS MAX_RPM,? AS PRE_LOCK_TIME,? AS COMMAND_STATUS  FROM dual) T2
+						ON ( T1.VID=T2.VID)
+						WHEN MATCHED THEN
+						  UPDATE SET T1.VEHICLE_STATUS=T2.VEHICLE_STATUS,T1.LOCK_TYPE=T2.LOCK_TYPE,T1.MAX_RPM=T2.MAX_RPM,T1.PRE_LOCK_TIME=T2.PRE_LOCK_TIME,T1.COMMAND_STATUS=T2.COMMAND_STATUS
+						WHEN NOT MATCHED THEN 
+						  INSERT (PID,VID,VEHICLE_STATUS,LOCK_TYPE,MAX_RPM,PRE_LOCK_TIME,COMMAND_STATUS) VALUES(T2.PID,T2.VID,T2.VEHICLE_STATUS,T2.LOCK_TYPE,T2.MAX_RPM,T2.PRE_LOCK_TIME,T2.COMMAND_STATUS)
+					</value>
+		</property>
+		<!-- 更新解锁指令状态SQL -->
+		<property name="sql_updateLockCommandStatus">
+			<value>UPDATE KCPT.TB_LOCK_VEHICLE_DETAIL SET COMMAND_STATUS=? WHERE VID=?</value>
+		</property>
+		<!-- 更新 解锁码	SQL -->
+		<property name="sql_updateUnlockCode">
+			<value>UPDATE KCPT.TB_LOCK_VEHICLE_DETAIL SET UNLOCK_CODE=?,VEHICLE_STATUS=?,COMMAND_STATUS=? WHERE VID=?</value>
+		</property>
+		<!-- 更新调度信息SQL -->
+		<property name="sql_updateVehicleDispatchMsg">
+			<value>UPDATE TH_VEHICLE_DISPATCH_MSG SET UMSG_SRTIME = ?, SEND_RESULT = ?,DMSG_STATUS=? WHERE SEQ = ? </value>
+		</property>
+		<!-- 终端上报调度信息查询SQL -->
+		<property name="sql_queryDispatch">
+			<value>SELECT CONTENT FROM TB_TERMINAL_EVENT_SET T WHERE T.VID=?</value>
+		</property>
+		<!-- 终端上报调度信息存储SQL -->
+		<property name="sql_saveDispatch">
+			<value>INSERT INTO TH_VEHICLE_DISPATCH_MSG(DMSG_ID,VID,VEHICLE_NO,VEHICLE_COLOR,DMSG_UTC,DMSG_SRTIME,UMSG_SRTIME,UMSG_CONTENT,SEQ,SEND_FLAG,EVENT_NO,LON,LAT) VALUES(?,?,?,?,?,?,?,?,?,1,?,?,?)</value>
+		</property>
+		
+		<!-- 查询指令子类型SQL -->
+		<property name="sql_querySubType">
+			<value>SELECT CO_SUBTYPE FROM TH_VEHICLE_COMMAND WHERE CO_SEQ = ?</value>
+		</property>
+		<!-- 全量更新车辆缓存信息 --> 
+		<property name="sql_initAllVehilceCache">
+			<value>
+				SELECT V.VEHICLE_NO,
+			       S.SUID,
+			       V.VID            AS VID,
+			       V.PLATE_COLOR    AS PLATE_COLOR_ID,
+			       M.COMMADDR       AS T_IDENTIFYNO,
+			       T.OEM_CODE       AS OEMCODE,
+			       T.TMODEL_CODE,
+			       T.TID,
+			       V.VIN_CODE,
+             	   V.ENT_ID AS TEAM_ID,
+             	   V.VEHICLE_TYPE
+			  FROM TB_SIM M
+			 INNER JOIN TR_SERVICEUNIT S
+			    ON S.SID = M.SID
+			 INNER JOIN TB_VEHICLE V
+			    ON V.VID = S.VID
+			 INNER JOIN TB_TERMINAL T
+			    ON T.TID = S.TID
+			 WHERE COMMADDR IS NOT NULL
+			   AND V.ENABLE_FLAG = '1'
+			   AND T.ENABLE_FLAG = '1'
+			</value>
+		</property>
+		<!-- 全量更新3G车辆缓存信息 -->
+		<property name="sql_update3GPhotoVehicleInfo">
+			<value>
+				SELECT S.SUID,
+			       V.VID          AS VID,
+			       V.PLATE_COLOR    AS PLATE_COLOR_ID,
+			       M.COMMADDR     AS T_IDENTIFYNO,
+			       T.OEM_CODE     AS OEMCODE,
+			       T.TMODEL_CODE,
+			       T.TID,
+			       VEHICLE_NO,
+			       TD.DVR_SIMNUM,
+			       V.VIN_CODE,
+             	   V.ENT_ID AS TEAM_ID,
+             	   V.VEHICLE_TYPE
+			  FROM TB_SIM M
+			 INNER JOIN TR_SERVICEUNIT S
+			    ON S.SID = M.SID
+			 INNER JOIN TB_VEHICLE V
+			    ON V.VID = S.VID
+			 INNER JOIN TB_TERMINAL T
+			    ON T.TID = S.TID
+			 INNER JOIN KCPT.TB_DVR TD
+			    ON TD.DVR_ID = S.DVR_ID
+			 WHERE TD.DVR_SIMNUM IS NOT NULL
+			   AND V.ENABLE_FLAG = '1'
+			   AND T.ENABLE_FLAG = '1'
+			   AND T.TER_STATE = 2 
+			</value>
+		</property>
+		<!-- 增量更新3g设备车辆缓存信息 -->
+		<property name="sql_update3GVehicle">
+			<value>
+			 SELECT TD.DVR_SIMNUM, S.SUID,
+			       V.VID          AS VID,
+			       V.PLATE_COLOR    AS PLATE_COLOR_ID,
+			       M.COMMADDR     AS T_IDENTIFYNO,
+			       T.OEM_CODE     AS OEMCODE,
+			       T.TMODEL_CODE,
+			       T.TID,
+			       VEHICLE_NO,
+			       TD.DVR_SIMNUM,
+			       V.VIN_CODE,
+             	   V.ENT_ID AS TEAM_ID,
+             	   V.VEHICLE_TYPE
+			  FROM TB_SIM M
+			 INNER JOIN TR_SERVICEUNIT S
+			    ON S.SID = M.SID
+			 INNER JOIN TB_VEHICLE V
+			    ON V.VID = S.VID
+			 INNER JOIN TB_TERMINAL T
+			    ON T.TID = S.TID
+			 INNER JOIN KCPT.TB_DVR TD
+			    ON TD.DVR_ID = S.DVR_ID
+			 WHERE V.ENABLE_FLAG = '1'
+			   AND T.ENABLE_FLAG = '1'
+			   AND (M.UPDATE_TIME >= ? OR M.CREATE_TIME >= ? OR
+	                S.UPDATE_TIME >= ? OR S.CREATE_TIME >= ? OR
+	                V.UPDATE_TIME >= ? OR V.CREATE_TIME >= ? OR
+	                T.UPDATE_TIME >= ? OR T.CREATE_TIME >= ? OR
+	                TD.UPDATE_TIME >=? OR TD.CREATE_TIME >=?)
+			</value>
+		</property>
+		<!-- 增量更新车辆缓存信息 -->
+		<property name="sql_updateVehicle">
+			<value>
+			   SELECT V.VEHICLE_NO,
+			       S.SUID,
+			       V.VID            AS VID,
+			       V.PLATE_COLOR    AS PLATE_COLOR_ID,
+			       M.COMMADDR       AS T_IDENTIFYNO,
+			       T.OEM_CODE       AS OEMCODE,
+			       T.TMODEL_CODE,
+			       T.TID,
+			       V.VIN_CODE,
+             	   V.ENT_ID AS TEAM_ID,
+             	   V.VEHICLE_TYPE
+			  FROM TB_SIM M
+			 INNER JOIN TR_SERVICEUNIT S
+			    ON S.SID = M.SID
+			 INNER JOIN TB_VEHICLE V
+			    ON V.VID = S.VID
+			 INNER JOIN TB_TERMINAL T
+			    ON T.TID = S.TID
+			 WHERE COMMADDR IS NOT NULL
+			   AND V.ENABLE_FLAG = '1'
+			   AND T.ENABLE_FLAG = '1'
+	           AND (M.UPDATE_TIME >= ? OR M.CREATE_TIME >= ? OR
+	                S.UPDATE_TIME >= ? OR S.CREATE_TIME >= ? OR
+	                V.UPDATE_TIME >= ? OR V.CREATE_TIME >= ? OR
+	                T.UPDATE_TIME >= ? OR T.CREATE_TIME >= ?)
+			</value>
+		</property>
+		<!-- 存储质检单信息SQL -->
+		<property name="sql_saveQualityRecordInfo">
+			<value>INSERT INTO TB_QUALITY_RECORD (ID,VID,VIN,RECORD_TIME,RECORD_PARAM, RECORD_VALUE,TERMINAL_CONFIG,GPRS_STRENGTH,GPS_STATE,SPEED_PLUS) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</value>
+		</property>
+		
+		<!-- 存储报警督办信息SQL -->
+		<property name="sql_saveSupervision">
+			<value>insert into TH_VEHICLE_ALARMTODO(PID,VEHICLENO,VEHICLE_COLOR,WAN_SRC,WAN_TYPE,WAR_UTC,SUPERVISION_ID,SUPERVISION_END_UTC,SUPERVISION_LEVEL,SUPERVISOR,SUPERVISOR_TEL,SUPERVISOR_EMAIL,UTC,STATUS) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储预警信息SQL -->
+		<property name="sql_saveWarning">
+			<value>insert into TH_VEHICLE_EARLYWARNING (PID, ALARM_FROM, ALARM_TYPE, ALARM_TIME, ALARM_DESCR,VID, UTC) values(?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储平台信息SQL -->
+		<property name="sql_savePlatformMessage">
+			<value>insert into TH_PLAT_INFOS (PID, MESSAGE_CONTENT, MESSAGE_ID, OBJECT_ID, OBJECT_TYPE, UTC, OP_TYPE,AREA_ID,SEQ) values(?,?,?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储平台上线状态信息SQL -->
+		<property name="sql_savePlatformOnline">
+			<value>insert into TH_LINK_STATUS (PID, AREA_ID, LINK_TYPE, CONNECT_UTC, UTC,access_code, channel_code) values(?,?,?,?,?,?,?)</value>
+		</property>
+		<!-- 存储平台下线状态信息SQL -->
+		<property name="sql_savePlatformOffline">
+			<value>update TH_LINK_STATUS SET DISCONNECT_UTC=? WHERE PID=?</value>
+		</property>
+		<!-- 保存质检单主表信息 -->
+		<property name="sql_saveQualityRecordCacheInfo">
+			<value>
+				INSERT INTO TB_QUALITY_RECORD_CACHE
+				(ID,VID,VEHICLE_NO_PLAT,PLATE_COLOR_PLAT,VIN_CODE_TER,
+				VIN_CODE_PLAT,COMMADDR_PLAT,RECORD_TIME) VALUES (
+				?,?,?,?,?,?,?,?)
+			</value>
+		</property>
+		
+		<!-- 查询终端国标版本号 -->
+		<property name="sql_queryTerminalStandardVersion">
+			<value>
+				SELECT  STANDARD_VERSION FROM TB_TERMINAL
+				WHERE TID = ?
+			</value>
+		</property>
+		
+		<!-- 更新终端国标版本号 -->
+		<property name="sql_updateTerminalStandardVersion">
+			<value>
+				UPDATE TB_TERMINAL SET STANDARD_VERSION = ?
+				WHERE TID = ?
+			</value>
+		</property>
+		
+		<!-- 删除事故疑点主表明细表数据 -->
+		<property name="sql_delDoubpointsMainAndDetail">
+			<value>
+				BEGIN
+					DELETE FROM TB_ACCIDENT_DOUBPOINTS_DETAIL WHERE POINT_ID 
+					IN (SELECT POINT_ID FROM TB_ACCIDENT_DOUBPOINTS_MAIN WHERE VID= ? and STOP_TIME=? );
+					DELETE FROM TB_ACCIDENT_DOUBPOINTS_MAIN WHERE VID= ? and STOP_TIME=? ; 
+				END;
+			</value>
+		</property>
+		
+		<!-- 添加事故疑点主表数据 -->
+		<property name="sql_addDoubpointsMain">
+			<value>
+				INSERT INTO TB_ACCIDENT_DOUBPOINTS_MAIN (POINT_ID,GATHER_TIME,VID,VEHICLE_NO,
+				VIN_CODE,VEHICLE_TYPE,DRIVER_NAME,DRIVING_NUMBER,STOP_TIME,START_SPEED,BRAKING_TIME,
+				LON,LAT,MAPLON,MAPLAT,ELEVATION,LICENSE_NO)
+				VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+			</value>
+		</property>
+		
+		<!-- 添加事故疑点明细表数据 -->
+		<property name="sql_addDoubpointsDetail">
+			<value>
+				INSERT INTO TB_ACCIDENT_DOUBPOINTS_DETAIL (AUTO_ID,POINT_ID,VEHICLE_SPEED,
+				D0,D1,D2,D3,D4,D5,D6,D7,LON,LAT,MAPLON,MAPLAT,ELEVATION,POINT_TIME) 
+				VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+			</value>
+		</property>
+		<!-- 更新行驶记录提取指令历史状态SQL -->
+		<property name="sql_updateTravellingRecorderLog">
+			 <value>UPDATE TH_TRAVELLING_RECORDER_LOG SET STATUS=? WHERE COMMAND_SEQ=? </value>
+		</property>
+		<!-- 添加特征系数结果上报数据SQL -->
+		<property name="sql_addVehicleSpeedCheck">
+			 <value>
+			 	INSERT INTO TS_VEHICLESPEED_CHECK
+				(AUTO_ID,VID,VIN_CODE,TID,COMMADDR,
+				 GPS_SPEED,VSS_SPEED,PFEATURES_RATIO,REPORT_TIME,
+				 CHECK_BEGIN_TIME,CHECK_END_TIME)
+				 VALUES (?,?,?,?,?,?,?,?,?,?,?)
+			</value>
+		</property>
+		<!-- 存储油量标定设置信息SQL -->
+		<property name="sql_saveOilInfo">
+			 <value>
+			 	MERGE INTO TB_TERMINAL_OILBOX_SET T1
+	            USING (SELECT ? AS FUEL_TANK,? AS AD_FALL,? AS ADDOIL_THRESHOLD,? AS OILSPILL_THRESHOLD,? AS SEQ,? AS VID FROM dual) T2
+	            ON ( T1.VID=T2.VID)
+	            WHEN MATCHED THEN
+	              UPDATE SET T1.FUEL_TANK=T2.FUEL_TANK,T1.AD_FALL=T2.AD_FALL,T1.ADDOIL_THRESHOLD=T2.ADDOIL_THRESHOLD,T1.OILSPILL_THRESHOLD=T2.OILSPILL_THRESHOLD,T1.SEQ=T2.SEQ
+	            WHEN NOT MATCHED THEN 
+	              INSERT (VID,FUEL_TANK,AD_FALL,ADDOIL_THRESHOLD,OILSPILL_THRESHOLD,SEQ) VALUES(T2.VID,T2.FUEL_TANK,T2.AD_FALL,T2.ADDOIL_THRESHOLD,T2.OILSPILL_THRESHOLD,T2.SEQ)
+			</value>
+		</property>
+	</bean>
+
+		<!-- =================================================== 通讯部分 ==================================== -->
+	<!-- 数据处理器 -->
+	<bean id="ioHandler" class="com.ctfo.commandservice.io.IoHandler">
+		<property name="userName" value="${msgLoginName}" />
+		<property name="password" value="${msgLoginPassword}" />
+		<property name="groupId" value="${msgLoginGroupId}" />
+		<property name="group" value="${msgLoginGroup}" />
+		<property name="loginType" value="${msgLoginType}" />
+	</bean>
+	<!-- 连接客户端 -->
+	<bean id="ioClient" class="com.ctfo.commandservice.io.IoClient">
+		<property name="handler" ref="ioHandler" />
+		<property name="host" value="${msgLoginIp}" />
+		<property name="port" value="${msgLoginPort}" />
+	</bean>
+	
+	<!-- ===================================================定时任务部分 ==================================== -->
+	<!-- 不存在的车辆缓存更新任务 -->
+	<bean id="syncUpdateOrAddVehicheCacheTask" class="com.ctfo.commandservice.task.SyncUpdateOrAddVehicheCacheTask">
+		<constructor-arg index="0" ref="oracleProperties"/>
+		<constructor-arg index="1" value="${vehicheCacheIntervalTime}"/>
+	</bean>
+	
+	<!-- 车辆清除更新任务 -->
+	<bean id="vehicleClearUpdate" class="com.ctfo.commandservice.task.VehicleClearUpdate">
+		<constructor-arg index="0" ref="oracleProperties"/>
+		<constructor-arg index="1" value="${clearUpdateTime}"/>
+	</bean>
+	
+	<!-- ================================================= 指令解析分配部分 ==================================== -->
+	<!-- 指令解析管理-->
+	<bean id="commandParseManage" class="com.ctfo.commandservice.parse.CommandParseManage">
+		<constructor-arg index="0" ref="commandParseThread"/>
+	</bean> 
+	<!-- 指令解析线程-->
+	<bean id="commandParseThread" class="com.ctfo.commandservice.parse.CommandParseThread"/>  
+	
+	<!-- 指令分配管理-->
+	<bean id="allocationInstructionManage" class="com.ctfo.commandservice.parse.AllocationInstructionManage">
+		<constructor-arg index="0" ref="allocationInstructionThread"/>
+	</bean> 
+	<!-- 指令分配线程-->
+	<bean id="allocationInstructionThread" class="com.ctfo.commandservice.parse.AllocationInstructionThread">
+		<constructor-arg index="0" value="${threadSize}"/>
+		<constructor-arg index="1" ref="oracleProperties"/>
+		<constructor-arg index="2" value="${batchSize}"/>
+		<constructor-arg index="3" value="${authBatchTime}"/>
+		<constructor-arg index="4" value="${terminalBatchTime}"/>
+		<constructor-arg index="5" value="${authProcessSize}"/>
+		<constructor-arg index="6" value="false"/><!-- 显示负载均衡(默认true) -->
+		<constructor-arg index="7" value="false"/><!-- 初始化(默认true) -->
+	</bean>
+	
+</beans>

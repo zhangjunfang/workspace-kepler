@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="01/29/2015 13:56:54" ReportInfo.Modified="02/27/2015 10:39:05" ReportInfo.CreatorVersion="2015.1.2.0">
+  <Dictionary>
+    <TableDataSource Name="tb_account_verification" ReferenceName="tb_account_verification" DataType="System.Int32" Enabled="true">
+      <Column Name="order_num" DataType="System.String"/>
+      <Column Name="order_date" DataType="System.Int64"/>
+      <Column Name="order_status" DataType="System.String"/>
+      <Column Name="order_type" DataType="System.String"/>
+      <Column Name="advance_balance" DataType="System.String"/>
+      <Column Name="cust_name1" DataType="System.String"/>
+      <Column Name="cust_name2" DataType="System.String"/>
+      <Column Name="create_time" DataType="System.Int64"/>
+      <Column Name="update_time" DataType="System.String"/>
+      <Column Name="remark" DataType="System.String"/>
+      <Column Name="org_name" DataType="System.String"/>
+      <Column Name="handle_name" DataType="System.String"/>
+      <Column Name="operator_name" DataType="System.String"/>
+      <Column Name="create_name" DataType="System.String"/>
+      <Column Name="update_name" DataType="System.String"/>
+      <Column Name="print_name" DataType="System.String"/>
+      <Column Name="dealings_balance" DataType="System.String"/>
+      <Column Name="bank_of_deposit" DataType="System.String"/>
+      <Column Name="bank_account" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="tb_verificationn_documents1" ReferenceName="tb_verificationn_documents1" DataType="System.Int32" Enabled="true">
+      <Column Name="order_name" DataType="System.String"/>
+      <Column Name="money" DataType="System.Double"/>
+      <Column Name="order_num" DataType="System.String"/>
+      <Column Name="order_date" DataType="System.Int64"/>
+      <Column Name="settled_money" DataType="System.String"/>
+      <Column Name="wait_settled_money" DataType="System.Double"/>
+      <Column Name="verification_money" DataType="System.Double"/>
+      <Column Name="remark" DataType="System.String"/>
+      <Column Name="Column1" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="tb_verificationn_documents2" ReferenceName="tb_verificationn_documents2" DataType="System.Int32" Enabled="true">
+      <Column Name="order_name" DataType="System.String"/>
+      <Column Name="money" DataType="System.Double"/>
+      <Column Name="order_num" DataType="System.String"/>
+      <Column Name="order_date" DataType="System.Int64"/>
+      <Column Name="settled_money" DataType="System.String"/>
+      <Column Name="wait_settled_money" DataType="System.Double"/>
+      <Column Name="verification_money" DataType="System.Double"/>
+      <Column Name="remark" DataType="System.String"/>
+      <Column Name="Column1" DataType="System.String"/>
+    </TableDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="56.7">
+      <TextObject Name="Text1" Left="396.9" Top="9.45" Width="292.95" Height="37.8" Text="往来核销" HorzAlign="Center" VertAlign="Center" Font="宋体, 20pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="60.7" Width="1047.06" Height="132.3">
+      <TextObject Name="Text3" Left="689.85" Top="37.8" Width="122.85" Height="18.9" Text="[tb_account_verification.order_date]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text4" Left="926.1" Top="37.8" Width="113.4" Height="18.9" Text="[tb_account_verification.order_num]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text5" Left="831.6" Top="37.8" Width="94.5" Height="18.9" Text="单据号:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text6" Left="595.35" Top="37.8" Width="94.5" Height="18.9" Text="日期:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text7" Left="415.8" Top="66.15" Width="189" Height="18.9" Text="[tb_account_verification.cust_name1]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text8" Left="727.65" Top="66.15" Width="236.25" Height="18.9" Text="[tb_account_verification.cust_name2]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text9" Left="103.95" Top="66.15" Width="94.5" Height="18.9" Text="[tb_account_verification.order_type]" Font="宋体, 9pt"/>
+      <TextObject Name="Text10" Left="9.45" Top="66.15" Width="94.5" Height="18.9" Text="单据类型:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text11" Left="321.3" Top="66.15" Width="94.5" Height="18.9" Text="供应商:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text12" Left="633.15" Top="66.15" Width="94.5" Height="18.9" Text="客户:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text13" Left="9.45" Top="103.95" Width="94.5" Height="18.9" Text="备注:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text14" Left="103.95" Top="103.95" Width="406.35" Height="18.9" Text="[tb_account_verification.remark]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text2" Left="878.85" Top="9.45" Width="113.4" Height="18.9" Text="[PageNofM]" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="229.35" Width="1047.06" Height="28.35" DataSource="tb_verificationn_documents1">
+      <TextObject Name="Text15" Left="9.45" Width="151.2" Height="28.35" Border.Lines="All" Text="[tb_verificationn_documents1.order_name]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text17" Left="160.65" Width="151.2" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents1.order_num]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text19" Left="311.85" Width="132.3" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents1.order_date]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text21" Left="444.15" Width="122.85" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents1.money]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text23" Left="567" Width="122.85" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents1.settled_money]" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text25" Left="689.85" Width="122.85" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents1.wait_settled_money]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text27" Left="812.7" Width="113.4" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents1.verification_money]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text29" Left="926.1" Width="122.85" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents1.remark]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <DataHeaderBand Name="DataHeader1" Top="197" Width="1047.06" Height="28.35">
+        <TextObject Name="Text16" Left="9.45" Top="9.45" Width="151.2" Height="18.9" Border.Lines="All" Text="单据名称" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text18" Left="160.65" Top="9.45" Width="151.2" Height="18.9" Border.Lines="Right, Top, Bottom" Text="单据编号" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text20" Left="311.85" Top="9.45" Width="132.3" Height="18.9" Border.Lines="Right, Top, Bottom" Text="单据日期" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text22" Left="444.15" Top="9.45" Width="122.85" Height="18.9" Border.Lines="Right, Top, Bottom" Text="总金额" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text24" Left="567" Top="9.45" Width="122.85" Height="18.9" Border.Lines="Right, Top, Bottom" Text="已结算金额" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text26" Left="689.85" Top="9.45" Width="122.85" Height="18.9" Border.Lines="Right, Top, Bottom" Text="未结算金额" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text28" Left="812.7" Top="9.45" Width="113.4" Height="18.9" Border.Lines="Right, Top, Bottom" Text="本次核销" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text30" Left="926.1" Top="9.45" Width="122.85" Height="18.9" Border.Lines="Right, Top, Bottom" Text="备注" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data2" Top="303.5" Width="1047.06" Height="28.35" DataSource="tb_verificationn_documents2">
+      <TextObject Name="Text39" Left="9.45" Width="151.2" Height="28.35" Border.Lines="All" Text="[tb_verificationn_documents2.order_name]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text40" Left="160.65" Width="151.2" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents2.order_num]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text41" Left="311.85" Width="132.3" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents2.order_date]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text42" Left="444.15" Width="122.85" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents2.money]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text43" Left="567" Width="122.85" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents2.settled_money]" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text44" Left="689.85" Width="122.85" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents2.wait_settled_money]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text45" Left="812.7" Width="113.4" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents2.verification_money]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text46" Left="926.1" Width="122.85" Height="28.35" Border.Lines="Right, Top, Bottom" Text="[tb_verificationn_documents2.remark]" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      <DataHeaderBand Name="DataHeader2" Top="261.7" Width="1047.06" Height="37.8">
+        <TextObject Name="Text31" Left="9.45" Top="18.9" Width="151.2" Height="18.9" Border.Lines="All" Text="单据名称" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text32" Left="160.65" Top="18.9" Width="151.2" Height="18.9" Border.Lines="Right, Top, Bottom" Text="单据编号" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text33" Left="311.85" Top="18.9" Width="132.3" Height="18.9" Border.Lines="Right, Top, Bottom" Text="单据日期" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text34" Left="444.15" Top="18.9" Width="122.85" Height="18.9" Border.Lines="Right, Top, Bottom" Text="总金额" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text35" Left="567" Top="18.9" Width="122.85" Height="18.9" Border.Lines="Right, Top, Bottom" Text="已结算金额" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text36" Left="689.85" Top="18.9" Width="122.85" Height="18.9" Border.Lines="Right, Top, Bottom" Text="未结算金额" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text37" Left="812.7" Top="18.9" Width="113.4" Height="18.9" Border.Lines="Right, Top, Bottom" Text="本次核销" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text38" Left="926.1" Top="18.9" Width="122.85" Height="18.9" Border.Lines="Right, Top, Bottom" Text="备注" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt"/>
+      </DataHeaderBand>
+      <DataFooterBand Name="DataFooter1" Top="335.85" Width="1047.06" Height="75.6">
+        <TextObject Name="Text47" Left="425.25" Top="9.45" Width="122.85" Height="18.9" Text="[tb_account_verification.org_name]" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text48" Left="652.05" Top="9.45" Width="132.3" Height="18.9" Text="[tb_account_verification.handle_name]" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text49" Left="888.3" Top="9.45" Width="141.75" Height="18.9" Text="[tb_account_verification.operator_name]" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text50" Left="330.75" Top="9.45" Width="94.5" Height="18.9" Text="部门:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text51" Left="567" Top="9.45" Width="85.05" Height="18.9" Text="经办人:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text52" Left="803.25" Top="9.45" Width="85.05" Height="18.9" Text="操作人:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text53" Left="567" Top="37.8" Width="85.05" Height="18.9" Text="打印人:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text54" Left="803.25" Top="37.8" Width="85.05" Height="18.9" Text="打印时间:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text55" Left="888.3" Top="37.8" Width="141.75" Height="18.9" Text="[Date]" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text56" Left="652.05" Top="37.8" Width="132.3" Height="18.9" Text="[tb_account_verification.print_name]" Font="宋体, 9pt"/>
+      </DataFooterBand>
+    </DataBand>
+  </ReportPage>
+</Report>

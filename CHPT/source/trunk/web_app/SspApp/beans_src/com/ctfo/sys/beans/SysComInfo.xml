@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SysComInfo">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <resultMap class="com.ctfo.sys.beans.SysComInfo" id="SysComInfo">
+    <result column="com_id" property="comId" jdbcType="INTEGER" />
+    <result column="com_code" property="comCode" jdbcType="Decimal" nullValue="0"/>
+    <result column="com_name" property="comName" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="county" property="county" jdbcType="VARCHAR" />
+    <result column="com_fax" property="comFax" jdbcType="VARCHAR" />
+    <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+    <result column="com_email" property="comEmail" jdbcType="VARCHAR" />
+    <result column="com_website" property="comWebsite" jdbcType="VARCHAR" />
+    <result column="com_contact" property="comContact" jdbcType="VARCHAR" />
+    <result column="com_tel" property="comTel" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="parent_comid" property="parentComid" jdbcType="VARCHAR" />
+    <result column="com_address" property="comAddress" jdbcType="VARCHAR" />
+    <result column="com_legal" property="comLegal" jdbcType="VARCHAR" />
+    <result column="com_delete" property="comDelete" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="columns">
+    com.com_id,
+    com.com_code,
+    com.com_name,
+    com.province,
+    com.city,
+    com.county,
+    com.com_fax,
+    com.zip_code,
+    com.com_email,
+    com.com_website,
+    com.com_contact,
+    com.com_tel,
+    com.status,
+    com.remark,
+    op.op_name AS create_by,
+    com.create_time,
+    opc.op_name AS update_by,
+    com.update_time,
+    com.parent_comid,
+    com.com_address,
+    com.com_legal,
+    com.com_delete 
+  </sql>
+  <sql id="table">
+    sys_ssp_com_info
+  </sql>
+  <sql id="where_param">
+    <include refid="where" />
+    <include refid="equal_WHERE" />
+    <include refid="like_WHERE" />
+  </sql>  
+  
+  <sql id="where">
+    WHERE 1=1
+  </sql> 
+  
+  <sql id="equal_WHERE">
+    <isNotNull prepend="AND" property="equal.comId">
+      com.com_id =  #equal.comId:VARCHAR#
+    </isNotNull>  
+    <isNotNull prepend="AND" property="equal.province">
+      com.province =  #equal.province:VARCHAR#
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.city">
+      com.city =  #equal.city:VARCHAR#
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.county">
+      com.county =  #equal.county:VARCHAR#
+    </isNotNull> 
+    <isNotNull prepend="AND" property="equal.status">
+      com.status =  #equal.status:VARCHAR#
+    </isNotNull> 
+    <isNotNull prepend="AND" property="equal.createTimeStart">
+        <![CDATA[(#equal.createTimeStart:VARCHAR# <= com.create_time )]]>
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.createTimeEnd">
+        <![CDATA[(#equal.createTimeEnd:VARCHAR# >= com.create_time )]]>
+    </isNotNull>
+    and com.com_delete = '1'
+  </sql> 
+ 
+  <sql id="like_WHERE">
+ 	 <isNotNull prepend="AND" property="like.comName">
+      com.com_name like CONCAT('%',#like.comName:VARCHAR#,'%')
+ 	 </isNotNull>
+ 	 <isNotNull prepend="AND" property="like.comContact">
+      com.com_contact like CONCAT('%',#like.comContact:VARCHAR#,'%')
+    </isNotNull>    
+  </sql>
+       
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1) FROM 
+     sys_ssp_com_info com 
+	 LEFT JOIN 
+	 sys_ssp_sp_operator op 
+	 ON com.create_by = op.OP_ID
+	<include refid="where_param" />
+  </select>
+  
+  <select id="selectPk" parameterClass="string" resultMap="SysComInfo">
+  	SELECT 
+	<include refid="columns" />
+	FROM 
+     sys_ssp_com_info com 
+	 LEFT JOIN 
+	 sys_ssp_sp_operator op 
+	 ON com.create_by = op.OP_ID
+	 LEFT JOIN sys_ssp_sp_operator opc 
+     ON com.update_by = opc.OP_ID 
+    where com.com_id = #comId:VARCHAR#
+  </select> 
+ <select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="SysComInfo">
+	SELECT BB.* FROM 
+    (SELECT 
+	    <include refid="columns" /> 
+	     FROM 
+	     sys_ssp_com_info com 
+		 LEFT JOIN 
+		 sys_ssp_sp_operator op 
+		 ON com.create_by = op.OP_ID
+		 LEFT JOIN sys_ssp_sp_operator opc 
+	     ON com.update_by = opc.OP_ID 		      
+	    <include refid="where_param" />
+	    order by create_time desc
+    ) BB LIMIT #startNum#,#pagesize#
+  </select>
+  <!-- 查询公司列表 -->
+  <select id="queryComInfoList" resultClass="com.ctfo.sys.beans.SysComInfo"  parameterClass="map">  		
+		SELECT COM_ID as comId,COM_NAME as comName FROM sys_ssp_com_info where com_delete = '1' and status = '1'
+	    <isNotNull prepend="AND" property="isOperator">
+         com_id != '9c64f1322ca64b23be485d1a8d2ab748'
+ 	    </isNotNull>
+  </select>
+  <!-- 查询公司id的max值 -->
+  <select id="queryComCode" parameterClass="dynamicSqlParameter" resultClass="int">
+   SELECT IFNULL(MAX(com_code),'10000') FROM sys_ssp_com_info
+  </select>
+  <!-- 登录名称是否存在 -->
+  <select id="existLoginname" resultClass="int" parameterClass="map">
+	SELECT count(1)  FROM 
+ 	<include refid="table" />
+ 	where com_name = #Loginname# and com_delete = '1' and status = '1'
+  </select>  
+<insert id="insert" parameterClass="com.ctfo.sys.beans.SysComInfo">
+	insert into 
+	<include refid="table" />
+ 	(com_id, com_code, com_name, province, city, county, com_fax, zip_code,
+      com_email, com_website, com_contact, com_tel, status, remark, create_by, create_time,
+      update_by, update_time, parent_comid, com_address, com_legal)
+    values (#comId:VARCHAR#, #comCode:VARCHAR#, #comName:VARCHAR#, #province:VARCHAR#,
+      #city:VARCHAR#, #county:VARCHAR#, #comFax:VARCHAR#, #zipCode:VARCHAR#, #comEmail:VARCHAR#,
+      #comWebsite:VARCHAR#, #comContact:VARCHAR#, #comTel:VARCHAR#, #status:VARCHAR#,
+      #remark:VARCHAR#, #createBy:VARCHAR#, #createTime:BIGINT#, #updateBy:VARCHAR#,
+      #updateTime:BIGINT#, #parentComid:VARCHAR#, #comAddress:VARCHAR#, #comLegal:VARCHAR#)
+  </insert> 
+  <!-- 吊销与启用 -->
+  <update id="updateRevoke" parameterClass="map">
+	  UPDATE <include refid="table" />
+	   SET STATUS = #status#
+	  WHERE COM_ID in ($comId$)
+  </update>
+  
+  <!-- 逻辑删除 -->
+  <update id="deleteSysCom" parameterClass="map">
+	  UPDATE <include refid="table" />
+	   SET com_delete = #comDelete#
+	  WHERE COM_ID = #comId#
+  </update>
+  
+  <update id="update" parameterClass="com.ctfo.sys.beans.SysComInfo">
+	  UPDATE <include refid="table" />
+		set   province = #province:VARCHAR#,
+		      city = #city:VARCHAR#,
+		      county = #county:VARCHAR#,
+		      com_fax = #comFax:VARCHAR#,
+		      zip_code = #zipCode:VARCHAR#,
+		      com_email = #comEmail:VARCHAR#,
+		      com_website = #comWebsite:VARCHAR#,
+		      com_contact = #comContact:VARCHAR#,
+		      com_tel = #comTel:VARCHAR#,
+		      remark = #remark:VARCHAR#,
+		      update_by = #updateBy:VARCHAR#,
+		      update_time = #updateTime:BIGINT#,
+		      parent_comid = #parentComid:VARCHAR#,
+		      com_address = #comAddress:VARCHAR#,
+		      com_legal = #comLegal:VARCHAR#
+	  WHERE COM_ID = #comId#
+  </update>
+    <!-- 判断公司下是否关联有组织      删除操作 -->
+  <select id="haveSubOperator" parameterClass="map" resultClass="int">
+	SELECT
+		count(*)
+	FROM
+		tb_ssp_organization op
+	WHERE
+		op.com_id = #comId# and ENABLE_FLAG = '1'
+  </select>
+</sqlMap>

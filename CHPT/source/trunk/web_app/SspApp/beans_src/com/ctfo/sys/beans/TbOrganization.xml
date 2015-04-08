@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="TbOrganization">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <typeAlias alias="TbOrganization" type="com.ctfo.sys.beans.TbOrganization"/>
+  <typeAlias alias="map" type="java.util.Map"/>
+  
+  <resultMap class="com.ctfo.sys.beans.TbOrganization" id="TbOrganization">
+    <result column="ENT_ID" jdbcType="VARCHAR" property="entId" />
+    <result column="ENT_NAME" jdbcType="VARCHAR" property="entName" />
+    <result column="ENT_TYPE" jdbcType="DECIMAL" property="entType" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="CREATE_TIME" jdbcType="DECIMAL" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="DECIMAL" property="updateTime" />
+    <result column="ENABLE_FLAG" jdbcType="VARCHAR" property="enableFlag" />
+    <result column="ENT_STATE" jdbcType="VARCHAR" property="entState" />
+    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+    <result column="ISCOMPANY" jdbcType="DECIMAL" property="iscompany" />
+    <result column="CORP_LEVEL" jdbcType="VARCHAR" property="corpLevel" />
+    <result column="CORP_CODE" jdbcType="VARCHAR" property="corpCode" />
+    <result column="ent_code" jdbcType="VARCHAR" property="entCode" />
+    <result column="com_id" jdbcType="VARCHAR" property="comId" />
+    <result column="ORG_CNAME" jdbcType="VARCHAR" property="orgCname" />
+    <result column="ORG_CPHONE" jdbcType="VARCHAR" property="orgCphone" />
+  </resultMap>
+  
+  <sql id="columns">
+    ENT_ID,ENT_NAME,ENT_TYPE,PARENT_ID,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME,
+    ENABLE_FLAG,ENT_STATE,MEMO,ISCOMPANY,CORP_LEVEL,CORP_CODE
+  </sql>
+  
+  <sql id="table">
+    tb_ssp_organization
+  </sql>
+  
+  <sql id="where">
+    WHERE ENABLE_FLAG=1
+  </sql>
+  
+  <sql id="set">
+    <dynamic prepend="set">
+      ENT_NAME = #entName:VARCHAR#
+      ,ENT_TYPE = #entType:DECIMAL#
+      ,PARENT_ID = #parentId:VARCHAR#
+      ,UPDATE_BY = #updateBy:VARCHAR#
+      ,UPDATE_TIME = #updateTime:DECIMAL#
+      ,ENABLE_FLAG = #enableFlag:VARCHAR#
+      ,MEMO = #memo:VARCHAR#
+      ,ISCOMPANY = #iscompany:DECIMAL#
+      ,CORP_LEVEL = #corpLevel:VARCHAR#
+      ,CORP_CODE = #corpCode:VARCHAR#
+      ,com_id = #comId:VARCHAR#
+      ,ORG_CNAME = #orgCname:VARCHAR#
+      ,ORG_CPHONE = #orgCphone:VARCHAR#
+    </dynamic>
+  </sql>
+
+  <insert id="insert" parameterClass="TbOrganization">
+    insert into tb_ssp_organization (ENT_ID, ENT_NAME, ENT_TYPE, ent_code, CREATE_BY, CREATE_TIME,
+      UPDATE_BY, UPDATE_TIME, ENABLE_FLAG, ENT_STATE, MEMO, ISCOMPANY, CORP_LEVEL,CORP_CODE,com_id,ORG_CNAME,ORG_CPHONE)
+    values (#entId:VARCHAR#, #entName:VARCHAR#, #entType:DECIMAL#, #entCode:VARCHAR#,
+      #createBy:VARCHAR#, #createTime:DECIMAL#, #updateBy:VARCHAR#, #updateTime:DECIMAL#,
+      #enableFlag:VARCHAR#, #entState:VARCHAR#, #memo:VARCHAR#, #iscompany:DECIMAL#, 
+      #corpLevel:VARCHAR#, #corpCode:VARCHAR#, #comId:VARCHAR#, #orgCname:VARCHAR#, #orgCphone:VARCHAR#)
+  </insert>
+  
+  <delete id="delete" parameterClass="map">
+    update
+    	<include refid="table" />
+    	set 
+    	ENABLE_FLAG = #enableFlag:VARCHAR#,
+    	update_by = #updateBy:VARCHAR#,
+    	update_time = #updateTime:DECIMAL#
+    	where ENT_ID = #entId:VARCHAR#
+  </delete>
+  
+  <update id="update" parameterClass="TbOrganization">
+    update 
+    <include refid="table" />
+    <include refid="set" />
+    <include refid="where" />
+      and ENT_ID = #entId:VARCHAR#
+  </update>
+  
+  <!-- 初始化机构树 -->
+  <select id="selectOrgTree" parameterClass="map" resultMap="TbOrganization">
+    select distinct
+    <include refid="columns" />
+    from
+    <isEqual property="corpCode" compareValue="-1"> 
+    	<include refid="table" />
+		where corp_code != #corpCode#
+    </isEqual>
+    
+    <isNotEqual property="corpCode" compareValue="-1">
+	    (select * from tb_ssp_organization t where t.ENT_ID like CONCAT(#entId#,'%') )
+    </isNotEqual>
+    
+    <isNotNull property="entName">
+           start with ent_name like '%'  #entName:VARCHAR#  '%'
+	connect by prior ent_id = parent_id
+    </isNotNull>
+    
+  </select>
+  
+  <!-- 判断机构下是否还有子机构      删除操作 -->
+  <select id="haveSubOrg" parameterClass="map" resultClass="int">
+	  select count(*)
+	  from tb_ssp_organization o
+	 where o.parent_id = #entId#
+  </select>
+  
+  <!-- 判断机构下是否关联有用户      删除操作 -->
+  <select id="haveSubOperator" parameterClass="map" resultClass="int">
+	SELECT
+		count(*)
+	FROM
+		sys_ssp_sp_operator op
+	WHERE
+		op.ENT_ID = #entId# and ENABLE_FLAG = '1'
+  </select>
+  
+  <!-- 判断机构下是否关联有角色      删除操作 -->
+  <select id="haveSubRole" parameterClass="map" resultClass="int">
+	SELECT
+		count(*)
+	FROM
+		sys_ssp_sp_role r
+	WHERE
+		r.ENT_ID = #entId#
+  </select>
+
+</sqlMap>

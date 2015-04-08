@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+						"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+						
+<sqlMap namespace="SysSpOperator">
+  <typeAlias alias="SysSpOperator" type="com.ctfo.sys.beans.SysSpOperator"/>
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <typeAlias alias="map" type="java.util.Map"/>
+  
+  <resultMap class="SysSpOperator" id="SysSpOperator">
+    <result column="opId" jdbcType="VARCHAR" property="opId" />
+    <result column="entId" jdbcType="VARCHAR" property="entId" />
+    <result column="roleName" jdbcType="VARCHAR" property="roleName" />
+    <result column="opLoginname" jdbcType="VARCHAR" property="opLoginname" />
+    <result column="opPass" jdbcType="VARCHAR" property="opPass" />
+    <result column="opAuthcode" jdbcType="VARCHAR" property="opAuthcode" />
+    <result column="opName" jdbcType="VARCHAR" property="opName" />
+    <result column="opSuper" jdbcType="VARCHAR" property="opSuper" />
+    <result column="opSex" jdbcType="VARCHAR" property="opSex" />
+    <result column="opBirth" jdbcType="DECIMAL" property="opBirth" />
+    <result column="opCountry" jdbcType="VARCHAR" property="opCountry" />
+    <result column="opProvince" jdbcType="VARCHAR" property="opProvince" />
+    <result column="opCity" jdbcType="VARCHAR" property="opCity" />
+    <result column="opAddress" jdbcType="VARCHAR" property="opAddress" />
+    <result column="opMobile" jdbcType="VARCHAR" property="opMobile" />
+    <result column="opPhone" jdbcType="VARCHAR" property="opPhone" />
+    <result column="opFax" jdbcType="VARCHAR" property="opFax" />
+    <result column="opEmail" jdbcType="VARCHAR" property="opEmail" />
+    <result column="opIdentityId" jdbcType="VARCHAR" property="opIdentityId" />
+    <result column="opDuty" jdbcType="VARCHAR" property="opDuty" />
+    <result column="opWorkid" jdbcType="VARCHAR" property="opWorkid" />
+    <result column="opStartutc" jdbcType="DECIMAL" property="opStartutc" />
+    <result column="opType" jdbcType="VARCHAR" property="opType" />
+    <result column="opMem" jdbcType="VARCHAR" property="opMem" />
+    <result column="opUnName" jdbcType="VARCHAR" property="opUnName" />
+    <result column="createBy" jdbcType="VARCHAR" property="createBy" />
+    <result column="createTime" jdbcType="DECIMAL" property="createTime" />
+    <result column="updateBy" jdbcType="VARCHAR" property="updateBy" />
+    <result column="updateTime" jdbcType="DECIMAL" property="updateTime" />
+    <result column="enableFlag" jdbcType="VARCHAR" property="enableFlag" />
+    <result column="opZip" jdbcType="VARCHAR" property="opZip" />
+    <result column="opStatus" jdbcType="VARCHAR" property="opStatus" />
+    <result column="imsi" jdbcType="VARCHAR" property="imsi" />
+    <result column="photo" jdbcType="VARCHAR" property="photo" />
+    <result column="opEndutc" jdbcType="DECIMAL" property="opEndutc" />
+    <result column="skinStyle" jdbcType="VARCHAR" property="skinStyle" />
+    <result column="entName" jdbcType="VARCHAR" property="entName" />
+    <result column="corpCode" jdbcType="VARCHAR" property="corpCode" />
+    <result column="comName" jdbcType="VARCHAR" property="comName" />
+    <result column="opCode" jdbcType="Decimal" nullValue="0" property="opCode" />
+    <result column="comId" jdbcType="VARCHAR" property="comId" />
+    <result column="documentType" jdbcType="VARCHAR" property="documentType" />
+    <result column="isOperator" jdbcType="VARCHAR" property="isOperator" />
+  </resultMap>
+  
+  <sql id="table" >
+    sys_ssp_sp_operator
+  </sql>
+  
+  <sql id="columns">
+	 IFNULL(ent_name,'')  AS entName,
+	 corp_code 		 AS corpCode,
+	 roleName        AS roleName,
+	 OPUNNAME 		 AS opUnName,
+	 OP_ID 			 AS opId,
+	 ENT_ID 		 AS entId,
+	 OP_LOGINNAME AS opLoginname,
+	 OP_PASS 		 AS opPass,
+	 OP_AUTHCODE 	 AS opAuthcode,
+	 OP_NAME 		 AS opName,
+	 OP_SUPER 		 AS opSuper,
+	 OP_SEX 		 AS opSex,
+	 OP_BIRTH 		 AS opBirth,
+	 OP_COUNTRY 	 AS opCountry,
+	 OP_PROVINCE 	 AS opProvince,
+	 OP_CITY 		 AS opCity,
+	 OP_ADDRESS 	 AS opAddress,
+	 OP_MOBILE 		 AS opMobile,
+	 OP_PHONE 		 AS opPhone,
+	 OP_FAX 		 AS opFax,
+	 OP_EMAIL 		 AS opEmail,
+	 OP_IDENTITY_ID  AS opIdentityId,
+	 OP_DUTY 		 AS opDuty,
+	 OP_WORKID 		 AS opWorkid,
+	 OP_STARTUTC 	 AS opStartutc,
+	 OP_TYPE 		 AS opType,
+	 OP_MEM 		 AS opMem,
+	 opNameTurn	 	 AS createBy,
+	 CREATE_TIME 	 AS createTime,
+	 opNameTurnUp    AS updateBy,
+	 UPDATE_TIME 	 AS updateTime,
+	 ENABLE_FLAG 	 AS enableFlag,
+	 OP_ZIP 		 AS opZip,
+	 OP_STATUS 		 AS opStatus,
+	 IMSI 			 AS imsi,
+	 PHOTO 			 AS photo,
+	 OP_ENDUTC 		 AS opEndutc,
+	 SKIN_STYLE 	 AS skinStyle,
+	 IFNULL(com_name,'')  AS comName,
+	 op_code 		 AS opCode,
+	 com_id 		 AS comId,
+	 document_type 		 AS documentType,
+	 is_operator 		 AS isOperator
+  </sql>
+  
+  <insert id="insert" parameterClass="SysSpOperator">
+	  INSERT INTO <include refid="table" />
+	  (
+  	   OP_ID,
+	   ENT_ID,
+	   OP_LOGINNAME,
+	   OP_PASS,
+	   OP_AUTHCODE,
+	   OP_NAME,
+	   OP_SUPER,
+	   OP_SEX,
+	   OP_BIRTH,
+	   OP_COUNTRY,
+	   OP_PROVINCE,
+	   OP_CITY,
+	   OP_ADDRESS,
+	   OP_MOBILE,
+	   OP_PHONE,
+	   OP_FAX,
+	   OP_EMAIL,
+	   OP_IDENTITY_ID,
+	   OP_DUTY,
+	   OP_WORKID,
+	   OP_STARTUTC,
+	   OP_TYPE,
+	   OP_MEM,
+	   CREATE_BY,
+	   CREATE_TIME,
+	   UPDATE_BY,
+	   UPDATE_TIME,
+	   ENABLE_FLAG,
+	   OP_ZIP,
+	   OP_STATUS,
+	   IMSI,
+	   PHOTO,
+	   OP_ENDUTC,
+	   SKIN_STYLE,
+	   op_code,
+	   COM_ID,
+	   document_type
+	  )
+	VALUES
+	  (#opId#,
+	   #entId#,
+	   #opLoginname#,
+	   #opPass#,
+	   #opAuthcode#,
+	   #opName#,
+	   #opSuper#,
+	   #opSex#,
+	   #opBirth#,
+	   #opCountry#,
+	   #opProvince#,
+	   #opCity#,
+	   #opAddress#,
+	   #opMobile#,
+	   #opPhone#,
+	   #opFax#,
+	   #opEmail#,
+	   #opIdentityId#,
+	   #opDuty#,
+	   #opWorkid#,
+	   #opStartutc#,
+	   #opType#,
+	   #opMem#,
+	   #createBy#,
+	   #createTime#,
+	   #updateBy#,
+	   #updateTime#,
+	   #enableFlag#,
+	   #opZip#,
+	   #opStatus#,
+	   #imsi#,
+	   #photo#,
+	   #opEndutc#,
+	   #skinStyle#,
+	   #opCode#,
+	   #comId#,
+	   #documentType#)
+  </insert>  
+  
+  <update id="update" parameterClass="SysSpOperator">
+	  UPDATE <include refid="table" />
+	   SET OP_NAME = #opName#,
+	       OP_TYPE  = #opType#,
+	       OP_STARTUTC = #opStartutc#,
+	       OP_ENDUTC = #opEndutc#,
+	       OP_IDENTITY_ID = #opIdentityId#,
+	       OP_SEX = #opSex#,
+	       OP_PROVINCE = #opProvince#,
+	       OP_CITY = #opCity#,
+	       <isNotEmpty property="opCountry"> OP_COUNTRY=#opCountry# ,</isNotEmpty>
+	       OP_PHONE = #opPhone#,
+	       OP_WORKID = #opWorkid#,
+	       OP_DUTY = #opDuty#,
+	       OP_BIRTH = #opBirth#,
+	       OP_FAX = #opFax#,
+	       OP_MOBILE = #opMobile#,
+	       OP_EMAIL = #opEmail#,
+	       OP_MEM = #opMem#,
+	       COM_ID = #comId#,
+	       OP_ADDRESS = #opAddress#,
+	       document_type = #documentType#,
+	       UPDATE_TIME = #updateTime#,
+	       UPDATE_BY = #updateBy#,
+	       ent_id = #entId#,
+	       OP_PASS = #opPass#
+	  WHERE OP_ID = #opId#
+  </update>
+  
+  <!-- 用户sql -->
+  <sql id="operatorSql">
+	(
+		SELECT
+			group_concat(orl.ROLE_NAME) as roleName,
+			opu.op_loginname as opUnName,
+			opu.OP_NAME AS opNameTurn,
+			opud.OP_NAME AS opNameTurnUp,
+			oo.ent_name,
+			oo.corp_code,
+			op.*,
+			com.com_name
+		FROM
+		sys_ssp_sp_operator op
+		LEFT JOIN tb_ssp_organization oo ON op.ent_id = oo.ent_id
+		LEFT JOIN sys_ssp_sp_operator opu ON op.create_by = opu.op_id
+		LEFT JOIN sys_ssp_sp_operator opud ON op.update_by = opud.op_id 
+		LEFT JOIN sys_ssp_com_info com  ON op.com_id = com.com_id
+    	LEFT JOIN(
+			SELECT
+				tor.*, r.ROLE_NAME
+			FROM
+				tr_ssp_operator_role tor
+			LEFT JOIN sys_ssp_sp_role r ON tor.role_id = r.role_id
+		) orl ON op.OP_ID = orl.OP_ID
+		GROUP BY
+			op.OP_ID
+	) osq
+  </sql>
+  
+  <select id="selectPk" resultMap="SysSpOperator" parameterClass="string">
+	select <include refid = "columns" /> from 
+		<include refid="operatorSql" />
+	 where osq.OP_ID=#opId#
+  </select>  
+  
+  <!-- 分页查询公用语句 -->
+  <sql id="pageSql">
+	FROM
+		<include refid = "operatorSql" />
+	WHERE
+		ENABLE_FLAG = '1'
+	 <isNotNull prepend="AND" property="equal.roleId" >
+   		op_id in (select distinct pr.op_id
+                     from tr_ssp_operator_role pr
+                    where pr.role_id =
+                          #equal.roleId#)
+     </isNotNull>
+ 	 <isNotNull prepend="AND" property="like.opLoginname">
+      	 OP_LOGINNAME like CONCAT('%',#like.opLoginname:VARCHAR#,'%')
+ 	 </isNotNull>
+     <isNotNull prepend="AND" property="like.opName" >
+         OP_NAME like '%' #like.opName:VARCHAR# '%'
+     </isNotNull>
+    <isNotNull prepend="AND" property="equal.roleId">
+      	op_id =  #equal.roleId:VARCHAR#
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.comId">
+      	com_id =  #equal.comId:VARCHAR#
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.createTimeStart">
+        <![CDATA[(#equal.createTimeStart:VARCHAR# <= CREATE_TIME )]]>
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.createTimeEnd">
+        <![CDATA[(#equal.createTimeEnd:VARCHAR# >= CREATE_TIME )]]>
+    </isNotNull> 
+    <isNotNull prepend="AND" property="equal.isOperator">
+      	com_id != '9c64f1322ca64b23be485d1a8d2ab748'
+    </isNotNull>                 
+  </sql>
+  
+  <select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter" >
+	SELECT count(1)  
+	<include refid="pageSql" />
+  </select>
+  
+  <select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="SysSpOperator" >
+	SELECT
+		BB.*
+	FROM
+		(
+			SELECT
+				<include refid = "columns" /> 
+				<include refid = "pageSql" />
+				ORDER BY CREATE_TIME desc
+		) BB
+	LIMIT #startNum#,#pagesize#
+  </select> 
+  
+  <!-- 吊销与启用 -->
+  <update id="updateRevokeOpen" parameterClass="map">
+	  UPDATE <include refid="table" />
+	   SET OP_STATUS = #opStatus#
+	  WHERE OP_ID in ($opId$)
+  </update>
+  
+  <!-- 删除 -->
+  <update id="updateDelete" parameterClass="map">
+	  UPDATE <include refid="table" />
+	   SET ENABLE_FLAG = '0'
+	  WHERE OP_ID in ($opId$)
+  </update>
+  
+  <!-- 修改密码 -->
+  <update id="updatePass" parameterClass="map">
+	  UPDATE <include refid="table" />
+	   SET OP_PASS = #opPass#
+	  WHERE OP_ID = #opId#
+  </update>
+  
+  <!-- 登录名称是否存在 -->
+  <select id="existOpLoginname" resultClass="int" parameterClass="map">
+	SELECT count(1)  FROM 
+ 	<include refid="table" />
+ 	where OP_LOGINNAME = #opLoginname# and OP_STATUS = '1' and ENABLE_FLAG = '1'
+  </select>
+  
+  <!-- 登录验证 -->
+  <select id="selectOperatorLogin" parameterClass="map" resultMap="SysSpOperator">
+	select <include refid = "columns" />
+	  from <include refid="operatorSql" /> 
+	 where osq.op_loginname = #opLoginname# and osq.ENABLE_FLAG = '1'
+  </select>
+  <select id="selectOperatorLoginPd" parameterClass="map" resultMap="SysSpOperator">
+	select <include refid = "columns" />
+	  from <include refid="operatorSql" /> 
+	 where osq.op_loginname = #opLoginname#
+	    and osq.op_pass = #opPass# and osq.ENABLE_FLAG = '1'
+  </select>
+  <select id="selectOperatorLoginOc" parameterClass="map" resultMap="SysSpOperator">
+	select <include refid = "columns" />
+	  from <include refid="operatorSql" /> 
+	 where osq.op_loginname = #opLoginname#
+	    and osq.op_pass = #opPass#
+	    and osq.corp_code = #parentOrgCode# and osq.ENABLE_FLAG = '1'
+  </select>  
+  <!-- 首页基本信息-->
+  <select id="selectOperatorHomePage" parameterClass="map" resultMap="SysSpOperator">
+	select <include refid = "columns" />
+	  from <include refid="operatorSql" /> 
+	 where osq.op_id = #opId#
+  </select>
+
+  <!-- 保存用户和角色关联关系 -->
+  <insert id="insertOpRole" parameterClass="map">
+    insert into tr_ssp_operator_role (AUTO_ID, OP_ID, ROLE_ID)
+    values (#autoId:VARCHAR#, #opId:VARCHAR#, #roleId:VARCHAR#)
+  </insert>
+  
+  <!-- 删除用户关联的角色 -->
+  <delete id="deleteOpRoleFunByOpId" parameterClass="map">
+	delete trf from tr_ssp_operator_role trf where trf.OP_ID = #opId#
+  </delete>
+  <!-- 查询人员列表 -->
+  <select id="queryOperatorList" resultClass="com.ctfo.sys.beans.SysSpOperator">  		
+		SELECT OP_ID as opId,OP_NAME as opName FROM sys_ssp_sp_operator where ENABLE_FLAG = '1'
+  </select>  
+  <!-- 查询人员id的max值 -->
+ <select id="queryComCode" parameterClass="dynamicSqlParameter" resultClass="int">
+  SELECT IFNULL(MAX(op_code),'40000') FROM sys_ssp_sp_operator
+ </select>  
+</sqlMap>

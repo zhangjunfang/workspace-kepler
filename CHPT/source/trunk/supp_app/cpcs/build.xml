@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<project name="cpcs" default="allwar" basedir=".">
+   <property name="build.dir" value="${basedir}/build"/>
+   <property name="build.classes.dir" value="${build.dir}/classes"/>
+   <property name="war.dir" value="${basedir}/war"/>
+   <property name="src.dir" value="${basedir}/src"/>
+   <property name="beans_src.dir" value="${basedir}/beans_src"/>
+   <property name="webcontent.dir" value="${basedir}/WebContent"/>
+   <property name="webcontentwebinf.dir" value="${webcontent.dir}/WEB-INF"/>
+   <property name="webcontentlib.dir" value="${webcontentwebinf.dir}/lib"/>
+   <property name="test_conf.dir" value="${basedir}/test_conf"/>
+   <property name="demo_conf.dir" value="${basedir}/demo_conf"/>
+   <property name="production_conf.dir" value="${basedir}/production_conf"/>
+   <property name="develop_conf.dir" value="${basedir}/develop_conf" />
+   <property name="tomact.link" value="/home/apache-tomcat-7.0.27/lib"/>
+   <path id="classpath1">  
+     <fileset dir="${webcontentlib.dir}">  
+       <include name="**/*.jar"/>                       
+     </fileset>           
+   </path>   
+   <path id="classpath2">  
+     <fileset dir="${tomact.link}">  
+       <include name="**/*.jar"/>                       
+     </fileset>           
+   </path> 
+   <path id="classpath">
+        <path refid="classpath1"/>
+        <path refid="classpath2"/>
+    </path>
+   <target name="clean">
+     <delete dir="${war.dir}"/>
+     <delete dir="${build.dir}"/>
+   </target>  
+   <target name="init" depends="clean">
+      <mkdir dir="${war.dir}" />
+      <mkdir dir="${build.dir}" />
+      <mkdir dir="${build.classes.dir}" />
+   </target>
+  <target name="compile" depends="init">
+       <echo>=== COMPILE ===</echo>
+       <javac debug="on" destdir="${build.classes.dir}" includes="**/*">
+	       <src path="${beans_src.dir}" />
+		   <src path="${src.dir}" />
+		   <compilerarg line="-encoding UTF-8 "/>
+           <classpath refid="classpath" />
+	   </javac>
+   </target>
+   <target name="develop-war" depends="compile">
+       <echo>=== PACKAGE ===</echo>
+       <!-- copy the config files -->
+       <copy todir="${build.classes.dir}">
+           <fileset dir="${src.dir}">
+             <exclude name="**/*.java"/>
+           </fileset>
+       </copy>
+       <copy todir="${build.classes.dir}">
+           <fileset dir="${beans_src.dir}">
+              <exclude name="**/*.java"/>
+           </fileset>
+       </copy>
+       
+   	   <copy todir="${build.classes.dir}" overwrite="true">
+   				<fileset dir="${develop_conf.dir}">
+   				</fileset>
+   	   </copy>
+       <war destfile="${war.dir}/develop/cpcs.war" webxml="${webcontentwebinf.dir}/web.xml"  basedir="${webcontent.dir}">
+         <classes dir="${build.classes.dir}" />
+    </war>
+   </target>
+   <target name="test-war">
+    <echo>=== copytestconf ===</echo>
+	<copy todir="${build.classes.dir}" overwrite="true">
+            <fileset dir="${test_conf.dir}">
+            </fileset>
+      </copy>
+    <war destfile="${war.dir}/test/cpcs.war" webxml="${webcontentwebinf.dir}/web.xml"  basedir="${webcontent.dir}">
+         <classes dir="${build.classes.dir}" />
+    </war>
+   </target>
+    <target name="production-war">
+	 <echo>=== copyproductionconf ===</echo>
+      <copy todir="${build.classes.dir}" overwrite="true">
+            <fileset dir="${production_conf.dir}">
+            </fileset>
+      </copy>
+     
+    <war destfile="${war.dir}/production/cpcs.war" webxml="${webcontentwebinf.dir}/web.xml" basedir="${webcontent.dir}">
+         <classes dir="${build.classes.dir}" />
+    </war>
+   </target>
+   
+
+    <target name="allwar">
+	    <antcall target="compile"/>
+        <antcall target="develop-war"/>
+		<antcall target="production-war"/>
+		<antcall target="test-war"/>
+    </target>
+</project>
+
+
+

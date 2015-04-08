@@ -1,0 +1,108 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>webMap</title>
+    <style type="text/css">
+	body
+        {
+            padding: 0px;
+            margin: 0px;
+        }
+        v\:*
+        {
+            behavior: url(#default#VML);
+        }
+    </style>
+    <script type="text/javascript" language="javascript" src="http://vapi.mapenjoy.com/maps.js"></script>
+    <script type="text/javascript" language="javascript">
+        var map; //当前地图实例
+        var thisMarker; //当前车辆（标注）
+        var thisText;//当前车辆车牌号
+        var thisPolyLine = null; //当前轨迹线
+
+        function onLoad() {
+            map = new SE_Maps("mapDiv"); //第一步，加载地图
+            map.centerAndZoom(new SE_LngLat(11640969, 3994940), 10); //默认中心点及缩放级别
+
+            map.addControl(new SE_SmallMapControl()); //加入一个简易缩放控件（左上角,鱼骨）
+            map.handleMouseScroll(true); //加入鼠标3D键（滚轮）放大控件
+            map.addControl(new SE_MagnifyingglassControl()); //滚轮缩放地图时协助定位的放大镜控件,添加以后,滚轮缩放地图时,会有跟随地图缩放的图标来指示当前缩放的位置
+            map.handleKeyboard(); //允许键盘操作
+
+            var scaleControl = new SE_ScaleControl(); //New一个比例尺
+            scaleControl.setColor("green"); //比例尺样式
+            scaleControl.units = [[1000, "km"], [1, "m"]]; //比例尺对比
+            map.addControl(scaleControl); //加入比例尺
+
+            //map.addControl(new SE_OverviewMapControl()); //加载鹰眼控件
+            map.removeControl(map.logoControl); //移除地图左下角LOGO
+            document.getElementById("SE_navinfologo").style.display = "none";
+            document.getElementById("SE_digilogo").style.display = "none";
+            document.getElementById("SE_bseilogo").style.display = "none";
+        }
+
+        //新增一个标注
+        function addMarker(csArrayMarker) {
+            //车牌号，经度坐标，纬度坐标，图标（方向，状态，告警)
+            var tempLicensePlateNumber = csArrayMarker.split(',')[0]; //车牌号
+            var tempLongitude = csArrayMarker.split(',')[1]; //经度坐标
+            var tempLatitude = csArrayMarker.split(',')[2]; //纬度坐标
+            var tempIconPath = csArrayMarker.split(',')[3]; //图标路径
+
+            var tempIcon = new SE_Icon(tempIconPath, [20, 20]); //new一个自定义标注图标
+            tempIcon.removeShadow(); //去掉阴影
+
+            thisMarker = new SE_Marker(new SE_LngLat(tempLongitude, tempLatitude), tempIcon); //new一个标注
+            map.addOverLay(thisMarker); //把标注加入地图
+
+            thisText = new SE_PointOverlay(new SE_LngLat(tempLongitude, tempLatitude), [-25, 13]); //New标签
+            thisText.setLabel(tempLicensePlateNumber); //标签内容（一般为车牌号）
+            map.addOverLay(thisText); //加入地图
+
+            map.centerAndZoom(new SE_LngLat(tempLongitude, tempLatitude), map.getCurrentZoom()); //重新定位地图的中心点和缩放等级
+        }
+
+        //编辑标注位置（移动车辆）
+        function editMarker(indexPoint) {
+            var tempLongitude = indexPoint.split(',')[0]; //移动到经度
+            var tempLatitude = indexPoint.split(',')[1]; //移动到纬度
+            var tempIconPath = indexPoint.split(',')[2]; //图标路径
+
+            thisMarker.setIconImage(tempIconPath); //转换车辆图标
+
+            thisMarker.setPoint(new SE_LngLat(tempLongitude, tempLatitude)); //进行移动
+            thisText.setPoint(new SE_LngLat(tempLongitude, tempLatitude), [-25, 13]); //移动Label
+
+            map.centerAndZoom(new SE_LngLat(tempLongitude, tempLatitude), map.getCurrentZoom()); //重新定位地图的中心点和缩放等级
+        }
+
+        //清除一个标注
+        function DelMarker() {
+            map.removeOverLay(thisMarker, true); //从地图中把该标注移除
+            map.removeOverLay(thisText, true); //从地图中把该Label移除
+        }
+
+        //画轨迹线
+        function set_SE_PolyLine(arrPolyLine) {
+            //以下画线
+            if (thisPolyLine != null)//如果没有画过，那就不用删除，如果有画过，删除上一条轨迹线
+                map.removeOverLay(thisPolyLine, true);
+
+            var tempPoints = new Array();
+            var x, y;
+            for (var i = 0; i < arrPolyLine.split('|').length; i++) {
+                x = Number((arrPolyLine.split('|')[i]).split(',')[0]);
+                y = Number((arrPolyLine.split('|')[i]).split(',')[1]);
+                tempPoints.push(new SE_LngLat(x, y));
+            }
+            thisPolyLine = new SE_PolyLine(tempPoints);
+
+            map.addOverLay(thisPolyLine);
+        }
+    </script>
+</head>
+<body onLoad="onLoad()" style="100%; height: 100%;">
+<div id="mapDiv" style="100%; height: 100%;"></div>
+</body>
+</html>

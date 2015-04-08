@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="TbCloudBackUp">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <resultMap class="com.ctfo.operation.beans.TbCloudBackUp" id="TbCloudBackUp">
+
+    <result column="CLOUD_ID" jdbcType="VARCHAR" property="cloudId" />
+    <result column="COM_CODE" jdbcType="VARCHAR" property="comCode" />
+    <result column="COM_NAME" jdbcType="VARCHAR" property="comName" />
+    <result column="SETBOOK_ID" jdbcType="VARCHAR" property="setbookId" />
+    <result column="SETBOOK_NAME" jdbcType="VARCHAR" property="setbookName" />
+    <result column="CLOUD_SIZE" jdbcType="VARCHAR" property="cloudSize" />
+    <result column="CLOUD_VALID_TIME" jdbcType="BIGINT" property="cloudValidTime"  nullValue="0"/>
+    <result column="USED_SPACE" jdbcType="VARCHAR" property="usedSpace" />
+    <result column="FILE_NUMS" jdbcType="INT" property="fileNums" nullValue="0"/>
+    <result column="REMARK" jdbcType="VARCHAR" property="remark"/>
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy"/>
+    <result column="ENABLE_FLAG" jdbcType="VARCHAR" property="enableFlag"/>
+    <result column="CREATE_TIME"  jdbcType="BIGINT" property="createTime" nullValue="0"/>
+    
+  </resultMap>
+  <sql id="columns">
+    DISTINCT CLOUD.CLOUD_ID,CLOUD.COM_CODE,CLOUD.COM_NAME,CLOUD.SETBOOK_ID,CLOUD.SETBOOK_NAME,CLOUD.CLOUD_SIZE,CLOUD.CLOUD_VALID_TIME,CLOUD.USED_SPACE,CLOUD.FILE_NUMS,CLOUD.REMARK,CLOUD.CREATE_BY,CLOUD.CREATE_TIME,CLOUD.ENABLE_FLAG
+  </sql>
+  <sql id="table">
+    tb_ssp_cloud_backup CLOUD,tb_ssp_com_info COMP,sys_setbook S
+  </sql>
+  
+<sql id="where">
+    WHERE  CLOUD.COM_CODE = COMP.COM_ID AND S.COM_ID = COMP.COM_ID     AND COMP.REGISTER_AUTHENTICATION = '1'  AND (CLOUD.ENABLE_FLAG IS NULL OR CLOUD.ENABLE_FLAG = '0')
+  </sql>
+  <sql id="equal_WHERE">
+  
+    <isNotNull prepend="AND" property="equal.createTimeStart">
+        <![CDATA[(#equal.createTimeStart# <= CLOUD.CREATE_TIME )]]>
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.createTimeEnd">
+        <![CDATA[(#equal.createTimeEnd# >= CLOUD.CREATE_TIME )]]>
+    </isNotNull>  
+   
+  </sql>
+  <sql id="like_WHERE">
+    <isNotNull prepend="AND" property="like.comName">
+      CLOUD.com_name like CONCAT('%',#like.comName:VARCHAR#,'%')
+      							
+    </isNotNull>
+    <isNotNull prepend="AND" property="like.setbookName">
+      CLOUD.setbook_name like CONCAT('%',#like.setbookName:VARCHAR#,'%')
+    </isNotNull>
+  </sql>
+  
+  <sql id="order">
+    ORDER BY CLOUD.CREATE_TIME DESC
+  </sql>
+  <sql id="groupBy">
+  		GROUP BY COMP.COM_ID
+  </sql>
+  <sql id="where_param">
+    <include refid="where" />
+    <include refid="equal_WHERE" />
+    <include refid="like_WHERE" />   
+    <include refid="order"/>  
+    
+  </sql>
+  
+  
+ 
+  
+  <select id="selectParam" parameterClass="dynamicSqlParameter" >
+    select 
+    <include refid="columns" />
+    from
+    <include refid="table" />
+    <include refid="where_param" />
+  </select>
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1)/2 FROM 
+    <include refid="table" />
+    <include refid="where_param" />    
+  </select>  
+
+  <select id="selectPageForParam" parameterClass="dynamicSqlParameter"  resultMap="TbCloudBackUp">
+    SELECT BB.* FROM 
+	    (SELECT 
+		    <include refid="columns" /> 
+		     FROM 
+		    <include refid="table" />
+		    <include refid="where_param" />
+	     ) BB LIMIT #startNum#,#pagesize#
+  </select>
+ 
+  
+  <!-- 根据主键ID查询云备份对象 -->
+  <select id="selectPk"  resultMap="TbCloudBackUp"  parameterClass="string" >
+  	 SELECT
+  	<include refid="columns"/>
+  	  FROM
+  	<include refid="table"/>
+  		where CLOUD.CLOUD_ID  =  #cloudId:VARCHAR#
+  </select>
+  
+  <update id="deleteCloudyBackupById" parameterClass="java.lang.String">
+  		UPDATE tb_ssp_cloud_backup SET ENABLE_FLAG = '1' WHERE CLOUD_ID = #cloudId#
+  </update>
+</sqlMap>

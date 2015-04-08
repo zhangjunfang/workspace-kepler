@@ -1,0 +1,540 @@
+@charset "utf-8";
+/* CSS Document */
+
+
+/*框架通体设置*/
+bady{background:#dce5ee url(../../img/navy/head_bg.png) 0px -450px repeat-x; width:100%;}
+html{ height:100%;}
+
+/*heardbox*/
+.heardbox{ background:url(../../img/navy/head_bg.png) 0px 0px repeat-x; height:80px; min-width:1200px;}
+.miniheardbox{ background:url(../../img/navy/head_bg.png) 0px 0px repeat-x; height:40px; min-width:1200px;}
+.heardbox .logo{ background:url(../../img/navy/head_bg.png) 0px -100px no-repeat; width:300px; float:left; height:80px; float: left; overflow:hidden;}
+.miniheardbox .logo{ background:url(../../img/navy/head_bg_mini.png) 0px -100px no-repeat; width:300px; float:left; height:40px; float: left; overflow:hidden;}
+.logoPRE{background:url(../../img/navy/head_bg.png) 0px 10px repeat-x; float:left;}
+.logoPRE img{ width:300px;height:80px; overflow:hidden;}
+
+.navbox{  width:630px; float: right;}
+.heardbox .nav{height:80px; width:630px; float:right;position:relative;z-index: 1500;}
+.miniheardbox .nav{height:40px; width:630px; float:right;position:relative;z-index: 1500;}
+.heardbox .nav li{ float:right; width:70px; display:block; height:80px;}
+.miniheardbox .nav li{ float:left; width:70px; display:block; height:40px;}
+.nav li:hover,.nav li.hover{ background:url(../../img/navy/head_bg.png) -400px -290px no-repeat;}
+
+.heardbox div.nav_1,.heardbox div.nav_2,.heardbox div.nav_3,.heardbox div.nav_4,.heardbox div.nav_5,.heardbox div.nav_6,.heardbox div.nav_7,.heardbox div.nav_8,.heardbox div.nav_9,.heardbox div.nav_10
+{display:block;width:70px; height:30px; padding-top:50px; text-align:center;background-image:url(../../img/navy/head_bg.png); background-repeat:no-repeat; cursor:pointer; line-height:30px; color:#FFF;}
+.miniheardbox div.nav_1,.miniheardbox div.nav_2,.miniheardbox div.nav_3,.miniheardbox div.nav_4,.miniheardbox div.nav_5,.miniheardbox div.nav_6,.miniheardbox div.nav_7,.miniheardbox div.nav_8,.miniheardbox div.nav_9,.miniheardbox div.nav_10
+{display:block;width:70px; height:40px; padding-top:0px; text-align:center;background-image:url(../../img/navy/head_bg_mini.png); background-repeat:no-repeat; cursor:pointer; line-height:40px; color:#FFF;}
+
+div.nav_1{ background-position: 15px -200px;}
+div.nav_2{ background-position: -65px -200px;}
+div.nav_3{ background-position: -145px -200px;}
+div.nav_4{ background-position: -225px -200px;}
+div.nav_5{ background-position: -305px -200px;}
+div.nav_6{ background-position: -385px -200px;}
+div.nav_7{ background-position: 15px -300px;}
+div.nav_8{ background-position: -65px -300px;}
+div.nav_9{ background-position: -145px -300px;}
+div.nav_10{ background-position: -220px -300px;}
+
+
+.user_info{ width:120px; float:right; padding-top:15px; padding-left: 20px; line-height:20px; color:#FFF;}
+
+.heardbox .subnav{ border: 1px solid #4c99c3; position:absolute; width:120px; background:#fff; top:79px; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px;-moz-box-shadow: 0px 0px 5px #999;-webkit-box-shadow: 0px 0px 5px #999;box-shadow: 0px 0px 5px #999;}
+.miniheardbox .subnav{ border: 1px solid #4c99c3; position:absolute; width:120px; background:#fff; top:39px; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px;-moz-box-shadow: 0px 0px 5px #999;-webkit-box-shadow: 0px 0px 5px #999;box-shadow: 0px 0px 5px #999;}
+.subnav ol{ height:25px; line-height:25px; border-top:#f2f2f2 1px solid; cursor:pointer; padding:0 2px; color:#333;}
+.subnav ol.ol-hover{ background:#eee;}
+
+/*content*/
+.content{min-width:1200px;}
+
+/*modelDiv*/
+.modelDiv{ height:100%; }
+
+/*sidebox*/
+.sidebox{ float:left; width:240px; background:#e0edf6; height:100%; display:inline; position: relative;z-index: 1000;}
+.main{height: 100%;}
+
+
+
+/*皮肤*/
+.eurocargoBox{ background-repeat:repeat-x; background-image:url(../../img/eurocargo.png); background-position:2px 0px; width: 30px; height: 30px; cursor: pointer; float: right;}
+.eurocargoBox:hover{background-position:-28px 0px; }
+.eurocargoList li{ float:left; height:120px; width:90px; margin:10px; text-align:center;}
+.eurocargoList li div.skinBox{ height:80px; border:1px solid #ccc; padding:4px; cursor:pointer; position: relative;-moz-box-shadow: 0px 0px 2px #f2f2f2;-webkit-box-shadow: 0px 0px 2px #f2f2f2;box-shadow: 0px 0px 2px #f2f2f2;}
+.eurocargoList li div.skinBox img{ width:80px; height:80px;}
+.eurocargoList li div.skinBox:hover{ border:1px solid #333;}
+.eurocargoList li div.focus{ border:1px solid #ffa09e;}
+.eurocargoList li div.skinBox div.btn{ position:absolute; height:30px; background:url(../../img/eurocargo.png) -80px 0px no-repeat; width:30px; right:0; bottom:0;}
+
+
+/*footbox*/
+.footbox{ height:30px; line-height:30px;background:url(../../img/navy/head_bg.png) 0px 0px repeat-x; width:100%; clear:both; min-width:1200px;}
+.alarmBox{float:right; line-height: 25px;padding-top: 3px;}
+.alarmContent{background:#f5f5f5 url(../../img/alarmBoxBG.png) 0px 0px repeat-x; }
+.alarmEnd{display: block; height: 25px;}
+.alarmVoice{float:right; line-height: 25px; cursor:pointer;padding-top: 3px;};
+
+
+/*图片缺失*/
+.imgN{ background:url(../../img/navy/photo.gif) center center no-repeat;}
+
+
+/*照片阵列*/
+
+.photoBox{ border:2px solid #FFF; padding:15px; width:150px; height:130px; position:relative; background:#FFF;}
+.photoBox img{ width:100%; height:100px;}
+.photoBox:hover,.photoBox_hover{ border:2px solid #0CF; -moz-border-radius:3px; border-radius:3px; -webkit-border-radius:3px;-moz-box-shadow: 0px 0px 3px #999;-webkit-box-shadow: 0px 0px 3px #999;box-shadow: 0px 0px 3px #999;}
+
+.photoCheck{ background:#0CF; padding:3px 5px 5px 3px; border-bottom-right-radius:5px; position:absolute; top:0; left:0; display:none;}
+.photoCheck input[type="checkbox"]{ margin:0px;}
+
+/*图标合集
+* ico16x16
+*/
+
+
+.ico11,.ico12,.ico13,.ico14,.ico15,.ico16,.ico17,.ico18,.ico19,.ico110
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+
+.ico11{ background-position: 0px 0px;}
+.ico12{ background-position: -50px 0px;}
+.ico13{ background-position: -100px 0px;}
+.ico14{ background-position: -150px 0px;}
+.ico15{ background-position: -200px 0px;}
+.ico16{ background-position: -250px 0px;}
+.ico17{ background-position: -300px 0px;}
+.ico18{ background-position: -350px 0px;}
+.ico19{ background-position: -400px 0px;}
+.ico110{ background-position: -450px 0px;}
+
+.ico111,.ico112,.ico113,.ico114,.ico115,.ico116,.ico117,.ico118,.ico119,.ico120
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em;margin:4px 3px 0 0;}
+.ico111{ background-position: 0px -50px;}
+.ico112{ background-position: -50px -50px;}
+.ico113{ background-position: -100px -50px;}
+.ico114{ background-position: -150px -50px;}
+.ico115{ background-position: -200px -50px;}
+.ico116{ background-position: -250px -50px;}
+.ico117{ background-position: -300px -50px;}
+.ico118{ background-position: -350px -50px;}
+.ico119{ background-position: -400px -50px;}
+.ico120{ background-position: -450px -50px;}
+
+.ico121,.ico122,.ico123,.ico124,.ico125,.ico126,.ico127,.ico128,.ico129,.ico130
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico121{ background-position: 0px -100px;}
+.ico122{ background-position: -50px -100px;}
+.ico123{ background-position: -100px -100px;}
+.ico124{ background-position: -150px -100px;}
+.ico125{ background-position: -200px -100px;}
+.ico126{ background-position: -250px -100px;}
+.ico127{ background-position: -300px -100px;}
+.ico128{ background-position: -350px -100px;}
+.ico129{ background-position: -400px -100px;}
+.ico130{ background-position: -450px -100px;}
+
+.ico131,.ico132,.ico133,.ico134,.ico135,.ico136,.ico137,.ico138,.ico139,.ico140
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico131{ background-position: 0px -150px;}
+.ico132{ background-position: -50px -150px;}
+.ico133{ background-position: -100px -150px;}
+.ico134{ background-position: -150px -150px;}
+.ico135{ background-position: -200px -150px;}
+.ico136{ background-position: -250px -150px;}
+.ico137{ background-position: -300px -150px;}
+.ico138{ background-position: -350px -150px;}
+.ico139{ background-position: -400px -150px;}
+.ico140{ background-position: -450px -150px;}
+
+.ico141,.ico142,.ico143,.ico144,.ico145,.ico146,.ico147,.ico148,.ico149,.ico150
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico141{ background-position: 0px -200px;}
+.ico142{ background-position: -50px -200px;}
+.ico143{ background-position: -100px -200px;}
+.ico144{ background-position: -150px -200px;}
+.ico145{ background-position: -200px -200px;}
+.ico146{ background-position: -250px -200px;}
+.ico147{ background-position: -300px -200px;}
+.ico148{ background-position: -350px -200px;}
+.ico149{ background-position: -400px -200px;}
+.ico150{ background-position: -450px -200px;}
+
+.ico151,.ico152,.ico153,.ico154,.ico155,.ico156,.ico157,.ico158,.ico159,.ico160
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico151{ background-position: 0px -250px;}
+.ico152{ background-position: -50px -250px;}
+.ico153{ background-position: -100px -250px;}
+.ico154{ background-position: -150px -250px;}
+.ico155{ background-position: -200px -250px;}
+.ico156{ background-position: -250px -250px;}
+.ico157{ background-position: -300px -250px;}
+.ico158{ background-position: -350px -250px;}
+.ico159{ background-position: -400px -250px;}
+.ico160{ background-position: -450px -250px;}
+
+.ico161,.ico162,.ico163,.ico164,.ico165,.ico166,.ico167,.ico168,.ico169,.ico170
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico161{ background-position: 0px -300px;}
+.ico162{ background-position: -50px -300px;}
+.ico163{ background-position: -100px -300px;}
+.ico164{ background-position: -150px -300px;}
+.ico165{ background-position: -200px -300px;}
+.ico166{ background-position: -250px -300px;}
+.ico167{ background-position: -300px -300px;}
+.ico168{ background-position: -350px -300px;}
+.ico169{ background-position: -400px -300px;}
+.ico170{ background-position: -450px -300px;}
+
+.ico171,.ico172,.ico173,.ico174,.ico175,.ico176,.ico177,.ico178,.ico179,.ico180
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico171{ background-position: 0px -350px;}
+.ico172{ background-position: -50px -350px;}
+.ico173{ background-position: -100px -350px;}
+.ico174{ background-position: -150px -350px;}
+.ico175{ background-position: -200px -350px;}
+.ico176{ background-position: -250px -350px;}
+.ico177{ background-position: -300px -350px;}
+.ico178{ background-position: -350px -350px;}
+.ico179{ background-position: -400px -350px;}
+.ico180{ background-position: -450px -350px;}
+
+.ico181,.ico182,.ico183,.ico184,.ico185,.ico186,.ico187,.ico188,.ico189,.ico190
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico181{ background-position: 0px -400px;}
+.ico182{ background-position: -50px -400px;}
+.ico183{ background-position: -100px -400px;}
+.ico184{ background-position: -150px -400px;}
+.ico185{ background-position: -200px -400px;}
+.ico186{ background-position: -250px -400px;}
+.ico187{ background-position: -300px -400px;}
+.ico188{ background-position: -350px -400px;}
+.ico189{ background-position: -400px -400px;}
+.ico190{ background-position: -450px -400px;}
+
+.ico191,.ico192,.ico193,.ico194,.ico195,.ico196,.ico197,.ico198,.ico199,.ico1100
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico191{ background-position: 0px -450px;}
+.ico192{ background-position: -50px -450px;}
+.ico193{ background-position: -100px -450px;}
+.ico194{ background-position: -150px -450px;}
+.ico195{ background-position: -200px -450px;}
+.ico196{ background-position: -250px -450px;}
+.ico197{ background-position: -300px -450px;}
+.ico198{ background-position: -350px -450px;}
+.ico199{ background-position: -400px -450px;}
+.ico1100{ background-position: -450px -450px;}
+
+.ico1101,.ico1102,.ico1103,.ico1104,.ico1105,.ico1106,.ico1107,.ico1108,.ico1109,.ico1110
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1101{ background-position: 0px -500px;}
+.ico1102{ background-position: -50px -500px;}
+.ico1103{ background-position: -100px -500px;}
+.ico1104{ background-position: -150px -500px;}
+.ico1105{ background-position: -200px -500px;}
+.ico1106{ background-position: -250px -500px;}
+.ico1107{ background-position: -300px -500px;}
+.ico1108{ background-position: -350px -500px;}
+.ico1109{ background-position: -400px -500px;}
+.ico1110{ background-position: -450px -500px;}
+
+.ico1111,.ico1112,.ico1113,.ico1114,.ico1115,.ico1116,.ico1117,.ico1118,.ico1119,.ico1120
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1111{ background-position: 0px -550px;}
+.ico1112{ background-position: -50px -550px;}
+.ico1113{ background-position: -100px -550px;}
+.ico1114{ background-position: -150px -550px;}
+.ico1115{ background-position: -200px -550px;}
+.ico1116{ background-position: -250px -550px;}
+.ico1117{ background-position: -300px -550px;}
+.ico1118{ background-position: -350px -550px;}
+.ico1119{ background-position: -400px -550px;}
+.ico1120{ background-position: -450px -550px;}
+
+.ico1121,.ico1122,.ico1123,.ico1124,.ico1125,.ico1126,.ico1127,.ico1128,.ico1129,.ico1130
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1121{ background-position: 0px -600px;}
+.ico1122{ background-position: -50px -600px;}
+.ico1123{ background-position: -100px -600px;}
+.ico1124{ background-position: -150px -600px;}
+.ico1125{ background-position: -200px -600px;}
+.ico1126{ background-position: -250px -600px;}
+.ico1127{ background-position: -300px -600px;}
+.ico1128{ background-position: -350px -600px;}
+.ico1129{ background-position: -400px -600px;}
+.ico1130{ background-position: -450px -600px;}
+
+.ico1131,.ico1132,.ico1133,.ico1134,.ico1135,.ico1136,.ico1137,.ico1138,.ico1139,.ico1140
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1131{ background-position: 0px -650px;}
+.ico1132{ background-position: -50px -650px;}
+.ico1133{ background-position: -100px -650px;}
+.ico1134{ background-position: -150px -650px;}
+.ico1135{ background-position: -200px -650px;}
+.ico1136{ background-position: -250px -650px;}
+.ico1137{ background-position: -300px -650px;}
+.ico1138{ background-position: -350px -650px;}
+.ico1139{ background-position: -400px -650px;}
+.ico1140{ background-position: -450px -650px;}
+
+.ico1141,.ico1142,.ico1143,.ico1144,.ico1145,.ico1146,.ico1147,.ico1148,.ico1149,.ico1150
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1141{ background-position: 0px -700px;}
+.ico1142{ background-position: -50px -700px;}
+.ico1143{ background-position: -100px -700px;}
+.ico1144{ background-position: -150px -700px;}
+.ico1145{ background-position: -200px -700px;}
+.ico1146{ background-position: -250px -700px;}
+.ico1147{ background-position: -300px -700px;}
+.ico1148{ background-position: -350px -700px;}
+.ico1149{ background-position: -400px -700px;}
+.ico1150{ background-position: -450px -700px;}
+
+.ico1151,.ico1152,.ico1153,.ico1154,.ico1155,.ico1156,.ico1157,.ico1158,.ico1159,.ico1160
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1151{ background-position: 0px -750px;}
+.ico1152{ background-position: -50px -750px;}
+.ico1153{ background-position: -100px -750px;}
+.ico1154{ background-position: -150px -750px;}
+.ico1155{ background-position: -200px -750px;}
+.ico1156{ background-position: -250px -750px;}
+.ico1157{ background-position: -300px -750px;}
+.ico1158{ background-position: -350px -750px;}
+.ico1159{ background-position: -400px -750px;}
+.ico1160{ background-position: -450px -750px;}
+
+.ico1161,.ico1162,.ico1163,.ico1164,.ico1165,.ico1166,.ico1167,.ico1168,.ico1169,.ico1170
+{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0;}
+.ico1161{ background-position: 0px -800px;}
+.ico1162{ background-position: -50px -800px;}
+.ico1163{ background-position: -100px -800px;}
+.ico1164{ background-position: -150px -800px;}
+.ico1165{ background-position: -200px -800px;}
+.ico1166{ background-position: -250px -800px;}
+.ico1167{ background-position: -300px -800px;}
+.ico1168{ background-position: -350px -800px;}
+.ico1169{ background-position: -400px -800px;}
+.ico1170{ background-position: -450px -800px;}
+
+
+/*图标合集
+* ico24x24
+*/
+
+
+.ico21,.ico22,.ico23,.ico24,.ico25,.ico26,.ico27,.ico28,.ico29,.ico210
+{background-image:url(../../img/navy/icon24.png); background-repeat:no-repeat; width:24px; height:24px; display: block; float:left; text-indent:-999em;}
+
+.ico21{ background-position: 0px 0px;}
+.ico22{ background-position: -50px 0px;}
+.ico23{ background-position: -100px 0px;}
+.ico24{ background-position: -150px 0px;}
+.ico25{ background-position: -200px 0px;}
+.ico26{ background-position: -250px 0px;}
+.ico27{ background-position: -300px 0px;}
+.ico28{ background-position: -350px 0px;}
+.ico29{ background-position: -400px 0px;}
+.ico210{ background-position: -450px 0px;}
+
+.ico211,.ico212,.ico213,.ico214,.ico215,.ico216,.ico217,.ico218,.ico219,.ico220
+{background-image:url(../../img/navy/icon24.png); background-repeat:no-repeat; width:24px; height:24px; display: block; float:left; text-indent:-999em;}
+
+.ico211{ background-position: 0px -50px;}
+.ico212{ background-position: -50px -50px;}
+.ico213{ background-position: -100px -50px;}
+.ico214{ background-position: -150px -50px;}
+.ico215{ background-position: -200px -50px;}
+.ico216{ background-position: -250px -50px;}
+.ico217{ background-position: -300px -50px;}
+.ico218{ background-position: -350px -50px;}
+.ico219{ background-position: -400px -50px;}
+.ico220{ background-position: -450px -50px;}
+
+.ico221,.ico222,.ico223,.ico224,.ico225,.ico226,.ico227,.ico228,.ico229,.ico230
+{background-image:url(../../img/navy/icon24.png); background-repeat:no-repeat; width:24px; height:24px; display: block; float:left; text-indent:-999em;}
+
+.ico221{ background-position: 0px -100px;}
+.ico222{ background-position: -50px -100px;}
+.ico223{ background-position: -100px -100px;}
+.ico224{ background-position: -150px -100px;}
+.ico225{ background-position: -200px -100px;}
+.ico226{ background-position: -250px -100px;}
+.ico227{ background-position: -300px -100px;}
+.ico228{ background-position: -350px -100px;}
+.ico229{ background-position: -400px -100px;}
+.ico230{ background-position: -450px -100px;}
+
+
+/*标题栏背景*/
+
+.tit1{ /*background-color:#06c;*/ background-repeat:repeat-x; background-position: 0px 0px; background-image:url(../../img/navy/tit_bg.png);}
+.tit2{ /*background-color:#e4f0f7;*/ background-repeat:repeat-x; background-position: 0px -100px; background-image:url(../../img/navy/tit_bg.png);}
+.tit3{ /*background-color:#f2f2f2;*/ background-repeat:repeat-x; background-position: 0px -200px; background-image:url(../../img/navy/tit_bg.png);}
+.tit4{ /*background-color:#7dbefb;*/ background-repeat:repeat-x; background-position: 0px -300px; background-image:url(../../img/navy/tit_bg.png);}
+.tit5{ /*background-color:#e9f8fe;*/ background-repeat:repeat-x; background-position: 0px -400px; background-image:url(../../img/navy/tit_bg.png);}
+
+/*按钮合集*/
+
+/*功能按钮*/
+.close,a.close,a.close:link,a.close:visited,a.close:active{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0; cursor:pointer; background-position: -350px -200px;}
+.close:hover,a.close:hover{ background-position: -400px -200px;}
+.close1,a.close1,a.close1:link,a.close1:visited,a.close1:active{background-image:url(../../img/navy/icon16.png); background-repeat:no-repeat; width:16px; height:16px; display: block; float:left; text-indent:-999em; margin:4px 3px 0 0; cursor:pointer; background-position: -300px -250px;}
+.close1:hover,a.close1:hover{ background-position: -400px -200px;}
+
+/*按钮 80*80 */
+.btn1,a.btn1,a.btn1:link,a.btn1:visited,a.btn1:active,
+.btn2,a.btn2,a.btn2:link,a.btn2:visited,a.btn2:active,
+.btn3,a.btn3,a.btn3:link,a.btn3:visited,a.btn3:active,
+.btn4,a.btn4,a.btn4:link,a.btn4:visited,a.btn4:active,
+.btn5,a.btn5,a.btn5:link,a.btn5:visited,a.btn5:active
+{ background-image:url(../../img/navy/btn24.png); margin-top:1px; background-repeat:no-repeat; width:80px; height:24px; line-height:24px; text-align:center; display:block; overflow:hidden; cursor:pointer;}
+
+	.btn1,a.btn1,a.btn1:link,a.btn1:visited,a.btn1:active{ background-position:0px 0px;}
+	.btn1:hover,a.btn1:hover{ background-position:0px -30px;}
+
+	.btn2,a.btn2,a.btn2:link,a.btn2:visited,a.btn2:active{ background-position:-150px 0px;}
+	.btn2:hover,a.btn2:hover{ background-position:-150px -30px;}
+
+	.btn3,a.btn3,a.btn3:link,a.btn3:visited,a.btn3:active{ background-position:-300px 0px;}
+	.btn3:hover,a.btn3:hover{ background-position:-300px -30px;}
+
+	.btn4,a.btn4,a.btn4:link,a.btn4:visited,a.btn4:active{ background-position:-450px 0px;}
+	.btn4:hover,a.btn4:hover{ background-position:-450px -30px;}
+
+	.btn5,a.btn5,a.btn5:link,a.btn5:visited,a.btn5:active{ background-position:-600px 0px;}
+	.btn5:hover,a.btn5:hover{ background-position:-600px -30px;}
+
+.btn6,a.btn6,a.btn6:link,a.btn6:visited,a.btn6:active,
+.btn7,a.btn7,a.btn7:link,a.btn7:visited,a.btn7:active,
+.btn8,a.btn8,a.btn8:link,a.btn8:visited,a.btn8:active,
+.btn9,a.btn9,a.btn9:link,a.btn9:visited,a.btn9:active,
+.btn10,a.btn10,a.btn10:link,a.btn10:visited,a.btn10:active
+{ background-image:url(../../img/navy/btn24.png); margin-top:1px; background-repeat:no-repeat; width:80px; height:24px; line-height:24px; text-align:center; display:block; overflow:hidden; cursor:pointer;}
+
+	.btn6,a.btn6,a.btn6:link,a.btn6:visited,a.btn6:active{ background-position:0px -100px;}
+	.btn6:hover,a.btn6:hover{ background-position:0px -130px;}
+
+	.btn7,a.btn7,a.btn7:link,a.btn7:visited,a.btn7:active{ background-position:-150px -100px;}
+	.btn7:hover,a.btn7:hover{ background-position:-150px -130px;}
+
+	.btn8,a.btn8,a.btn8:link,a.btn8:visited,a.btn8:active{ background-position:-300px -100px;}
+	.btn8:hover,a.btn8:hover{ background-position:-300px -130px;}
+
+	.btn9,a.btn9,a.btn9:link,a.btn9:visited,a.btn9:active{ background-position:-450px -100px;}
+	.btn9:hover,a.btn9:hover{ background-position:-450px -130px;}
+
+	.btn10,a.btn10,a.btn10:link,a.btn10:visited,a.btn10:active{ background-position:-600px -100px;}
+	.btn10:hover,a.btn10:hover{ background-position:-600px -130px;}
+
+
+/*按钮 60*60 */
+.btnB1,a.btnB1,a.btnB1:link,a.btnB1:visited,a.btnB1:active,
+.btnB2,a.btnB2,a.btnB2:link,a.btnB2:visited,a.btnB2:active,
+.btnB3,a.btnB3,a.btnB3:link,a.btnB3:visited,a.btnB3:active,
+.btnB4,a.btnB4,a.btnB4:link,a.btnB4:visited,a.btnB4:active,
+.btnB5,a.btnB5,a.btnB5:link,a.btnB5:visited,a.btnB5:active
+{ background-image:url(../../img/navy/btnB24.png); margin-top:1px; background-repeat:no-repeat; width:60px; height:24px; line-height:24px; text-align:center; display:block; overflow:hidden; cursor:pointer;}
+
+	.btnB1,a.btnB1,a.btnB1:link,a.btnB1:visited,a.btnB1:active{ background-position:0px 0px;}
+	.btnB1:hover,a.btnB1:hover{ background-position:0px -30px;}
+
+	.btnB2,a.btnB2,a.btnB2:link,a.btnB2:visited,a.btnB2:active{ background-position:-150px 0px;}
+	.btnB2:hover,a.btnB2:hover{ background-position:-150px -30px;}
+
+	.btnB3,a.btnB3,a.btnB3:link,a.btnB3:visited,a.btnB3:active{ background-position:-300px 0px;}
+	.btnB3:hover,a.btnB3:hover{ background-position:-300px -30px;}
+
+	.btnB4,a.btnB4,a.btnB4:link,a.btnB4:visited,a.btnB4:active{ background-position:-450px 0px;}
+	.btnB4:hover,a.btnB4:hover{ background-position:-450px -30px;}
+
+	.btnB5,a.btnB5,a.btnB5:link,a.btnB5:visited,a.btnB5:active{ background-position:-600px 0px;}
+	.btnB5:hover,a.btnB5:hover{ background-position:-600px -30px;}
+
+.btnB6,a.btnB6,a.btnB6:link,a.btnB6:visited,a.btnB6:active,
+.btnB7,a.btnB7,a.btnB7:link,a.btnB7:visited,a.btnB7:active,
+.btnB8,a.btnB8,a.btnB8:link,a.btnB8:visited,a.btnB8:active,
+.btnB9,a.btnB9,a.btnB9:link,a.btnB9:visited,a.btnB9:active,
+.btnB10,a.btnB10,a.btnB10:link,a.btnB10:visited,a.btnB10:active
+{ background-image:url(../../img/navy/btnB24.png); margin-top:1px; background-repeat:no-repeat; width:60px; height:24px; line-height:24px; text-align:center; display:block; overflow:hidden; cursor:pointer;}
+
+	.btnB6,a.btnB6,a.btnB6:link,a.btnB6:visited,a.btnB6:active{ background-position:0px -100px;}
+	.btnB6:hover,a.btnB6:hover{ background-position:0px -130px;}
+
+	.btnB7,a.btnB7,a.btnB7:link,a.btnB7:visited,a.btnB7:active{ background-position:-150px -100px;}
+	.btnB7:hover,a.btnB7:hover{ background-position:-150px -130px;}
+
+	.btnB8,a.btnB8,a.btnB8:link,a.btnB8:visited,a.btnB8:active{ background-position:-300px -100px;}
+	.btnB8:hover,a.btnB8:hover{ background-position:-300px -130px;}
+
+	.btnB9,a.btnB9,a.btnB9:link,a.btnB9:visited,a.btnB9:active{ background-position:-450px -100px;}
+	.btnB9:hover,a.btnB9:hover{ background-position:-450px -130px;}
+
+	.btnB10,a.btnB10,a.btnB10:link,a.btnB10:visited,a.btnB10:active{ background-position:-600px -100px;}
+	.btnB10:hover,a.btnB10:hover{ background-position:-600px -130px;}
+
+
+/*播放器按钮图标*/
+.Player span.Start,.Player span.Stop,
+.Player span.Enter,.Player span.Retreat,
+.Player span.Pause,.Player span.S1x,.Player span.S2x,.Player span.S3x,.Player span.S4x,.Player span.S5x
+{background-image:url(../../img/navy/PlayerIco.png); background-repeat:no-repeat; width:16px; height:16px;  margin:2px 7px;  float:left; text-indent:-999em;overflow:hidden;  cursor:pointer;}
+.Player span.Start{ background-position:0px 0px;}       .Player span.Start:hover{ background-position:-20px 0px;}
+.Player span.Stop{ background-position:-40px 0px;}      .Player span.Stop:hover{ background-position:-40px -20px;}
+.Player span.Enter{ background-position:-80px 0px;}     .Player span.Enter:hover{ background-position:-80px -20px;}
+.Player span.Retreat{ background-position:-60px 0px;}   .Player span.Retreat:hover{ background-position:-60px -20px;}
+.Player span.Pause{ background-position:0px -20px;}     .Player span.Pause:hover{ background-position:-20px -20px;}
+	.Player span.S1x{ background-position:0px -40px;}
+	.Player span.S2x{ background-position:-20px -40px;}
+	.Player span.S3x{ background-position:-40px -40px;}
+	.Player span.S4x{ background-position:-60px -40px;}
+	.Player span.S5x{ background-position:-80px -40px;}
+
+
+/*提示操作*/
+label.myselfError,label.myselfError210{-moz-border-radius: 3px;border-radius: 3px;-webkit-border-radius: 3px;color: #f00;background-image: url(../../img/navy/icon24.png);background-repeat: no-repeat;background-color: #ffc;background-position: -50px -400px;line-height: 18px;display: block;width: 100px;font-size: 10px;position: absolute;left: 110px; top:4px;}
+label.myselfError210{left: 210px;}
+label.myselfError160{left: 160px;}
+/*地图POI点 显示详情背景效果*/
+.POI-shadowBG{background-image:url(../../img/navy/POIwin-bg.png); background-repeat: no-repeat; background-position: center; height: 35px; width: 100%; margin-bottom:-34px; overflow: hidden;}
+
+
+/*收缩按钮*/
+.slideUp{ width:100%; height:10px; position: relative;}
+.slideRight{ width:10px; height:50px; position:absolute;right: -10px;top: 50%;}
+.slide_t{ height:10px; width: 50px; display: block; margin: -10px auto; overflow:hidden; cursor:pointer; background-image:url(../../img/navy/slideImg.png); background-position:0px 0px;}
+.slide_b{ height:10px; width: 50px; display: block; margin: -10px auto; overflow:hidden; cursor:pointer; background-image:url(../../img/navy/slideImg.png); background-position:0px -10px;}
+.slide_l{ height:50px; width: 10px; display: block;overflow:hidden; cursor:pointer; background-image:url(../../img/navy/slideImg.png); background-position:0px -30px;}
+.slide_r{ height:50px; width: 10px;display: block; overflow:hidden; cursor:pointer; background-image:url(../../img/navy/slideImg.png); background-position:-10px -30px;}
+
+/*grid特殊高度调整*/
+.gridRowH td.l-grid-row-cell{ height: 22px;}
+
+
+/*驾驶员管理，上传照片预览 begin*/
+#preview_wrapper{width:100px;height:130px;background-color:#CCC;}
+#preview_fake{/* 该对象用于在IE下显示预览图片 */filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);}
+#imgPreviewFake{ /* 该对象只用来在IE下获得图片的原始尺寸，无其它用途 */filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=image);	visibility:hidden;}
+
+
+/*视频控制 89*26 */
+.btnV1,
+.btnV2,
+.btnV3,
+.btnV4,
+.btnV5
+{  margin-top:2px; background-repeat:no-repeat; width:89px; height:26px; line-height:26px; text-align:center; display:block; overflow:hidden; cursor:pointer; }
+
+  .btnV1{ background-image:url(../../img/videoCtrl/play-n.png);}
+  .btnV1:hover{ background-image:url(../../img/videoCtrl/play-d.png);}
+
+  .btnV2{ background-image:url(../../img/videoCtrl/stop-n.png);}
+  .btnV2:hover{ background-image:url(../../img/videoCtrl/stop-d.png);}
+
+  .btnV3{ background-image:url(../../img/videoCtrl/cut-n.png);}
+  .btnV3:hover{ background-image:url(../../img/videoCtrl/cut-d.png);}
+
+  .btnV4{ background-image:url(../../img/videoCtrl/sound-d.png);}
+  .btnV4:hover{ background-image:url(../../img/videoCtrl/sound-d.png);}
+
+  .btnV5{ background-image:url(../../img/videoCtrl/sound-n.png);}
+  .btnV5:hover{ background-image:url(../../img/videoCtrl/sound-n.png);}

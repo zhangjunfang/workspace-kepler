@@ -1,0 +1,17 @@
+@charset "utf-8";
+/* CSS Document */
+/*模块的多标签定义*/
+.closeBtnPos{
+  right:-8px;
+  top:-4px;
+}
+.closeBtnPosHove{
+  right:-9px;
+  top:-5px;
+}
+.unSelectedLabel .mutiLableCloseBtn{
+  display: none;
+}
+.modifyFormConditionTable .l-text {
+    width: 104px;
+}

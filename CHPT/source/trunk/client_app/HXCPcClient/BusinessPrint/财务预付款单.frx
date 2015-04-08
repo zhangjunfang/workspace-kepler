@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" DoublePass="true" ReportInfo.Created="01/26/2015 15:01:40" ReportInfo.Modified="02/27/2015 10:34:14" ReportInfo.CreatorVersion="2015.1.2.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+    
+  }
+}
+</ScriptText>
+  <Dictionary>
+    <TableDataSource Name="tb_bill_receivable" ReferenceName="tb_bill_receivable" DataType="System.Int32" Enabled="true">
+      <Column Name="order_num" DataType="System.String"/>
+      <Column Name="order_date" DataType="System.Int64"/>
+      <Column Name="order_status" DataType="System.String"/>
+      <Column Name="cust_name" DataType="System.String"/>
+      <Column Name="payment_type" DataType="System.String"/>
+      <Column Name="payment_money" DataType="System.Double"/>
+      <Column Name="dealings_balance" DataType="System.Double"/>
+      <Column Name="bank_of_deposit" DataType="System.String"/>
+      <Column Name="bank_account" DataType="System.String"/>
+      <Column Name="create_time" DataType="System.Int64"/>
+      <Column Name="update_time" DataType="System.String"/>
+      <Column Name="remark" DataType="System.String"/>
+      <Column Name="org_name" DataType="System.String"/>
+      <Column Name="handle_name" DataType="System.String"/>
+      <Column Name="operator_name" DataType="System.String"/>
+      <Column Name="create_name" DataType="System.String"/>
+      <Column Name="update_name" DataType="System.String"/>
+      <Column Name="print_name" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="tb_payment_detail" ReferenceName="tb_payment_detail" DataType="System.Int32" Enabled="true">
+      <Column Name="money" DataType="System.Double"/>
+      <Column Name="bank_of_deposit" DataType="System.String"/>
+      <Column Name="bank_account" DataType="System.String"/>
+      <Column Name="check_number" DataType="System.String"/>
+      <Column Name="remark" DataType="System.String"/>
+      <Column Name="balance_way_name" DataType="System.String"/>
+      <Column Name="account_name" DataType="System.String"/>
+      <Column Name="Column1" DataType="System.String"/>
+    </TableDataSource>
+    <TableDataSource Name="tb_balance_documents" ReferenceName="tb_balance_documents" DataType="System.Int32" Enabled="true">
+      <Column Name="documents_name" DataType="System.String"/>
+      <Column Name="documents_num" DataType="System.String"/>
+      <Column Name="documents_date" DataType="System.Int64"/>
+      <Column Name="billing_money" DataType="System.Double"/>
+      <Column Name="settled_money" DataType="System.Double"/>
+      <Column Name="wait_settled_money" DataType="System.Double"/>
+      <Column Name="settlement_money" DataType="System.Double"/>
+      <Column Name="paid_money" DataType="System.Double"/>
+      <Column Name="deposit_rate" DataType="System.Double"/>
+      <Column Name="deduction" DataType="System.String"/>
+      <Column Name="remark" DataType="System.String"/>
+      <Column Name="Column1" DataType="System.String"/>
+      <Column Name="Column2" DataType="System.String"/>
+    </TableDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" Landscape="true" PaperWidth="297" PaperHeight="210" RawPaperSize="9">
+    <ReportTitleBand Name="ReportTitle1" Width="1047.06" Height="47.25">
+      <TextObject Name="Text50" Left="453.6" Top="9.45" Width="170.1" Height="28.35" Text="财务预付款单" HorzAlign="Center" VertAlign="Center" Font="宋体, 18pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="51.25" Width="1047.06" Height="132.3">
+      <TextObject Name="Text8" Left="75.6" Top="103.95" Width="170.1" Height="28.35" Text="[tb_bill_receivable.bank_of_deposit]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text10" Left="623.7" Top="103.95" Width="349.65" Height="28.35" Text="[tb_bill_receivable.remark]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text9" Left="330.75" Top="103.95" Width="198.45" Height="28.35" Text="[tb_bill_receivable.bank_account]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text4" Left="75.6" Top="75.6" Width="170.1" Height="18.9" Text="[tb_bill_receivable.cust_name]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text5" Left="330.75" Top="75.6" Width="198.45" Height="18.9" Text="[tb_bill_receivable.payment_type]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text6" Left="623.7" Top="75.6" Width="160.65" Height="18.9" Text="[tb_bill_receivable.payment_money]" Format="Number" Format.UseLocale="true" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text2" Left="699.3" Top="37.8" Width="94.5" Height="18.9" Text="[tb_bill_receivable.order_date]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text1" Left="869.4" Top="37.8" Width="170.1" Height="18.9" Text="[tb_bill_receivable.order_num]" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text12" Left="803.25" Top="37.8" Width="66.15" Height="18.9" Text="单据号:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text13" Left="633.15" Top="37.8" Width="66.15" Height="18.9" Text="日期:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text15" Left="9.45" Top="75.6" Width="66.15" Height="18.9" Text="供应商:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text16" Left="264.6" Top="75.6" Width="66.15" Height="18.9" Text="付款类型:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text32" Left="557.55" Top="75.6" Width="66.15" Height="18.9" Text="预付金额:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text34" Left="9.45" Top="103.95" Width="66.15" Height="28.35" Text="开户银行:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text35" Left="264.6" Top="103.95" Width="66.15" Height="28.35" Text="银行帐户:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text36" Left="557.55" Top="103.95" Width="66.15" Height="28.35" Text="备注:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      <TextObject Name="Text17" Left="926.1" Top="9.45" Width="94.5" Height="18.9" Text="[PageNofM]" Font="宋体, 9pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="238.8" Width="1047.06" Height="28.35" DataSource="tb_payment_detail">
+      <TextObject Name="Text51" Width="103.95" Height="28.35" Border.Lines="All" Text="[tb_payment_detail.money]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text52" Left="103.95" Width="122.85" Height="28.35" Border.Lines="All" Text="[tb_payment_detail.balance_way_name]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text53" Left="226.8" Width="141.75" Height="28.35" Border.Lines="All" Text="[tb_payment_detail.account_name]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text54" Left="368.55" Width="160.65" Height="28.35" Border.Lines="All" Text="[tb_payment_detail.bank_of_deposit]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text55" Left="529.2" Width="189" Height="28.35" Border.Lines="All" Text="[tb_payment_detail.bank_account]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text56" Left="718.2" Width="122.85" Height="28.35" Border.Lines="All" Text="[tb_payment_detail.check_number]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text57" Left="841.05" Width="198.45" Height="28.35" Border.Lines="All" Text="[tb_payment_detail.remark]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <DataHeaderBand Name="DataHeader3" Top="187.55" Width="1047.06" Height="47.25" CanBreak="true">
+        <TextObject Name="Text58" Top="28.35" Width="103.95" Height="18.9" Border.Lines="All" Text="金额" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text59" Left="103.95" Top="28.35" Width="122.85" Height="18.9" Border.Lines="Right, Top, Bottom" Text="结算方式" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text60" Left="226.8" Top="28.35" Width="141.75" Height="18.9" Border.Lines="Right, Top, Bottom" Text="付款帐户" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text61" Left="368.55" Top="28.35" Width="160.65" Height="18.9" Border.Lines="Right, Top, Bottom" Text="开户银行" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text62" Left="529.2" Top="28.35" Width="189" Height="18.9" Border.Lines="Right, Top, Bottom" Text="银行帐户" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text63" Left="718.2" Top="28.35" Width="122.85" Height="18.9" Border.Lines="Right, Top, Bottom" Text="票号" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text64" Left="841.05" Top="28.35" Width="198.45" Height="18.9" Border.Lines="Right, Top, Bottom" Text="备注" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text48" Top="9.45" Width="94.5" Height="18.9" Text="付款明细:" VertAlign="Center" Font="宋体, 9pt, style=Bold"/>
+      </DataHeaderBand>
+    </DataBand>
+    <DataBand Name="Data2" Top="322.4" Width="1047.06" Height="28.35" DataSource="tb_balance_documents">
+      <TextObject Name="Text65" Width="226.8" Height="28.35" Border.Lines="All" Text="[tb_balance_documents.documents_name]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text66" Left="226.8" Width="255.15" Height="28.35" Border.Lines="All" Text="[tb_balance_documents.documents_num]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text67" Left="481.95" Width="198.45" Height="28.35" Border.Lines="All" Text="[tb_balance_documents.documents_date]" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text68" Left="680.4" Width="160.65" Height="28.35" Border.Lines="All" Text="[tb_balance_documents.billing_money]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text71" Left="841.05" Width="198.45" Height="28.35" Border.Lines="All" Text="[tb_balance_documents.settlement_money]" Format="Number" Format.UseLocale="true" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+      <DataHeaderBand Name="DataHeader1" Top="271.15" Width="1047.06" Height="47.25">
+        <TextObject Name="Text73" Top="28.35" Width="226.8" Height="18.9" Border.Lines="All" Text="单据名称" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text74" Left="226.8" Top="28.35" Width="255.15" Height="18.9" Border.Lines="All" Text="单据编号" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text75" Left="481.95" Top="28.35" Width="198.45" Height="18.9" Border.Lines="All" Text="单据日期" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text76" Left="680.4" Top="28.35" Width="160.65" Height="18.9" Border.Lines="All" Text="开单金额" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text79" Left="841.05" Top="28.35" Width="198.45" Height="18.9" Border.Lines="All" Text="本次结算" Format="Number" Format.UseLocale="true" HorzAlign="Center" VertAlign="Center" Font="宋体, 9pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text11" Top="9.45" Width="94.5" Height="18.9" Text="结算单据:" VertAlign="Center" Font="宋体, 9pt, style=Bold"/>
+      </DataHeaderBand>
+      <DataFooterBand Name="DataFooter1" Top="354.75" Width="1047.06" Height="66.15">
+        <TextObject Name="Text25" Left="387.45" Top="9.45" Width="122.85" Height="18.9" Text="[tb_bill_receivable.org_name]" Font="宋体, 9pt"/>
+        <TextObject Name="Text26" Left="623.7" Top="9.45" Width="122.85" Height="18.9" Text="[tb_bill_receivable.operator_name]" Font="宋体, 9pt"/>
+        <TextObject Name="Text27" Left="859.95" Top="9.45" Width="170.1" Height="18.9" Text="[tb_bill_receivable.operator_name]" Font="宋体, 9pt"/>
+        <TextObject Name="Text37" Left="311.85" Top="9.45" Width="75.6" Height="18.9" Text="部门:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text38" Left="538.65" Top="9.45" Width="85.05" Height="18.9" Text="经办人:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text39" Left="765.45" Top="9.45" Width="94.5" Height="18.9" Text="操作人:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text83" Left="765.45" Top="37.8" Width="94.5" Height="18.9" Text="打印时间:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+        <TextObject Name="Text30" Left="623.7" Top="37.8" Width="122.85" Height="18.9" Text="[tb_bill_receivable.print_name]" Font="宋体, 9pt"/>
+        <TextObject Name="Text31" Left="859.95" Top="37.8" Width="170.1" Height="18.9" Text="[Date]" Format="Date" Format.Format="yyyy-MM-dd HH:mm:ss" Font="宋体, 9pt"/>
+        <TextObject Name="Text82" Left="538.65" Top="37.8" Width="85.05" Height="18.9" Text="打印人:" HorzAlign="Right" VertAlign="Center" Font="宋体, 9pt"/>
+      </DataFooterBand>
+    </DataBand>
+  </ReportPage>
+</Report>

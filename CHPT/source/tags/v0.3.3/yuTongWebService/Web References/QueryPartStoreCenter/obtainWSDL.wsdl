@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isg.yutong.com/partStoreCenter/" targetNamespace="http://isg.yutong.com/partStoreCenter/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://isgqas.yutong.com:2222/ISG/obtainXsd?serviceID=partStoreCenterQuery" namespace="http://isg.yutong.com/partStoreCenter/" />
+    </xsd:schema>
+  </types>
+  <message name="partStoreCenterQuery">
+    <part name="parameters" element="tns:partStoreCenterQuery" />
+  </message>
+  <message name="partStoreCenterQueryResponse">
+    <part name="parameters" element="tns:partStoreCenterQueryResponse" />
+  </message>
+  <portType name="partStoreCenterQueryPort">
+    <operation name="partStoreCenterQuery">
+      <input message="tns:partStoreCenterQuery" />
+      <output message="tns:partStoreCenterQueryResponse" />
+    </operation>
+  </portType>
+  <binding name="partStoreCenterQueryBinding" type="tns:partStoreCenterQueryPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="partStoreCenterQuery">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="partStoreCenterQueryService">
+    <port name="partStoreCenterQueryPort" binding="tns:partStoreCenterQueryBinding">
+      <soap:address location="https://isgqas.yutong.com:2222/ISG/ws/invokeService" />
+    </port>
+  </service>
+</definitions>

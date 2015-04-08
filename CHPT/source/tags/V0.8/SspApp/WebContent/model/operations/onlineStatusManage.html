@@ -1,0 +1,67 @@
+<!--系统监控-在线状态 onlineStatusManage-->
+<!--sidebox-->
+    <div class="sidebox leftTreeContainer">
+    </div>
+<!--main-->
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>当前位置：</font>
+            <font>系统监控</font> ->
+            <font>服务端状态</font>
+        </div>
+               <div class="m3">
+            <div class="">
+            	<!--查询条件-->
+                <div class=" lineS69c h90 p5 tit5 overh onlineStatusTerm">
+                    <form name="onlineForm">
+                    	<div class=" h35">
+                    	<span class="btn4 fl mr10 exportGrid">导 出</span>
+                    	</div>
+                    	<div class=" h30">
+                    	<div class="h30 lh30 fl w180">
+                     	   公司名称：<input type="text" name="comName"/>
+                    	</div>
+                    	<div class="h30 lh30 fl w180">
+                     	  联系人：<input type="text" name="comContact"/>
+                    	</div>
+            	        <div class="h30 lh30 fl w300">
+                            注册时间：
+	                         <input id="d009" type="text" readonly="readonly" class="Wdate" name="registTimeStart" value="" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d010\')||\'2020-10-01\'}'})"/> 至
+	                         <input id="d010" type="text" readonly="readonly" class="Wdate" name="registEndTimeEnd" value="" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d009\')}',maxDate:'2020-10-01'})"/>
+                    	</div>
+						</div>
+                    	<div>
+                        <div class="h30 lh30 fl w60 tr">
+                            所在地：
+                        </div>
+                        <div class="h30 lh30 fl w100 pt3">
+                            <select name="corpProvince"></select>
+                        </div>
+                        <div class="h30 lh30 fl w100 pt3">
+                            <select name="corpCity"></select>
+                        </div>
+                        <div class="h30 lh30 fl w120 pt3">
+                            <select name="corpCounty"></select>
+                        </div>
+                        <div class="h30 lh30 fl w220">
+                            服务端在线状态：
+                            <select name="serviceStatus">
+                            	<option value="">请选择</option>
+                            	<option value="0">在线</option>
+                                <option value="1">离线</option>
+                            </select>
+                        </div>
+                    	</div>
+                        <span class="btn1 cFFF fl ml10 queryButton">查询</span>
+                        <span class="btn4 fl ml10 resetButton">清除</span>
+                    </form>
+                </div>
+                <!--数据显示-->
+                <div class="lineS mt3 bcFFF gridContainerWrap">
+                    <div class="gridContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>

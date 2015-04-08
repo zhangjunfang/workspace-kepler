@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isg.yutong.com/partSale/" targetNamespace="http://isg.yutong.com/partSale/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://isgqas.yutong.com:2222/ISG/obtainXsd?serviceID=partSaleSU" namespace="http://isg.yutong.com/partSale/" />
+    </xsd:schema>
+  </types>
+  <message name="partSaleSU">
+    <part name="parameters" element="tns:partSaleSU" />
+  </message>
+  <message name="partSaleSUResponse">
+    <part name="parameters" element="tns:partSaleSUResponse" />
+  </message>
+  <portType name="partSaleSUPort">
+    <operation name="partSaleSU">
+      <input message="tns:partSaleSU" />
+      <output message="tns:partSaleSUResponse" />
+    </operation>
+  </portType>
+  <binding name="partSaleSUBinding" type="tns:partSaleSUPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="partSaleSU">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="partSaleSUService">
+    <port name="partSaleSUPort" binding="tns:partSaleSUBinding">
+      <soap:address location="https://isgqas.yutong.com:2222/ISG/ws/invokeService" />
+    </port>
+  </service>
+</definitions>

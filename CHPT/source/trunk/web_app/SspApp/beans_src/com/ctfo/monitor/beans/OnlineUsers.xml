@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="OnlineUsers">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <resultMap class="com.ctfo.monitor.beans.OnlineUsers" id="OnlineUsers">
+    <result column="tb_user_online_id" property="tbUserOnlineId" jdbcType="VARCHAR" />
+    <result column="com_code" property="comCode" jdbcType="VARCHAR" />
+    <result column="com_name" property="comName" jdbcType="VARCHAR" />
+    <result column="book_id" property="setbookId" jdbcType="VARCHAR" />
+    <result column="setbook_name" property="setbookName" jdbcType="VARCHAR" />
+    <result column="client_account" property="clientAccount" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="client_account_orgid" property="clientAccountOrgid" jdbcType="VARCHAR" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="is_operater" property="isOperater" jdbcType="VARCHAR" />
+    <result column="reg_time" property="regTime" jdbcType="BIGINT" />
+    <result column="load_time" property="loadTime" jdbcType="BIGINT" />
+    <result column="load_id_addr" property="loadIdAddr" jdbcType="VARCHAR" />
+    <result column="online_status" property="onlineStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="where">
+    WHERE 1=1
+  </sql> 
+  <sql id="where_param">
+    <include refid="where" />
+    <include refid="equal_WHERE" />
+    <include refid="like_WHERE" />
+  </sql>
+  <sql id="like_WHERE">
+  <isNotNull prepend="AND" property="like.comName">
+      com.COM_NAME like CONCAT('%',#like.comName:VARCHAR#,'%')
+  </isNotNull>
+  <isNotNull prepend="AND" property="like.setbookName">
+      bo.setbook_name like CONCAT('%',#like.setbookName:VARCHAR#,'%')
+  </isNotNull>
+  <isNotNull prepend="AND" property="like.clientAccount">
+      li.client_account like CONCAT('%',#like.clientAccount:VARCHAR#,'%')
+  </isNotNull>  
+  </sql> 
+  <sql id="equal_WHERE">
+  <isNotNull prepend="AND" property="equal.registTimeStart">
+      <![CDATA[(#equal.registTimeStart:VARCHAR# <= li.reg_time )]]>
+  </isNotNull>
+  <isNotNull prepend="AND" property="equal.registEndTimeEnd">
+      <![CDATA[(#equal.registEndTimeEnd:VARCHAR# >= li.reg_time )]]>
+  </isNotNull>  
+  <isNotNull prepend="AND" property="equal.landTimeStart">
+      <![CDATA[(#equal.landTimeStart:VARCHAR# <= li.load_time )]]>
+  </isNotNull>
+  <isNotNull prepend="AND" property="equal.landEndTimeEnd">
+      <![CDATA[(#equal.registEndTimeEnd:VARCHAR# >= li.load_time )]]>
+  </isNotNull> 
+  <isNotNull prepend="AND" property="equal.onlineStatus">
+     li.online_status =  #equal.onlineStatus:VARCHAR#
+  </isNotNull> 
+  and li.online_status = '1'
+  </sql> 
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1) FROM  
+    (SELECT 
+	  li.tb_user_online_id,
+	  li.com_code,
+	  li.book_id,
+	  com.com_name,
+	  org.org_name as client_account_orgid,
+	  li.role_name,
+	  bo.setbook_name,
+	  li.client_account,
+	  li.real_name,
+	  li.is_operater,
+	  li.reg_time,
+	  li.load_time,
+	  li.load_id_addr,
+	  li.online_status 
+	FROM
+	  tb_ssp_user_online li
+	  LEFT JOIN 
+	  tb_company com ON 
+	  li.com_code = com.com_code
+	  LEFT JOIN 
+	  tb_organization org ON
+	  li.client_account_orgid = org.org_id
+	  LEFT JOIN 
+	  sys_setbook bo ON
+	  li.setbook_name = bo.set_book_id
+	    <include refid="where_param" />
+    ) BB
+  </select>
+  <select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="OnlineUsers">
+	SELECT BB.* FROM 
+    (SELECT 
+	  li.tb_user_online_id,
+	  li.com_code,
+	  li.book_id,
+	  com.com_name,
+	  org.org_name as client_account_orgid,
+	  li.role_name,
+	  bo.setbook_name,
+	  li.client_account,
+	  li.real_name,
+	  li.is_operater,
+	  li.reg_time,
+	  li.load_time,
+	  li.load_id_addr,
+	  li.online_status 
+	FROM
+	  tb_ssp_user_online li
+	  LEFT JOIN 
+	  tb_company com ON 
+	  li.com_code = com.com_code
+	  LEFT JOIN 
+	  tb_organization org ON
+	  li.client_account_orgid = org.org_id
+	  LEFT JOIN 
+	  sys_setbook bo ON
+	  li.setbook_name = bo.set_book_id
+	    <include refid="where_param" />
+	  order by li.reg_time desc
+    ) BB
+    LIMIT #startNum#,#pagesize#
+  </select>
+  
+</sqlMap>

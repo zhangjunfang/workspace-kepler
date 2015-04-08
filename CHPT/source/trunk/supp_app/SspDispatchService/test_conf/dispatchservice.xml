@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<system desc="系统参数配置">
+		<property name="listenPort" desc="监听端口">${listenPort}</property>
+	</system>
+    	
+	<redis desc="Redis缓存服务客户端配置">
+		<property name="host" desc="Redis服务器IP">${redisHost}</property>
+		<property name="port" desc="Redis服务器端口">${redisPort}</property>
+		<property name="pass" desc="Redis密码">${redisPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="maxIdle" desc="最大空闲连接数">10</property>
+		<property name="maxWait" desc="最大等待时间(毫秒)">3000</property>
+		<property name="timeOut" desc="连接超时时间">3000</property>
+	</redis>
+	
+	<mongo desc="Mongo缓存服务客户端配置">
+		<property name="host" desc="Mongo服务器IP">${mongoHost}</property>
+		<property name="port" desc="Mongo服务器端口">${mongoPort}</property>
+		<property name="dbName" desc="数据库名称">${mongoDbName}</property>
+		<property name="fileDir" desc="文件库名称">${mongoFileDir}</property>
+	</mongo>
+	
+	<receive desc="接收数据配置">
+		<property name="port" desc="通讯服务器端口">${msgPort}</property>
+		<property name="user" desc="通讯服务器登录名">${msgLoginName}</property>
+		<property name="pass" desc="通讯服务器登录密码">${msgLoginPassword}</property>
+		<property name="filePort" desc="文件通讯服务器端口">${msgFilePort}</property>
+	</receive>
+	
+	<mysql desc="mysql缓存服务客户端配置">
+		<property name="url" desc="mysql连接地址">jdbc:mysql://${mysqlUrl}/ssp?useUnicode=true&amp;characterEncoding=utf8</property>
+		<property name="username" desc="mysql登录用户名">${mysqlUser}</property>
+		<property name="password" desc="mysql登录密码">${mysqlPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="minIdle" desc="最大空闲连接数">10</property>
+		<property name="initialSize" desc="初始化连接数量">10</property>
+		
+		<property name="sql_updateTbComInfo" desc="更新服务站在线状态 ">
+			UPDATE TB_SSP_COM_INFO
+			   SET service_status = ?, yt_crm_linked_status = ?, mac_address = ?, service_version = ?
+			 WHERE com_id = ?
+		</property>
+		
+		<property name="sql_deleteTbUserOnline" desc="删除在线用户信息">
+			DELETE FROM TB_SSP_USER_ONLINE WHERE tb_user_online_id = ?
+		</property>
+		
+		<property name="sql_insertTbUserOnline" desc="添加在线用户信息">
+			INSERT INTO TB_SSP_USER_ONLINE (tb_user_online_id, com_code, com_name, book_id, setbook_name,
+		        client_account, real_name, client_account_orgid, role_name, is_operater, reg_time,
+		        load_time, load_id_addr, online_status, client_mac)
+		    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		</property>
+		
+		<property name="sql_insertTbUserBehaviorMonitor" desc="添加用户行为监控信息">
+			INSERT INTO TB_SSP_USER_BEHAVIOR_MONITOR (u_oper_id, com_name, setbook_name, client_account, 
+				role_name, org_name, load_id_addr, client_mac, watch_time, online_type)
+		    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+		</property>
+		
+		<property name="sql_insertTlUserFunctionLog" desc="添加访问统计信息">
+			INSERT INTO TL_SSP_USER_FUNCTION_LOG (u_f_log_id, user_id, com_id, setbook_id, access_time, fun_id)
+		    VALUES (?, ?, ?, ?, ?, ?)
+		</property>
+	</mysql>
+	
+	<commit desc="批量提交配置">
+		<property name="commitBatchCount" desc="批量提交数">${commitBatchCount}</property>
+		<property name="commitBatchTime" desc="批量提交时间">${commitBatchTime}</property>
+	</commit>
+	
+	<protocol desc="消息子类型对应实体">
+		<!-- 表主键对应表 -->
+		<property name="TbMaintainInfo" desc="维修单表">MaintainId#1_1</property>
+		<property name="TbMaintainMaterialDetail" desc="维修用料表">MaterialId#1_2</property>
+		<property name="TbMaintainSettlementInfo" desc="维修结算信息表">SettlementId#1_3</property>
+		<property name="TbMaintainBackRepair" desc="维修返修单表">RepairId#1_4</property>
+		<property name="TbMaintainItem" desc="维修项目表">ItemId#1_5</property>
+		<property name="TbMaintainReservation" desc="维修预约单表">ReservId#1_6</property>
+		<property name="TbMaintainAccessory" desc="维修预约附件信息表">AccessoryId#1_7</property>
+		<property name="TbMaintainMaterialDetailFetchRefund" desc="领料/退料明细表">MaterialId#1_8</property>
+		<property name="TbMaintainFetchMaterial" desc="领料单信息表">FetchId#1_9</property>
+		<property name="TbMaintainRefundMaterial" desc="领料退货单信息表">RefundId#1_10</property>
+		<property name="TbMaintainOldpartRecycle" desc="车厂旧件返厂单表">ReturnId#1_11</property>
+		<property name="TbMaintainOldpartRecycleMaterialDetail" desc="车厂旧件返厂单明细表">PartsId#1_12</property>
+		<property name="TbMaintainOldpartInventory" desc="旧件库存表">InventoryId#1_13</property>
+		<property name="TbMaintainOldpartMaterialDetail" desc="旧件收/发明细表">PartsId#1_14</property>
+		<property name="TbMaintainOldpartReceivSend" desc="旧件收/发货单">OldpartId#1_15</property>
+		<property name="TbMaintainThreeGuarantySettlement" desc="三包结算单">StId#1_16</property>
+		<property name="TbMaintainThreeGuarantySettlementOth" desc="其他费用结算单">CostId#1_17</property>
+		<property name="TbMaintainThreeGuarantyToll" desc="宇通三包其它收费项目表">TollId#1_18</property>
+		<property name="TbMaintainThreeGuaranty" desc="宇通三包服务单表">TgId#1_19</property>
+		<property name="TbMaintainThreeGuarantyMaterialDetail" desc="宇通三包维修用料表">MaterialId#1_20</property>
+		<property name="TbMaintainThreeGuarantyItem" desc="宇通三包维修项目表">ItemId#1_21</property>
+		<property name="TbMaintainThreeGuarantyAccessory" desc="宇通三包附件信息">AccessoryId#1_22</property>
+		<property name="TbMaintainThreeGuarantySettlementOld" desc="旧件结算单">OldId#1_23</property>
+		<property name="TbMaintainThreeGuarantySettlementInv" desc="浏览结算单发票">InvoiceId#1_24</property>
+		<property name="TbMaintainThreeGuarantySettlementSer" desc="维修服务单">SerId#1_25</property>
+		<property name="TbMaintainRefundMaterialDetai" desc="领料退货单明细表">MaterialId#1_26</property>
+		<property name="TbMaintainFetchMaterialDetai" desc="领料明细表">MaterialId#1_27</property>
+		<property name="TbMaintainDispatchWorker" desc="派工人员表">DispatchId#1_28</property>
+		<property name="TbMaintainOtherToll" desc="其它收费项目表">TollId#1_29</property>
+		<property name="TbMaintainRescueInfo" desc="救援单信息表">RescueId#1_30</property>
+		<property name="TbMaintainRescueWorker" desc="救援人员表">RescuerId#1_31</property>
+		<property name="TbMaintainThreeMaterialApprove" desc="宇通三包服务单审批状态详情">ApproveId#1_32</property>
+		<property name="TbOperatingRecord" desc="操作记录信息表">RecordId#1_33</property>
+		<property name="TrMaintainProcess" desc="维修业务过程关系表">ProcessId#1_34</property>
+		
+		<property name="TbOrganization" desc="组织信息表">OrgId#2_1</property>
+		<property name="SysUser" desc="人员信息表">UserId#2_2</property>
+		<property name="SysRole" desc="角色信息表">RoleId#2_3</property>
+		<property name="SysFunction" desc="功能菜单表">FunId#2_4</property>
+		<property name="TrUserRole" desc="人员与角色关系表">UserRoleId#2_5</property>
+		<property name="TrUserFunction" desc="人员与常用功能关系表">UserFunId#2_6</property>
+		<property name="TrRoleFunction" desc="角色与系统功能关系表">RoleFunId#2_7</property>
+		
+		<property name="TbPartsPurchasePlan" desc="采购计划单">PlanId#3_1</property>
+		<property name="TbPartsPurchasePlanP" desc="采购计划单-配件">Id#3_2</property>
+		<property name="TbPartsPurchaseOrder" desc="采购订单">OrderId#3_3</property>
+		<property name="TbPartsPurchaseOrderP" desc="采购订单-配件">Id#3_4</property>
+		<property name="TbPartsPurchaseOrder2" desc="宇通采购订单">PurchaseOrderYtId#3_5</property>
+		<property name="TbPartsPurchaseOrderP2" desc="宇通采购订单-配件">Id#3_6</property>
+		<property name="TbPartsPurchaseBilling" desc="采购开单">PurchaseBillingId#3_7</property>
+		<property name="TbPartsPurchaseBillingP" desc="采购开单-配件">Id#3_8</property>
+		<property name="TbPartsPurchasePrice" desc="采购调价单">PurchasePriceId#3_9</property>
+		<property name="TbPartsPurchasePriceP" desc="采购调价单-配件">Id#3_10</property>
+		<property name="TbPartsSalePlan" desc="销售计划单">SalePlanId#3_11</property>
+		<property name="TbPartsSalePlanP" desc="销售计划单-配件表">SalePlanPartsId#3_12</property>
+		<property name="TbPartsSaleOrder" desc="销售订单表">SaleOrderId#3_13</property>
+		<property name="TbPartsSaleOrderP" desc="销售订单-配件表">SaleOrderPartsId#3_14</property>
+		<property name="TbPartsSaleBilling" desc="销售开单表">SaleBillingId#3_15</property>
+		<property name="TbPartsSaleBillingP" desc="销售开单-配件表">SaleBillingPartsId#3_16</property>
+		<property name="TbPartsStockInout" desc="出入库单表">StockInoutId#3_17</property>
+		<property name="TbPartsStockInoutP" desc="出入库单-配件表">StockInoutPartsId#3_18</property>
+		<property name="TbPartsStockAllot" desc="调拨单表">StockAllotId#3_19</property>
+		<property name="TbPartsStockAllotP" desc="调拨单-配件表">StockAllotPartsId#3_20</property>
+		<property name="TbPartsStockLoss" desc="报损单表">StockLossId#3_21</property>
+		<property name="TbPartsStockLossP" desc="报损单-配件表">StockLossPartsId#3_22</property>
+		<property name="TbPartsStockCheck" desc="盘点单表">StockCheckId#3_23</property>
+		<property name="TbPartsStockCheckP" desc="盘点单-配件表">StockCheckPartsId#3_24</property>
+		<property name="TbPartsStockModifyprice" desc="调价单表">StockModifypriceId#3_25</property>
+		<property name="TbPartsStockModifypriceP" desc="调价单-配件">StockModifypricePartsId#3_26</property>
+		<property name="TbPartsStockShipping" desc="其他发货单">StockShippingId#3_27</property>
+		<property name="TbPartsStockShippingP" desc="其他发货单-配件">StockShippingPartsId#3_28</property>
+		<property name="TbPartsStockReceipt" desc="其他收货单">StockReceiptId#3_29</property>
+		<property name="TbPartsStockReceiptP" desc="其他收货单-配件">StockReceiptPartsId#3_30</property>
+		<property name="TbPartsStockP" desc="库存统计表">StockId#3_31</property>
+		<property name="TbDistribution" desc="配送单">DistributionId#3_32</property>
+		<property name="TbDistributionParts" desc="配送单-配件">DistributionPartsId#3_33</property>
+		<property name="TrHourseParts" desc="配件关系表">Id#3_34</property>
+		
+		<property name="TbPaymentDetail" desc="应收付款明细表">PaymentDetailId#4_1</property>
+		<property name="TbBillReceivable" desc="应收应付款单">PayableSingleId#4_2</property>
+		<property name="TbAccountVerification" desc="往来帐核销">AccountVerificationId#4_3</property>
+		<property name="TbVerificationnDocuments" desc="往来帐核销-业务单据">VerificationnDocumentsId#4_4</property>
+		<property name="TbBalanceDocuments" desc="结算单据">BalanceDocumentsId#4_5</property>
+		
+		<property name="TbCustomerserMember" desc="会员信息 (客户服务功能)">VipId#5_1</property>
+		<property name="TbCustomerserMemberSetinfo" desc="会员参数设置信息表">SetinfoId#5_2</property>
+		<property name="TbCustomerserMemberSetinfoProjrct" desc="会员参数设置特殊维修项目折扣表">Id#5_3</property>
+		<property name="TbCustomerserMemberSetinfoParts" desc="会员参数设置特殊配件折扣表">Id#5_4</property>
+		<property name="TbCustomerserCallback" desc="客户回访记录表">CallbackId#5_5</property>
+		<property name="TbCustomerserFeedback" desc="信息反馈记录表">FeedbackId#5_6</property>
+		<property name="TbCustomerserFeedbackDispose" desc="信息反馈记录处理记录">FeedbackId#5_7</property>
+		<property name="TbCustomerserFeedbackApprove" desc="信息反馈记录审批记录">FeedbackId#5_8</property>
+		
+		<property name="TbWarehouse" desc="仓库档案表">WhId#6_1</property>
+		<property name="TbCargoSpace" desc="仓库货位档案">CsId#6_2</property>
+		<property name="TbSupplier" desc="供应商档案">SupId#6_3</property>
+		<property name="TbCompany" desc="公司档案">ComId#6_4</property>
+		<property name="TbDriver" desc="司机档案">DriverId#6_5</property>
+		<property name="TbCustomer" desc="客户档案">CustId#6_6</property>
+		<property name="TbWorkhours" desc="工时档案">WhoursId#6_7</property>
+		<property name="TbVehicleModels" desc="车型档案">VmId#6_8</property>
+		<property name="TbVehicle" desc="车辆档案">VId#6_9</property>
+		<property name="TbParts" desc="配件档案">PartsId#6_10</property>
+		<property name="TbPartsPrice" desc="配件价格信息">PpId#6_11</property>
+		<property name="TbPartsReplace" desc="替代配件">ReplaceId#6_12</property>
+		<property name="TbPartsForVehicle" desc="适用车型">ForvId#6_13</property>
+		<property name="TbPartsSetup" desc="单位设置">SetId#6_14</property>
+		<property name="SysDictionaries" desc="字典码表">DicId#6_15</property>
+		<property name="TbContacts" desc="联系人">ContId#6_16</property>
+		<property name="AttachmentInfo" desc="附件信息">AttId#6_17</property>
+		<property name="TrDriverVehicle" desc="司机与车辆关系">DirVId#6_18</property>
+		<property name="TbSigningInfo" desc="用户注册信息">SignId#6_19</property>
+		<property name="TbSigningInfo2" desc="用户注册信息-宇通">SignYtId#6_20</property>
+		<property name="TbProductNo" desc="产品改进号">PNoId#6_21</property>
+		<property name="TbProductNoVehicle" desc="产品改进号-车辆">PNoVId#6_22</property>
+		<property name="TbProductNoPart" desc="产品改进号-配件">PNoPartId#6_23</property>
+		<property name="TbFaultClass" desc="故障分类">FaultClassId#6_24</property>
+		<property name="TbFaultAssembly" desc="故障总成">FaultAssemblyId#6_25</property>
+		<property name="TbFaultComponent" desc="故障总成部件">FaultComponentId#6_26</property>
+		<property name="TbFaultModel" desc="故障模式">FaultModelId#6_27</property>
+		<property name="TrComponentModel" desc="部件和故障模式关系">ComponentModelId#6_28</property>
+		<property name="TrBaseContacts" desc="主数据和联系人关联表">Id#6_29</property>
+		<property name="SysConfig" desc="全局配置表">Id#6_30</property>
+		<property name="TrOrderRelation" desc="关联表">OrderRelationId#6_31</property>
+		<property name="SysArea" desc="区域表">AreaCode#6_32</property>
+		<property name="TbBankAccount" desc="银行帐号设置">BankAccountId#6_33</property>
+		<property name="TbBalanceWay" desc="结算方式设置">BalanceWayId#6_34</property>
+		<property name="TbPrintStyle" desc="打印模板表">StyleId#6_35</property>
+		<property name="TbReportSet" desc="报表自定义列">SetId#6_36</property>
+		
+		<property name="SysBillCodeRule" desc="单据编码生成规则">BillCodeRuleId#7_1</property>
+		<property name="SysAutomaticLockScreen" desc="自动锁屏设置">LockScreenId#7_2</property>
+		<property name="SysLoginTimeLimit" desc="登录时间限制">LoginTimeLimitId#7_3</property>
+		<property name="SysLoginPcSet" desc="登录电脑设置">LoginPcSetId#7_4</property>
+		<property name="SysSetbook" desc="帐套">SetBookId#7_5</property>
+		<property name="SysRepairParam" desc="维修业务参数">RParamId#7_6</property>
+		<property name="SysPurchaseParam" desc="采购业务参数">PurchaseParamId#7_7</property>
+		<property name="SysSaleParam" desc="销售业务参数">SaleParamId#7_8</property>
+		<property name="SysStockParam" desc="库存业务参数">StockParamId#7_9</property>
+		<property name="SysFinancialSerParam" desc="财务业务参数">FinancialSerParamId#7_10</property>
+		<property name="SysBusinessSetBill" desc="业务设置-单据">BusinessSetBillId#7_11</property>
+		<property name="SysBSetRepairPackageSet" desc="业务设置-维修套餐设置">RepairPackageSetId#7_12</property>
+		<property name="SysBSetRepairPackageSetVModel" desc="业务设置-维修套餐设置-车型">RepairPackageSetVModelId#7_13</property>
+		<property name="SysBSetRepairPackageSetProject" desc="业务设置-维修套餐设置-维修项目">RepairPackageSetProjectId#7_14</property>
+		<property name="SysBSetRepairPackageSetMaterials" desc="业务设置-维修套餐设置-维修用料">RepairPackageSetMaterialsId#7_15</property>
+		<property name="SysBSetRepairPackageSetOther" desc="单据编码生成规则">RepairPackageSetOtherId#7_16</property>
+		<property name="SysBSetStock" desc="自动锁屏设置">BSetStockId#7_17</property>
+		<property name="SysAnnouncement" desc="登录时间限制">AnnouncementId#7_18</property>
+		<property name="SysAnnouncementOrg" desc="登录电脑设置">AnnouncementOrgId#7_19</property>
+		<property name="SysAnnouncementUser" desc="帐套">AnnouncementUserId#7_20</property>
+		<property name="SysRemindingSet" desc="维修业务参数">RemindingSetId#7_21</property>
+		<property name="SysAlarmSet" desc="采购业务参数">AlarmSetId#7_22</property>
+		<property name="SysBankAccountSet" desc="销售业务参数">BankAccountSetId#7_23</property>
+		<property name="SysCashierAccountSet" desc="采购业务参数">CashierAccountSetId#7_24</property>
+		<property name="SysSettlementWaySet" desc="销售业务参数">SettlementWaySetId#7_25</property>
+		<property name="SysCsServerSet" desc="CS服务端设置">CsServerSetId#7_26</property>
+		<property name="SysDataSync" desc="数据同步">DataSyncId#7_27</property>
+		<property name="SysDataSyncLog" desc="数据同步日志">DataSyncLogId#7_28</property>
+		<property name="SysDatabaseSet" desc="数据库设置">DatabaseSetId#7_29</property>
+		<property name="SysLogLog" desc="登录日志">LogLogId#7_30</property>
+		<property name="SysServiceOperationLog" desc="服务运行日志">ServiceOperationLogId#7_31</property>
+		<property name="SysAutoBackupSet" desc="自动备份设置">AutoBackupSetId#7_32</property>
+		<property name="SysCloudBackupSet" desc="云备份设置">Id#7_33</property>
+		
+		<!-- 实体包的目录 -->
+		<property name="U1" desc="维修管理">maintain</property>
+		<property name="U2" desc="权限管理 ">permission</property>
+		<property name="U3" desc="库存模块">parts</property>
+		<property name="U4" desc="财务管理">finance</property>
+		<property name="U5" desc="会员管理">member</property>
+		<property name="U6" desc="基础数据">basedata</property>
+		<property name="U7" desc="系统设置">systemsettings</property>
+		<property name="F" desc="附件">file</property>
+		<property name="T" desc="支撑">support</property>
+		
+		<!-- 维修管理 -->
+		<property name="U1_1" desc="维修单表">TbMaintainInfo</property>
+		<property name="U1_2" desc="维修用料表">TbMaintainMaterialDetail</property>
+		<property name="U1_3" desc="维修结算信息表">TbMaintainSettlementInfo</property>
+		<property name="U1_4" desc="维修返修单表">TbMaintainBackRepair</property>
+		<property name="U1_5" desc="维修项目表">TbMaintainItem</property>
+		<property name="U1_6" desc="维修预约单表">TbMaintainReservation</property>
+		<property name="U1_7" desc="维修预约附件信息表">TbMaintainAccessory</property>
+		<property name="U1_8" desc="领料/退料明细表">TbMaintainMaterialDetailFetchRefund</property>
+		<property name="U1_9" desc="领料单信息表">TbMaintainFetchMaterial</property>
+		<property name="U1_10" desc="领料退货单信息表">TbMaintainRefundMaterial</property>
+		<property name="U1_11" desc="车厂旧件返厂单表">TbMaintainOldpartRecycle</property>
+		<property name="U1_12" desc="车厂旧件返厂单明细表">TbMaintainOldpartRecycleMaterialDetail</property>
+		<property name="U1_13" desc="旧件库存表">TbMaintainOldpartInventory</property>
+		<property name="U1_14" desc="旧件收/发明细表">TbMaintainOldpartMaterialDetail</property>
+		<property name="U1_15" desc="旧件收/发货单">TbMaintainOldpartReceivSend</property>
+		<property name="U1_16" desc="三包结算单">TbMaintainThreeGuarantySettlement</property>
+		<property name="U1_17" desc="其他费用结算单">TbMaintainThreeGuarantySettlementOth</property>
+		<property name="U1_18" desc="宇通三包其它收费项目表">TbMaintainThreeGuarantyToll</property>
+		<property name="U1_19" desc="宇通三包服务单表">TbMaintainThreeGuaranty</property>
+		<property name="U1_20" desc="宇通三包维修用料表">TbMaintainThreeGuarantyMaterialDetail</property>
+		<property name="U1_21" desc="宇通三包维修项目表">TbMaintainThreeGuarantyItem</property>
+		<property name="U1_22" desc="宇通三包附件信息">TbMaintainThreeGuarantyAccessory</property>
+		<property name="U1_23" desc="旧件结算单">TbMaintainThreeGuarantySettlementOld</property>
+		<property name="U1_24" desc="浏览结算单发票">TbMaintainThreeGuarantySettlementInv</property>
+		<property name="U1_25" desc="维修服务单">TbMaintainThreeGuarantySettlementSer</property>
+		<property name="U1_26" desc="领料退货单明细表">TbMaintainRefundMaterialDetai</property>
+		<property name="U1_27" desc="领料明细表">TbMaintainFetchMaterialDetai</property>
+		<property name="U1_28" desc="派工人员表">TbMaintainDispatchWorker</property>
+		<property name="U1_29" desc="其它收费项目表">TbMaintainOtherToll</property>
+		<property name="U1_30" desc="救援单信息表">TbMaintainRescueInfo</property>
+		<property name="U1_31" desc="救援人员表">TbMaintainRescueWorker</property>
+		<property name="U1_32" desc="宇通三包服务单审批状态详情">TbMaintainThreeMaterialApprove</property>
+		<property name="U1_33" desc="操作记录信息表">TbOperatingRecord</property>
+		<property name="U1_34" desc="维修业务过程关系表">TrMaintainProcess</property>
+		
+		<!-- 权限管理 -->
+		<property name="U2_1" desc="组织信息表">TbOrganization</property>
+		<property name="U2_2" desc="人员信息表">SysUser</property>
+		<property name="U2_3" desc="角色信息表">SysRole</property>
+		<property name="U2_4" desc="功能菜单表">SysFunction</property>
+		<property name="U2_5" desc="人员与角色关系表">TrUserRole</property>
+		<property name="U2_6" desc="人员与常用功能关系表">TrUserFunction</property>
+		<property name="U2_7" desc="角色与系统功能关系表">TrRoleFunction</property>
+		
+		<!-- 库存模块 -->
+		<property name="U3_1" desc="采购计划单">TbPartsPurchasePlan</property>
+		<property name="U3_2" desc="采购计划单-配件">TbPartsPurchasePlanP</property>
+		<property name="U3_3" desc="采购订单">TbPartsPurchaseOrder</property>
+		<property name="U3_4" desc="采购订单-配件">TbPartsPurchaseOrderP</property>
+		<property name="U3_5" desc="宇通采购订单">TbPartsPurchaseOrder2</property>
+		<property name="U3_6" desc="宇通采购订单-配件">TbPartsPurchaseOrderP2</property>
+		<property name="U3_7" desc="采购开单">TbPartsPurchaseBilling</property>
+		<property name="U3_8" desc="采购开单-配件">TbPartsPurchaseBillingP</property>
+		<property name="U3_9" desc="采购调价单">TbPartsPurchasePrice</property>
+		<property name="U3_10" desc="采购调价单-配件">TbPartsPurchasePriceP</property>
+		<property name="U3_11" desc="销售计划单">TbPartsSalePlan</property>
+		<property name="U3_12" desc="销售计划单-配件表">TbPartsSalePlanP</property>
+		<property name="U3_13" desc="销售订单表">TbPartsSaleOrder</property>
+		<property name="U3_14" desc="销售订单-配件表">TbPartsSaleOrderP</property>
+		<property name="U3_15" desc="销售开单表">TbPartsSaleBilling</property>
+		<property name="U3_16" desc="销售开单-配件表">TbPartsSaleBillingP</property>
+		<property name="U3_17" desc="出入库单表">TbPartsStockInout</property>
+		<property name="U3_18" desc="出入库单-配件表">TbPartsStockInoutP</property>
+		<property name="U3_19" desc="调拨单表">TbPartsStockAllot</property>
+		<property name="U3_20" desc="调拨单-配件表">TbPartsStockAllotP</property>
+		<property name="U3_21" desc="报损单表">TbPartsStockLoss</property>
+		<property name="U3_22" desc="报损单-配件表">TbPartsStockLossP</property>
+		<property name="U3_23" desc="盘点单表">TbPartsStockCheck</property>
+		<property name="U3_24" desc="盘点单-配件表">TbPartsStockCheckP</property>
+		<property name="U3_25" desc="调价单表">TbPartsStockModifyprice</property>
+		<property name="U3_26" desc="调价单-配件">TbPartsStockModifypriceP</property>
+		<property name="U3_27" desc="其他发货单">TbPartsStockShipping</property>
+		<property name="U3_28" desc="其他发货单-配件">TbPartsStockShippingP</property>
+		<property name="U3_29" desc="其他收货单">TbPartsStockReceipt</property>
+		<property name="U3_30" desc="其他收货单-配件">TbPartsStockReceiptP</property>
+		<property name="U3_31" desc="库存统计表">TbPartsStockP</property>
+		<property name="U3_32" desc="配送单">TbDistribution</property>
+		<property name="U3_33" desc="配送单-配件">TbDistributionParts</property>
+		<property name="U3_34" desc="配件关系表">TrHourseParts</property>
+		
+		<!-- 财务管理 -->
+		<property name="U4_1" desc="应收付款明细表">TbPaymentDetail</property>
+		<property name="U4_2" desc="应收应付款单">TbBillReceivable</property>
+		<property name="U4_3" desc="往来帐核销">TbAccountVerification</property>
+		<property name="U4_4" desc="往来帐核销-业务单据">TbVerificationnDocuments</property>
+		<property name="U4_5" desc="结算单据">TbBalanceDocuments</property>
+		
+		<!-- 会员管理 -->
+		<property name="U5_1" desc="会员信息 (客户服务功能)">TbCustomerserMember</property>
+		<property name="U5_2" desc="会员参数设置信息表">TbCustomerserMemberSetinfo</property>
+		<property name="U5_3" desc="会员参数设置特殊维修项目折扣表">TbCustomerserMemberSetinfoProjrct</property>
+		<property name="U5_4" desc="会员参数设置特殊配件折扣表">TbCustomerserMemberSetinfoParts</property>
+		<property name="U5_5" desc="客户回访记录表">TbCustomerserCallback</property>
+		<property name="U5_6" desc="信息反馈记录表">TbCustomerserFeedback</property>
+		<property name="U5_7" desc="信息反馈记录处理记录">TbCustomerserFeedbackDispose</property>
+		<property name="U5_8" desc="信息反馈记录审批记录">TbCustomerserFeedbackApprove</property>
+		
+		<!-- 基础数据 -->
+		<property name="U6_1" desc="仓库档案表">TbWarehouse</property>
+		<property name="U6_2" desc="仓库货位档案">TbCargoSpace</property>
+		<property name="U6_3" desc="供应商档案">TbSupplier</property>
+		<property name="U6_4" desc="公司档案">TbCompany</property>
+		<property name="U6_5" desc="司机档案">TbDriver</property>
+		<property name="U6_6" desc="客户档案">TbCustomer</property>
+		<property name="U6_7" desc="工时档案">TbWorkhours</property>
+		<property name="U6_8" desc="车型档案">TbVehicleModels</property>
+		<property name="U6_9" desc="车辆档案">TbVehicle</property>
+		<property name="U6_10" desc="配件档案">TbParts</property>
+		<property name="U6_11" desc="配件价格信息">TbPartsPrice</property>
+		<property name="U6_12" desc="替代配件">TbPartsReplace</property>
+		<property name="U6_13" desc="适用车型">TbPartsForVehicle</property>
+		<property name="U6_14" desc="单位设置">TbPartsSetup</property>
+		<property name="U6_15" desc="字典码表">SysDictionaries</property>
+		<property name="U6_16" desc="联系人">TbContacts</property>
+		<property name="U6_17" desc="附件信息">AttachmentInfo</property>
+		<property name="U6_18" desc="司机与车辆关系">TrDriverVehicle</property>
+		<property name="U6_19" desc="用户注册信息">TbSigningInfo</property>
+		<property name="U6_20" desc="用户注册信息-宇通">TbSigningInfo2</property>
+		<property name="U6_21" desc="产品改进号">TbProductNo</property>
+		<property name="U6_22" desc="产品改进号-车辆">TbProductNoVehicle</property>
+		<property name="U6_23" desc="产品改进号-配件">TbProductNoPart</property>
+		<property name="U6_24" desc="故障分类">TbFaultClass</property>
+		<property name="U6_25" desc="故障总成">TbFaultAssembly</property>
+		<property name="U6_26" desc="故障总成部件">TbFaultComponent</property>
+		<property name="U6_27" desc="故障模式">TbFaultModel</property>
+		<property name="U6_28" desc="部件和故障模式关系">TrComponentModel</property>
+		<property name="U6_29" desc="主数据和联系人关联表">TrBaseContacts</property>
+		<property name="U6_30" desc="全局配置表">SysConfig</property>
+		<property name="U6_31" desc="关联表">TrOrderRelation</property>
+		<property name="U6_32" desc="区域表">SysArea</property>
+		<property name="U6_33" desc="银行帐号设置">TbBankAccount</property>
+		<property name="U6_34" desc="结算方式设置">TbBalanceWay</property>
+		<property name="U6_35" desc="打印模板表">TbPrintStyle</property>
+		<property name="U6_36" desc="报表自定义列">TbReportSet</property>
+		
+		<!-- 系统设置 -->
+		<property name="U7_1" desc="单据编码生成规则">SysBillCodeRule</property>
+		<property name="U7_2" desc="自动锁屏设置">SysAutomaticLockScreen</property>
+		<property name="U7_3" desc="登录时间限制">SysLoginTimeLimit</property>
+		<property name="U7_4" desc="登录电脑设置">SysLoginPcSet</property>
+		<property name="U7_5" desc="帐套">SysSetbook</property>
+		<property name="U7_6" desc="维修业务参数">SysRepairParam</property>
+		<property name="U7_7" desc="采购业务参数">SysPurchaseParam</property>
+		<property name="U7_8" desc="销售业务参数">SysSaleParam</property>
+		<property name="U7_9" desc="库存业务参数">SysStockParam</property>
+		<property name="U7_10" desc="财务业务参数">SysFinancialSerParam</property>
+		<property name="U7_11" desc="业务设置-单据">SysBusinessSetBill</property>
+		<property name="U7_12" desc="业务设置-维修套餐设置">SysBSetRepairPackageSet</property>
+		<property name="U7_13" desc="业务设置-维修套餐设置-车型">SysBSetRepairPackageSetVModel</property>
+		<property name="U7_14" desc="业务设置-维修套餐设置-维修项目">SysBSetRepairPackageSetProject</property>
+		<property name="U7_15" desc="业务设置-维修套餐设置-维修用料">SysBSetRepairPackageSetMaterials</property>
+		<property name="U7_16" desc="单据编码生成规则">SysBSetRepairPackageSetOther</property>
+		<property name="U7_17" desc="自动锁屏设置">SysBSetStock</property>
+		<property name="U7_18" desc="登录时间限制">SysAnnouncement</property>
+		<property name="U7_19" desc="登录电脑设置">SysAnnouncementOrg</property>
+		<property name="U7_20" desc="帐套">SysAnnouncementUser</property>
+		<property name="U7_21" desc="维修业务参数">SysRemindingSet</property>
+		<property name="U7_22" desc="采购业务参数">SysAlarmSet</property>
+		<property name="U7_23" desc="销售业务参数">SysBankAccountSet</property>
+		<property name="U7_24" desc="采购业务参数">SysCashierAccountSet</property>
+		<property name="U7_25" desc="销售业务参数">SysSettlementWaySet</property>
+		<property name="U7_26" desc="CS服务端设置">SysCsServerSet</property>
+		<property name="U7_27" desc="数据同步">SysDataSync</property>
+		<property name="U7_28" desc="数据同步日志">SysDataSyncLog</property>
+		<property name="U7_29" desc="数据库设置">SysDatabaseSet</property>
+		<property name="U7_30" desc="登录日志">SysLogLog</property>
+		<property name="U7_31" desc="服务运行日志">SysServiceOperationLog</property>
+		<property name="U7_32" desc="自动备份设置">SysAutoBackupSet</property>
+		<property name="U7_33" desc="云备份设置">SysCloudBackupSet</property>
+		
+		<!-- 附件 -->
+		<property name="F1" desc="附件信息">AttachmentInfo</property>
+		<property name="F2" desc="宇通三包附件信息">TbMaintainThreeGuarantyAccessory</property>
+		<property name="F3" desc="附件信息1">TbMaintainAccessory</property>
+		
+		<property name="T1" desc="用户在线状态">TbUserOnline</property>
+		<property name="T2" desc="公司表">TbComInfo</property>
+		<property name="T3" desc="用户行为监控">TbUserBehaviorMonitor</property>
+		<property name="T4" desc="访问统计">TlUserFunctionLog</property>
+	</protocol>
+	
+	<tasks>
+		<task name="stationSyncTask" enable="true" desc="车厂数据同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.storage.task.StationSyncTask</class>
+			<!-- 任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时" -->
+			<interval unit="minute" delay="0" desc="任务间隔">1</interval>
+		</task>
+		<task name="supportSyncTask" enable="true" desc="支撑数据同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.storage.task.SupportSyncTask</class>
+			<!-- 任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时" -->
+			<interval unit="minute" delay="0" desc="任务间隔">5</interval>
+		</task>
+	</tasks>
+</configuration>

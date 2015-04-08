@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ConvertTable>
+    <OnlineUsers title="在线用户">
+        <!--在线状态-->
+		<onlineStatus>
+			<Convert>0==正常</Convert>
+			<Convert>1==异常</Convert>
+		</onlineStatus>
+		<!--注册时间-->
+		<regTime>
+			<Convert>UTC_TIME</Convert>
+		</regTime>
+		<!--登陆时间-->
+		<loadTime>
+			<Convert>UTC_TIME</Convert>
+		</loadTime>
+		<!--在线时长-->
+		<onlineTime>
+			<Convert>ONLINE_TIME</Convert>
+		</onlineTime>
+	
+    </OnlineUsers>
+    
+    <RepairInfo title="维修信息">
+		<!--结算时间-->
+		<settlementTime>
+			<Convert>UTC_TIME</Convert>
+		</settlementTime>
+		<!--所在地-->
+		<province>
+			<Convert>SYS_AREA_INFO</Convert>
+		</province>
+		<!-- 工时费用 -->
+		<workingHoursSum>
+			<Convert>WORKING_HOURS</Convert>
+		</workingHoursSum>
+		<!-- 配件结算金额-->
+		<accessoriesSum>
+			<Convert>ACCESSORIES_SUM</Convert>
+		</accessoriesSum>
+    </RepairInfo>
+    
+    <CompanyInfo title="企业信息">
+		<!--注册时间-->
+		<registTime>
+			<Convert>UTC_TIME</Convert>
+		</registTime>
+		<!--有效期-->
+		<validDate>
+			<Convert>UTC_TIME</Convert>
+		</validDate>
+		<!--审批时间-->
+		<approvalTime>
+			<Convert>UTC_TIME</Convert>
+		</approvalTime>
+		<!--所在地-->
+		<province>
+			<Convert>SYS_AREA_INFO</Convert>
+		</province>
+		<!--在线状态-->
+		<onlineStatus>
+			<Convert>0==在线</Convert>
+			<Convert>1==离线</Convert>
+		</onlineStatus>
+		<!--在线状态-->
+		<serviceStatus>
+			<Convert>0==在线</Convert>
+			<Convert>1==离线</Convert>
+		</serviceStatus>
+		<!--状态-->
+		<status>
+			<Convert>0==吊销</Convert>
+			<Convert>1==启用</Convert>
+		</status>
+		<!--注册鉴权情况-->
+		<registerAuthentication>
+			<Convert>0==授权过期</Convert>
+			<Convert>1==已授权</Convert>
+			<Convert>2==待授权</Convert>
+			<Convert>3==拒绝授权</Convert>
+		</registerAuthentication>
+		
+		<!--宇通CRM系统链路-->
+		<ytCrmLinkedStatus>
+			<Convert>0==在线</Convert>
+			<Convert>1==离线</Convert>
+		</ytCrmLinkedStatus>
+    </CompanyInfo>
+
+    <UserBehavior title="服务端状态">
+		<!--时间-->
+		<watchTime>
+			<Convert>UTC_TIME</Convert>
+		</watchTime>
+    </UserBehavior>
+    
+     <VisitStat title="访问统计">
+		<!--开始时间-->
+		<accessTimeStart>
+			<Convert>UTC_TIME</Convert>
+		</accessTimeStart>
+		<!--结束时间-->
+		<accessTimeEnd>
+			<Convert>UTC_TIME</Convert>
+		</accessTimeEnd>
+     </VisitStat>
+     
+     <TbOrg title="组织管理">
+		<!--创建时间-->
+		<createTime>
+			<Convert>UTC_TIME</Convert>
+		</createTime>
+		<!--状态-->
+		<entState>
+			<Convert>0==吊销</Convert>
+			<Convert>1==启用</Convert>
+		</entState>
+     </TbOrg>
+     
+     <Archives title="用户档案">
+		<!--注册时间-->
+		<registTime>
+			<Convert>UTC_TIME</Convert>
+		</registTime>
+		<!--有效期-->
+		<validDate>
+			<Convert>UTC_TIME</Convert>
+		</validDate>
+		<!--帐套创建时间-->
+		<createTime>
+			<Convert>UTC_TIME</Convert>
+		</createTime>
+		<!--服务端用户数-->
+		<total_s>
+			<Convert>SERVER_TOTEL</Convert>
+		</total_s>
+     </Archives>
+     
+     
+     <ArchivesDetail title="用户档案列表">
+		<!--注册时间-->
+	    <createTime>
+		  <Convert>UTC_TIME</Convert>
+	    </createTime>
+	    <!--登陆时间-->
+	    <loginTime>
+		  <Convert>UTC_TIME</Convert>
+	    </loginTime>
+	    <!--是否操作员-->
+		<isOperator>
+			<Convert>0==不是</Convert>
+			<Convert>1==是</Convert>
+		</isOperator>
+     </ArchivesDetail>
+     
+     <BulletinManage title="公告管理">
+		<!--状态-->
+		<annouceStatus>
+			<Convert>0==草稿</Convert>
+			<Convert>1==已发布</Convert>
+			<Convert>2==待审核</Convert>
+			<Convert>3==已撤回</Convert>
+			<Convert>4==取回</Convert>
+		</annouceStatus>
+		<!--发布时间-->
+		<releaseDate>
+			<Convert>UTC_TIME</Convert>
+		</releaseDate>
+     </BulletinManage>
+     
+      <SysSpOperator title="用户管理">
+		<!--创建时间-->
+		<createTime>
+			<Convert>UTC_TIME</Convert>
+		</createTime>
+		<!--状态-->
+		<opStatus>
+			<Convert>0==吊销</Convert>
+			<Convert>1==启用</Convert>
+		</opStatus>
+     </SysSpOperator>
+     
+     <SysSpRole title="角色管理">
+		<!--创建时间-->
+		<createTime>
+			<Convert>UTC_TIME</Convert>
+		</createTime>
+		<!--状态-->
+		<roleStatus>
+			<Convert>0==停用</Convert>
+			<Convert>1==启用</Convert>
+		</roleStatus>
+     </SysSpRole>
+     
+     <SysComInfo title="公司管理">
+        <!--所在地-->
+		<province>
+			<Convert>SYS_AREA_INFO</Convert>
+		</province>
+		<!--创建时间-->
+		<createTime>
+			<Convert>UTC_TIME</Convert>
+		</createTime>
+		<!--状态-->
+		<status>
+			<Convert>0==吊销</Convert>
+			<Convert>1==启用</Convert>
+		</status>
+     </SysComInfo>
+     
+     <TbCloudBackUp title="云备份管理">
+        <!--云备份时间-->
+		<createTime>
+			<Convert>UTC_TIME</Convert>
+		</createTime>
+		<!--云空间有效期-->
+		<cloudValidTime>
+			<Convert>UTC_TIME</Convert>
+		</cloudValidTime>
+		<!--可用空间 -->
+		<remainSpace>
+			<Convert>REMAIN_SPACE</Convert>
+		</remainSpace>
+     </TbCloudBackUp>
+ 
+</ConvertTable>

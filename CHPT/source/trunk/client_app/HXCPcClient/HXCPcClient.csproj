@@ -1,0 +1,3625 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ECC81AD5-7E16-464E-9060-6DEA47FDFD3B}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HXCPcClient</RootNamespace>
+    <AssemblyName>HXCPcClient</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>0.2.9.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\PCClientBin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>项目4.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FastReport, Version=1.9.1.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DllLib\FastReport.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Bars, Version=1.9.1.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DllLib\FastReport.Bars.dll</HintPath>
+    </Reference>
+    <Reference Include="FastReport.Editor, Version=1.9.1.0, Culture=neutral, PublicKeyToken=db7e5ce63278458c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DllLib\FastReport.Editor.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DllLib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="microsoft.office.interop.excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\BaseCommBin\microsoft.office.interop.excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\DllLib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=2.1.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DllLib\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML, Version=2.1.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DllLib\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net, Version=2.1.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DllLib\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats, Version=2.1.3.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DllLib\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SkinForm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DllLib\SkinForm.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="YTS.Print, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\DllLib\YTS.Print.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Chooser\CommonForm\ProgressBarFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\CommonForm\ProgressBarFrm.Designer.cs">
+      <DependentUpon>ProgressBarFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\Finance\frmPayment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\Finance\frmPaymentByAdvances.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\Finance\frmReceivable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\Finance\frmReceivableByAdvances.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\Finance\frmReceivableByVerif.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\Finance\frmThreeByFinance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\FormChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\Finance\frmBalanceDocuments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\Finance\frmBalanceDocuments.Designer.cs">
+      <DependentUpon>frmBalanceDocuments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\FormChooserFault.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\FormChooserFault.Designer.cs">
+      <DependentUpon>FormChooserFault.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\FormChooserFaultModel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\FormChooserFaultModel.Designer.cs">
+      <DependentUpon>FormChooserFaultModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\FormSignInfoChooser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\FormSignInfoChooser.Designer.cs">
+      <DependentUpon>FormSignInfoChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmBtype.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmBtype.Designer.cs">
+      <DependentUpon>frmBtype.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\FrmBusinessUints.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\FrmBusinessUints.Designer.cs">
+      <DependentUpon>FrmBusinessUints.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmChooseCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmChooseCompany.Designer.cs">
+      <DependentUpon>frmChooseCompany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmContacts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmContacts.Designer.cs">
+      <DependentUpon>frmContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmContactsQuickADD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmContactsQuickADD.Designer.cs">
+      <DependentUpon>frmContactsQuickADD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmCustomerInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmCustomerInfo.Designer.cs">
+      <DependentUpon>frmCustomerInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmDictionaries.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmDictionaries.Designer.cs">
+      <DependentUpon>frmDictionaries.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmDispatching.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmDispatching.Designer.cs">
+      <DependentUpon>frmDispatching.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmOrganization.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmOrganization.Designer.cs">
+      <DependentUpon>frmOrganization.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmParts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmParts.Designer.cs">
+      <DependentUpon>frmParts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmPartsByYuTong.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmPartsType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmPartsType.Designer.cs">
+      <DependentUpon>frmPartsType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\Finance\frmRepairByFinance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmPersonnelSelector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmPersonnelSelector.Designer.cs">
+      <DependentUpon>frmPersonnelSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmSupplier.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmSupplier.Designer.cs">
+      <DependentUpon>frmSupplier.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmUsers.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmUsers.Designer.cs">
+      <DependentUpon>frmUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmVehicleGrade.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmVehicleGrade.Designer.cs">
+      <DependentUpon>frmVehicleGrade.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmVehicleModels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmVehicleModels.Designer.cs">
+      <DependentUpon>frmVehicleModels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\frmWorkHours.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\frmWorkHours.Designer.cs">
+      <DependentUpon>frmWorkHours.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonClass\Choosefrm.cs" />
+    <Compile Include="CommonClass\CommonFuncCall.cs" />
+    <Compile Include="CommonClass\CommonUtility.cs" />
+    <Compile Include="CommonClass\ContentType4Dictionaries.cs" />
+    <Compile Include="CommonClass\DateTimeConvert.cs" />
+    <Compile Include="CommonClass\ImportExportExcel.cs" />
+    <Compile Include="CommonClass\OrderRelation.cs" />
+    <Compile Include="CommonClass\Quick.cs" />
+    <Compile Include="Config\ConfigConst.cs" />
+    <Compile Include="Config\ConfigManager.cs" />
+    <Compile Include="CommonClass\EncryptByDB.cs" />
+    <Compile Include="CommonClass\FileTransferOperation.cs" />
+    <Compile Include="Config\LocalVariable.cs" />
+    <Compile Include="CommonClass\LocalCache.cs" />
+    <Compile Include="CommonClass\ValidationRegex.cs" />
+    <Compile Include="CommonClass\ControlsConfig.cs" />
+    <Compile Include="CommonClass\DataGridViewStyle.cs" />
+    <Compile Include="CommonClass\DataGridViewTotal.cs" />
+    <Compile Include="CommonClass\DataTableEx.cs" />
+    <Compile Include="CommonClass\DBHelper.cs" />
+    <Compile Include="CommonClass\DBOperation.cs" />
+    <Compile Include="CommonClass\FileOperation.cs" />
+    <Compile Include="CommonCtrl.cs" />
+    <Compile Include="FormLevelTwo\FormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLevelTwo\FormAbout.Designer.cs">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormLevelTwo\FormPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLevelTwo\FormPassword.Designer.cs">
+      <DependentUpon>FormPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalStaticObj.cs" />
+    <Compile Include="HomeManage\Aunnounce\UCAnnounce.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\Aunnounce\UCAnnounce.Designer.cs">
+      <DependentUpon>UCAnnounce.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomeManage\Aunnounce\UCAnnounceItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\Aunnounce\UCAnnounceItem.Designer.cs">
+      <DependentUpon>UCAnnounceItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCMaintain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCMaintain.Designer.cs">
+      <DependentUpon>UCMaintain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCMap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCMap.Designer.cs">
+      <DependentUpon>UCMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCMapItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCMapItem.Designer.cs">
+      <DependentUpon>UCMapItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCNavigation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCNavigation.Designer.cs">
+      <DependentUpon>UCNavigation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCPurchaseMap.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCPurchaseMap.Designer.cs">
+      <DependentUpon>UCPurchaseMap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\Navigation\UCView.Designer.cs">
+      <DependentUpon>UCView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomeManage\Reminder\UCReminder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\Reminder\UCReminder.Designer.cs">
+      <DependentUpon>UCReminder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomeManage\Reminder\UCReminderItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\Reminder\UCReminderItem.Designer.cs">
+      <DependentUpon>UCReminderItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomeManage\UUCHomeManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="HomeManage\UUCHomeManage.Designer.cs">
+      <DependentUpon>UUCHomeManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HXCMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HXCMainForm.Designer.cs">
+      <DependentUpon>HXCMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm\FormCmb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm\FormCmb.Designer.cs">
+      <DependentUpon>FormCmb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm\FormLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm\FormLogin.Designer.cs">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm\FormSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginForm\FormSet.Designer.cs">
+      <DependentUpon>FormSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginForm\UCCmbItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LoginForm\UCCmbItem.Designer.cs">
+      <DependentUpon>UCCmbItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Print\BusinessDetailPrint.cs" />
+    <Compile Include="Print\BusinessPrint.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Report\FastReportEx.cs" />
+    <Compile Include="Report\frmReportDesigner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\frmReportDesigner.Designer.cs">
+      <DependentUpon>frmReportDesigner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\frmReportStyle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\frmReportStyle.Designer.cs">
+      <DependentUpon>frmReportStyle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Report\frmViewer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Report\frmViewer.Designer.cs">
+      <DependentUpon>frmViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SlienceWorker.cs" />
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCChoosePurchaseOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCChoosePurchaseOrder.Designer.cs">
+      <DependentUpon>UCChoosePurchaseOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillAddOrEdit.Designer.cs">
+      <DependentUpon>UCPurchaseBillAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillManang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillManang.Designer.cs">
+      <DependentUpon>UCPurchaseBillManang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillManangView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillManangView.Designer.cs">
+      <DependentUpon>UCPurchaseBillManangView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillView.Designer.cs">
+      <DependentUpon>UCPurchaseBillView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCChoosePurchaseBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCChoosePurchaseBill.Designer.cs">
+      <DependentUpon>UCChoosePurchaseBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCChoosePurchasePlanOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCChoosePurchasePlanOrder.Designer.cs">
+      <DependentUpon>UCChoosePurchasePlanOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderAddOrEdit.Designer.cs">
+      <DependentUpon>UCPurchaseOrderAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderManager.Designer.cs">
+      <DependentUpon>UCPurchaseOrderManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderView.Designer.cs">
+      <DependentUpon>UCPurchaseOrderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderManagerView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderManagerView.Designer.cs">
+      <DependentUpon>UCPurchaseOrderManagerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderView2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderView2.Designer.cs">
+      <DependentUpon>UCPurchaseOrderView2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\frmRelationOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\frmRelationOrder.Designer.cs">
+      <DependentUpon>frmRelationOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\frmStockCount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\frmStockCount.Designer.cs">
+      <DependentUpon>frmStockCount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderAddOrEdit.Designer.cs">
+      <DependentUpon>UCPurchasePlanOrderAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderManager.Designer.cs">
+      <DependentUpon>UCPurchasePlanOrderManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderManagView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderManagView.Designer.cs">
+      <DependentUpon>UCPurchasePlanOrderManagView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderView.Designer.cs">
+      <DependentUpon>UCPurchasePlanOrderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderView2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderView2.Designer.cs">
+      <DependentUpon>UCPurchasePlanOrderView2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\frmDistributionView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\frmDistributionView.Designer.cs">
+      <DependentUpon>frmDistributionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UCYTAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UCYTAddOrEdit.Designer.cs">
+      <DependentUpon>UCYTAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UCYTManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UCYTManager.Designer.cs">
+      <DependentUpon>UCYTManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UCYTView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UCYTView.Designer.cs">
+      <DependentUpon>UCYTView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlSanBao.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlSanBao.Designer.cs">
+      <DependentUpon>UserControlSanBao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlShengJi.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlShengJi.Designer.cs">
+      <DependentUpon>UserControlShengJi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlXuQiu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlXuQiu.Designer.cs">
+      <DependentUpon>UserControlXuQiu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlSanBaoView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlSanBaoView.Designer.cs">
+      <DependentUpon>UserControlSanBaoView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlShengJiView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlShengJiView.Designer.cs">
+      <DependentUpon>UserControlShengJiView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlXuQiuView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlXuQiuView.Designer.cs">
+      <DependentUpon>UserControlXuQiuView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCChooseSaleOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCChooseSaleOrder.Designer.cs">
+      <DependentUpon>UCChooseSaleOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCChooseSaleBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCChooseSaleBill.Designer.cs">
+      <DependentUpon>UCChooseSaleBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillView.Designer.cs">
+      <DependentUpon>UCSaleBillView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillAddOrEdit.Designer.cs">
+      <DependentUpon>UCSaleBillAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillManang.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillManang.Designer.cs">
+      <DependentUpon>UCSaleBillManang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillManangSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillManangSearch.Designer.cs">
+      <DependentUpon>UCSaleBillManangSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCChooseSalePlanOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCChooseSalePlanOrder.Designer.cs">
+      <DependentUpon>UCChooseSalePlanOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderAddOrEdit.Designer.cs">
+      <DependentUpon>UCSaleOrderAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderManager.Designer.cs">
+      <DependentUpon>UCSaleOrderManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderView.Designer.cs">
+      <DependentUpon>UCSaleOrderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderManagerSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderManagerSearch.Designer.cs">
+      <DependentUpon>UCSaleOrderManagerSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderViewSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderViewSearch.Designer.cs">
+      <DependentUpon>UCSaleOrderViewSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\frmRelationOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\frmRelationOrder.Designer.cs">
+      <DependentUpon>frmRelationOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanAddOrEdit.Designer.cs">
+      <DependentUpon>UCSalePlanAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanManager.Designer.cs">
+      <DependentUpon>UCSalePlanManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanView.Designer.cs">
+      <DependentUpon>UCSalePlanView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanManagerSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanManagerSearch.Designer.cs">
+      <DependentUpon>UCSalePlanManagerSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanViewSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanViewSearch.Designer.cs">
+      <DependentUpon>UCSalePlanViewSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBillQuery\UCAllocationQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBillQuery\UCAllocationQuery.Designer.cs">
+      <DependentUpon>UCAllocationQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCAllocationBillAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCAllocationBillAddOrEdit.Designer.cs">
+      <DependentUpon>UCAllocationBillAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCAllocationBillDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCAllocationBillDetails.Designer.cs">
+      <DependentUpon>UCAllocationBillDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCAllocationBillManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCAllocationBillManager.Designer.cs">
+      <DependentUpon>UCAllocationBillManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCImportBilling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCImportBilling.Designer.cs">
+      <DependentUpon>UCImportBilling.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCImportStockBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCImportStockBill.Designer.cs">
+      <DependentUpon>UCImportStockBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBillQuery\UCStockCheckQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBillQuery\UCStockCheckQuery.Designer.cs">
+      <DependentUpon>UCStockCheckQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBill\UCStockCheckAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBill\UCStockCheckAddOrEdit.Designer.cs">
+      <DependentUpon>UCStockCheckAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBill\UCStockCheckDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBill\UCStockCheckDetail.Designer.cs">
+      <DependentUpon>UCStockCheckDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBill\UCStockCheckManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBill\UCStockCheckManager.Designer.cs">
+      <DependentUpon>UCStockCheckManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ModifyPriceBill\UCModifyPriceAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ModifyPriceBill\UCModifyPriceAddOrEdit.Designer.cs">
+      <DependentUpon>UCModifyPriceAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ModifyPriceBill\UCModifyPriceDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ModifyPriceBill\UCModifyPriceDetail.Designer.cs">
+      <DependentUpon>UCModifyPriceDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ModifyPriceBill\UCModifyPriceManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ModifyPriceBill\UCModifyPriceManager.Designer.cs">
+      <DependentUpon>UCModifyPriceManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveGoods\UCStockReceiptAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveGoods\UCStockReceiptAddOrEdit.Designer.cs">
+      <DependentUpon>UCStockReceiptAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveGoods\UCStockReceiptDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveGoods\UCStockReceiptDetail.Designer.cs">
+      <DependentUpon>UCStockReceiptDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveGoods\UCStockReceiptManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveGoods\UCStockReceiptManager.designer.cs">
+      <DependentUpon>UCStockReceiptManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveSendQuery\UCStockReceiptOrShippingQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveSendQuery\UCStockReceiptOrShippingQuery.Designer.cs">
+      <DependentUpon>UCStockReceiptOrShippingQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherSendGoods\UCStockShippingAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherSendGoods\UCStockShippingAddOrEdit.Designer.cs">
+      <DependentUpon>UCStockShippingAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherSendGoods\UCStockShippingDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherSendGoods\UCStockShippingDetail.Designer.cs">
+      <DependentUpon>UCStockShippingDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherSendGoods\UCStockShippingManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherSendGoods\UCStockShippingManager.designer.cs">
+      <DependentUpon>UCStockShippingManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBillQuery\UCReportedLossQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBillQuery\UCReportedLossQuery.Designer.cs">
+      <DependentUpon>UCReportedLossQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCImportSaleReturnBilling.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCImportSaleReturnBilling.Designer.cs">
+      <DependentUpon>UCImportSaleReturnBilling.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCReportedLossBillAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCReportedLossBillAddOrEdit.Designer.cs">
+      <DependentUpon>UCReportedLossBillAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCReportedLossBillDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCReportedLossBillDetail.Designer.cs">
+      <DependentUpon>UCReportedLossBillDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCReportedLossBillManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCReportedLossBillManager.Designer.cs">
+      <DependentUpon>UCReportedLossBillManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBillQuery\UCRequisitionQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBillQuery\UCRequisitionQuery.Designer.cs">
+      <DependentUpon>UCRequisitionQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Chooser\FrmExcelImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Chooser\FrmExcelImport.Designer.cs">
+      <DependentUpon>FrmExcelImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBill\UCRequisitionAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBill\UCRequisitionAddOrEdit.Designer.cs">
+      <DependentUpon>UCRequisitionAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBill\UCRequisitionBillDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBill\UCRequisitionBillDetail.Designer.cs">
+      <DependentUpon>UCRequisitionBillDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBill\UCRequisitionManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBill\UCRequisitionManager.Designer.cs">
+      <DependentUpon>UCRequisitionManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\StockQuery\UCStockQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\AccessoriesBusiness\WarehouseManagement\StockQuery\UCStockQuery.Designer.cs">
+      <DependentUpon>UCStockQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableAbove.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableAbove.Designer.cs">
+      <DependentUpon>UCPayableAbove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableChecking.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableChecking.Designer.cs">
+      <DependentUpon>UCPayableChecking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableDanDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableDanDetail.Designer.cs">
+      <DependentUpon>UCPayableDanDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableDanSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableDanSummariz.Designer.cs">
+      <DependentUpon>UCPayableDanSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableDetail.Designer.cs">
+      <DependentUpon>UCPayableDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableSummariz.Designer.cs">
+      <DependentUpon>UCPayableSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPurchasePayment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCPurchasePayment.Designer.cs">
+      <DependentUpon>UCPurchasePayment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableAbove.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableAbove.Designer.cs">
+      <DependentUpon>UCReceivableAbove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableAged.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableAged.Designer.cs">
+      <DependentUpon>UCReceivableAged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableChecking.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableChecking.Designer.cs">
+      <DependentUpon>UCReceivableChecking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableDanDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableDanDetail.Designer.cs">
+      <DependentUpon>UCReceivableDanDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableDanSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableDanSummariz.Designer.cs">
+      <DependentUpon>UCReceivableDanSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableDetail.Designer.cs">
+      <DependentUpon>UCReceivableDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableSummariz.Designer.cs">
+      <DependentUpon>UCReceivableSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCSaleGathering.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ARAPReport\UCSaleGathering.Designer.cs">
+      <DependentUpon>UCSaleGathering.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\BankReport\UCBankDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\BankReport\UCBankDetail.Designer.cs">
+      <DependentUpon>UCBankDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\BankReport\UCBankSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\BankReport\UCBankSummariz.Designer.cs">
+      <DependentUpon>UCBankSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\frmReportSet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\frmReportSet.Designer.cs">
+      <DependentUpon>frmReportSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseBillingDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseBillingDetail.Designer.cs">
+      <DependentUpon>UCPurchaseBillingDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseBillingSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseBillingSummariz.Designer.cs">
+      <DependentUpon>UCPurchaseBillingSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseBillingZongHe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseBillingZongHe.Designer.cs">
+      <DependentUpon>UCPurchaseBillingZongHe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseDaily.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseDaily.Designer.cs">
+      <DependentUpon>UCPurchaseDaily.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseDiscountDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseDiscountDetail.Designer.cs">
+      <DependentUpon>UCPurchaseDiscountDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseDiscountSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseDiscountSummariz.Designer.cs">
+      <DependentUpon>UCPurchaseDiscountSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseOrderDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseOrderDetail.Designer.cs">
+      <DependentUpon>UCPurchaseOrderDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseOrderSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseOrderSummariz.Designer.cs">
+      <DependentUpon>UCPurchaseOrderSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchasePlanDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchasePlanDetail.Designer.cs">
+      <DependentUpon>UCPurchasePlanDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchasePlanSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchasePlanSummariz.Designer.cs">
+      <DependentUpon>UCPurchasePlanSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseReturnDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseReturnDetail.Designer.cs">
+      <DependentUpon>UCPurchaseReturnDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairAddOrDrain.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairAddOrDrain.Designer.cs">
+      <DependentUpon>UCRepairAddOrDrain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairClass.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairClass.Designer.cs">
+      <DependentUpon>UCRepairClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairClientReconciliation.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairClientReconciliation.Designer.cs">
+      <DependentUpon>UCRepairClientReconciliation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairEfficiency.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairEfficiency.Designer.cs">
+      <DependentUpon>UCRepairEfficiency.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairLaborHour.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairLaborHour.Designer.cs">
+      <DependentUpon>UCRepairLaborHour.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairManage.Designer.cs">
+      <DependentUpon>UCRepairManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairMaterial.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairMaterial.Designer.cs">
+      <DependentUpon>UCRepairMaterial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairOverdue.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairOverdue.Designer.cs">
+      <DependentUpon>UCRepairOverdue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairVehicleNumber.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\RepairReport\UCRepairVehicleNumber.Designer.cs">
+      <DependentUpon>UCRepairVehicleNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\ReportCommon.cs" />
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleBillingDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleBillingDetail.Designer.cs">
+      <DependentUpon>UCSaleBillingDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleBillingummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleBillingummariz.Designer.cs">
+      <DependentUpon>UCSaleBillingummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleBillingZongHe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleBillingZongHe.Designer.cs">
+      <DependentUpon>UCSaleBillingZongHe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleDaily.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleDaily.Designer.cs">
+      <DependentUpon>UCSaleDaily.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleDiscountDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleDiscountDetail.Designer.cs">
+      <DependentUpon>UCSaleDiscountDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleDiscountSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleDiscountSummariz.Designer.cs">
+      <DependentUpon>UCSaleDiscountSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleOrderDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleOrderDetail.Designer.cs">
+      <DependentUpon>UCSaleOrderDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleOrderSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleOrderSummariz.Designer.cs">
+      <DependentUpon>UCSaleOrderSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSalePerformance.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSalePerformance.Designer.cs">
+      <DependentUpon>UCSalePerformance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSalePlanDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSalePlanDetail.Designer.cs">
+      <DependentUpon>UCSalePlanDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSalePlanSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSalePlanSummariz.Designer.cs">
+      <DependentUpon>UCSalePlanSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleProfitDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleProfitDetail.Designer.cs">
+      <DependentUpon>UCSaleProfitDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleProfitSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleProfitSummariz.Designer.cs">
+      <DependentUpon>UCSaleProfitSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleReturnDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\SaleReport\UCSaleReturnDetail.Designer.cs">
+      <DependentUpon>UCSaleReturnDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCActualDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCActualDetail.Designer.cs">
+      <DependentUpon>UCActualDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCActualSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCActualSummariz.Designer.cs">
+      <DependentUpon>UCActualSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCAlarmDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCAlarmDetail.Designer.cs">
+      <DependentUpon>UCAlarmDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCPaperDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCPaperDetail.Designer.cs">
+      <DependentUpon>UCPaperDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCPaperSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCPaperSummariz.Designer.cs">
+      <DependentUpon>UCPaperSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCStockAging.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCStockAging.Designer.cs">
+      <DependentUpon>UCStockAging.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCStockTypeSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCStockTypeSummariz.Designer.cs">
+      <DependentUpon>UCStockTypeSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCWarehouseDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCWarehouseDetail.Designer.cs">
+      <DependentUpon>UCWarehouseDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCWarehouseDifferentiate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCWarehouseDifferentiate.Designer.cs">
+      <DependentUpon>UCWarehouseDifferentiate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCWarehouseSummariz.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\StockReport\UCWarehouseSummariz.Designer.cs">
+      <DependentUpon>UCWarehouseSummariz.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\UCDayToDayAccountReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\UCDayToDayAccountReport.Designer.cs">
+      <DependentUpon>UCDayToDayAccountReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\UCGiftReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\UCGiftReport.Designer.cs">
+      <DependentUpon>UCGiftReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\UCReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\BusinessAnalysis\UCReport.Designer.cs">
+      <DependentUpon>UCReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\CallBack\UCCallBackAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\CallBack\UCCallBackAddOrEdit.Designer.cs">
+      <DependentUpon>UCCallBackAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\CallBack\UCCallBackManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\CallBack\UCCallBackManager.Designer.cs">
+      <DependentUpon>UCCallBackManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\Feedback\UCFeedbackAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\Feedback\UCFeedbackAddOrEdit.Designer.cs">
+      <DependentUpon>UCFeedbackAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\Feedback\UCFeedbackManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\Feedback\UCFeedbackManager.Designer.cs">
+      <DependentUpon>UCFeedbackManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\Member\UCMemberAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\Member\UCMemberAddOrEdit.Designer.cs">
+      <DependentUpon>UCMemberAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\Member\UCMemberManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\Member\UCMemberManager.Designer.cs">
+      <DependentUpon>UCMemberManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\Member\UCMemberViewDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\CustomerService\Member\UCMemberViewDetail.Designer.cs">
+      <DependentUpon>UCMemberViewDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Contacts\UCContactsAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Contacts\UCContactsAddOrEdit.Designer.cs">
+      <DependentUpon>UCContactsAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Contacts\UCContactsManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Contacts\UCContactsManage.Designer.cs">
+      <DependentUpon>UCContactsManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Contacts\UCContactsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Contacts\UCContactsView.Designer.cs">
+      <DependentUpon>UCContactsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\CustomerFiles\UCCustomerAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\CustomerFiles\UCCustomerAddOrEdit.Designer.cs">
+      <DependentUpon>UCCustomerAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\CustomerFiles\UCCustomerManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\CustomerFiles\UCCustomerManager.Designer.cs">
+      <DependentUpon>UCCustomerManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\CustomerFiles\UCCustomerViews.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\CustomerFiles\UCCustomerViews.Designer.cs">
+      <DependentUpon>UCCustomerViews.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Dic\UCDictionaryManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Dic\UCDictionaryManager.designer.cs">
+      <DependentUpon>UCDictionaryManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Dic\UCDictionaryAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Dic\UCDictionaryAddOrEdit.Designer.cs">
+      <DependentUpon>UCDictionaryAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Parts\UCPartsRate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Parts\UCPartsRate.Designer.cs">
+      <DependentUpon>UCPartsRate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Parts\UCPartsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Parts\UCPartsView.Designer.cs">
+      <DependentUpon>UCPartsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Parts\UCPartsAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Parts\UCPartsAddOrEdit.Designer.cs">
+      <DependentUpon>UCPartsAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Parts\UCPartsManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\Parts\UCPartsManage.Designer.cs">
+      <DependentUpon>UCPartsManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\SupplierFile\UCSupplierAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\SupplierFile\UCSupplierAddOrEdit.Designer.cs">
+      <DependentUpon>UCSupplierAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\SupplierFile\UCSupplierManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\SupplierFile\UCSupplierManager.Designer.cs">
+      <DependentUpon>UCSupplierManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\SupplierFile\UCSupplierView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\SupplierFile\UCSupplierView.Designer.cs">
+      <DependentUpon>UCSupplierView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleFiles\BigImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleFiles\BigImage.Designer.cs">
+      <DependentUpon>BigImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleFiles\UCVehicleAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleFiles\UCVehicleAddOrEdit.Designer.cs">
+      <DependentUpon>UCVehicleAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleFiles\UCVehicleManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleFiles\UCVehicleManage.Designer.cs">
+      <DependentUpon>UCVehicleManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleFiles\UCVehicleView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleFiles\UCVehicleView.Designer.cs">
+      <DependentUpon>UCVehicleView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleModels\UCVehicleModelsManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleModels\UCVehicleModelsManage.Designer.cs">
+      <DependentUpon>UCVehicleModelsManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleModels\UCVehicleModelsAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleModels\UCVehicleModelsAddOrEdit.Designer.cs">
+      <DependentUpon>UCVehicleModelsAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleModels\UCVehicleModelsView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\VehicleModels\UCVehicleModelsView.Designer.cs">
+      <DependentUpon>UCVehicleModelsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WareHouse\UCWareHouseAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WareHouse\UCWareHouseAddOrEdit.Designer.cs">
+      <DependentUpon>UCWareHouseAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WareHouse\UCWareHouseManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WareHouse\UCWareHouseManager.Designer.cs">
+      <DependentUpon>UCWareHouseManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WareHouse\UCWareHouseView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WareHouse\UCWareHouseView.Designer.cs">
+      <DependentUpon>UCWareHouseView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WorkingTimeFile\UCWorkingTimeAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WorkingTimeFile\UCWorkingTimeAddOrEdit.Designer.cs">
+      <DependentUpon>UCWorkingTimeAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WorkingTimeFile\UCWorkingTimeManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WorkingTimeFile\UCWorkingTimeManager.Designer.cs">
+      <DependentUpon>UCWorkingTimeManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WorkingTimeFile\UCWorkingTimeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\DataManage\WorkingTimeFile\UCWorkingTimeView.Designer.cs">
+      <DependentUpon>UCWorkingTimeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\AccountVerification\UCAccountVerificationAdd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\AccountVerification\UCAccountVerificationAdd.Designer.cs">
+      <DependentUpon>UCAccountVerificationAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\AccountVerification\UCAccountVerificationManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\AccountVerification\UCAccountVerificationManage.Designer.cs">
+      <DependentUpon>UCAccountVerificationManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\AccountVerification\UCAccountVerificationSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\Financial.cs" />
+    <Compile Include="UCForm\FinancialManagement\Preposition.cs" />
+    <Compile Include="UCForm\FinancialManagement\Receivable\UCPayment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\Receivable\UCPaymentSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\Receivable\UCReceivable.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\Receivable\UCReceivableAdd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\Receivable\UCReceivableAdd.Designer.cs">
+      <DependentUpon>UCReceivableAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\Receivable\UCReceivableManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\Receivable\UCReceivableManage.Designer.cs">
+      <DependentUpon>UCReceivableManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\FinancialManagement\Receivable\UCReceivableSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\frmAttachment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\frmAttachment.Designer.cs">
+      <DependentUpon>frmAttachment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\MessageProcess.cs" />
+    <Compile Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFetchMaterialImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFetchMaterialImport.Designer.cs">
+      <DependentUpon>UCFetchMaterialImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFMaterialReturnAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFMaterialReturnAddOrEdit.Designer.cs">
+      <DependentUpon>UCFMaterialReturnAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFMaterialReturnManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFMaterialReturnManager.Designer.cs">
+      <DependentUpon>UCFMaterialReturnManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFMaterialReturnView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFMaterialReturnView.Designer.cs">
+      <DependentUpon>UCFMaterialReturnView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterial\UCFetchMaterialAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterial\UCFetchMaterialAddOrEdit.Designer.cs">
+      <DependentUpon>UCFetchMaterialAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterial\UCFetchMaterialManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterial\UCFetchMaterialManager.Designer.cs">
+      <DependentUpon>UCFetchMaterialManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterial\UCFetchMaterialView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\FetchMaterial\UCFetchMaterialView.Designer.cs">
+      <DependentUpon>UCFetchMaterialView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsInventoryQuery\UCOldPartsInventoryQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsInventoryQuery\UCOldPartsInventoryQuery.Designer.cs">
+      <DependentUpon>UCOldPartsInventoryQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceiptQuery\UCOldPartsReceiptQueryManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceiptQuery\UCOldPartsReceiptQueryManager.Designer.cs">
+      <DependentUpon>UCOldPartsReceiptQueryManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceipt\UCOldPartsReceiptAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceipt\UCOldPartsReceiptAddOrEdit.Designer.cs">
+      <DependentUpon>UCOldPartsReceiptAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceipt\UCOldPartsReceiptManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceipt\UCOldPartsReceiptManager.Designer.cs">
+      <DependentUpon>UCOldPartsReceiptManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceipt\UCOldPartsReceiptView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceipt\UCOldPartsReceiptView.Designer.cs">
+      <DependentUpon>UCOldPartsReceiptView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSendOutQuery\UCOldPartsSendOutQueryManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSendOutQuery\UCOldPartsSendOutQueryManager.Designer.cs">
+      <DependentUpon>UCOldPartsSendOutQueryManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCOldPartsSendAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCOldPartsSendAddOrEdit.Designer.cs">
+      <DependentUpon>UCOldPartsSendAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCOldPartsSendManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCOldPartsSendManager.Designer.cs">
+      <DependentUpon>UCOldPartsSendManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCOldPartsSendView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCOldPartsSendView.Designer.cs">
+      <DependentUpon>UCOldPartsSendView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCPartsReceiptImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCPartsReceiptImport.Designer.cs">
+      <DependentUpon>UCPartsReceiptImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautusQuery\UCOldPartsPalautusQueryManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautusQuery\UCOldPartsPalautusQueryManage.Designer.cs">
+      <DependentUpon>UCOldPartsPalautusQueryManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautus\UCOldPartsPalautusAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautus\UCOldPartsPalautusAddOrEdit.Designer.cs">
+      <DependentUpon>UCOldPartsPalautusAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautus\UCOldPartsPalautusManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautus\UCOldPartsPalautusManager.Designer.cs">
+      <DependentUpon>UCOldPartsPalautusManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautus\UCOldPartsPalautusView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautus\UCOldPartsPalautusView.Designer.cs">
+      <DependentUpon>UCOldPartsPalautusView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsTagPrint\UCOldPartsTagControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsTagPrint\UCOldPartsTagControl.Designer.cs">
+      <DependentUpon>UCOldPartsTagControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsTagPrint\UCYTOldPartsImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsTagPrint\UCYTOldPartsImport.Designer.cs">
+      <DependentUpon>UCYTOldPartsImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsTagPrint\UCYTOldPartsTagPrintManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsTagPrint\UCYTOldPartsTagPrintManager.Designer.cs">
+      <DependentUpon>UCYTOldPartsTagPrintManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Receive\UCCallBackImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Receive\UCCallBackImport.Designer.cs">
+      <DependentUpon>UCCallBackImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Receive\UCReceiveAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Receive\UCReceiveAddOrEdit.Designer.cs">
+      <DependentUpon>UCReceiveAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Receive\UCReceiveManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Receive\UCReceiveManager.Designer.cs">
+      <DependentUpon>UCReceiveManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Receive\UCReceiveView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Receive\UCReceiveView.Designer.cs">
+      <DependentUpon>UCReceiveView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Receive\UCReserveImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Receive\UCReserveImport.Designer.cs">
+      <DependentUpon>UCReserveImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceAddOrEdit.Designer.cs">
+      <DependentUpon>UCRepairBalanceAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceImport.Designer.cs">
+      <DependentUpon>UCRepairBalanceImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceManager.Designer.cs">
+      <DependentUpon>UCRepairBalanceManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceView.Designer.cs">
+      <DependentUpon>UCRepairBalanceView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackAddOrEdit.Designer.cs">
+      <DependentUpon>UCRepairCallbackAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackImport.Designer.cs">
+      <DependentUpon>UCRepairCallbackImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackManager.Designer.cs">
+      <DependentUpon>UCRepairCallbackManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackView.Designer.cs">
+      <DependentUpon>UCRepairCallbackView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCDispatchBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCDispatchBase.Designer.cs">
+      <DependentUpon>UCDispatchBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCDispatchDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCDispatchDetails.Designer.cs">
+      <DependentUpon>UCDispatchDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCDispatchManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCDispatchManager.Designer.cs">
+      <DependentUpon>UCDispatchManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCInspection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCInspection.Designer.cs">
+      <DependentUpon>UCInspection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCStopReason.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCStopReason.Designer.cs">
+      <DependentUpon>UCStopReason.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCTrialSettlement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairDispatch\UCTrialSettlement.Designer.cs">
+      <DependentUpon>UCTrialSettlement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairProgress\UCRepairProgressManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairProgress\UCRepairProgressManager.Designer.cs">
+      <DependentUpon>UCRepairProgressManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairQuery\RepairQueryManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairQuery\RepairQueryManager.Designer.cs">
+      <DependentUpon>RepairQueryManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairQuery\RepairQueryView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairQuery\RepairQueryView.Designer.cs">
+      <DependentUpon>RepairQueryView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairRescue\UCRepairRescueAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairRescue\UCRepairRescueAddOrEdit.Designer.cs">
+      <DependentUpon>UCRepairRescueAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairRescue\UCRepairRescueManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairRescue\UCRepairRescueManager.Designer.cs">
+      <DependentUpon>UCRepairRescueManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairRescue\UCRepairRescueView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\RepairRescue\UCRepairRescueView.Designer.cs">
+      <DependentUpon>UCRepairRescueView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\ReserveQuery\UCReserveOrderQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\ReserveQuery\UCReserveOrderQuery.Designer.cs">
+      <DependentUpon>UCReserveOrderQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Reserve\ReserveOrder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Reserve\ReserveOrder.Designer.cs">
+      <DependentUpon>ReserveOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Reserve\ReserveOrderAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Reserve\ReserveOrderAddOrEdit.Designer.cs">
+      <DependentUpon>ReserveOrderAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Reserve\ReserveOrderView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\Reserve\ReserveOrderView.Designer.cs">
+      <DependentUpon>ReserveOrderView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\DbDic2Enum.cs" />
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuarantySettlement\UCThreeGuarantySettlementManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuarantySettlement\UCThreeGuarantySettlementManager.Designer.cs">
+      <DependentUpon>UCThreeGuarantySettlementManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuarantySettlement\UCThreeGuarantySettlementQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuarantySettlement\UCThreeGuarantySettlementQuery.Designer.cs">
+      <DependentUpon>UCThreeGuarantySettlementQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuarantySettlement\UCThreeGuarantySettlementView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuarantySettlement\UCThreeGuarantySettlementView.designer.cs">
+      <DependentUpon>UCThreeGuarantySettlementView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCApproveStatusInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCApproveStatusInfo.Designer.cs">
+      <DependentUpon>UCApproveStatusInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainMatrialDetailImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainMatrialDetailImport.Designer.cs">
+      <DependentUpon>UCMaintainMatrialDetailImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainWorkhourImport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainWorkhourImport.Designer.cs">
+      <DependentUpon>UCMaintainWorkhourImport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainSettlementImprot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainSettlementImprot.Designer.cs">
+      <DependentUpon>UCMaintainSettlementImprot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyEdit.designer.cs">
+      <DependentUpon>UCMaintainThreeGuarantyEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyManager.designer.cs">
+      <DependentUpon>UCMaintainThreeGuarantyManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyQuery.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyQuery.Designer.cs">
+      <DependentUpon>UCMaintainThreeGuarantyQuery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyVerify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyVerify.Designer.cs">
+      <DependentUpon>UCMaintainThreeGuarantyVerify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyView.Designer.cs">
+      <DependentUpon>UCMaintainThreeGuarantyView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyViewDetail.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyViewDetail.Designer.cs">
+      <DependentUpon>UCMaintainThreeGuarantyViewDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\UCFormQueryTemplate.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\RepairBusiness\YuTongThreeGuaranty\UCFormQueryTemplate.Designer.cs">
+      <DependentUpon>UCFormQueryTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCBillCodeRule.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCBillCodeRule.Designer.cs">
+      <DependentUpon>UCBillCodeRule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCComInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCComInfo.Designer.cs">
+      <DependentUpon>UCComInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCFinanceBPara.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCFinanceBPara.Designer.cs">
+      <DependentUpon>UCFinanceBPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCLoginPCSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCLoginPCSet.Designer.cs">
+      <DependentUpon>UCLoginPCSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCLoginTimeLimit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCLoginTimeLimit.Designer.cs">
+      <DependentUpon>UCLoginTimeLimit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCPurcBPara.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCPurcBPara.Designer.cs">
+      <DependentUpon>UCPurcBPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCRepairBPara.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCRepairBPara.Designer.cs">
+      <DependentUpon>UCRepairBPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCSaleBPara.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCSaleBPara.Designer.cs">
+      <DependentUpon>UCSaleBPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCStockBPara.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\AcountManage\UCStockBPara.Designer.cs">
+      <DependentUpon>UCStockBPara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\BankAccount\UCBankAccountAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\BankAccount\UCBankAccountAddOrEdit.Designer.cs">
+      <DependentUpon>UCBankAccountAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\BankAccount\UCBankAccountManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\BankAccount\UCBankAccountManage.Designer.cs">
+      <DependentUpon>UCBankAccountManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\BulletinManage\UCBulletinAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\BulletinManage\UCBulletinAddOrEdit.Designer.cs">
+      <DependentUpon>UCBulletinAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\BulletinManage\UCBulletinManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\BulletinManage\UCBulletinManage.Designer.cs">
+      <DependentUpon>UCBulletinManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\BulletinManage\UCBulletinView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\BulletinManage\UCBulletinView.Designer.cs">
+      <DependentUpon>UCBulletinView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\CashierAccount\UCCashierAccManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\CashierAccount\UCCashierAccManage.Designer.cs">
+      <DependentUpon>UCCashierAccManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\CashierAccount\UCCashierAccountAdd.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\CashierAccount\UCCashierAccountAdd.Designer.cs">
+      <DependentUpon>UCCashierAccountAdd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Company\UCCompanyAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Company\UCCompanyAddOrEdit.Designer.cs">
+      <DependentUpon>UCCompanyAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Company\UCCompanyManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Company\UCCompanyManager.Designer.cs">
+      <DependentUpon>UCCompanyManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Company\UCCompanyView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Company\UCCompanyView.Designer.cs">
+      <DependentUpon>UCCompanyView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\MemberPara\UCMemberParaAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\MemberPara\UCMemberParaAddOrEdit.Designer.cs">
+      <DependentUpon>UCMemberParaAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\MemberPara\UCMemberParaManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\MemberPara\UCMemberParaManage.Designer.cs">
+      <DependentUpon>UCMemberParaManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\MemberPara\UCMemberParaView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\MemberPara\UCMemberParaView.Designer.cs">
+      <DependentUpon>UCMemberParaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Organization\UCOrganizationAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Organization\UCOrganizationAddOrEdit.Designer.cs">
+      <DependentUpon>UCOrganizationAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Organization\UCOrganizationManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Organization\UCOrganizationManager.Designer.cs">
+      <DependentUpon>UCOrganizationManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Organization\UCOrganizationView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Organization\UCOrganizationView.Designer.cs">
+      <DependentUpon>UCOrganizationView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\PersonalSet\UCPersonalSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\PersonalSet\UCPersonalSet.Designer.cs">
+      <DependentUpon>UCPersonalSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Personnel\UCPersonnelAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Personnel\UCPersonnelAddOrEdit.Designer.cs">
+      <DependentUpon>UCPersonnelAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Personnel\UCPersonnelManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Personnel\UCPersonnelManager.Designer.cs">
+      <DependentUpon>UCPersonnelManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Personnel\UCPersonnelView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Personnel\UCPersonnelView.Designer.cs">
+      <DependentUpon>UCPersonnelView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\ReminderSet\UCAlarmSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\ReminderSet\UCAlarmSet.Designer.cs">
+      <DependentUpon>UCAlarmSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\ReminderSet\UCPreTime.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\ReminderSet\UCPreTime.Designer.cs">
+      <DependentUpon>UCPreTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\ReminderSet\UCReminderSet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\ReminderSet\UCReminderSet.Designer.cs">
+      <DependentUpon>UCReminderSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\ReminderSet\UCReminderType.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\ReminderSet\UCReminderType.Designer.cs">
+      <DependentUpon>UCReminderType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\RepairMeal\UCRepairMealAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\RepairMeal\UCRepairMealAddOrEdit.Designer.cs">
+      <DependentUpon>UCRepairMealAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\RepairMeal\UCRepairMealManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\RepairMeal\UCRepairMealManage.Designer.cs">
+      <DependentUpon>UCRepairMealManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\RepairMeal\UCRepairMealView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\RepairMeal\UCRepairMealView.Designer.cs">
+      <DependentUpon>UCRepairMealView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Role\UCRoleAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Role\UCRoleAddOrEdit.Designer.cs">
+      <DependentUpon>UCRoleAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Role\UCRoleManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Role\UCRoleManager.Designer.cs">
+      <DependentUpon>UCRoleManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Role\UCRoleView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Role\UCRoleView.Designer.cs">
+      <DependentUpon>UCRoleView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Settlement\UCSettlementAddOrEdit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Settlement\UCSettlementAddOrEdit.Designer.cs">
+      <DependentUpon>UCSettlementAddOrEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Settlement\UCSettlementManage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Settlement\UCSettlementManage.Designer.cs">
+      <DependentUpon>UCSettlementManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Stock\UCStockManager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\SysManage\Stock\UCStockManager.Designer.cs">
+      <DependentUpon>UCStockManager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\UCAttachment.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\UCAttachment.Designer.cs">
+      <DependentUpon>UCAttachment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\UCBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\UCBase.Designer.cs">
+      <DependentUpon>UCBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\UCVerify.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCForm\UCVerify.Designer.cs">
+      <DependentUpon>UCVerify.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\UIAssistants.cs" />
+    <Compile Include="UCForm\User\UCUserInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\User\UCUserInfo.Designer.cs">
+      <DependentUpon>UCUserInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCForm\User\UCUserSetPWD.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCForm\User\UCUserSetPWD.Designer.cs">
+      <DependentUpon>UCUserSetPWD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCMainLayOut\FormMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UCMainLayOut\FormMenu.Designer.cs">
+      <DependentUpon>FormMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCMainLayOut\UCLeftMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCMainLayOut\UCLeftMenu.Designer.cs">
+      <DependentUpon>UCLeftMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UCMainLayOut\UCMenuBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UCMainLayOut\UCMenuBar.designer.cs">
+      <DependentUpon>UCMenuBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WCFClientProxy.cs" />
+    <EmbeddedResource Include="Chooser\CommonForm\ProgressBarFrm.resx">
+      <DependentUpon>ProgressBarFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\Finance\frmBalanceDocuments.resx">
+      <DependentUpon>frmBalanceDocuments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\FormChooser.resx">
+      <DependentUpon>FormChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\FormChooserFault.resx">
+      <DependentUpon>FormChooserFault.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\FormChooserFaultModel.resx">
+      <DependentUpon>FormChooserFaultModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\FormSignInfoChooser.resx">
+      <DependentUpon>FormSignInfoChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmBtype.resx">
+      <DependentUpon>frmBtype.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\FrmBusinessUints.resx">
+      <DependentUpon>FrmBusinessUints.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmChooseCompany.resx">
+      <DependentUpon>frmChooseCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmContacts.resx">
+      <DependentUpon>frmContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmContactsQuickADD.resx">
+      <DependentUpon>frmContactsQuickADD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmCustomerInfo.resx">
+      <DependentUpon>frmCustomerInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmDictionaries.resx">
+      <DependentUpon>frmDictionaries.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmDispatching.resx">
+      <DependentUpon>frmDispatching.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\FrmExcelImport.resx">
+      <DependentUpon>FrmExcelImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmOrganization.resx">
+      <DependentUpon>frmOrganization.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmParts.resx">
+      <DependentUpon>frmParts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmPartsType.resx">
+      <DependentUpon>frmPartsType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmPersonnelSelector.resx">
+      <DependentUpon>frmPersonnelSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmSupplier.resx">
+      <DependentUpon>frmSupplier.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmUsers.resx">
+      <DependentUpon>frmUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmVehicleGrade.resx">
+      <DependentUpon>frmVehicleGrade.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmVehicleModels.resx">
+      <DependentUpon>frmVehicleModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Chooser\frmWorkHours.resx">
+      <DependentUpon>frmWorkHours.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLevelTwo\FormAbout.resx">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLevelTwo\FormPassword.resx">
+      <DependentUpon>FormPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeManage\Aunnounce\UCAnnounce.resx">
+      <DependentUpon>UCAnnounce.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeManage\Aunnounce\UCAnnounceItem.resx">
+      <DependentUpon>UCAnnounceItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeManage\Navigation\UCMaintain.resx">
+      <DependentUpon>UCMaintain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeManage\Navigation\UCMap.resx">
+      <DependentUpon>UCMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeManage\Navigation\UCMapItem.resx">
+      <DependentUpon>UCMapItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeManage\Navigation\UCNavigation.resx">
+      <DependentUpon>UCNavigation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeManage\Navigation\UCPurchaseMap.resx">
+      <DependentUpon>UCPurchaseMap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeManage\Reminder\UCReminder.resx">
+      <DependentUpon>UCReminder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeManage\Reminder\UCReminderItem.resx">
+      <DependentUpon>UCReminderItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomeManage\UUCHomeManage.resx">
+      <DependentUpon>UUCHomeManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HXCMainForm.resx">
+      <DependentUpon>HXCMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm\FormCmb.resx">
+      <DependentUpon>FormCmb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm\FormLogin.resx">
+      <DependentUpon>FormLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm\FormSet.resx">
+      <DependentUpon>FormSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoginForm\UCCmbItem.resx">
+      <DependentUpon>UCCmbItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Report\frmReportDesigner.resx">
+      <DependentUpon>frmReportDesigner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\frmReportStyle.resx">
+      <DependentUpon>frmReportStyle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\frmViewer.resx">
+      <DependentUpon>frmViewer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCChoosePurchaseOrder.resx">
+      <DependentUpon>UCChoosePurchaseOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillAddOrEdit.resx">
+      <DependentUpon>UCPurchaseBillAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillManang.resx">
+      <DependentUpon>UCPurchaseBillManang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillManangView.resx">
+      <DependentUpon>UCPurchaseBillManangView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCPurchaseBillView.resx">
+      <DependentUpon>UCPurchaseBillView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseBilling\UCChoosePurchaseBill.resx">
+      <DependentUpon>UCChoosePurchaseBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCChoosePurchasePlanOrder.resx">
+      <DependentUpon>UCChoosePurchasePlanOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderAddOrEdit.resx">
+      <DependentUpon>UCPurchaseOrderAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderManager.resx">
+      <DependentUpon>UCPurchaseOrderManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderView.resx">
+      <DependentUpon>UCPurchaseOrderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderManagerView.resx">
+      <DependentUpon>UCPurchaseOrderManagerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchaseOrder\UCPurchaseOrderView2.resx">
+      <DependentUpon>UCPurchaseOrderView2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\frmRelationOrder.resx">
+      <DependentUpon>frmRelationOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\frmStockCount.resx">
+      <DependentUpon>frmStockCount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderAddOrEdit.resx">
+      <DependentUpon>UCPurchasePlanOrderAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderManager.resx">
+      <DependentUpon>UCPurchasePlanOrderManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderManagView.resx">
+      <DependentUpon>UCPurchasePlanOrderManagView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderView.resx">
+      <DependentUpon>UCPurchasePlanOrderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\PurchasePlan\UCPurchasePlanOrderView2.resx">
+      <DependentUpon>UCPurchasePlanOrderView2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\frmDistributionView.resx">
+      <DependentUpon>frmDistributionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UCYTAddOrEdit.resx">
+      <DependentUpon>UCYTAddOrEdit.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UCYTManager.resx">
+      <DependentUpon>UCYTManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UCYTView.resx">
+      <DependentUpon>UCYTView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlSanBao.resx">
+      <DependentUpon>UserControlSanBao.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlShengJi.resx">
+      <DependentUpon>UserControlShengJi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlXuQiu.resx">
+      <DependentUpon>UserControlXuQiu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlSanBaoView.resx">
+      <DependentUpon>UserControlSanBaoView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlShengJiView.resx">
+      <DependentUpon>UserControlShengJiView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\PurchaseManagement\YuTongPurchaseOrder\UserControlXuQiuView.resx">
+      <DependentUpon>UserControlXuQiuView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCChooseSaleBill.resx">
+      <DependentUpon>UCChooseSaleBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCChooseSaleOrder.resx">
+      <DependentUpon>UCChooseSaleOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillAddOrEdit.resx">
+      <DependentUpon>UCSaleBillAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillManangSearch.resx">
+      <DependentUpon>UCSaleBillManangSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillView.resx">
+      <DependentUpon>UCSaleBillView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleBilling\UCSaleBillManang.resx">
+      <DependentUpon>UCSaleBillManang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCChooseSalePlanOrder.resx">
+      <DependentUpon>UCChooseSalePlanOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderAddOrEdit.resx">
+      <DependentUpon>UCSaleOrderAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderManager.resx">
+      <DependentUpon>UCSaleOrderManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderView.resx">
+      <DependentUpon>UCSaleOrderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderManagerSearch.resx">
+      <DependentUpon>UCSaleOrderManagerSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SaleOrder\UCSaleOrderViewSearch.resx">
+      <DependentUpon>UCSaleOrderViewSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\frmRelationOrder.resx">
+      <DependentUpon>frmRelationOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanAddOrEdit.resx">
+      <DependentUpon>UCSalePlanAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanManager.resx">
+      <DependentUpon>UCSalePlanManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanView.resx">
+      <DependentUpon>UCSalePlanView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanManagerSearch.resx">
+      <DependentUpon>UCSalePlanManagerSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\SaleManagement\SalePlan\UCSalePlanViewSearch.resx">
+      <DependentUpon>UCSalePlanViewSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBillQuery\UCAllocationQuery.resx">
+      <DependentUpon>UCAllocationQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCAllocationBillAddOrEdit.resx">
+      <DependentUpon>UCAllocationBillAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCAllocationBillDetails.resx">
+      <DependentUpon>UCAllocationBillDetails.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCAllocationBillManager.resx">
+      <DependentUpon>UCAllocationBillManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCImportBilling.resx">
+      <DependentUpon>UCImportBilling.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\AllocationBill\UCImportStockBill.resx">
+      <DependentUpon>UCImportStockBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBillQuery\UCStockCheckQuery.resx">
+      <DependentUpon>UCStockCheckQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBill\UCStockCheckAddOrEdit.resx">
+      <DependentUpon>UCStockCheckAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBill\UCStockCheckDetail.resx">
+      <DependentUpon>UCStockCheckDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\InventoryBill\UCStockCheckManager.resx">
+      <DependentUpon>UCStockCheckManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\ModifyPriceBill\UCModifyPriceAddOrEdit.resx">
+      <DependentUpon>UCModifyPriceAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\ModifyPriceBill\UCModifyPriceDetail.resx">
+      <DependentUpon>UCModifyPriceDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\ModifyPriceBill\UCModifyPriceManager.resx">
+      <DependentUpon>UCModifyPriceManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveGoods\UCStockReceiptAddOrEdit.resx">
+      <DependentUpon>UCStockReceiptAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveGoods\UCStockReceiptDetail.resx">
+      <DependentUpon>UCStockReceiptDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveGoods\UCStockReceiptManager.resx">
+      <DependentUpon>UCStockReceiptManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherReceiveSendQuery\UCStockReceiptOrShippingQuery.resx">
+      <DependentUpon>UCStockReceiptOrShippingQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherSendGoods\UCStockShippingAddOrEdit.resx">
+      <DependentUpon>UCStockShippingAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherSendGoods\UCStockShippingDetail.resx">
+      <DependentUpon>UCStockShippingDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\OtherSendGoods\UCStockShippingManager.resx">
+      <DependentUpon>UCStockShippingManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBillQuery\UCReportedLossQuery.resx">
+      <DependentUpon>UCReportedLossQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCImportSaleReturnBilling.resx">
+      <DependentUpon>UCImportSaleReturnBilling.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCReportedLossBillAddOrEdit.resx">
+      <DependentUpon>UCReportedLossBillAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCReportedLossBillDetail.resx">
+      <DependentUpon>UCReportedLossBillDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\ReportedLossBill\UCReportedLossBillManager.resx">
+      <DependentUpon>UCReportedLossBillManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBillQuery\UCRequisitionQuery.resx">
+      <DependentUpon>UCRequisitionQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBill\UCRequisitionAddOrEdit.resx">
+      <DependentUpon>UCRequisitionAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBill\UCRequisitionBillDetail.resx">
+      <DependentUpon>UCRequisitionBillDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\RequisitionBill\UCRequisitionManager.resx">
+      <DependentUpon>UCRequisitionManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\AccessoriesBusiness\WarehouseManagement\StockQuery\UCStockQuery.resx">
+      <DependentUpon>UCStockQuery.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableAbove.resx">
+      <DependentUpon>UCPayableAbove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableChecking.resx">
+      <DependentUpon>UCPayableChecking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableDanDetail.resx">
+      <DependentUpon>UCPayableDanDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableDanSummariz.resx">
+      <DependentUpon>UCPayableDanSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableDetail.resx">
+      <DependentUpon>UCPayableDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCPayableSummariz.resx">
+      <DependentUpon>UCPayableSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCPurchasePayment.resx">
+      <DependentUpon>UCPurchasePayment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableAbove.resx">
+      <DependentUpon>UCReceivableAbove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableAged.resx">
+      <DependentUpon>UCReceivableAged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableChecking.resx">
+      <DependentUpon>UCReceivableChecking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableDanDetail.resx">
+      <DependentUpon>UCReceivableDanDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableDanSummariz.resx">
+      <DependentUpon>UCReceivableDanSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableDetail.resx">
+      <DependentUpon>UCReceivableDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCReceivableSummariz.resx">
+      <DependentUpon>UCReceivableSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\ARAPReport\UCSaleGathering.resx">
+      <DependentUpon>UCSaleGathering.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\BankReport\UCBankDetail.resx">
+      <DependentUpon>UCBankDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\BankReport\UCBankSummariz.resx">
+      <DependentUpon>UCBankSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\frmReportSet.resx">
+      <DependentUpon>frmReportSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseBillingDetail.resx">
+      <DependentUpon>UCPurchaseBillingDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseBillingSummariz.resx">
+      <DependentUpon>UCPurchaseBillingSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseBillingZongHe.resx">
+      <DependentUpon>UCPurchaseBillingZongHe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseDaily.resx">
+      <DependentUpon>UCPurchaseDaily.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseDiscountDetail.resx">
+      <DependentUpon>UCPurchaseDiscountDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseDiscountSummariz.resx">
+      <DependentUpon>UCPurchaseDiscountSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseOrderDetail.resx">
+      <DependentUpon>UCPurchaseOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseOrderSummariz.resx">
+      <DependentUpon>UCPurchaseOrderSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchasePlanDetail.resx">
+      <DependentUpon>UCPurchasePlanDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchasePlanSummariz.resx">
+      <DependentUpon>UCPurchasePlanSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\PurchaseReport\UCPurchaseReturnDetail.resx">
+      <DependentUpon>UCPurchaseReturnDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\RepairReport\UCRepairAddOrDrain.resx">
+      <DependentUpon>UCRepairAddOrDrain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\RepairReport\UCRepairClass.resx">
+      <DependentUpon>UCRepairClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\RepairReport\UCRepairClientReconciliation.resx">
+      <DependentUpon>UCRepairClientReconciliation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\RepairReport\UCRepairLaborHour.resx">
+      <DependentUpon>UCRepairLaborHour.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\RepairReport\UCRepairManage.resx">
+      <DependentUpon>UCRepairManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\RepairReport\UCRepairMaterial.resx">
+      <DependentUpon>UCRepairMaterial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\RepairReport\UCRepairOverdue.resx">
+      <DependentUpon>UCRepairOverdue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\RepairReport\UCRepairVehicleNumber.resx">
+      <DependentUpon>UCRepairVehicleNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleBillingDetail.resx">
+      <DependentUpon>UCSaleBillingDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleBillingummariz.resx">
+      <DependentUpon>UCSaleBillingummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleBillingZongHe.resx">
+      <DependentUpon>UCSaleBillingZongHe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleDaily.resx">
+      <DependentUpon>UCSaleDaily.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleDiscountDetail.resx">
+      <DependentUpon>UCSaleDiscountDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleDiscountSummariz.resx">
+      <DependentUpon>UCSaleDiscountSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleOrderDetail.resx">
+      <DependentUpon>UCSaleOrderDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleOrderSummariz.resx">
+      <DependentUpon>UCSaleOrderSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSalePerformance.resx">
+      <DependentUpon>UCSalePerformance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSalePlanDetail.resx">
+      <DependentUpon>UCSalePlanDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSalePlanSummariz.resx">
+      <DependentUpon>UCSalePlanSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleProfitDetail.resx">
+      <DependentUpon>UCSaleProfitDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleProfitSummariz.resx">
+      <DependentUpon>UCSaleProfitSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\SaleReport\UCSaleReturnDetail.resx">
+      <DependentUpon>UCSaleReturnDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\StockReport\UCActualDetail.resx">
+      <DependentUpon>UCActualDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\StockReport\UCActualSummariz.resx">
+      <DependentUpon>UCActualSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\StockReport\UCAlarmDetail.resx">
+      <DependentUpon>UCAlarmDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\StockReport\UCPaperDetail.resx">
+      <DependentUpon>UCPaperDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\StockReport\UCPaperSummariz.resx">
+      <DependentUpon>UCPaperSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\StockReport\UCStockAging.resx">
+      <DependentUpon>UCStockAging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\StockReport\UCStockTypeSummariz.resx">
+      <DependentUpon>UCStockTypeSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\StockReport\UCWarehouseDetail.resx">
+      <DependentUpon>UCWarehouseDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\StockReport\UCWarehouseDifferentiate.resx">
+      <DependentUpon>UCWarehouseDifferentiate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\StockReport\UCWarehouseSummariz.resx">
+      <DependentUpon>UCWarehouseSummariz.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\UCDayToDayAccountReport.resx">
+      <DependentUpon>UCDayToDayAccountReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\UCGiftReport.resx">
+      <DependentUpon>UCGiftReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\BusinessAnalysis\UCReport.resx">
+      <DependentUpon>UCReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\CustomerService\CallBack\UCCallBackAddOrEdit.resx">
+      <DependentUpon>UCCallBackAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\CustomerService\CallBack\UCCallBackManager.resx">
+      <DependentUpon>UCCallBackManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\CustomerService\Feedback\UCFeedbackAddOrEdit.resx">
+      <DependentUpon>UCFeedbackAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\CustomerService\Feedback\UCFeedbackManager.resx">
+      <DependentUpon>UCFeedbackManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\CustomerService\Member\UCMemberAddOrEdit.resx">
+      <DependentUpon>UCMemberAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\CustomerService\Member\UCMemberManager.resx">
+      <DependentUpon>UCMemberManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\CustomerService\Member\UCMemberViewDetail.resx">
+      <DependentUpon>UCMemberViewDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\Contacts\UCContactsAddOrEdit.resx">
+      <DependentUpon>UCContactsAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\Contacts\UCContactsManage.resx">
+      <DependentUpon>UCContactsManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\Contacts\UCContactsView.resx">
+      <DependentUpon>UCContactsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\CustomerFiles\UCCustomerAddOrEdit.resx">
+      <DependentUpon>UCCustomerAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\CustomerFiles\UCCustomerManager.resx">
+      <DependentUpon>UCCustomerManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\CustomerFiles\UCCustomerViews.resx">
+      <DependentUpon>UCCustomerViews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\Dic\UCDictionaryManager.resx">
+      <DependentUpon>UCDictionaryManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\Dic\UCDictionaryAddOrEdit.resx">
+      <DependentUpon>UCDictionaryAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\Parts\UCPartsAddOrEdit.resx">
+      <DependentUpon>UCPartsAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\Parts\UCPartsManage.resx">
+      <DependentUpon>UCPartsManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\Parts\UCPartsRate.resx">
+      <DependentUpon>UCPartsRate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\Parts\UCPartsView.resx">
+      <DependentUpon>UCPartsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\SupplierFile\UCSupplierAddOrEdit.resx">
+      <DependentUpon>UCSupplierAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\SupplierFile\UCSupplierManager.resx">
+      <DependentUpon>UCSupplierManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\SupplierFile\UCSupplierView.resx">
+      <DependentUpon>UCSupplierView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\VehicleFiles\BigImage.resx">
+      <DependentUpon>BigImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\VehicleFiles\UCVehicleAddOrEdit.resx">
+      <DependentUpon>UCVehicleAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\VehicleFiles\UCVehicleManage.resx">
+      <DependentUpon>UCVehicleManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\VehicleFiles\UCVehicleView.resx">
+      <DependentUpon>UCVehicleView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\VehicleModels\UCVehicleModelsManage.resx">
+      <DependentUpon>UCVehicleModelsManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\VehicleModels\UCVehicleModelsAddOrEdit.resx">
+      <DependentUpon>UCVehicleModelsAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\VehicleModels\UCVehicleModelsView.resx">
+      <DependentUpon>UCVehicleModelsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\WareHouse\UCWareHouseAddOrEdit.resx">
+      <DependentUpon>UCWareHouseAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\WareHouse\UCWareHouseManager.resx">
+      <DependentUpon>UCWareHouseManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\WareHouse\UCWareHouseView.resx">
+      <DependentUpon>UCWareHouseView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\WorkingTimeFile\UCWorkingTimeAddOrEdit.resx">
+      <DependentUpon>UCWorkingTimeAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\WorkingTimeFile\UCWorkingTimeManager.resx">
+      <DependentUpon>UCWorkingTimeManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\DataManage\WorkingTimeFile\UCWorkingTimeView.resx">
+      <DependentUpon>UCWorkingTimeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\FinancialManagement\AccountVerification\UCAccountVerificationAdd.resx">
+      <DependentUpon>UCAccountVerificationAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\FinancialManagement\AccountVerification\UCAccountVerificationManage.resx">
+      <DependentUpon>UCAccountVerificationManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\FinancialManagement\Receivable\UCReceivableAdd.resx">
+      <DependentUpon>UCReceivableAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\FinancialManagement\Receivable\UCReceivableManage.resx">
+      <DependentUpon>UCReceivableManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\frmAttachment.resx">
+      <DependentUpon>frmAttachment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFetchMaterialImport.resx">
+      <DependentUpon>UCFetchMaterialImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFMaterialReturnAddOrEdit.resx">
+      <DependentUpon>UCFMaterialReturnAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFMaterialReturnManager.resx">
+      <DependentUpon>UCFMaterialReturnManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\FetchMaterialReturn\UCFMaterialReturnView.resx">
+      <DependentUpon>UCFMaterialReturnView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\FetchMaterial\UCFetchMaterialAddOrEdit.resx">
+      <DependentUpon>UCFetchMaterialAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\FetchMaterial\UCFetchMaterialManager.resx">
+      <DependentUpon>UCFetchMaterialManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\FetchMaterial\UCFetchMaterialView.resx">
+      <DependentUpon>UCFetchMaterialView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsInventoryQuery\UCOldPartsInventoryQuery.resx">
+      <DependentUpon>UCOldPartsInventoryQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceiptQuery\UCOldPartsReceiptQueryManager.resx">
+      <DependentUpon>UCOldPartsReceiptQueryManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceipt\UCOldPartsReceiptAddOrEdit.resx">
+      <DependentUpon>UCOldPartsReceiptAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceipt\UCOldPartsReceiptManager.resx">
+      <DependentUpon>UCOldPartsReceiptManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsReceipt\UCOldPartsReceiptView.resx">
+      <DependentUpon>UCOldPartsReceiptView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSendOutQuery\UCOldPartsSendOutQueryManager.resx">
+      <DependentUpon>UCOldPartsSendOutQueryManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCOldPartsSendAddOrEdit.resx">
+      <DependentUpon>UCOldPartsSendAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCOldPartsSendManager.resx">
+      <DependentUpon>UCOldPartsSendManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCOldPartsSendView.resx">
+      <DependentUpon>UCOldPartsSendView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\OldPartsSend\UCPartsReceiptImport.resx">
+      <DependentUpon>UCPartsReceiptImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautusQuery\UCOldPartsPalautusQueryManage.resx">
+      <DependentUpon>UCOldPartsPalautusQueryManage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautus\UCOldPartsPalautusAddOrEdit.resx">
+      <DependentUpon>UCOldPartsPalautusAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautus\UCOldPartsPalautusManager.resx">
+      <DependentUpon>UCOldPartsPalautusManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsPalautus\UCOldPartsPalautusView.resx">
+      <DependentUpon>UCOldPartsPalautusView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsTagPrint\UCOldPartsTagControl.resx">
+      <DependentUpon>UCOldPartsTagControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsTagPrint\UCYTOldPartsImport.resx">
+      <DependentUpon>UCYTOldPartsImport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\OldPartsManagement\YTOldPartsTagPrint\UCYTOldPartsTagPrintManager.resx">
+      <DependentUpon>UCYTOldPartsTagPrintManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\Receive\UCCallBackImport.resx">
+      <DependentUpon>UCCallBackImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\Receive\UCReceiveAddOrEdit.resx">
+      <DependentUpon>UCReceiveAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\Receive\UCReceiveManager.resx">
+      <DependentUpon>UCReceiveManager.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\Receive\UCReceiveView.resx">
+      <DependentUpon>UCReceiveView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\Receive\UCReserveImport.resx">
+      <DependentUpon>UCReserveImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceAddOrEdit.resx">
+      <DependentUpon>UCRepairBalanceAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceImport.resx">
+      <DependentUpon>UCRepairBalanceImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceManager.resx">
+      <DependentUpon>UCRepairBalanceManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairBalance\UCRepairBalanceView.resx">
+      <DependentUpon>UCRepairBalanceView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackAddOrEdit.resx">
+      <DependentUpon>UCRepairCallbackAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackImport.resx">
+      <DependentUpon>UCRepairCallbackImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackManager.resx">
+      <DependentUpon>UCRepairCallbackManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairCallback\UCRepairCallbackView.resx">
+      <DependentUpon>UCRepairCallbackView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairDispatch\UCDispatchBase.resx">
+      <DependentUpon>UCDispatchBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairDispatch\UCDispatchDetails.resx">
+      <DependentUpon>UCDispatchDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairDispatch\UCDispatchManager.resx">
+      <DependentUpon>UCDispatchManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairDispatch\UCInspection.resx">
+      <DependentUpon>UCInspection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairDispatch\UCStopReason.resx">
+      <DependentUpon>UCStopReason.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairDispatch\UCTrialSettlement.resx">
+      <DependentUpon>UCTrialSettlement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairProgress\UCRepairProgressManager.resx">
+      <DependentUpon>UCRepairProgressManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairQuery\RepairQueryManager.resx">
+      <DependentUpon>RepairQueryManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairQuery\RepairQueryView.resx">
+      <DependentUpon>RepairQueryView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairRescue\UCRepairRescueAddOrEdit.resx">
+      <DependentUpon>UCRepairRescueAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairRescue\UCRepairRescueManager.resx">
+      <DependentUpon>UCRepairRescueManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\RepairRescue\UCRepairRescueView.resx">
+      <DependentUpon>UCRepairRescueView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\ReserveQuery\UCReserveOrderQuery.resx">
+      <DependentUpon>UCReserveOrderQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\Reserve\ReserveOrder.resx">
+      <DependentUpon>ReserveOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\Reserve\ReserveOrderAddOrEdit.resx">
+      <DependentUpon>ReserveOrderAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\Reserve\ReserveOrderView.resx">
+      <DependentUpon>ReserveOrderView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuarantySettlement\UCThreeGuarantySettlementManager.resx">
+      <DependentUpon>UCThreeGuarantySettlementManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuarantySettlement\UCThreeGuarantySettlementQuery.resx">
+      <DependentUpon>UCThreeGuarantySettlementQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuarantySettlement\UCThreeGuarantySettlementView.resx">
+      <DependentUpon>UCThreeGuarantySettlementView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCApproveStatusInfo.resx">
+      <DependentUpon>UCApproveStatusInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainMatrialDetailImport.resx">
+      <DependentUpon>UCMaintainMatrialDetailImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainWorkhourImport.resx">
+      <DependentUpon>UCMaintainWorkhourImport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainSettlementImprot.resx">
+      <DependentUpon>UCMaintainSettlementImprot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyEdit.resx">
+      <DependentUpon>UCMaintainThreeGuarantyEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyManager.resx">
+      <DependentUpon>UCMaintainThreeGuarantyManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyQuery.resx">
+      <DependentUpon>UCMaintainThreeGuarantyQuery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyVerify.resx">
+      <DependentUpon>UCMaintainThreeGuarantyVerify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyView.resx">
+      <DependentUpon>UCMaintainThreeGuarantyView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\MaintainThreeGuaranty\UCMaintainThreeGuarantyViewDetail.resx">
+      <DependentUpon>UCMaintainThreeGuarantyViewDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\RepairBusiness\YuTongThreeGuaranty\UCFormQueryTemplate.resx">
+      <DependentUpon>UCFormQueryTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\AcountManage\UCBillCodeRule.resx">
+      <DependentUpon>UCBillCodeRule.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\AcountManage\UCComInfo.resx">
+      <DependentUpon>UCComInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\AcountManage\UCFinanceBPara.resx">
+      <DependentUpon>UCFinanceBPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\AcountManage\UCLoginPCSet.resx">
+      <DependentUpon>UCLoginPCSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\AcountManage\UCLoginTimeLimit.resx">
+      <DependentUpon>UCLoginTimeLimit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\AcountManage\UCPurcBPara.resx">
+      <DependentUpon>UCPurcBPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\AcountManage\UCRepairBPara.resx">
+      <DependentUpon>UCRepairBPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\AcountManage\UCSaleBPara.resx">
+      <DependentUpon>UCSaleBPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\AcountManage\UCStockBPara.resx">
+      <DependentUpon>UCStockBPara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\BankAccount\UCBankAccountAddOrEdit.resx">
+      <DependentUpon>UCBankAccountAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\BankAccount\UCBankAccountManage.resx">
+      <DependentUpon>UCBankAccountManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\BulletinManage\UCBulletinAddOrEdit.resx">
+      <DependentUpon>UCBulletinAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\BulletinManage\UCBulletinManage.resx">
+      <DependentUpon>UCBulletinManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\BulletinManage\UCBulletinView.resx">
+      <DependentUpon>UCBulletinView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\CashierAccount\UCCashierAccManage.resx">
+      <DependentUpon>UCCashierAccManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\CashierAccount\UCCashierAccountAdd.resx">
+      <DependentUpon>UCCashierAccountAdd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Company\UCCompanyAddOrEdit.resx">
+      <DependentUpon>UCCompanyAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Company\UCCompanyManager.resx">
+      <DependentUpon>UCCompanyManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Company\UCCompanyView.resx">
+      <DependentUpon>UCCompanyView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\MemberPara\UCMemberParaAddOrEdit.resx">
+      <DependentUpon>UCMemberParaAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\MemberPara\UCMemberParaManage.resx">
+      <DependentUpon>UCMemberParaManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\MemberPara\UCMemberParaView.resx">
+      <DependentUpon>UCMemberParaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Organization\UCOrganizationAddOrEdit.resx">
+      <DependentUpon>UCOrganizationAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Organization\UCOrganizationManager.resx">
+      <DependentUpon>UCOrganizationManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Organization\UCOrganizationView.resx">
+      <DependentUpon>UCOrganizationView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\PersonalSet\UCPersonalSet.resx">
+      <DependentUpon>UCPersonalSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Personnel\UCPersonnelAddOrEdit.resx">
+      <DependentUpon>UCPersonnelAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Personnel\UCPersonnelManager.resx">
+      <DependentUpon>UCPersonnelManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Personnel\UCPersonnelView.resx">
+      <DependentUpon>UCPersonnelView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\ReminderSet\UCAlarmSet.resx">
+      <DependentUpon>UCAlarmSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\ReminderSet\UCPreTime.resx">
+      <DependentUpon>UCPreTime.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\ReminderSet\UCReminderSet.resx">
+      <DependentUpon>UCReminderSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\ReminderSet\UCReminderType.resx">
+      <DependentUpon>UCReminderType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\RepairMeal\UCRepairMealAddOrEdit.resx">
+      <DependentUpon>UCRepairMealAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\RepairMeal\UCRepairMealManage.resx">
+      <DependentUpon>UCRepairMealManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\RepairMeal\UCRepairMealView.resx">
+      <DependentUpon>UCRepairMealView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Role\UCRoleAddOrEdit.resx">
+      <DependentUpon>UCRoleAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Role\UCRoleManager.resx">
+      <DependentUpon>UCRoleManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Role\UCRoleView.resx">
+      <DependentUpon>UCRoleView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Settlement\UCSettlementAddOrEdit.resx">
+      <DependentUpon>UCSettlementAddOrEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Settlement\UCSettlementManage.resx">
+      <DependentUpon>UCSettlementManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\SysManage\Stock\UCStockManager.resx">
+      <DependentUpon>UCStockManager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\UCAttachment.resx">
+      <DependentUpon>UCAttachment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\UCBase.resx">
+      <DependentUpon>UCBase.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\UCVerify.resx">
+      <DependentUpon>UCVerify.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\User\UCUserInfo.resx">
+      <DependentUpon>UCUserInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCForm\User\UCUserSetPWD.resx">
+      <DependentUpon>UCUserSetPWD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCMainLayOut\FormMenu.resx">
+      <DependentUpon>FormMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCMainLayOut\UCLeftMenu.resx">
+      <DependentUpon>UCLeftMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UCMainLayOut\UCMenuBar.resx">
+      <DependentUpon>UCMenuBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BusinessPrint\应付冲应收.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\应付转应付.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\应收冲应付.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\应收转应收.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\财务付款单明细.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\财务应付款单.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\财务应收款单.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\财务预付款单.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\财务预收款单.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\预付冲应付.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\预付转预付.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\预收冲应收.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="BusinessPrint\预收转预收.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Report\Chinese %28Simplified%29.frl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoUpdate\AutoUpdate.csproj">
+      <Project>{cf873caa-d439-45b3-a3af-3f09e54b3b10}</Project>
+      <Name>AutoUpdate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ClientBLL\ClientBLL.csproj">
+      <Project>{13EA3CF8-8522-45CB-B3CB-5EB9427C2326}</Project>
+      <Name>ClientBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\HXCCommon.csproj">
+      <Project>{8F4631CC-B096-4577-B324-113976AB0DD8}</Project>
+      <Name>HXCCommon</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HuiXiuCheWcfContract\HuiXiuCheWcfContract.csproj">
+      <Project>{115F0BBB-AE9E-467B-A76B-0103B3978490}</Project>
+      <Name>HuiXiuCheWcfContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HuiXiuCheWcfFileContract\HuiXiuCheWcfFileContract.csproj">
+      <Project>{56BCFAC0-C3A4-4546-BD08-55A4DFF071EF}</Project>
+      <Name>HuiXiuCheWcfFileContract</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HXC.UI.Library\HXC.UI.Library.csproj">
+      <Project>{88DD4D22-4249-448B-9D90-F4A4ADC6471C}</Project>
+      <Name>HXC.UI.Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HXCPRepairProgress\HXCPRepairProgress.csproj">
+      <Project>{2D2C8543-507F-4924-9C1E-BB2F0E497004}</Project>
+      <Name>HXCPRepairProgress</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogService\LogService.TXT\LogService.TXT.csproj">
+      <Project>{b40f979d-a998-4f5f-9e64-c2b45a1fd4ec}</Project>
+      <Name>LogService.TXT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogService\LogService\LogService.csproj">
+      <Project>{2b02ceb9-e22e-4584-9db2-efa12fcafdd8}</Project>
+      <Name>LogService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{C82568A7-143C-488B-AE12-61F15CF69A80}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceStationClient.ComponentUI\ServiceStationClient.ComponentUI.csproj">
+      <Project>{9241B977-6055-4CE7-BEF1-A8A1D6594C7A}</Project>
+      <Name>ServiceStationClient.ComponentUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServiceStationClient.Skin\ServiceStationClient.Skin.csproj">
+      <Project>{E43F73EA-2EE6-4848-ACA8-35B73462789F}</Project>
+      <Name>ServiceStationClient.Skin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SYSModel\SYSModel.csproj">
+      <Project>{2C218F81-1C42-475D-A448-84980264707C}</Project>
+      <Name>SYSModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{E3F10FEF-C8E4-450F-B20D-5A11A5486FF1}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\ContentMenu\Add_E.png" />
+    <None Include="Report\repair_vehicle_number_report.frx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\top3.png" />
+    <None Include="Resources\top2.gif" />
+    <None Include="Resources\Edit_E.png" />
+    <Content Include="Resources\ContentMenu\tSMenuItem_Softupdate_L.png" />
+    <Content Include="Resources\ContentMenu\tSMenuItem_softupdate_N.png" />
+    <Content Include="项目4.ico" />
+    <None Include="Resources\set2.png" />
+    <None Include="Resources\top1.gif" />
+    <None Include="Resources\top2.png" />
+    <None Include="Resources\set1.png" />
+    <None Include="Resources\top.gif" />
+    <None Include="Resources\top1.png" />
+    <None Include="Resources\top.png" />
+    <None Include="Resources\map\jsfs_on.png" />
+    <None Include="Resources\map\jsfs.png" />
+    <None Include="Resources\map\kccx_on.png" />
+    <None Include="Resources\map\kccx.png" />
+    <None Include="Resources\map\khzl_on.png" />
+    <None Include="Resources\map\khzl.png" />
+    <None Include="Resources\map\qtshd_on.png" />
+    <None Include="Resources\map\qtshd.png" />
+    <None Include="Resources\map\qtfhd_on.png" />
+    <None Include="Resources\map\qtfhd.png" />
+    <None Include="Resources\map\gyszl_on.png" />
+    <None Include="Resources\map\gyszl.png" />
+    <None Include="Resources\map\ckzl_on.png" />
+    <None Include="Resources\map\ckzl.png" />
+    <None Include="Resources\map\ytcgdd_on.png" />
+    <None Include="Resources\map\ytcgdd.png" />
+    <None Include="Resources\map\xskd_on.png" />
+    <None Include="Resources\map\xskd.png" />
+    <None Include="Resources\map\xsjh_on.png" />
+    <None Include="Resources\map\xsjh.png" />
+    <None Include="Resources\map\xsdd_on.png" />
+    <None Include="Resources\map\xsdd.png" />
+    <None Include="Resources\map\pdd_on.png" />
+    <None Include="Resources\map\pdd.png" />
+    <None Include="Resources\map\dpd_on.png" />
+    <None Include="Resources\map\dpd.png" />
+    <None Include="Resources\map\crkd_on.png" />
+    <None Include="Resources\map\crkd.png" />
+    <None Include="Resources\map\cgkd_on.png" />
+    <None Include="Resources\map\cgkd.png" />
+    <None Include="Resources\map\cgdd_on.png" />
+    <None Include="Resources\map\cgdd.png" />
+    <None Include="Resources\map\bsd_on.png" />
+    <None Include="Resources\map\bsd.png" />
+    <None Include="Resources\map\arrow_up.png" />
+    <None Include="Resources\ContentMenu\close.png" />
+    <None Include="Resources\ContentMenu\close-all.png" />
+    <None Include="Resources\ContentMenu\close-other.png" />
+    <Content Include="Resources\ContentMenu\Delete_E.png" />
+    <Content Include="Resources\ContentMenu\ico-add.png" />
+    <Content Include="Resources\ContentMenu\windowClose_01.png" />
+    <None Include="Resources\map\arrow-left.png" />
+    <None Include="Resources\progres.gif" />
+    <None Include="Resources\progress.gif" />
+    <None Include="Resources\DataPage\page_up_down.png" />
+    <None Include="Resources\DataPage\page_up_default.png" />
+    <None Include="Resources\DataPage\page_last_down.png" />
+    <None Include="Resources\DataPage\page_last_default.png" />
+    <None Include="Resources\DataPage\page_first_down.png" />
+    <None Include="Resources\DataPage\page_first_default.png" />
+    <None Include="Resources\DataPage\page_down_down.png" />
+    <None Include="Resources\DataPage\page_down_default.png" />
+    <None Include="Resources\DataPage\button-n.png" />
+    <None Include="Resources\DataPage\button-d.png" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\ContentMenu\tSMenuItem_UserInfo_N.png" />
+    <None Include="Resources\ContentMenu\tSMenuItem_UserInfo_L.png" />
+    <None Include="Resources\ContentMenu\tSMenuItem_PWDReSet_N.png" />
+    <None Include="Resources\ContentMenu\tSMenuItem_PWDReSet_L.png" />
+    <None Include="Resources\ContentMenu\tSMenuItem_Help_N.png" />
+    <None Include="Resources\ContentMenu\tSMenuItem_Help_L.png" />
+    <None Include="Resources\ContentMenu\tSMenuItem_About_N.png" />
+    <None Include="Resources\ContentMenu\tSMenuItem_About_L.png" />
+    <None Include="Resources\map\two_arrow.png" />
+    <None Include="Resources\map\wxyy_on.png" />
+    <None Include="Resources\map\wxyy.png" />
+    <None Include="Resources\map\wxll_on.png" />
+    <None Include="Resources\map\wxll.png" />
+    <None Include="Resources\map\wxjs_on.png" />
+    <None Include="Resources\map\wxjs.png" />
+    <None Include="Resources\map\wxjd_on.png" />
+    <None Include="Resources\map\wxjd.png" />
+    <None Include="Resources\map\wxdd_on.png" />
+    <None Include="Resources\map\wxdd.png" />
+    <None Include="Resources\map\sbjsd_on.png" />
+    <None Include="Resources\map\sbjsd.png" />
+    <None Include="Resources\map\sbfwd_on.png" />
+    <None Include="Resources\map\sbfwd.png" />
+    <None Include="Resources\map\llth_on.png" />
+    <None Include="Resources\map\llth.png" />
+    <None Include="Resources\map\jy_on.png" />
+    <None Include="Resources\map\jy.png" />
+    <None Include="Resources\map\jjfc_on.png" />
+    <None Include="Resources\map\jjfc.png" />
+    <None Include="Resources\map\fx_on.png" />
+    <None Include="Resources\map\fx.png" />
+    <None Include="Resources\map\cwsk_on.png" />
+    <None Include="Resources\map\cwsk.png" />
+    <None Include="Resources\login\info.png" />
+    <None Include="Resources\warning.ico" />
+    <None Include="Resources\loading.gif" />
+    <None Include="Resources\login\input.png" />
+    <None Include="Resources\login\clear.png" />
+    <None Include="Resources\login\top.png" />
+    <None Include="Resources\login\logo.gif" />
+    <None Include="Resources\login\down-d.png" />
+    <None Include="Resources\login\button-s.png" />
+    <None Include="Resources\login\button-n.png" />
+    <None Include="Resources\login\button-d.png" />
+    <None Include="Resources\login\books.png" />
+    <None Include="Resources\login\user.png" />
+    <None Include="Resources\login\small-n.png" />
+    <None Include="Resources\login\small-d.png" />
+    <None Include="Resources\login\set.png" />
+    <None Include="Resources\login\select-n.png" />
+    <None Include="Resources\login\select-d.png" />
+    <None Include="Resources\login\password.png" />
+    <None Include="Resources\login\down-n.png" />
+    <None Include="Resources\login\close-n.png" />
+    <None Include="Resources\login\close-d.png" />
+    <None Include="Resources\map\ywfk_on.png" />
+    <None Include="Resources\map\ywfk.png" />
+    <None Include="Resources\map\kcpj_on.png" />
+    <None Include="Resources\map\kcpj.png" />
+    <None Include="Resources\map\jhdd_on.png" />
+    <None Include="Resources\map\jhdd.png" />
+    <None Include="Resources\map\cgth_on.png" />
+    <None Include="Resources\map\cgth.png" />
+    <None Include="Resources\map\cgjh_on.png" />
+    <None Include="Resources\map\cgjh.png" />
+    <None Include="Resources\map\arrow_down.png" />
+    <None Include="Resources\map\arrow.png" />
+    <None Include="Resources\set.png" />
+    <None Include="Resources\file.png" />
+    <None Include="Resources\reminder.png" />
+    <None Include="Resources\eye.png" />
+    <None Include="Resources\title1.png" />
+    <None Include="Resources\cmbox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Interop.Access.Dao">
+      <Guid>{4AC9E1DA-5BAD-4AC7-86E3-24F4CDCECA28}</Guid>
+      <VersionMajor>12</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

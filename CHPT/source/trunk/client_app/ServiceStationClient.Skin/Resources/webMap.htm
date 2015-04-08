@@ -1,0 +1,242 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>webMap</title>
+    <style type="text/css">
+	body
+        {
+            padding: 0px;
+            margin: 0px;
+        }
+        v\:*
+        {
+            behavior: url(#default#VML);
+        }
+    </style>
+    <script type="text/javascript" language="javascript" src="http://vapi.mapenjoy.com/maps.js"></script>
+    <script type="text/javascript" language="javascript">
+        var map; //当前地图实例
+        var currentEvent; //当前正在执行的事件
+        var ZoomInControl; //放大控件
+        var ZoomOutControl; //缩小控件
+        var PolygonControl; //测面积控件
+        var PolyLineControl; //测距控件
+        var SwitchControl; //添加地图切换控件
+        var thisMarker; //当前选中的车辆（标注）
+        var thisIndex;//当前选中车辆所在数组索引
+        var arrayObject = new Array(); //装载对象的数组
+        var thisCenterAndZoom = false; //是否自动定位到选中车辆
+
+        //声名一个数组
+        function mapClass() {
+            var mapObj = {
+                mapMarker: "",//当前地图上的标注
+                mapText: "",//当前地图上的标注Label
+                mapLicensePlateNumber: ""//当前地图上的车辆GUID
+            };
+            return mapObj;
+        }
+
+        function onLoad() {
+            map = new SE_Maps("mapDiv"); //第一步，加载地图
+            map.centerAndZoom(new SE_LngLat(11640969, 3994940), 9); //默认中心点及缩放级别
+
+            map.addControl(new SE_StandMapControl()); //加入一个标准缩放控件（左上角,鱼骨）
+            map.handleMouseScroll(true); //加入鼠标3D键（滚轮）放大控件
+            map.addControl(new SE_MagnifyingglassControl()); //滚轮缩放地图时协助定位的放大镜控件,添加以后,滚轮缩放地图时,会有跟随地图缩放的图标来指示当前缩放的位置
+            map.handleKeyboard(); //允许键盘操作
+
+            var scaleControl = new SE_ScaleControl(); //New一个比例尺
+            scaleControl.setColor("green"); //比例尺样式
+            scaleControl.units = [[1000, "km"], [1, "m"]]; //比例尺对比
+            map.addControl(scaleControl); //加入比例尺
+
+            ZoomInControl = new SE_ZoomInControl(1, 50); //加入一个放大控件
+            map.addControl(ZoomInControl); //把放大控件加入地图
+            ZoomInControl.setVisible(false); //设置放大控件在地图上不可见
+
+            ZoomOutControl = new SE_ZoomInControl(-1, 50); //加入一个缩小控件
+            map.addControl(ZoomOutControl); //把缩小控件加入地图
+            ZoomOutControl.setVisible(false); //设置缩小控件在地图上不可见
+
+            map.addControl(new SE_OverviewMapControl()); //加载鹰眼控件
+            map.removeControl(map.logoControl); //移除地图左下角LOGO
+            document.getElementById("SE_navinfologo").style.display = "none";
+            document.getElementById("SE_digilogo").style.display = "none";
+            document.getElementById("SE_bseilogo").style.display = "none";
+
+            PolygonControl = new SE_PolygonControl(); //加入一个测面积控件
+            PolygonControl.lineColor = "red"; //默认绘制的线条颜色
+            PolygonControl.lineStroke = 1; //默认绘制的线条宽度
+            PolygonControl.lineOpacity = 1; //默认绘制的透明度（0-1）
+            PolygonControl.lineStyle = "ShortDash"; //默认绘制的线型
+            map.addControl(PolygonControl); //把测面积控件加入地图  
+            PolygonControl.setVisible(false); //设置测面积控件在地图上不可见
+
+            PolyLineControl = new SE_PolyLineControl(); //加入一个测距控件
+            PolyLineControl.lineColor = "red"; //默认绘制的线条颜色
+            PolyLineControl.lineStroke = 1; //默认绘制的线条宽度
+            PolyLineControl.lineOpacity = 1; //默认绘制的透明度（0-1）
+            PolyLineControl.lineStyle = "ShortDash"; //默认绘制的线型
+            PolyLineControl.lineArrow = ["Open", "Open"]; //默认绘制的箭头,要求是一个数组，例如["None","None"]
+            map.addControl(PolyLineControl); //把测距控件加入地图
+            PolyLineControl.setVisible(false); //设置测距控件在地图上不可见
+
+            //map.addOverLay(new SE_Marker(new SE_LngLat(116.361507, 39.837625))); //把标注加入地图
+
+            currentEvent = null; //说明当前什么事件也没执行，只是纯浏览
+        }
+
+        //点击拖动事件
+        function dragClick() {
+            if (currentEvent != null) { //如果有事件正在执行
+                if (currentEvent == ZoomInControl) { //如果是拉框放大事件
+                    ZoomInControlClick(); //执行放大事件，对事件进行复位
+                }
+                else if (currentEvent == ZoomOutControl) {
+                    ZoomOutControlClick(); //执行拉框缩小事件，对事件进行复位
+                }
+                else if (currentEvent == PolygonControl) {
+                    PolygonControlClick(); //执行测面积事件，对事件进行复位
+                }
+                else if (currentEvent == PolyLineControl) {
+                    PolyLineControlClick(); //执行测面积事件，对事件进行复位
+                }
+            }
+        }
+
+        //点击放大事件
+        function ZoomInControlClick() {
+            map.zoomIn();
+        }
+
+        //点击缩小事件
+        function ZoomOutControlClick() {
+            map.zoomOut();
+        }
+
+        //点击测距事件
+        function PolyLineControlClick() {
+
+            if (currentEvent == PolyLineControl) {//如果上次执行的是测距事件，这次应该就是取消测距事件，把值变更为null
+                currentEvent = null;
+            }
+            else {
+                dragClick(); //如果不是，那先清空再执行本次事件
+                currentEvent = PolyLineControl; //正在执行测距事件
+            }
+            PolyLineControl.btnClick(); //触发测距控件，开始执行测距(再次执行的时候将会复位)
+        }
+
+        //点击测面积事件
+        function PolygonControlClick() {
+
+            if (currentEvent == PolygonControl) {//如果上次执行的是测面积事件，这次应该就是取消测面积事件，把值变更为null
+                currentEvent = null;
+            }
+            else {
+                dragClick(); //如果不是，那先清空再执行本次事件
+                currentEvent = PolygonControl; //正在执行测面积事件
+            }
+            PolygonControl.btnClick(); //触发测面积控件，开始执行测面积(再次执行的时候将会复位)
+        }
+
+        //使用obj类型，对象，加入数组，统一到一个对象里来，
+        //新增一个标注
+        function addMarker(csArrayMarker) {
+            //车牌号，经度坐标，纬度坐标，图标（方向，状态，告警)
+            var tempLicensePlateNumber = csArrayMarker.split(',')[0]; //车牌号
+            var tempLongitude = csArrayMarker.split(',')[1]; //经度坐标
+            var tempLatitude = csArrayMarker.split(',')[2]; //纬度坐标
+            var tempIconPath = csArrayMarker.split(',')[3]; //图标路径
+
+            var tempIcon = new SE_Icon(tempIconPath, [20, 20]); //new一个自定义标注图标
+            tempIcon.removeShadow(); //去掉阴影
+
+            var tempMarker = new SE_Marker(new SE_LngLat(tempLongitude, tempLatitude), tempIcon); //new一个标注
+            map.addOverLay(tempMarker); //把标注加入地图
+
+            var tempText = new SE_PointOverlay(new SE_LngLat(tempLongitude, tempLatitude), [-25, 13]); //New标签
+            tempText.setLabel(tempLicensePlateNumber); //标签内容（一般为车牌号）
+            map.addOverLay(tempText); //加入地图
+
+            var tempObj = new mapClass(); //实例化一个对象
+            tempObj.mapMarker = tempMarker //把当前标注实例放到对象中
+            tempObj.mapText = tempText;//文字标签
+            tempObj.mapLicensePlateNumber = tempLicensePlateNumber;//车牌号
+            arrayObject[arrayObject.length] = tempObj; //加入数组
+
+            map.centerAndZoom(new SE_LngLat(tempLongitude, tempLatitude), map.getCurrentZoom()); //重新定位地图的中心点和缩放等级
+
+            SE_Event.addListener(tempMarker, "click", function () { showPane(tempLicensePlateNumber); }); //回传回C#
+        }
+
+        //点击了标注后把车辆ID传给C#。进其进行弹出pane跟踪
+        function showPane(tempLicensePlateNumber) {
+            for (var i = 0; i < arrayObject.length; i++) {
+                if (arrayObject[i].mapLicensePlateNumber == tempLicensePlateNumber) {
+                    thisMarker = arrayObject[i].mapMarker;
+                    thisIndex = i; //当前选中车辆所在数组索引
+                    setAndZoom(1); //强制中心点
+                    map.centerAndZoom(arrayObject[i].mapMarker.getPoint(), map.getCurrentZoom()); //把车辆放到中心点
+                    window.external.clickMarker(tempLicensePlateNumber); //传回C#
+                    break;
+                }
+            }
+        }
+
+        //编辑标注位置（移动车辆）
+        function editMarker(indexPoint) {
+            var tempIndex = indexPoint.split(',')[0]; //当前车辆所在数组索引
+            var tempLongitude = indexPoint.split(',')[1]; //移动到经度
+            var tempLatitude = indexPoint.split(',')[2]; //移动到纬度
+            var tempIconPath = indexPoint.split(',')[3]; //图标路径
+
+            //清空标注的时候，会出现异常，判断一下
+            if (arrayObject[tempIndex] == null) {
+                return;
+            }
+
+            arrayObject[tempIndex].mapMarker.setIconImage(tempIconPath); //转换车辆图标
+
+            arrayObject[tempIndex].mapMarker.setPoint(new SE_LngLat(tempLongitude, tempLatitude)); //进行移动
+            arrayObject[tempIndex].mapText.setPoint(new SE_LngLat(tempLongitude, tempLatitude), [-25, 13]); //移动Label
+
+            var b = map.fromLatLngToContainerPixel(arrayObject[tempIndex].mapMarker.getPoint()); //获取相对坐标
+
+            if (tempIndex == thisIndex) {
+                //启用如下，会自动定位到该车辆
+                if (thisCenterAndZoom == true) {
+                    map.centerAndZoom(new SE_LngLat(tempLongitude, tempLatitude), map.getCurrentZoom()); //重新定位地图的中心点和缩放等级
+                }
+            }
+        }
+
+        //强制中心点
+        function setAndZoom(andZoom) {
+            if (andZoom == 1) {
+                thisCenterAndZoom = true;
+                map.disableDrag(); //禁止拖动地图
+            }
+            else {
+                thisCenterAndZoom = false;
+                map.enableDrag(); //允许拖动地图
+            }
+        }
+
+        //清除一个标注
+        function DelMarker(csIndex) {
+            if (arrayObject[csIndex] != null) {
+                setAndZoom(0);
+                map.removeOverLay(arrayObject[csIndex].mapMarker, true); //从地图中把该标注移除
+                map.removeOverLay(arrayObject[csIndex].mapText, true); //从地图中把该Label移除
+                arrayObject.splice(csIndex, 1); //从数组中移除该对象
+            }
+        }
+    </script>
+</head>
+<body onLoad="onLoad()" style="100%; height: 100%;">
+<div id="mapDiv" style="100%; height: 100%;"></div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="yuTongWebService.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="yuTongWebService_yutong_contact_portTypeService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+    <Setting Name="yuTongWebService_ServiceStation_portTypeService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+    <Setting Name="yuTongWebService_QueryBus_portTypeService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+    <Setting Name="yuTongWebService_QueryCustomer_customerQueryService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+    <Setting Name="yuTongWebService_QueryRepairProject_repairProjectQueryService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+    <Setting Name="yuTongWebService_SUContact_contactSUPortTypeService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+    <Setting Name="yuTongWebService_QueryHitchMode_hitchModeQueryService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+    <Setting Name="yuTongWebService_QueryBusModel_busModelQueryService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+    <Setting Name="yuTongWebService_QueryPart_partQueryService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+    <Setting Name="yuTongWebService_QueryProdImprovement_prodImprovementQueryService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+<<<<<<< .mine
+    <Setting Name="yuTongWebService_SUPartSale_partSaleSUService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+=======
+    <Setting Name="yuTongWebService_SUCustomer_customerSUService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+    <Setting Name="yuTongWebService_SUSercicePartStock_sercicePartStockSUService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://isgqas.yutong.com:2222/ISG/ws/invokeService</Value>
+    </Setting>
+>>>>>>> .r1045
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SspDispatchService" default="allwar" basedir=".">
+	<property name="build.dir" value="${basedir}/build" />
+	<property name="build.classes.dir" value="${build.dir}/classes" />
+	<property name="war.dir" value="${basedir}/war" />
+	<property name="develop-war" value="${war.dir}/develop/sspdispatchservice" />
+	<property name="production-war" value="${war.dir}/production/sspdispatchservice" />
+	<property name="test-war" value="${war.dir}/test/sspdispatchservice" />
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="lib.dir" value="${basedir}/lib" />
+	<property name="test_conf.dir" value="${basedir}/test_conf" />
+	<property name="production_conf.dir" value="${basedir}/production_conf" />
+	<property name="develop_conf.dir" value="${basedir}/develop_conf" />
+	<path id="classpath">
+		<fileset dir="${lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<target name="clean">
+		<delete dir="${war.dir}" />
+		<delete dir="${build.dir}" />
+		<delete dir="${lib.dir}">
+			<include name="sspdispatchservice.jar" />
+		</delete>
+	</target>
+	<target name="init" depends="clean">
+		<mkdir dir="${war.dir}" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+		<mkdir dir="${develop-war}" />
+		<mkdir dir="${test-war}" />
+		<mkdir dir="${production-war}" />
+	</target>
+	<target name="compile" depends="init">
+		<echo>===${basedir} COMPILE ===</echo>
+		<echo>Compiling ${src.dir} files ...</echo>
+		<javac debug="on" srcdir="${src.dir}" destdir="${build.classes.dir}" includes="**/*">
+			<compilerarg line="-encoding UTF-8 " />
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+	<target name="jar" depends="compile">
+		<echo>=== PACKAGE ===</echo>
+		<!-- copy the config files -->
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${src.dir}">
+				<exclude name="**/*.java" />
+				<exclude name="dispatchservice.xml" />
+				<exclude name="system.properties" />
+			</fileset>
+		</copy>
+		<jar jarfile="${lib.dir}/sspdispatchservice.jar" basedir="${build.classes.dir}">
+		</jar>
+	</target>
+	<target name="develop-war">
+		<copy todir="${develop-war}">
+			<fileset dir="${lib.dir}" />
+		</copy>
+		<copy todir="${develop-war}">
+			<fileset dir="${develop_conf.dir}">
+			</fileset>
+		</copy>
+		<zip destfile="${war.dir}/develop/sspdispatchservice.zip" basedir="${war.dir}/develop" />
+	</target>
+	<target name="test-war">
+		<copy todir="${test-war}">
+			<fileset dir="${lib.dir}" />
+		</copy>
+		<copy todir="${test-war}">
+			<fileset dir="${test_conf.dir}">
+			</fileset>
+		</copy>
+		<zip destfile="${war.dir}/test/sspdispatchservice.zip" basedir="${war.dir}/test" />
+	</target>
+	<target name="production-war">
+		<copy todir="${production-war}">
+			<fileset dir="${lib.dir}" />
+		</copy>
+		<copy todir="${production-war}">
+			<fileset dir="${production_conf.dir}">
+			</fileset>
+		</copy>
+		<zip destfile="${war.dir}/production/sspdispatchservice.zip" basedir="${war.dir}/production" />
+	</target>
+
+	<target name="allwar">
+		<antcall target="jar" />
+		<antcall target="develop-war" />
+		<antcall target="test-war" />
+		<antcall target="production-war" />
+	</target>
+</project>
+
+
+

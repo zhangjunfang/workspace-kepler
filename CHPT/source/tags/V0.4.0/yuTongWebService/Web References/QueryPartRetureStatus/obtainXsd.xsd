@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://isg.yutong.com/partRetureStatusQuery/" targetNamespace="http://isg.yutong.com/partRetureStatusQuery/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" namespace="http://schemas.xmlsoap.org/soap/envelope/" />
+  <xs:element name="partRetureStatusQuery" type="tns:partRetureStatusQuery" />
+  <xs:element name="partRetureStatusQueryResponse" type="tns:partRetureStatusQueryResponse" />
+  <xs:complexType name="partRetureStatusQuery">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="RequestUser" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestTime" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestType" type="xs:string" />
+      <xs:element minOccurs="1" name="old_bill_num" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="clientInfo" type="tns:clientInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="partRetureStatusQueryResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Result" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="state" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="errorMsg" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="crm_old_bill_num" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="info_status_yt" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="sum_money" type="xs:string" />
+      <xs:element name="PartDetails">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="1" maxOccurs="unbounded" name="PartDetail">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="parts_id" type="xs:string" />
+                  <xs:element name="receive_num" type="xs:string" />
+                  <xs:element name="receive_explain" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="clientInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="clientID" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="serviceID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

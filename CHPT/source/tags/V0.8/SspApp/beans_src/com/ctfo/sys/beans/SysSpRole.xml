@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SysSpRole">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <typeAlias alias="SysSpRole" type="com.ctfo.sys.beans.SysSpRole"/>
+  <typeAlias alias="map" type="java.util.Map"/>
+  
+  <resultMap class="com.ctfo.sys.beans.SysSpRole" id="SysSpRole">
+    <result column="roleId" jdbcType="VARCHAR" property="roleId" />
+    <result column="roleName" jdbcType="VARCHAR" property="roleName" />
+    <result column="roleType" jdbcType="VARCHAR" property="roleType" />
+    <result column="entId" jdbcType="VARCHAR" property="entId" />
+    <result column="roleDesc" jdbcType="VARCHAR" property="roleDesc" />
+    <result column="createTime" jdbcType="DECIMAL" property="createTime" />
+    <result column="updateBy" jdbcType="VARCHAR" property="updateBy" />
+    <result column="updateTime" jdbcType="DECIMAL" property="updateTime" />
+    <result column="enableFlag" jdbcType="VARCHAR" property="enableFlag" />
+    <result column="roleStatus" jdbcType="DECIMAL" property="roleStatus" />
+    <result column="createBy" jdbcType="VARCHAR" property="createBy" />
+    <result column="roleCode" jdbcType="Decimal" nullValue="0" property="roleCode" />
+  </resultMap>
+  
+  <sql id="columns">
+	  ROLE_ID AS roleId,
+	  ROLE_NAME AS roleName,
+	  ROLE_TYPE AS roleType,
+	  ENT_ID AS entId,
+	  ROLE_DESC AS roleDesc,
+	  CREATE_TIME AS createTime,
+	  UPDATE_BY AS updateBy,
+	  UPDATE_TIME AS updateTime,
+	  ENABLE_FLAG AS enableFlag,
+	  ROLE_STATUS AS roleStatus,
+	  OP_NAME AS createBy,
+	  role_code AS roleCode
+  </sql>
+  <sql id="table">
+    sys_ssp_sp_role
+  </sql>
+  <sql id="set">
+    <dynamic prepend="set">
+      ROLE_NAME = #roleName:VARCHAR#
+      ,ROLE_TYPE = #roleType:VARCHAR#
+      ,ENT_ID = #entId:VARCHAR#
+      ,ROLE_DESC = #roleDesc:VARCHAR#
+      ,UPDATE_BY = #updateBy:VARCHAR#
+      ,UPDATE_TIME = #updateTime:DECIMAL#
+    </dynamic>
+  </sql>
+  
+  <insert id="insert" parameterClass="SysSpRole">
+	insert into sys_ssp_sp_role
+	  (ROLE_ID,
+	   ROLE_NAME,
+	   ROLE_TYPE,
+	   ENT_ID,
+	   ROLE_DESC,
+	   CREATE_BY,
+	   CREATE_TIME,
+	   ROLE_CODE)
+	values
+	  (#roleId:VARCHAR#,
+	   #roleName:VARCHAR#,
+	   #roleType:VARCHAR#,
+	   #entId:VARCHAR#,
+	   #roleDesc:VARCHAR#,
+	   #createBy:VARCHAR#,
+	   #createTime:DECIMAL#,
+	   #roleCode:VARCHAR#)
+  </insert>
+  
+  <update id="update" parameterClass="SysSpRole">
+    update 
+    <include refid="table" />
+    <include refid="set" />
+    WHERE ENABLE_FLAG = 1
+      and ROLE_ID = #roleId:VARCHAR#
+  </update>
+
+  <!-- 删除 -->
+  <update id="updateDelete" parameterClass="map">
+	  UPDATE <include refid="table" />
+	   SET ENABLE_FLAG = '0'
+	  WHERE role_id = #roleId#
+  </update>
+
+  <!-- 角色对象sql -->
+  <sql id="roleSql">
+	(
+		SELECT
+			sp.OP_NAME,
+			r.*
+		FROM
+    	sys_ssp_sp_role r 
+   	    LEFT JOIN sys_ssp_sp_operator sp 
+        ON r.create_by = sp.op_id
+	) rol
+  </sql>
+  
+  <select id="haveTrOperator" parameterClass="map" resultClass="int">
+	  select count(*)
+	  from tr_ssp_operator_role pr
+	 where pr.role_id = #roleId#
+  </select>
+  
+  <select id="selectPk" parameterClass="string" resultMap="SysSpRole">
+      select 
+      <include refid="columns" />
+	  from <include refid="roleSql" />
+      where ROLE_ID = #roleId:VARCHAR#
+  </select>
+
+  <!-- 分页查询公用语句 -->
+  <sql id="pageSql">
+	  from <include refid="roleSql" />
+      where 1=1
+    <isNotNull prepend="AND" property="like.roleName">
+      ROLE_NAME like '%'  #like.roleName:VARCHAR#  '%'
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.roleStatus">
+      ROLE_STATUS =  #equal.roleStatus:VARCHAR#
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.createTimeStart">
+        <![CDATA[(#equal.createTimeStart:VARCHAR# <= CREATE_TIME )]]>
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.createTimeEnd">
+        <![CDATA[(#equal.createTimeEnd:VARCHAR# >= CREATE_TIME )]]>
+    </isNotNull>
+    and ENABLE_FLAG = '1'
+  </sql>
+  
+  <!-- 查询机构下的所有角色 -->
+  <select id="selectParam" parameterClass="dynamicSqlParameter" resultMap="SysSpRole">
+    select 
+    <include refid="columns" />
+    <include refid="pageSql" />
+  </select>
+  
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1) 
+    <include refid="pageSql" />
+  </select>
+  
+  <select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="SysSpRole">
+	SELECT BB.* FROM 
+	    			(SELECT 
+	    					<include refid="columns" />  
+						    <include refid="pageSql" />
+						    order by createTime desc
+				    ) BB
+	LIMIT #startNum#,#pagesize#
+  </select>
+  
+  <!-- 角色名称是否存在 -->
+  <select id="existRoleName" resultClass="int" parameterClass="map">
+	SELECT count(1)  FROM 
+ 	<include refid="table" />
+ 	where ROLE_NAME = #roleName# and ENABLE_FLAG = '1'
+  </select>
+  
+  <!-- 保存角色和权限关联关系 -->
+  <insert id="insertRoleFun" parameterClass="map">
+	insert into tr_ssp_role_function
+	  (ROLE_ID,
+	   FUN_ID,
+	   CREATE_BY,
+	   CREATE_TIME,
+	   ENABLE_FLAG)
+	values
+	  (#roleId:VARCHAR#,
+	   #funId:VARCHAR#,
+	   #createBy:VARCHAR#,
+	   #createTime:DECIMAL#,
+	   #enableFlag:DECIMAL#)
+  </insert>
+  
+  <!-- 删除角色关联的权限 -->
+  <delete id="deleteRoleFunByRoleId" parameterClass="map">
+	delete from tr_ssp_role_function where role_id=#roleId#
+  </delete>
+  
+  <insert id="insertOpLog" parameterClass="map">
+  	insert into tl_ssp_operate_log(opl_id,fun_id,op_type,content,val_before,val_after,op_time,op_id)
+		values(UUID(),'FG_MEMU_SYSTEM_ROLEMANAGE',1,concat(#roleName#,'权限变更'),' ','权限变更',#updateTime#,#updateBy#)
+  </insert>
+  
+  <!-- 新建用户时，角色多选下拉初始化已选的数据 -->
+  <select id="roleListByEntId" resultClass="String" parameterClass="map">
+	select tor.role_id from tr_ssp_operator_role tor where tor.op_id=#opId#
+  </select>
+  <!-- 查询角色id的max值 -->
+  <select id="queryRoleCode" parameterClass="dynamicSqlParameter" resultClass="int">
+   SELECT IFNULL(MAX(role_code),'30000') FROM sys_ssp_sp_role
+  </select>	
+    <!-- 吊销与启用 -->
+  <update id="updateRevoke" parameterClass="map">
+	  UPDATE <include refid="table" />
+	   SET ROLE_STATUS = #roleStatus#
+	  WHERE ROLE_ID in ($roleId$)
+  </update>
+  <!-- 查询角色列表 -->
+  <select id="queryRoleList" resultClass="com.ctfo.sys.beans.SysSpRole">  		
+		SELECT role_id as roleId,role_name as roleName FROM sys_ssp_sp_role where enable_flag = '1' and  role_status = '1'
+  </select>  
+  <!-- 查询角色权限是否有变动 -->
+  <select id="checkChangeByRoleId" parameterClass="map" resultClass="java.util.HashMap">
+  select (select count(1) from tr_ssp_role_function where role_id=#roleId# and fun_id not in ($funId$)) notincount,
+         (select count(1) from tr_ssp_role_function where role_id=#roleId# and fun_id in ($funId$)) incount
+    from dual;
+  </select>
+</sqlMap>

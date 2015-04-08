@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="SysOperateLog">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <typeAlias alias="SysOperateLog" type="com.ctfo.sys.beans.SysOperateLog"/>
+  <typeAlias alias="map" type="java.util.Map"/>
+  
+<resultMap class="com.ctfo.sys.beans.SysOperateLog" id="SysOperateLog">
+    <result column="oplId" jdbcType="VARCHAR" property="oplId" />
+    <result column="opType" jdbcType="VARCHAR" property="opType" />
+    <result column="funName" jdbcType="VARCHAR" property="funName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="valBefore" jdbcType="VARCHAR" property="valBefore" />
+    <result column="valAfter" jdbcType="VARCHAR" property="valAfter" />
+    <result column="opName" jdbcType="VARCHAR" property="opName" />
+    <result column="opTime" jdbcType="VARCHAR" property="opTime" />
+    <result column="opRole" jdbcType="VARCHAR" property="opRole" />
+    <result column="entName" jdbcType="VARCHAR" property="entName" />
+    <result column="comName" jdbcType="VARCHAR" property="comName" />
+  </resultMap>
+ 
+  <sql id="columns">
+	 opl_id			oplId,
+	 op_type		opType,
+	 fun_name		funName,
+	 content,
+	 val_before 	valBefore,
+	 val_after		valAfter,
+	 op_name		opName,
+	 op_time		opTime,
+	 role_name		opRole,
+	 ent_name		entName,
+	 com_name		comName
+  </sql>
+  <sql id="table">
+    tl_ssp_operate_log
+  </sql>
+  
+  <sql id="order">
+     <isNotEmpty prepend="ORDER BY" property="order">
+       $sort$ $order$
+     </isNotEmpty>
+  </sql>
+
+  <!-- 角色对象sql -->
+  <sql id="opLogSql">
+	(
+		SELECT
+			l.opl_id,
+			l.op_type,
+			l.fun_id,
+			f.fun_name,
+			l.content,
+			l.val_before,
+			l.val_after,
+			l.op_time,
+			o.ent_name,
+			r.role_name,
+			i.com_name,
+			p.ent_id,
+			p.com_id,
+			p.op_id,
+			p.op_name
+		FROM
+			tl_ssp_operate_log l
+		JOIN sys_ssp_sp_operator p 	 on l.op_id    = p.op_id
+	    left JOIN tb_ssp_organization o 	 on p.ent_id   = o.ent_id
+	    left JOIN tr_ssp_operator_role tr on p.op_id    = tr.op_id
+	    left JOIN sys_ssp_sp_role r 		 on tr.role_id = r.role_id
+	    	 JOIN sys_ssp_function f 	 on l.fun_id   = f.fun_id
+	    left JOIN sys_ssp_com_info i 	 on o.com_id   = i.com_id 
+		
+	) opl
+  </sql>
+  
+<!-- 分页查询公用语句 -->
+  <sql id="pageSql">
+	  from <include refid="opLogSql" />
+      where opl.val_after != ''
+    <isNotNull prepend="AND" property="like.opName">
+      opl.op_name like '%'  #like.opName:VARCHAR#  '%'
+    </isNotNull>
+    <isNotNull prepend="AND" property="like.content">
+      opl.content like '%'  #like.content:VARCHAR#  '%'
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.startTime">
+      <![CDATA[opl.op_time >= #equal.startTime:VARCHAR#]]>
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.endTime">
+      <![CDATA[opl.op_time <= #equal.endTime:VARCHAR#]]>
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.opType">
+      opl.op_type = #equal.opType:VARCHAR#
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.funId">
+      opl.fun_id = #equal.funId:VARCHAR#
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.entId">
+	ENT_ID IN (
+		SELECT
+			tt.ENT_ID
+		FROM
+			tb_ssp_organization tt
+		WHERE
+			tt.ENT_ID LIKE CONCAT(#equal.entId#,'%') )
+    </isNotNull>	
+    
+  </sql>
+  
+  <!-- 查询所有操作记录 -->
+  <select id="selectParam" parameterClass="dynamicSqlParameter" resultMap="SysOperateLog">
+    select 
+    <include refid="columns" />
+    <include refid="pageSql" />
+  </select>
+  
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1) 
+    <include refid="pageSql" />
+  </select>
+  
+  <select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="SysOperateLog">
+	SELECT BB.* FROM 
+	    			(SELECT 
+	    					<include refid="columns" />  
+						    <include refid="pageSql" />
+				    ) BB 	<include refid = "order" />
+	LIMIT #startNum#,#pagesize#
+  </select>
+  
+<!--   功能模块名称选择下拉列表 -->
+  <select id="opSelectList" parameterClass="String" resultClass="java.util.HashMap">
+	 select fun_id funId,fun_name funName from sys_ssp_function where fun_id in 
+	(select fun_parent_id from sys_ssp_function a join tr_ssp_role_function b on a.fun_id = b.fun_id 
+	  where b.fun_id like '%_O' and b.enable_flag=1 
+	  <isNotEmpty property="roleId" prepend="and">
+		  b.role_id=#roleId#
+	  </isNotEmpty> 
+	) order by fun_id desc
+  </select>
+  
+  <delete id="delNone">
+  	delete from tl_ssp_operate_log where val_before='' and val_after=''
+  </delete>
+  
+</sqlMap>

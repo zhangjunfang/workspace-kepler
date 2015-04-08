@@ -1,0 +1,4 @@
+/*日历*/
+.Wdate{background:#fff url(../../DatePicker/skin/Wdate.png) no-repeat right;}
+
+.WdateFmtErr{font-weight:bold;color:red;background:#f00;}

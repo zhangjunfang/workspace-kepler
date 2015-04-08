@@ -1,0 +1,618 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E43F73EA-2EE6-4848-ACA8-35B73462789F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ServiceStationClient.Skin</RootNamespace>
+    <AssemblyName>ServiceStationClient.Skin</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\BaseCommBin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>..\BaseCommBin\ServiceStationClient.Skin.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\Release\X86\CommonDll\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\ServiceStationClient.Skin.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SkinAssistant.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TabPage\TabPage_Close_L.png" />
+    <None Include="TabPage\TabPage_Close_E.png" />
+    <None Include="TabPage\TabPage_L.png" />
+    <None Include="TabPage\TabPage_E.png" />
+    <None Include="CommandButton\Add_D.png" />
+    <None Include="CommandButton\Add_E.png" />
+    <None Include="CommandButton\Cancel_D.png" />
+    <None Include="CommandButton\Cancel_E.png" />
+    <None Include="CommandButton\Confirm_D.png" />
+    <None Include="CommandButton\Confirm_E.png" />
+    <None Include="CommandButton\Copy_D.png" />
+    <None Include="CommandButton\Copy_E.png" />
+    <None Include="CommandButton\Delete_D.png" />
+    <None Include="CommandButton\Delete_E.png" />
+    <None Include="CommandButton\Edit_D.png" />
+    <None Include="CommandButton\Edit_E.png" />
+    <None Include="CommandButton\Export_D.png" />
+    <None Include="CommandButton\Import_D.png" />
+    <None Include="CommandButton\Import_E.png" />
+    <None Include="CommandButton\More_D.png" />
+    <None Include="CommandButton\More_E.png" />
+    <None Include="CommandButton\Print_D.png" />
+    <None Include="CommandButton\Print_E.png" />
+    <None Include="CommandButton\Save_D.png" />
+    <None Include="CommandButton\Save_E.png" />
+    <None Include="CommandButton\Set_D.png" />
+    <None Include="CommandButton\Set_E.png" />
+    <None Include="CommandButton\Status_D.png" />
+    <None Include="CommandButton\Status_E.png" />
+    <None Include="CommandButton\Submit_D.png" />
+    <None Include="CommandButton\Submit_E.png" />
+    <None Include="CommandButton\Sync_D.png" />
+    <None Include="CommandButton\Sync_E.png" />
+    <None Include="CommandButton\Verify_D.png" />
+    <None Include="CommandButton\Verify_E.png" />
+    <None Include="CommandButton\View_D.png" />
+    <None Include="CommandButton\View_E.png" />
+    <None Include="CommandButton\Export_E.png" />
+    <None Include="CommandButton\Clear_E.png" />
+    <None Include="CommandButton\Clear_L.png" />
+    <None Include="CommandButton\Query_E.png" />
+    <None Include="CommandButton\Query_L.png" />
+    <None Include="DataGrid\DataGrid_Bg.png" />
+    <None Include="Chooser\Chooser_Company.png" />
+    <None Include="Chooser\Chooser_Contact.png" />
+    <None Include="Chooser\Chooser_Part.png" />
+    <None Include="Chooser\Chooser_Part_Code.png" />
+    <None Include="Chooser\Chooser_Part_Type.png" />
+    <None Include="Chooser\Chooser_Supplier.png" />
+    <None Include="Chooser\Chooser_User.png" />
+    <None Include="Chooser\Chooser_Vehicle.png" />
+    <None Include="Chooser\Chooser_Default.png" />
+    <None Include="CommandButton\Commit_D.png" />
+    <None Include="CommandButton\Commit_E.png" />
+    <None Include="CommandButton\InvalidOrActivation_D.png" />
+    <None Include="CommandButton\InvalidOrActivation_E.png" />
+    <None Include="CommandButton\Revoke_D.png" />
+    <None Include="CommandButton\Revoke_E.png" />
+    <None Include="CommandButton\Backup_D.png" />
+    <None Include="CommandButton\Backup_E.png" />
+    <None Include="CommandButton\DownLoad_D.png" />
+    <None Include="CommandButton\DownLoad_E.png" />
+    <None Include="CommandButton\OpRecord_D.png" />
+    <None Include="CommandButton\OpRecord_E.png" />
+    <None Include="CommandButton\refresh_D.png" />
+    <None Include="CommandButton\refresh_E.png" />
+    <None Include="CommandButton\ResetPwd_D.png" />
+    <None Include="CommandButton\ResetPwd_E.png" />
+    <None Include="CommandButton\Restore_D.png" />
+    <None Include="CommandButton\Restore_E.png" />
+    <None Include="CommandButton\shotoff_D.png" />
+    <None Include="CommandButton\shotoff_E.png" />
+    <None Include="CommandButton\viewlist_D.png" />
+    <None Include="CommandButton\viewlist_E.png" />
+    <Content Include="Image\alarm.gif" />
+    <Content Include="Image\arrow_left.png" />
+    <Content Include="Image\arrow_left_default.png" />
+    <Content Include="Image\arrow_left_down.png" />
+    <Content Include="Image\arrow_left_over.png" />
+    <Content Include="Image\arrow_right.png" />
+    <Content Include="Image\arrow_right_default.png" />
+    <Content Include="Image\arrow_right_down.png" />
+    <Content Include="Image\arrow_right_over.png" />
+    <Content Include="Image\bg-2.png" />
+    <Content Include="Image\bg_Locus_Title.png" />
+    <Content Include="Image\bg_PlaybackControl.png" />
+    <Content Include="Image\btnCloseWin01.png" />
+    <Content Include="Image\btnCloseWin02.png" />
+    <Content Include="Image\btnDown01.png" />
+    <Content Include="Image\btnDown02.png" />
+    <Content Include="Image\btnImageBack.png" />
+    <Content Include="Image\btnImageNext.png" />
+    <Content Include="Image\btnMaximize01.png" />
+    <Content Include="Image\btnMaximize02.png" />
+    <Content Include="Image\btnMaximize03.png" />
+    <Content Include="Image\btnMaximize04.png" />
+    <Content Include="Image\btnMinimize01.png" />
+    <Content Include="Image\btnMinimize02.png" />
+    <Content Include="Image\bullet_tick.png" />
+    <Content Include="Image\button01.png" />
+    <Content Include="Image\button02.png" />
+    <Content Include="Image\button03.png" />
+    <Content Include="Image\callrole_mouse_on.png" />
+    <Content Include="Image\call_role_mouse_down.png" />
+    <Content Include="Image\call_role_mouse_leave.png" />
+    <Content Include="Image\capture_manage_leave.png" />
+    <Content Include="Image\carList_Top.png" />
+    <Content Include="Image\Car_Close_Default.png" />
+    <Content Include="Image\Car_Close_Enter.png" />
+    <Content Include="Image\Car_hidden_False_Default.png" />
+    <Content Include="Image\Car_hidden_False_Down.png" />
+    <Content Include="Image\Car_hidden_False_Enter.png" />
+    <Content Include="Image\Car_hidden_True_Default.png" />
+    <Content Include="Image\Car_hidden_True_Down.png" />
+    <Content Include="Image\Car_hidden_True_Enter.png" />
+    <Content Include="Image\Car_Info_Hr.png" />
+    <Content Include="Image\Car_Info_Oen_Message_Default.png" />
+    <Content Include="Image\Car_Info_Oen_Message_Down.png" />
+    <Content Include="Image\Car_Info_Oen_Message_Enter.png" />
+    <Content Include="Image\Car_Info_Oen_Named_Default.png" />
+    <Content Include="Image\Car_Info_Oen_Named_Down.png" />
+    <Content Include="Image\Car_Info_Oen_Named_Enter.png" />
+    <Content Include="Image\channel_camara_shortcut_leave.png" />
+    <Content Include="Image\channel_close_leave.png" />
+    <Content Include="Image\channel_close_on.png" />
+    <Content Include="Image\channel_page_down_leave.png" />
+    <Content Include="Image\channel_page_down_on.png" />
+    <Content Include="Image\channel_page_down_un.png" />
+    <Content Include="Image\channel_page_up_leave.png" />
+    <Content Include="Image\channel_page_up_on.png" />
+    <Content Include="Image\channel_page_up_un.png" />
+    <Content Include="Image\channel_replay_leave.png" />
+    <Content Include="Image\Chart_ShowOrHidden_01_01.png" />
+    <Content Include="Image\Chart_ShowOrHidden_01_02.png" />
+    <Content Include="Image\Chart_ShowOrHidden_02_01.png" />
+    <Content Include="Image\Chart_ShowOrHidden_02_02.png" />
+    <Content Include="Image\clear.png" />
+    <Content Include="Image\close_Line.png" />
+    <None Include="Image\CL_BusinessAnalysis_Purchase_OrderSum.png" />
+    <Content Include="Image\ConfigColumn.png" />
+    <Content Include="Image\cskhd-genzong01.png" />
+    <Content Include="Image\CyclingTrack_bg.png" />
+    <Content Include="Image\diwu_list_1.png" />
+    <Content Include="Image\diwu_list_2.png" />
+    <Content Include="Image\diwu_list_3.png" />
+    <Content Include="Image\diwu_list_4.png" />
+    <Content Include="Image\diwu_List_Button_bg.png" />
+    <Content Include="Image\diwu_List_Top_bg.png" />
+    <Content Include="Image\EagleEye_bg.png" />
+    <Content Include="Image\EagleEye_false.png" />
+    <Content Include="Image\EagleEye_true.png" />
+    <Content Include="Image\Excel.png" />
+    <Content Include="Image\gjhf_player_stop2.png" />
+    <Content Include="Image\GV_Title.png" />
+    <Content Include="Image\head_icon_location_leave.png" />
+    <Content Include="Image\head_icon_set_leave.png" />
+    <Content Include="Image\head_icon_statistics_leave.png" />
+    <Content Include="Image\head_menu_back.png" />
+    <Content Include="Image\ico-add.png" />
+    <Content Include="Image\ico-delete.png" />
+    <Content Include="Image\icon-1-d.png" />
+    <Content Include="Image\icon-1.png" />
+    <Content Include="Image\icon-2-d.png" />
+    <Content Include="Image\icon-2.png" />
+    <Content Include="Image\icon-3-d.png" />
+    <Content Include="Image\icon-3.png" />
+    <Content Include="Image\icon-4-d.png" />
+    <Content Include="Image\icon-4.png" />
+    <Content Include="Image\icon-5-d.png" />
+    <Content Include="Image\icon-5.png" />
+    <Content Include="Image\icon-6-d.png" />
+    <Content Include="Image\icon-6.png" />
+    <Content Include="Image\icon-7-d.png" />
+    <Content Include="Image\icon-7.png" />
+    <Content Include="Image\icon_menu_capture_config.png" />
+    <Content Include="Image\icon_menu_capture_image.png" />
+    <Content Include="Image\icon_menu_history_alarm.png" />
+    <Content Include="Image\icon_menu_monitor.png" />
+    <Content Include="Image\icon_menu_operate_statistic.png" />
+    <Content Include="Image\icon_menu_send_message.png" />
+    <Content Include="Image\icon_menu_system_config.png" />
+    <Content Include="Image\icon_menu_track.png" />
+    <Content Include="Image\icon_menu_vehicle_capture.png" />
+    <Content Include="Image\icon_menu_vehicle_info.png" />
+    <Content Include="Image\icon_menu_vehicle_track.png" />
+    <Content Include="Image\icon_menu_vehicle_video.png" />
+    <Content Include="Image\icon_menu_video_playback.png" />
+    <Content Include="Image\ImgCodeError.png" />
+    <Content Include="Image\kcpt-logo.png" />
+    <Content Include="Image\line.gif" />
+    <Content Include="Image\loading.gif" />
+    <Content Include="Image\LocusTable_Main_ShowOrHidden_01_01.png" />
+    <Content Include="Image\LocusTable_Main_ShowOrHidden_01_02.png" />
+    <Content Include="Image\LocusTable_Main_ShowOrHidden_02_01.png" />
+    <Content Include="Image\LocusTable_Main_ShowOrHidden_02_02.png" />
+    <Content Include="Image\locus_vehicleNo.png" />
+    <Content Include="Image\Login_Bg.png" />
+    <Content Include="Image\Login_Bg_2.png" />
+    <Content Include="Image\Login_Image_Key.png" />
+    <Content Include="Image\logo-1.png" />
+    <Content Include="Image\MainFoor_Ann.png" />
+    <Content Include="Image\MainFoor_Ann_False.png" />
+    <Content Include="Image\MainSocketsStatus01.png" />
+    <Content Include="Image\MainSocketsStatus02.png" />
+    <Content Include="Image\MainSocketsStatus03.png" />
+    <Content Include="Image\main_banner.png" />
+    <Content Include="Image\Map_Top.png" />
+    <Content Include="Image\Menu_Pic_About01.png" />
+    <Content Include="Image\Menu_Pic_About02.png" />
+    <Content Include="Image\Menu_Pic_Canceled01.png" />
+    <Content Include="Image\Menu_Pic_Canceled02.png" />
+    <Content Include="Image\Menu_Pic_Feedback01.png" />
+    <Content Include="Image\Menu_Pic_Feedback02.png" />
+    <Content Include="Image\Menu_Pic_Help01.png" />
+    <Content Include="Image\Menu_Pic_Help02.png" />
+    <Content Include="Image\Menu_Pic_UserInfo01.png" />
+    <Content Include="Image\Menu_Pic_UserInfo02.png" />
+    <Content Include="Image\messageBoxIco01.png" />
+    <Content Include="Image\messageBoxIco02.png" />
+    <Content Include="Image\messageBoxIco03.png" />
+    <Content Include="Image\messageBoxIco04.png" />
+    <Content Include="Image\messageBoxIco05.png" />
+    <Content Include="Image\message_mouse_down.png" />
+    <Content Include="Image\message_mouse_leave.png" />
+    <Content Include="Image\message_mouse_on.png" />
+    <Content Include="Image\NoImage.jpg" />
+    <Content Include="Image\online.png" />
+    <Content Include="Image\page_down_default.png" />
+    <Content Include="Image\page_down_down.png" />
+    <Content Include="Image\page_down_enable.png" />
+    <Content Include="Image\page_down_over.png" />
+    <Content Include="Image\page_first_default.png" />
+    <Content Include="Image\page_first_down.png" />
+    <Content Include="Image\page_first_enable.png" />
+    <Content Include="Image\page_first_over.png" />
+    <Content Include="Image\page_last_default.png" />
+    <Content Include="Image\page_last_down.png" />
+    <Content Include="Image\page_last_enable.png" />
+    <Content Include="Image\page_last_over.png" />
+    <Content Include="Image\page_refresh.png" />
+    <Content Include="Image\page_refresh_default.png" />
+    <Content Include="Image\page_refresh_down.png" />
+    <Content Include="Image\page_refresh_over.png" />
+    <Content Include="Image\page_up_default.png" />
+    <Content Include="Image\page_up_down.png" />
+    <Content Include="Image\page_up_enable.png" />
+    <Content Include="Image\page_up_over.png" />
+    <Content Include="Image\panel_Info_bg.png" />
+    <Content Include="Image\panel_Menu.png" />
+    <Content Include="Image\parking.png" />
+    <Content Include="Image\Print_01.ico" />
+    <Content Include="Image\ProgressBar_bg.png" />
+    <Content Include="Image\progressbar_long_green.gif" />
+    <Content Include="Image\readCount.png" />
+    <Content Include="Image\readMessage.png" />
+    <Content Include="Image\record.gif" />
+    <Content Include="Image\refresh.png" />
+    <Content Include="Image\scrollNextButtonGray.png" />
+    <Content Include="Image\scrollPreButtonGray.png" />
+    <Content Include="Image\search.png" />
+    <Content Include="Image\searchBtn.png" />
+    <Content Include="Image\TreeBg01.png" />
+    <Content Include="Image\tree_Send_bg.png" />
+    <Content Include="Image\urgentAlarm.png" />
+    <Content Include="Image\vehicle_information_bg.png" />
+    <Content Include="Image\wearyDrive.png" />
+    <Content Include="Image\WinClose_Default.png" />
+    <Content Include="Image\WinClose_Down.png" />
+    <Content Include="Image\WinClose_Enter.png" />
+    <Content Include="Image\windowClose_01.png" />
+    <Content Include="Image\windowClose_02.png" />
+    <Content Include="Image\_Indicator_Falsh.png" />
+    <Content Include="Image\_Indicator_True.png" />
+    <Content Include="Image\_Locus_Alarm.gif" />
+    <Content Include="Image\PartTypeChBtn.png" />
+    <Content Include="Image\PartCodeChBtn.png" />
+    <Content Include="Image\CarTypeChBtn.png" />
+    <Content Include="Image\SupName.png" />
+    <Content Include="Image\BusinessUnit.png" />
+    <Content Include="Image\PersonCh.png" />
+    <Content Include="Image_tb\bsd.png" />
+    <Content Include="Image_tb\cgdd.png" />
+    <Content Include="Image_tb\cgddcx.png" />
+    <Content Include="Image_tb\cgjhd.png" />
+    <Content Include="Image_tb\cgjhdcx.png" />
+    <Content Include="Image_tb\cgkd.png" />
+    <Content Include="Image_tb\cgkdcx.png" />
+    <Content Include="Image_tb\crkcx.png" />
+    <Content Include="Image_tb\crkd.png" />
+    <Content Include="Image_tb\dbd.png" />
+    <Content Include="Image_tb\dbdcx.png" />
+    <Content Include="Image_tb\dlsjxz.png" />
+    <Content Include="Image_tb\hycssz.png" />
+    <Content Include="Image_tb\hydjsz.png" />
+    <Content Include="Image_tb\jjfhd.png" />
+    <Content Include="Image_tb\jjfhdcx.png" />
+    <Content Include="Image_tb\jjkccx.png" />
+    <Content Include="Image_tb\jjshd.png" />
+    <Content Include="Image_tb\jjshdcx.png" />
+    <Content Include="Image_tb\jyd.png" />
+    <Content Include="Image_tb\kccx.png" />
+    <Content Include="Image_tb\lld.png" />
+    <Content Include="Image_tb\llthd.png" />
+    <Content Include="Image_tb\pdd.png" />
+    <Content Include="Image_tb\qtfhdcx.png" />
+    <Content Include="Image_tb\qtshd.png" />
+    <Content Include="Image_tb\sbfwd.png" />
+    <Content Include="Image_tb\sbfwdcx.png" />
+    <Content Include="Image_tb\sbjsdcx.png" />
+    <Content Include="Image_tb\tjd.png" />
+    <Content Include="Image_tb\wlhx.png" />
+    <Content Include="Image_tb\wlhxcx.png" />
+    <Content Include="Image_tb\wxdcx.png" />
+    <Content Include="Image_tb\wxdd.png" />
+    <Content Include="Image_tb\wxfxd.png" />
+    <Content Include="Image_tb\wxjd.png" />
+    <Content Include="Image_tb\wxjdcx.png" />
+    <Content Include="Image_tb\wxjs.png" />
+    <Content Include="Image_tb\xsdd.png" />
+    <Content Include="Image_tb\xsddcx.png" />
+    <Content Include="Image_tb\xsjhd.png" />
+    <Content Include="Image_tb\xsjhdcx.png" />
+    <Content Include="Image_tb\xskd.png" />
+    <Content Include="Image_tb\xskdcx.png" />
+    <Content Include="Image_tb\yfkd.png" />
+    <Content Include="Image_tb\yfkdcx.png" />
+    <Content Include="Image_tb\yskd.png" />
+    <Content Include="Image_tb\yskdcx.png" />
+    <Content Include="Image_tb\ytcgdd.png" />
+    <Content Include="Image_tb\ytjjbqdy.png" />
+    <Content Include="Image_tb\ytjjfc.png" />
+    <Content Include="Image_tb\ytjjfccx.png" />
+    <Content Include="Image_tb\yyd.png" />
+    <Content Include="Image_tb\yydcx.png" />
+    <Content Include="Media\Alarm.wav" />
+    <Content Include="Media\folder.wav" />
+    <None Include="Resources\zcqq-d.png" />
+    <None Include="Resources\zcqq.png" />
+    <None Include="Resources\xtwh-d.png" />
+    <None Include="Resources\xtwh.png" />
+    <None Include="Resources\xtjk-d.png" />
+    <None Include="Resources\xtjk.png" />
+    <None Include="Resources\WextSouthCorner.png" />
+    <None Include="Resources\WestNorthCorner.png" />
+    <None Include="Resources\WestBorder.png" />
+    <None Include="Resources\loading.gif.bmp" />
+    <None Include="Resources\EastBorder.png" />
+    <None Include="Resources\EastNorthCorner.png" />
+    <None Include="Resources\EastSouthCorner.png" />
+    <None Include="Resources\CL_BusinessAnalysis_Purchase_OrderSum.bmp" />
+    <None Include="Menu\CL_BusinessAnalysis_DayToDayReport.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_BillingDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_BillingSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_BillingZong.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_Daily.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_DiscountDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_DiscountSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_OrderDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_OrderSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_PlanDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_PlanSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Purchase_ReturnSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Repair_AddOrDrain.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Repair_Class.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Repair_Efficiency.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Repair_LaborH.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Repair_Manage.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Repair_Material.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Repair_Overdue.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Repair_Reconcil.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Repair_VNumber.png" />
+    <None Include="Menu\CL_CustomerService_CallBackManager.png" />
+    <None Include="Menu\CL_CustomerService_CallBackQuery.png" />
+    <None Include="Menu\CL_CustomerService_FeedbackManager.png" />
+    <None Include="Menu\CL_CustomerService_MemberManager_Edit.png" />
+    <None Include="Menu\CL_Financial_Verification_Search.png" />
+    <None Include="Menu\CL_FinancialManagement_Ac_Verification.png" />
+    <None Include="Menu\CL_PurchaseOrder_Function.png" />
+    <None Include="Menu\CL_PurchaseOrderView_Function.png" />
+    <None Include="Menu\CL_PurchasePlan_Function.png" />
+    <None Include="Menu\CL_PurchasePlanView_Function.png" />
+    <None Include="Menu\CL_RepairBusiness__GuarantySettlementQuery.png" />
+    <None Include="Menu\CL_RepairBusiness__MaintainThreeGuaranty.png" />
+    <None Include="Menu\CL_RepairBusiness__MaintainThreeGuarantyQuery.png" />
+    <None Include="Menu\CL_RepairBusiness_FetchMaterial.png" />
+    <None Include="Menu\CL_RepairBusiness_FetchMaterialReturn.png" />
+    <None Include="Menu\CL_RepairBusiness_OldPartsManagement_OldPartsInventoryQuery.png" />
+    <None Include="Menu\CL_RepairBusiness_OldPartsManagement_OldPartsReceipt.png" />
+    <None Include="Menu\CL_RepairBusiness_OldPartsManagement_OldPartsReceiptQuery.png" />
+    <None Include="Menu\CL_RepairBusiness_OldPartsManagement_OldPartsSend.png" />
+    <None Include="Menu\CL_RepairBusiness_OldPartsManagement_OldPartsSendOutQuery.png" />
+    <None Include="Menu\CL_RepairBusiness_OldPartsManagement_YTOldPartsPalautus.png" />
+    <None Include="Menu\CL_RepairBusiness_OldPartsManagement_YTOldPartsPalautusQuery.png" />
+    <None Include="Menu\CL_RepairBusiness_OldPartsManagement_YTOldPartsTagPrint.png" />
+    <None Include="Menu\CL_RepairBusiness_Receive.png" />
+    <None Include="Menu\CL_RepairBusiness_RepairBalance.png" />
+    <None Include="Menu\CL_RepairBusiness_RepairCallback.png" />
+    <None Include="Menu\CL_RepairBusiness_RepairDispatch.png" />
+    <None Include="Menu\CL_RepairBusiness_RepairQuery.png" />
+    <None Include="Menu\CL_RepairBusiness_RepairRescue.png" />
+    <None Include="Menu\CL_RepairBusiness_Reserve_RepairProgress.png" />
+    <None Include="Menu\CL_RepairBusiness_Reserve_ReserveOrder.png" />
+    <None Include="Menu\CL_SaleBill_Function.png" />
+    <None Include="Menu\CL_SaleBillSearch_Function.png" />
+    <None Include="Menu\CL_SaleOrder_Function.png" />
+    <None Include="Menu\CL_SaleOrderSearch_Function.png" />
+    <None Include="Menu\CL_SalePlan_Function.png" />
+    <None Include="Menu\CL_SalePlanSearch_Function.png" />
+    <None Include="Menu\CL_SystemManagement_Account_LgnimLmt.png" />
+    <None Include="Menu\CL_SystemManagement_Business_Member.png" />
+    <None Include="Menu\CL_UCPurchaseBill_Function.png" />
+    <None Include="Menu\CL_UCPurchaseBillView_Function.png" />
+    <None Include="Menu\CL_YTPurchaseOrder_Function.png" />
+    <None Include="Menu\CL_Default.png" />
+    <None Include="Menu\Menu_Collapse_H.png" />
+    <None Include="Menu\Menu_Collapse_V.png" />
+    <None Include="Menu\Menu_Expand_H.png" />
+    <None Include="Menu\Menu_Expand_V.png" />
+    <None Include="Resources\Image1.bmp" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_PayableAbove.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_PayCheck.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_PayDanDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_PayDanSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_RecCheck.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_RecDanDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_RecDanSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_ReceivableAbove.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_SaleGather.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Bank_BankDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Bank_BankSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_BillingDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_BillingSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_BillingZong.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_Daily.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_DiscountDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_DiscountSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_OrderDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_OrderSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_Performance.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_PlanDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_PlanSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_ProfitDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_ProfitSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Sale_ReturnSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Stock_ActualDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Stock_ActualSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Stock_AlarmDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Stock_PaperDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Stock_PaperSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Stock_StockTypeSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Stock_WarehouseDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Stock_WarehouseSum.png" />
+    <None Include="Menu\CL_DataManagement_BasicData_Accessories.png" />
+    <None Include="Menu\CL_DataManagement_BasicData_Contacts.png" />
+    <None Include="Menu\CL_DataManagement_BasicData_Customer.png" />
+    <None Include="Menu\CL_DataManagement_BasicData_Models.png" />
+    <None Include="Menu\CL_DataManagement_BasicData_SupplierFile.png" />
+    <None Include="Menu\CL_DataManagement_BasicData_TimeFiles.png" />
+    <None Include="Menu\CL_DataManagement_BasicData_VehicleFiles.png" />
+    <None Include="Menu\CL_DataManagement_BasicData_Warehouse.png" />
+    <None Include="Menu\CL_FinancialManagement.png" />
+    <None Include="Menu\CL_SystemManagement_Account_BillCodeRule.png" />
+    <None Include="Menu\CL_SystemManagement_Account_ComInfo.png" />
+    <None Include="Menu\CL_SystemManagement_Account_FinanceBPara.png" />
+    <None Include="Menu\CL_SystemManagement_Account_LgnPCSet.png" />
+    <None Include="Menu\CL_SystemManagement_Account_PurcBPara.png" />
+    <None Include="Menu\CL_SystemManagement_Account_RepairBPara.png" />
+    <None Include="Menu\CL_SystemManagement_Account_SaleBPara.png" />
+    <None Include="Menu\CL_SystemManagement_Account_StockBPara.png" />
+    <None Include="Menu\CL_SystemManagement_Business_RepairMeal.png" />
+    <None Include="Menu\CL_SystemManagement_Business_Stock.png" />
+    <None Include="Menu\CL_SystemManagement_Function_Com.png" />
+    <None Include="Menu\CL_AllocationBill_Function.png" />
+    <None Include="Menu\CL_AllocationBillQuery_Function.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_PayableDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_PayableSum.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_ReceivableAged.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_ReceivableDet.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_ReceivableSum.png" />
+    <None Include="Menu\CL_CustomerService_MemberManager.png" />
+    <None Include="Menu\CL_FinancialManagement_Bill_R_Receivable.png" />
+    <None Include="Menu\CL_FinancialManagement_Payable.png" />
+    <None Include="Menu\CL_FinancialManagement_Payable_Search.png" />
+    <None Include="Menu\CL_FinancialManagement_Receivable_Search.png" />
+    <None Include="Menu\CL_ModifyPrice_Function.png" />
+    <None Include="Menu\CL_RepairBusiness_Reserve_UCReserveOrderQuery.png" />
+    <None Include="Menu\CL_ReportedLossBill_Function.png" />
+    <None Include="Menu\CL_RequisitionBill_Function.png" />
+    <None Include="Menu\CL_RequisitionBillQuery_Function.png" />
+    <None Include="Menu\CL_StockCheck_Function.png" />
+    <None Include="Menu\CL_StockQuery_Function.png" />
+    <None Include="Menu\CL_StockReceipt_Function.png" />
+    <None Include="Menu\CL_StockReceiptOrShippingQuery_Function.png" />
+    <None Include="Menu\CL_SystemManagement_Business_BankAccount.png" />
+    <None Include="Menu\CL_SystemManagement_Function_Org.png" />
+    <None Include="Menu\CL_SystemManagement_Function_role.png" />
+    <None Include="Menu\S_SysMaintenance_PermissionManage_Org.png" />
+    <None Include="Menu\S_SysMaintenance_PermissionManage_Role.png" />
+    <None Include="Menu\CL_BusinessAnalysis_ARAP_PurPay.png" />
+    <None Include="Menu\CL_BusinessAnalysis_Stock_WarehouseDiff.png" />
+    <None Include="Menu\CL_RepairBusiness__GuarantySettlement.png" />
+    <None Include="Menu\CL_StockCheckQuery_Function.png" />
+    <None Include="Menu\CL_StockShipping_Function.png" />
+    <None Include="Menu\CL_SystemManagement_Business_CashierAcc.png" />
+    <None Include="Menu\CL_SystemManagement_Business_Settlement.png" />
+    <None Include="Menu\CL_SystemManagement_Function_personal.png" />
+    <None Include="Menu\S_SysMaintenance_PermissionManage_Personal.png" />
+    <None Include="Menu\CL_ReportedLossBillQuery_Function.png" />
+    <Content Include="Resources\LocusMap.htm" />
+    <None Include="Resources\NorthBorder.png" />
+    <None Include="Resources\SouthBorder.png" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\permission_selected.png" />
+    <None Include="Resources\permission_default.png" />
+    <Content Include="Resources\webMap.htm" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

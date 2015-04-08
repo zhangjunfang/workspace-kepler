@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isg.yutong.com/serviceSettleAccounts/" targetNamespace="http://isg.yutong.com/serviceSettleAccounts/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://isgqas.yutong.com:2222/ISG/obtainXsd?serviceID=serviceSettleAccountsQuery" namespace="http://isg.yutong.com/serviceSettleAccounts/" />
+    </xsd:schema>
+  </types>
+  <message name="serviceSettleAccountsQuery">
+    <part name="parameters" element="tns:serviceSettleAccountsQuery" />
+  </message>
+  <message name="serviceSettleAccountsQueryResponse">
+    <part name="parameters" element="tns:serviceSettleAccountsQueryResponse" />
+  </message>
+  <portType name="serviceSettleAccountsQueryPort">
+    <operation name="serviceSettleAccountsQuery">
+      <input message="tns:serviceSettleAccountsQuery" />
+      <output message="tns:serviceSettleAccountsQueryResponse" />
+    </operation>
+  </portType>
+  <binding name="serviceSettleAccountsQueryBinding" type="tns:serviceSettleAccountsQueryPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="serviceSettleAccountsQuery">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="serviceSettleAccountsQueryService">
+    <port name="serviceSettleAccountsQueryPort" binding="tns:serviceSettleAccountsQueryBinding">
+      <soap:address location="https://isgqas.yutong.com:2222/ISG/ws/invokeService" />
+    </port>
+  </service>
+</definitions>

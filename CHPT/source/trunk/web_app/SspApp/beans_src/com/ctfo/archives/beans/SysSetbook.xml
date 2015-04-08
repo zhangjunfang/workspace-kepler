@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SysSetbook" >
+  <resultMap id="SysSetbook" class="com.ctfo.archives.beans.SysSetbook" >
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="setbook_name" property="setbookName" jdbcType="VARCHAR" />
+    <result column="setbook_code" property="setbookCode" jdbcType="VARCHAR" />
+    <result column="is_main_set_book" property="isMainSetBook" jdbcType="VARCHAR" />
+    <result column="com_name" property="comName" jdbcType="VARCHAR" />
+    <result column="organization_code" property="organizationCode" jdbcType="VARCHAR" />
+    <result column="legal_person" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="opening_bank" property="openingBank" jdbcType="VARCHAR" />
+    <result column="bank_account" property="bankAccount" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="county" property="county" jdbcType="VARCHAR" />
+    <result column="postal_address" property="postalAddress" jdbcType="VARCHAR" />
+    <result column="zip_code" property="zipCode" jdbcType="VARCHAR" />
+    <result column="company_web_site" property="companyWebSite" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="contact_telephone" property="contactTelephone" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
+    <result column="ser_station_id" property="serStationId" jdbcType="VARCHAR" />
+    <result column="set_book_id" property="setBookId" jdbcType="VARCHAR" />
+    <result column="enable_flag" property="enableFlag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="columns">
+	  id, setbook_name, setbook_code, is_main_set_book, com_name, organization_code,
+      legal_person, opening_bank, bank_account, province, city, county, postal_address, zip_code,
+      company_web_site, email, contact, contact_telephone, status, create_by, create_time,
+      update_by, update_time, ser_station_id, set_book_id, enable_flag
+  </sql>
+  <select id="selectPKByCom" resultMap="SysSetbook" parameterClass="string" >
+	SELECT 
+	  bo.id,
+	  bo.setbook_name,
+	  bo.setbook_code,
+	  bo.is_main_set_book,
+	  bo.com_name,
+	  bo.organization_code,
+	  bo.legal_person,
+	  bo.opening_bank,
+	  bo.bank_account,
+	  bo.province,
+	  bo.city,
+	  bo.county,
+	  bo.postal_address,
+	  bo.zip_code,
+	  bo.company_web_site,
+	  bo.email,
+	  bo.contact,
+	  bo.contact_telephone,
+	  bo.status,
+	  IFNULL(syc.user_name, '') AS create_by,
+	  bo.create_time,
+	  IFNULL(syu.user_name, '') AS update_by,
+	  bo.update_time,
+	  bo.ser_station_id,
+	  bo.set_book_id,
+	  bo.enable_flag 
+	FROM
+	  sys_setbook bo
+	  LEFT JOIN sys_user syc
+	  ON bo.create_by = syc.user_id
+	  LEFT JOIN sys_user syu
+	  ON bo.update_by = syu.user_id
+    where id = #comId:VARCHAR#
+  </select>
+</sqlMap>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isg.yutong.com/partRetureUpdate/" targetNamespace="http://isg.yutong.com/partRetureUpdate/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://isgqas.yutong.com:2222/ISG/obtainXsd?serviceID=partRetureUpdate" namespace="http://isg.yutong.com/partRetureUpdate/" />
+    </xsd:schema>
+  </types>
+  <message name="partRetureUpdate">
+    <part name="parameters" element="tns:partRetureUpdate" />
+  </message>
+  <message name="partRetureUpdateResponse">
+    <part name="parameters" element="tns:partRetureUpdateResponse" />
+  </message>
+  <portType name="partRetureUpdatePort">
+    <operation name="partRetureUpdate">
+      <input message="tns:partRetureUpdate" />
+      <output message="tns:partRetureUpdateResponse" />
+    </operation>
+  </portType>
+  <binding name="partRetureUpdateBinding" type="tns:partRetureUpdatePort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="partRetureUpdate">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="partRetureUpdateService">
+    <port name="partRetureUpdatePort" binding="tns:partRetureUpdateBinding">
+      <soap:address location="https://isgqas.yutong.com:2222/ISG/ws/invokeService" />
+    </port>
+  </service>
+</definitions>

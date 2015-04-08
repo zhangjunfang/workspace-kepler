@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isg.yutong.com/partPurchaseSU/" targetNamespace="http://isg.yutong.com/partPurchaseSU/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://isgqas.yutong.com:2222/ISG/obtainXsd?serviceID=partPurchaseSU" namespace="http://isg.yutong.com/partPurchaseSU/" />
+    </xsd:schema>
+  </types>
+  <message name="partPurchaseSU">
+    <part name="parameters" element="tns:partPurchaseSU" />
+  </message>
+  <message name="partPurchaseSUResponse">
+    <part name="parameters" element="tns:partPurchaseSUResponse" />
+  </message>
+  <portType name="partPurchaseSUPort">
+    <operation name="partPurchaseSU">
+      <input message="tns:partPurchaseSU" />
+      <output message="tns:partPurchaseSUResponse" />
+    </operation>
+  </portType>
+  <binding name="partPurchaseSUBinding" type="tns:partPurchaseSUPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="partPurchaseSU">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="partPurchaseSUService">
+    <port name="partPurchaseSUPort" binding="tns:partPurchaseSUBinding">
+      <soap:address location="https://isgqas.yutong.com:2222/ISG/ws/invokeService" />
+    </port>
+  </service>
+</definitions>

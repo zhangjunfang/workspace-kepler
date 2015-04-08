@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isg.yutong.com/contactSU/" targetNamespace="http://isg.yutong.com/contactSU/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://isgqas.yutong.com:2222/ISG/obtainXsd?serviceID=contactSU" namespace="http://isg.yutong.com/contactSU/" />
+    </xsd:schema>
+  </types>
+  <message name="contactSU">
+    <part name="parameters" element="tns:contactSU" />
+  </message>
+  <message name="contactSUResponse">
+    <part name="parameters" element="tns:contactSUResponse" />
+  </message>
+  <portType name="contactSUPortType">
+    <operation name="contactSU">
+      <input message="tns:contactSU" />
+      <output message="tns:contactSUResponse" />
+    </operation>
+  </portType>
+  <binding name="contactSUPortTypeBinding" type="tns:contactSUPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="contactSU">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="contactSUPortTypeService">
+    <port name="contactSUPortType" binding="tns:contactSUPortTypeBinding">
+      <soap:address location="https://isgqas.yutong.com:2222/ISG/ws/invokeService" />
+    </port>
+  </service>
+</definitions>

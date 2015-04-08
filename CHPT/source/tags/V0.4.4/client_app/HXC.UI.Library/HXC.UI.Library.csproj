@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{88DD4D22-4249-448B-9D90-F4A4ADC6471C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HXC.UI.Library</RootNamespace>
+    <AssemblyName>HXC.UI.Library</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Content\ContentTypeManager.cs" />
+    <Compile Include="Content\IContentType.cs" />
+    <Compile Include="Controls\BorderStylePaint.cs" />
+    <Compile Include="Controls\DefaultStyle.cs" />
+    <Compile Include="Controls\ExtButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ExtButton.designer.cs">
+      <DependentUpon>ExtButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExtComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ExtComboBox.designer.cs">
+      <DependentUpon>ExtComboBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExtDatetimePicker.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ExtDatetimePicker.designer.cs">
+      <DependentUpon>ExtDatetimePicker.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExtFieldControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ExtFieldControl.designer.cs">
+      <DependentUpon>ExtFieldControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExtFieldPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ExtLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ExtTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ExtTextBox.designer.cs">
+      <DependentUpon>ExtTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExtTextChooser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ExtTextChooser.designer.cs">
+      <DependentUpon>ExtTextChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExtUserControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ExtUserControl.designer.cs">
+      <DependentUpon>ExtUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\IBorderStyle.cs" />
+    <Compile Include="Controls\IContentControl.cs" />
+    <Compile Include="Controls\IValueConvert.cs" />
+    <Compile Include="Controls\PopupControlHost.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExtendControl\ExtSearchPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExtendControl\ExtSearchPanel.designer.cs">
+      <DependentUpon>ExtSearchPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryAssistant.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources1.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Verify\ValueVerify.cs" />
+    <Compile Include="Verify\VerifyManager.cs" />
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\ExtButton.resx">
+      <DependentUpon>ExtButton.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ExtComboBox.resx">
+      <DependentUpon>ExtComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ExtDatetimePicker.resx">
+      <DependentUpon>ExtDatetimePicker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ExtFieldControl.resx">
+      <DependentUpon>ExtFieldControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ExtFieldPanel.resx">
+      <DependentUpon>ExtFieldPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ExtLabel.resx">
+      <DependentUpon>ExtLabel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ExtTextBox.resx">
+      <DependentUpon>ExtTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ExtTextChooser.resx">
+      <DependentUpon>ExtTextChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ExtUserControl.resx">
+      <DependentUpon>ExtUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExtendControl\ExtSearchPanel.resx">
+      <DependentUpon>ExtSearchPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Controls\icon_datetime_picker.png" />
+    <None Include="Resources\Controls\icon_combobox_up.png" />
+    <None Include="Resources\Controls\icon_combobox_down.png" />
+    <None Include="Resources\Controls\icon_chooser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Controls\bg_button-light.png" />
+    <Content Include="Resources\Controls\bg_button-normal.png" />
+    <Content Include="Resources\ExtendControl\SearchPanel\clear_normal.png" />
+    <Content Include="Resources\ExtendControl\SearchPanel\clear_light.png" />
+    <Content Include="Resources\ExtendControl\SearchPanel\search_normal.png" />
+    <Content Include="Resources\ExtendControl\SearchPanel\Search_light.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LogService\LogService.TXT\LogService.TXT.csproj">
+      <Project>{b40f979d-a998-4f5f-9e64-c2b45a1fd4ec}</Project>
+      <Name>LogService.TXT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogService\LogService\LogService.csproj">
+      <Project>{2b02ceb9-e22e-4584-9db2-efa12fcafdd8}</Project>
+      <Name>LogService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

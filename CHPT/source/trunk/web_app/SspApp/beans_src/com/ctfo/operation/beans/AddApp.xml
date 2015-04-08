@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="AddApp">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <resultMap class="com.ctfo.operation.beans.AddApp" id="AddApp">
+    <result column="VALUE_ADD_ID" jdbcType="VARCHAR" property="valueAddId" />
+    <result column="BIZ_NAME" jdbcType="VARCHAR" property="bizName" />
+    <result column="AUTHORIZATION_CODE" jdbcType="VARCHAR" property="authorizationCode" />
+    <result column="VALID_DATE" jdbcType="BIGINT" property="validDate" nullValue="0"/>
+    <result column="COM_ID" jdbcType="VARCHAR" property="comId" />
+    
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+	<result column="CREATE_TIME" jdbcType="BIGINT" property="createTime" nullValue="0"/>
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+	<result column="UPDATE_TIME" jdbcType="BIGINT" property="updateTime" nullValue="0"/>	
+	<result column="REGISTER_AUTHENTICATION" jdbcType="VARCHAR" property="registerAuthentication" />
+	<result column="STATUS" jdbcType="VARCHAR" property="status" />
+	<result column="PROCESSING_STATUS" jdbcType="VARCHAR" property="processingStatus" />
+  </resultMap>
+  <resultMap class="com.ctfo.operation.beans.AddApp" id="AddAppDown">
+    <result column="AUTO_ID" jdbcType="VARCHAR" property="autoId" />
+    <result column="BIZ_NAME" jdbcType="VARCHAR" property="bizName" />
+  </resultMap>
+  <sql id="columns">
+	VALUE_ADD_ID,BIZ_NAME,AUTHORIZATION_CODE,VALID_DATE,COM_ID,
+	REMARK,CREATE_BY,CREATE_TIME,UPDATE_BY,UPDATE_TIME, IF(valid_date &lt; #equal.nowDate:VARCHAR#,"0",REGISTER_AUTHENTICATION) AS REGISTER_AUTHENTICATION ,IF(valid_date &lt; #equal.nowDate:VARCHAR#,"0",STATUS) AS STATUS,PROCESSING_STATUS
+  </sql>
+  <sql id="table">
+    tb_ssp_value_addapp
+  </sql>
+  <sql id="where_param">
+    <include refid="where" />
+    <include refid="equal_WHERE" />
+  </sql>  
+   <sql id="where">
+    WHERE 1=1
+  </sql> 
+  <sql id="equal_WHERE">
+    <isNotNull prepend="AND" property="equal.comId">
+      COM_ID =  #equal.comId:VARCHAR#
+    </isNotNull>
+  </sql>    
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1) FROM 
+    <include refid="table" />
+	<include refid="where_param" />
+  </select>
+  <select id="selectPk" parameterClass="string" resultMap="AddApp">
+  	SELECT 
+	<include refid="columns" />
+	FROM 
+	<include refid="table" />
+	<include refid="where_param" />
+  </select> 
+ <select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="AddApp">
+		SELECT BB.* FROM 
+	    (SELECT 
+		    <include refid="columns" /> 
+		     FROM 
+		    <include refid="table" />
+		    <include refid="where_param" />
+	    ) BB LIMIT #startNum#,#pagesize#
+  </select>
+  <!-- 吊销与启用 -->
+  <update id="updateRevokeOpenCloud" parameterClass="map">
+	  UPDATE <include refid="table" />
+	   SET STATUS = #status#
+	  WHERE COM_ID = #comId# and VALUE_ADD_ID = #valueAddId#
+  </update>
+  <select id="countAddApp" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1) FROM 
+		sys_ssp_general_code
+	where PARENT_GENERAL_CODE = "SYS_ADD_APP"
+  </select>  
+  <select id="selectAddApp" parameterClass="dynamicSqlParameter" resultMap="AddAppDown">
+	SELECT BB.* FROM 
+    (SELECT AUTO_ID , CODE_NAME as BIZ_NAME
+	     FROM 
+	     sys_ssp_general_code
+	 where GENERAL_CODE = "SYS_ADD_APP"
+    ) BB LIMIT #startNum#,#pagesize#
+ </select>
+  <insert id="insert" parameterClass="com.ctfo.operation.beans.AddApp">
+	  INSERT INTO 
+	  <include refid="table" />
+	  (
+	   VALUE_ADD_ID,
+  	   BIZ_NAME,
+	   CREATE_TIME,
+	   COM_ID,
+	   CREATE_BY,
+	   REGISTER_AUTHENTICATION,
+	   STATUS,
+	   REMARK,
+	   VALID_DATE
+	  )
+	VALUES
+	  (
+	   #valueAddId#,
+	   #bizName#,
+	   #createTime#,
+	   #comId#,
+	   #createBy#,
+	   #registerAuthentication#,
+	   #status#,
+	   #remark#,
+	   #validDate#
+	   )
+  </insert> 
+    <!-- 重新授权 -->
+  <update id="reAuthorizationCloud" parameterClass="map">
+	  UPDATE <include refid="table" />
+	   SET STATUS = '1' , register_authentication = '1' ,VALID_DATE = #addValidDate# , REMARK = #addAppRemark#
+	  WHERE COM_ID = #comId# and VALUE_ADD_ID = #valueAddId#
+  </update>
+  <select id="countAddAppByComId" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1) FROM 
+		tb_ssp_value_addapp
+	where 1=1
+	<isNotNull prepend="AND" property="equal.comId">
+      COM_ID =  #equal.comId:VARCHAR#
+    </isNotNull>
+  </select>   
+</sqlMap>

@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="BulletinManage">
+
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  
+  
+  <resultMap class="com.ctfo.operation.beans.BulletinManage" id="BulletinManage">
+  
+    <result column="ANNOUC_ID" jdbcType="VARCHAR" property="annoucId" />
+    <result column="ANNOUC_SUBJECT" jdbcType="VARCHAR" property="annoucSubject" />
+    <result column="MAIN_WORD" jdbcType="VARCHAR" property="mainWord" />
+    <result column="RELEASE_DATE" jdbcType="BIGINT" property="releaseDate" nullValue="0"/>
+    <result column="RECEIVE_CODE" jdbcType="VARCHAR" property="receiveCode" />
+    <result column="COM_CODE" jdbcType="VARCHAR" property="comCode"  />
+    <result column="SETBOOK_ID" jdbcType="VARCHAR" property="setbookId" />
+    <result column="COM_NAME" jdbcType="VARCHAR" property="comName"  />
+    <result column="SETBOOK_NAME" jdbcType="VARCHAR" property="setbookName" />
+    <result column="ANNOUCE_DEPT_NAME" jdbcType="VARCHAR" property="annouceDeptName" />
+    <result column="ANNOUCE_DEPT" jdbcType="VARCHAR" property="annouceDept"/>
+    <result column="ANNOUCE_PEOPLE" jdbcType="VARCHAR" property="annoucePeople"/>
+    <result column="ANNOUCE_PEOPLE_ID" jdbcType="VARCHAR" property="annoucePeopleId"/>
+    <result column="ANNOUCE_CONTENT"  jdbcType="VARCHAR" property="annouceContent" />
+    <result column="ANNOUCE_STATUS"  jdbcType="VARCHAR" property="annouceStatus" />
+    <result column="UPDATE_BY"  jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME"  jdbcType="BIGINT" property="updateTime" nullValue="0"/>
+    <result column="ENABLE_FLAG"  jdbcType="VARCHAR" property="enableFlag" />
+    
+  </resultMap>
+  
+  <sql id="columns">
+    ANNOUC_ID,
+    ANNOUC_SUBJECT,
+    MAIN_WORD,
+    RELEASE_DATE,
+    RECEIVE_CODE,
+    ANNOUCE_PEOPLE_ID,
+    COM_CODE,
+    COM_NAME,
+    SETBOOK_ID,
+    SETBOOK_NAME,
+    ANNOUCE_DEPT_NAME,
+    ANNOUCE_DEPT,
+    ANNOUCE_PEOPLE,
+    ANNOUCE_CONTENT,
+    ANNOUCE_STATUS,
+    UPDATE_BY,
+    UPDATE_TIME,
+    ENABLE_FLAG
+  </sql>
+  <sql id="table">
+    	tb_ssp_announce_manage
+  </sql>
+  
+<sql id="where">
+    WHERE  1=1
+  </sql>
+  <sql id="equal_WHERE">
+    <isNotNull prepend="AND" property="equal.releaseDateStart">
+        <![CDATA[(#equal.releaseDateStart# <= RELEASE_DATE )]]>
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.releaseDateEnd">
+        <![CDATA[(#equal.releaseDateEnd# >= RELEASE_DATE )]]>
+    </isNotNull>  
+   	<isNotNull prepend="AND" property="equal.annouceDept">
+         ANNOUCE_DEPT = #equal.annouceDept#
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.annoucePeopleId">
+         ANNOUCE_PEOPLE_ID = #equal.annoucePeopleID#
+    </isNotNull> 
+    <isNotNull prepend="AND" property="equal.annouceStatus">
+         ANNOUCE_STATUS = #equal.annouceStatus#
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.comCode">
+         COM_CODE = #equal.comCode#
+    </isNotNull>  
+    and ENABLE_FLAG = '1' 
+  </sql>
+  <sql id="like_WHERE">
+    <isNotNull prepend="AND" property="like.mainWord">
+      MAIN_WORD like CONCAT('%',#like.mainWord:VARCHAR#,'%')
+      							
+    </isNotNull>
+  </sql>
+  
+  <sql id="order">
+    ORDER BY RELEASE_DATE DESC
+  </sql>
+  
+  <sql id="where_param">
+    <include refid="where" />
+    <include refid="equal_WHERE" />
+    <include refid="like_WHERE" />   
+    <include refid="order"/>  
+    
+  </sql>
+  
+  <select id="selectParam" parameterClass="dynamicSqlParameter" >
+    select 
+    <include refid="columns" />
+    from
+    <include refid="table" />
+    <include refid="where_param" />
+  </select>
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+    SELECT COUNT(1) FROM 
+    <include refid="table" />
+    <include refid="where_param" />
+  </select>  
+
+  <select id="selectPageForParam" parameterClass="dynamicSqlParameter"  resultMap="BulletinManage">
+    SELECT BB.* FROM 
+	    (SELECT 
+		    <include refid="columns" /> 
+		     FROM 
+		    <include refid="table" />
+		    <include refid="where_param" />
+	     ) BB LIMIT #startNum#,#pagesize#
+  </select>
+ 
+  
+  <!-- 根据主键ID查询公告及公告附件对象 -->
+  <select id="selectPk"  resultMap="BulletinManage"  parameterClass="string" >
+  	 SELECT
+  	<include refid="columns"/>
+  	  FROM
+  	<include refid="table"/>
+  		where ANNOUC_ID  =  #annoucId:VARCHAR#
+  </select>
+  
+ <!--  <select id="selectPk"  resultClass="java.util.HashMap"  parameterClass="string" >
+  		SELECT a.ANNOUC_ID as annoucId,
+  		       a.ANNOUC_SUBJECT as annoucSubject,
+  		       a.MAIN_WORD as mainWord,
+  		       a.RELEASE_DATE as releaseDate,
+  		       a.RECEIVE_CODE as receiveCode,
+  			   a.ANNOUCE_PEOPLE_ID as annoucePeopleId,
+  			   a.RECEIVER as receiver,
+  			   a.COM_CODE as comCode,
+  			   a.COM_NAME as comName,
+  			   a.SETBOOK_ID as setbookId,
+  			   a.SETBOOK_NAME as setbookName,
+  			   a.ANNOUCE_DEPT_NAME as annouceDeptName,
+  			   a.ANNOUCE_DEPT as annouceDept,
+  			   a.ANNOUCE_PEOPLE as annoucePeople,
+  			   a.ANNOUCE_CONTENT as annouceContent,
+  			   a.ANNOUCE_STATUS as annouceStatus,
+  			   a.UPDATE_BY as updateBy,
+  			   a.UPDATE_TIME as updateTime,
+  			   a.AUDITOR_BY as auditorBy,
+  			   a.AUDITOR_TIME as auditorTime,
+  			   a.ENABLE_FLAG as enableFlag,
+  			   b.ATTACH_ID as attachId,
+  			   b.ANNOUC_ID as annoucId,
+  			   b.ATTACH_NAME as attachName,
+  			   b.ATTACH_ALIAS_NAME as attachAliasName,
+  			   b.ATTACH_CATEGORY as attachCategory,
+  			   b.FILE_PATH as filePath,
+  			   b.REMARK as remark  
+  			   
+  		FROM tb_ssp_announce_manage a,tb_ssp_attachment b 
+  		WHERE	a.ANNOUC_ID  =  #annoucId:VARCHAR#
+  		AND 	b.ANNOUC_ID  =  #annoucId:VARCHAR#
+  			
+  </select> -->
+  
+  
+  <!-- set 值 -->
+  <sql id="set">
+    <dynamic prepend="set">
+       ANNOUC_ID = #annoucId#
+      ,ANNOUC_SUBJECT = #annoucSubject#
+      ,MAIN_WORD = #mainWord#
+      ,RELEASE_DATE = #releaseDate#
+      ,RECEIVE_CODE = #receiveCode#
+      ,COM_CODE = #comCode#
+      ,SETBOOK_ID = #setbookId#
+      ,COM_NAME = #comName#
+      ,SETBOOK_NAME = #setbookName#
+      ,ANNOUCE_DEPT_NAME = #annouceDeptName#
+      ,ANNOUCE_DEPT = #annouceDept#
+      ,ANNOUCE_PEOPLE = #annoucePeople#
+      ,ANNOUCE_PEOPLE_ID = #annoucePeopleId#
+      ,ANNOUCE_CONTENT = #annouceContent#
+      ,ANNOUCE_STATUS = #annouceStatus#
+      ,UPDATE_BY = #updateBy#
+      ,UPDATE_TIME = #updateTime#
+    </dynamic>
+  </sql>
+	<!-- 公告全表插入操作 -->
+  <insert id="insert" parameterClass="com.ctfo.operation.beans.BulletinManage">
+    insert into tb_ssp_announce_manage (ANNOUC_ID,ANNOUC_SUBJECT,MAIN_WORD,RELEASE_DATE,RECEIVE_CODE,
+    COM_CODE,COM_NAME,SETBOOK_ID,SETBOOK_NAME,ANNOUCE_DEPT_NAME,ANNOUCE_DEPT,
+    ANNOUCE_PEOPLE,ANNOUCE_CONTENT,ANNOUCE_STATUS,UPDATE_BY,
+    UPDATE_TIME,ENABLE_FLAG,ANNOUCE_PEOPLE_ID, CREATE_BY, CREATE_TIME)
+    values (#annoucId#, #annoucSubject#, #mainWord#, #releaseDate#,
+      #receiveCode#,#comCode#, #comName#,
+      #setbookId#, #setbookName#, #annouceDeptName#, #annouceDept#, 
+      #annoucePeople#,#annouceContent#,#annouceStatus#,#updateBy#,
+      #updateTime#,#enableFlag#,#annoucePeopleId#, #createBy#, #createTime#)
+  </insert>
+  <!-- 公告删除，根据主键更新删除状态 -->
+  <delete id="delete" parameterClass="map" >
+    update
+    	<include refid="table" />
+    	set 
+    	ENABLE_FLAG = '0',
+    	UPDATE_BY = #updateBy#,
+    	UPDATE_TIME = #updateTime#
+    	where ANNOUC_ID in ($annouceId$)
+  </delete>
+  <!-- 公告更新全表数据parameterClass="com.ctfo.operation.beans.BulletinManage" -->
+  <update id="update" parameterClass="java.util.HashMap" >
+    update 
+    <include refid="table" />
+    <include refid="set" />
+   where ANNOUC_ID = #annoucId#
+    
+  </update>
+  <!-- 查询公司列表 -->
+  <select id="queryComInfoList" resultClass="com.ctfo.operation.beans.CompanyInfo">  		
+		SELECT com_id AS comId,com_name AS comName FROM tb_ssp_com_info WHERE enable_flag = '1' AND STATUS = '1'
+  </select>
+   <!-- 根据公司编码查询公司帐套列表 -->
+   <select id="queryComSetbookList" parameterClass="java.lang.String" resultClass="com.ctfo.operation.beans.TbSetbook">
+   		SELECT  SETBOOK_CODE as setbookCode,SETBOOK_NAME as setbookName  FROM sys_setbook WHERE ser_station_id = #comId#
+   </select>
+   
+   <!-- 根据公司Id 获取公司名称 -->
+  	<select id="getCompanyNameById" parameterClass="java.lang.String" resultClass = "java.lang.String">
+  		
+  		SELECT COM_NAME as comName 	FROM tb_ssp_com_info 	WHERE COM_ID = #comId#
+  	
+  	</select>
+  	
+  	
+  	<select id="queryAnnouceDeptList" parameterClass="map" resultClass="com.ctfo.sys.beans.TbOrg">
+	SELECT ENT_ID as entId,ENT_NAME as entName FROM tb_ssp_organization where ENABLE_FLAG = '1' and ENT_STATE = '1' 
+     <isNotNull prepend="AND" property="comId">
+  		com_id =  #comId:VARCHAR#
+   	 </isNotNull>
+  	</select>  	
+  	
+  	<select id="selectListByPrimaryKey" parameterClass="java.lang.String" resultClass="com.ctfo.annouce.beans.TbAttachment">
+  		SELECT ATTACH_ID as attachId,
+  		ANNOUC_ID as annoucId,
+  		ATTACH_NAME as attachName,
+  		ATTACH_ALIAS_NAME as attachAliasName,
+  		ATTACH_CATEGORY as attachCategory,
+  		FILE_PATH as filePath,
+  		REMARK
+  		FROM tb_ssp_attachment
+  		WHERE ANNOUC_ID = #annoucId#
+  	
+  	
+  	</select>
+  	<!-- 发布公告 开关开  -->
+  	<update id="updatePulishStatus" parameterClass="map" >
+  		UPDATE 
+  		<include refid="table"/>
+  		SET ANNOUCE_STATUS = #status#,
+  			UPDATE_BY = #updateBy#,
+  			UPDATE_TIME = #updateTime#
+  		WHERE 1=1
+	  <isNotNull property="annoucId" >
+      <![CDATA[ AND ANNOUC_ID in ]]>
+      <iterate property="annoucId" conjunction="," open="(" close=")">
+          #annoucId[]#
+      </iterate>
+      </isNotNull> 
+  	</update>
+  	<!-- 发布公告 开关关 -->
+  	<update id="updatePulishStatusToExamine" parameterClass="map" >
+  		UPDATE 
+  		<include refid="table"/>
+  		SET ANNOUCE_STATUS = #status#,
+  			UPDATE_BY = #updateBy#,
+  			UPDATE_TIME = #updateTime#
+  		WHERE 1=1
+	  <isNotNull property="annoucId" >
+      <![CDATA[ AND ANNOUC_ID in ]]>
+      <iterate property="annoucId" conjunction="," open="(" close=")">
+          #annoucId[]#
+      </iterate>
+      </isNotNull>  		
+  	</update>
+  	<!-- 驳回公告 -->
+  	<update id="updatePulishStatusToReject" parameterClass="map">
+  		UPDATE 
+  		<include refid="table"/>
+  		SET ANNOUCE_STATUS = #status#,
+  			UPDATE_BY = #updateBy#,
+  			UPDATE_TIME = #updateTime#
+  		WHERE 1=1
+	  <isNotNull property="annoucId" >
+      <![CDATA[ AND ANNOUC_ID in ]]>
+      <iterate property="annoucId" conjunction="," open="(" close=")">
+          #annoucId[]#
+      </iterate>
+      </isNotNull>  	
+  	</update>    	  	
+  	<!-- 撤销公告 -->
+  	<update id="cancelAnnouce" parameterClass="map" >
+  		UPDATE 
+  		<include refid="table"/>
+  		SET ANNOUCE_STATUS = #status#,
+  			UPDATE_BY = #updateBy#,
+  			UPDATE_TIME = #updateTime#
+  		WHERE 1=1
+	  <isNotNull property="annoucId" >
+      <![CDATA[ AND ANNOUC_ID in ]]>
+      <iterate property="annoucId" conjunction="," open="(" close=")">
+          #annoucId[]#
+      </iterate>
+      </isNotNull>  
+  	</update>
+  	<!-- 根据部门ID获取部门人员列表 -->
+  	<select id="queryAnnouceDeptEmployeeList" parameterClass="map" resultClass = "java.util.HashMap">
+  		SELECT op_id AS dicCode,op_name AS dicName FROM  sys_ssp_sp_operator WHERE enable_flag = '1' AND op_status = '1' and ent_id = #entId# 
+  	</select>
+  	<delete id="deleteAnnouceFileById" parameterClass="java.util.HashMap">
+  		DELETE FROM tb_ssp_attachment WHERE attach_id= #attachId# AND annouc_id = #annoucId#
+  	</delete>
+  	<!-- 更新附件表的数据 -->
+  	<update id="updateAttach" parameterClass="java.util.HashMap" >
+  		UPDATE tb_ssp_attachment SET ATTACH_NAME = #attachName# , ATTACH_ALIAS_NAME = #attachName# ,ATTACH_CATEGORY = #attachCategory# ,REMARK = #remark#
+  	    WHERE ATTACH_ID = #attachId# AND  ANNOUC_ID = #annoucId#
+  	</update>
+</sqlMap>

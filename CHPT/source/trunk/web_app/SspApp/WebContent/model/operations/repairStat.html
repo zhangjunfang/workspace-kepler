@@ -1,0 +1,388 @@
+<!--数据分析 - 维修单统计 repairStat-->
+<!--sidebox-->
+    <div class="sidebox leftTreeContainer">
+    </div>
+<!--main-->
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>当前位置：</font>
+            <font>数据分析</font> ->
+            <font>维修单统计</font>
+        </div>
+        <div class="m3">
+            <div class="userManageContent">
+            	<!--查询条件-->
+                <div class=" lineS69c h90 p5 tit5 overh repairStatTerm">
+    				<form name="repairStatForm">
+                    <div class=" h35">
+                      <!--span class="btn4 fl mr20 exportGrid">查 看</span-->
+                    	<span class="btn4 fl mr10 exportGrid">导 出</span>
+                    </div>
+                    <div class=" h30">
+	                    	<div class="h25 lh25 fl w180">
+	                     	   公司名称：<input type="text" name="comName"/>
+	                    	</div>
+	                    	<div class="h25 lh25 fl w180">
+	                     	   帐套名：<input type="text" name="setbookName"/>
+	                    	</div>
+	            	        <div class="h25 lh25 fl w300">
+								起始时间：
+		                         <input id="d007" type="text" readonly="readonly" class="Wdate" name="settlementTimeStart" value="" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d008\')||\'2020-10-01\'}'})"/> 至
+		                         <input id="d008" type="text" readonly="readonly" class="Wdate" name="settlementTimeEnd" value="" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d007\')}',maxDate:'2020-10-01'})"/>
+	                    	</div>
+                        </div>
+                        <div>
+	                        <div class="h30 lh30 fl w60 tr">
+	                        	所在地：
+	                        </div>
+	                        <div class="h30 lh30 fl w100 pt3">
+	                            <select name="corpProvince"></select>
+	                        </div>
+	                        <div class="h30 lh30 fl w100 pt3">
+	                            <select name="corpCity"></select>
+	                        </div>
+	                        <div class="h30 lh30 fl w120 pt3">
+	                            <select name="corpCounty"></select>
+	                        </div>
+                        </div>
+                        <span class="btn1 cFFF fl ml100 queryButton">查询</span>
+                        <span class="btn4 fl ml10 resetButton">清除</span>
+    				</form>
+                </div>
+                <!--数据显示-->
+                <div class=" lineS mt3 bcFFF gridContainerWrap">
+                    <div class="gridContainer"></div>
+                </div>
+            </div>
+		        <div class="userManageContent none">
+              <div class=" lineS69c p5 tit5 overh repairStatTerm">
+    						<form name="repairStatForm">
+			            <div class=" h25">
+			              <span name='cancelSave' class="btn4 fl ml10 mr20">返 回</span>
+			          		<span class="btn4 fl mr20 exportGrid">导 出</span>
+			          	</div>
+    						</form>
+              </div>
+		   	     	<div class=" lineS mt3 bcFFF gridContainerWrap">
+		               <div class="gridContainerDetial"></div>
+		           </div>
+		        </div>
+
+		        <div class="userManageContent none">
+              <div class=" lineS69c p5 tit5 overh repairStatTerm">
+    						<form name="repairStatForm">
+			            <div class=" h25">
+			              <span name='cancelSave' class="btn4 fl ml10 mr20">返 回</span>
+			          	</div>
+    						</form>
+              </div>
+							<div class="w pt10 h280 repairDeailBox">
+								<form name="repairDeail">
+								 	<ul>
+									  	<li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">维修单号：</div>
+								          <span class="pr fl">
+								        	  <input name="maintainNo" type="text"  value="" disabled="disabled">
+								          </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">结算时间：</div>
+								          <span class="pr fl">
+								            <input name="completeWorkTime" type="text"  value="" disabled="disabled">
+								          </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">客户名称：</div>
+								          <span class="pr fl">
+								          <input name="customerName" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">客户编码：</div>
+								          <span class="pr fl">
+								          <input name="customerCode" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">联系人：</div>
+								          <input name="linkman" type="text"  value="" disabled="disabled">
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">联系人手机：</div>
+								          <input name="linkManMobile" type="text"  value="" disabled="disabled">
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">车牌号：</div>
+								          <span class="pr fl">
+								          <input name="vehicleNo" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">车型：</div>
+								          <span class="pr fl">
+								          <input name="vehicleModel" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">车辆品牌：</div>
+								          <span class="pr fl">
+								          <input name="vehicleBrand" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">VIN：</div>
+								          <span class="pr fl">
+								         <input name="vehicleVin" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">发动机号：</div>
+								          <span class="pr fl">
+								 			<input name="engineNo" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">司机：</div>
+								          <span class="pr fl">
+											<input name="driverName" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">司机手机：</div>
+								          <span class="pr fl">
+								          <input name="driverMobile" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">进厂油量：</div>
+								          <span class="pr fl">
+								          <input name="oilIntoFactory" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">行驶里程数：</div>
+								          <span class="pr fl">
+								          <input name="travelMileage" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">建议保养日期：</div>
+								          <span class="pr fl">
+								           <input name="maintainTime" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">维修付费方式：</div>
+								          <span class="pr fl">
+								            <input name="maintainPayment" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">维修类别：</div>
+								          <span class="pr fl">
+								          <input name="maintainType" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">备注：</div>
+											<span class="pr fl">
+												<input name="remark" type="text"  value="" disabled="disabled">
+											</span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">优惠原因：</div>
+								          <span class="pr fl">
+								          <input name="favorableReason" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">工时货款：</div>
+								          <span class="pr fl">
+								          <input name="manHourSumMoney" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">工时税率：</div>
+								          <span class="pr fl">
+								          <input name="manHourTaxRate" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">工时税额：</div>
+								          <span class="pr fl">
+								          <input name="manHourTaxCost" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">工时价税合计：</div>
+								          <span class="pr fl">
+								          <input name="manHourSum" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">配件货款：</div>
+								          <span class="pr fl">
+								          <input name="fittingSumMoney" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">配件税率：</div>
+								          <span class="pr fl">
+								          <input name="fittingTaxRate" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">配件税额：</div>
+								          <span class="pr fl">
+								          <input name="fittingTaxCost" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">配件价税合计：</div>
+								          <span class="pr fl">
+								          <input name="fittingSum" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">其他项目费用：</div>
+								          <span class="pr fl">
+								          <input name="otherItemSumMoney" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">其他项目税率：</div>
+								          <span class="pr fl">
+								          <input name="otherItemTaxRate" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">其他项目税额：</div>
+								          <span class="pr fl">
+								          <input name="otherItemTaxCost" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">其他项目价税合计：</div>
+								          <span class="pr fl">
+								          <input name="otherItemSum" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								  		<li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">优惠费用：</div>
+								          <span class="pr fl">
+								          <input name="privilegeCost" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">应收总额：</div>
+								          <span class="pr fl">
+								          <input name="shouldSum" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">实收总额：</div>
+								          <span class="pr fl">
+								          <input name="receivedSum" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">欠款金额：</div>
+								          <span class="pr fl">
+								          <input name="debtCost" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								  	  <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">开票类型：</div>
+								          <span class="pr fl">
+								          <input name="makeInvoiceType" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">结算方式：</div>
+								          <span class="pr fl">
+								          <input name="paymentTerms" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">结算账户：</div>
+								          <span class="pr fl">
+								          <input name="settlementAccount" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">结算单位：</div>
+								          <span class="pr fl">
+								          <input name="settleCompany" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								  	  <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">会员卡号：</div>
+								          <span class="pr fl">
+								          <input name="vipCode" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">会员等级：</div>
+								          <span class="pr fl">
+								          <input name="memberGrade" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">会员折扣项目：</div>
+								          <span class="pr fl">
+								          <input name="serviceProjectDiscount" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								      <li class="h25 lh25 fl w25b mb3">
+								          <div class="fl w110 tr">会员用料折扣：</div>
+								          <span class="pr fl">
+								          <input name="partsDiscount" type="text"  value="" disabled="disabled">
+								      </span>
+								      </li>
+								 	</ul>
+								</form>
+						  </div>
+							<div class="ml3 mr3 bcFFF gridContainerWrap">
+						        <!--功能模块-->
+						        <div class=" pt5 h30 lh30 pl10 pr10 tc overh deviceStatusTab">
+						            <span class="fl hand w100 tit1 h30 radius3-t lineS69c_l lineS69c_r lineS69c_t cFFF isTab">
+						                维修项目
+						            </span>
+						            <span class="fl hand w100 tit2 h30 radius3-t lineS_l lineS_r lineS_t isTab">
+						                维修用料
+						            </span>
+						            <span class="fl hand w100 tit2 h30 radius3-t lineS_l lineS_r lineS_t isTab">
+						                其他项目收费
+						            </span>
+						            <span class="fl hand w100 tit2 h30 radius3-t lineS_l lineS_r lineS_t isTab">
+						                附件信息
+						            </span>
+						        </div>
+						        <!--切换(维修项目)-->
+						        <div class="tagContent" style="display: none;" >
+						            <!--数据显示-->
+						            <div class="lineS gridContainerProject"></div>
+						        </div>
+						        <!--切换（维修用料）-->
+						        <div class=" tagContent" style="display: none;">
+						            <!--数据显示-->
+						            <div class="lineS gridContainerMaterials"></div>
+						        </div>
+						        <!--切换（其他项目收费）-->
+						        <div class=" tagContent" style="display: none;">
+						            <!--数据显示-->
+						            <div class="lineS gridContainerCharge"></div>
+						        </div>
+						        <!--切换（附件信息）-->
+						        <div class=" tagContent" style="display: none;">
+						            <!--数据显示-->
+						            <div class="lineS gridContainerAnnex"></div>
+						        </div>
+						  </div>
+              <div class=" ml3 mr3 mb3 mt5 lineS69c p5 tit5 overh repairStatBottom">
+              </div>
+		        </div>
+        </div>
+    </div>

@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9B3A3AAF-92DB-4656-AC4B-3AECC7FF1FD8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CloudPlatSocket</RootNamespace>
+    <AssemblyName>CloudPlatSocket</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>..\bin\CloudPlatSocket.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\Release\X86\Server\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\CloudPlatSocket.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoTask.cs" />
+    <Compile Include="Common\BaseCodeHelper.cs" />
+    <Compile Include="Common\DataHelper.cs" />
+    <Compile Include="Common\FileHelper.cs" />
+    <Compile Include="Agent\FileAgent.cs" />
+    <Compile Include="Common\LogAssistant.cs" />
+    <Compile Include="Handler\AnnounceHandler.cs" />
+    <Compile Include="Handler\ContolHandler.cs" />
+    <Compile Include="Handler\FactoryHandler.cs" />
+    <Compile Include="Handler\FileHandler.cs" />
+    <Compile Include="Common\JsonHelper.cs" />
+    <Compile Include="Handler\HeartBeatHandler.cs" />
+    <Compile Include="Handler\LoginHandler.cs" />
+    <Compile Include="Handler\MonitorHandler.cs" />
+    <Compile Include="Handler\UploadDataHandler.cs" />
+    <Compile Include="Model\AttachmentModel.cs" />
+    <Compile Include="Model\BehaviorModel.cs" />
+    <Compile Include="Model\FileModel.cs" />
+    <Compile Include="Model\MaintainModel.cs" />
+    <Compile Include="Model\ServerStatusModel.cs" />
+    <Compile Include="Model\ServiceStationDataModel.cs" />
+    <Compile Include="Model\ThreeMaintainModel.cs" />
+    <Compile Include="Model\UserOnlineModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProtocolTranslator.cs" />
+    <Compile Include="Interface\IProtocol.cs" />
+    <Compile Include="MessageProtocol.cs" />
+    <Compile Include="ProtocolHandler.cs" />
+    <Compile Include="Protocol\ClientProtocol.cs" />
+    <Compile Include="Protocol\CloudDataProtocol.cs" />
+    <Compile Include="Protocol\ControlProtocol.cs" />
+    <Compile Include="Protocol\ErrorProtocol.cs" />
+    <Compile Include="Protocol\FactoryProtocol.cs" />
+    <Compile Include="Protocol\FileProtocol.cs" />
+    <Compile Include="Protocol\LoginProtocol.cs" />
+    <Compile Include="Protocol\AnnounceProtocol.cs" />
+    <Compile Include="Protocol\ProtocolValue.cs" />
+    <Compile Include="Protocol\ResultProtocol.cs" />
+    <Compile Include="Protocol\UploadDataProtocol.cs" />
+    <Compile Include="Agent\ServiceAgent.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{0EBFB67B-045C-4FDA-BE05-1DA82AB0AD06}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HXC_FuncUtility\HXC_FuncUtility.csproj">
+      <Project>{842D8CE2-E85C-45FF-8AC6-765071CFEBBC}</Project>
+      <Name>HXC_FuncUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogService\LogService.TXT\LogService.TXT.csproj">
+      <Project>{b40f979d-a998-4f5f-9e64-c2b45a1fd4ec}</Project>
+      <Name>LogService.TXT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LogService\LogService\LogService.csproj">
+      <Project>{2b02ceb9-e22e-4584-9db2-efa12fcafdd8}</Project>
+      <Name>LogService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SYSModel\SYSModel.csproj">
+      <Project>{2C218F81-1C42-475D-A448-84980264707C}</Project>
+      <Name>SYSModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{E3F10FEF-C8E4-450F-B20D-5A11A5486FF1}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\yuTongWebService\yuTongWebService.csproj">
+      <Project>{8F8A0F36-F0DC-4E32-9D73-FD89B8FB19D6}</Project>
+      <Name>yuTongWebService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

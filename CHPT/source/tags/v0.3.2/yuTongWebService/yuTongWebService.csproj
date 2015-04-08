@@ -1,0 +1,961 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8F8A0F36-F0DC-4E32-9D73-FD89B8FB19D6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>yuTongWebService</RootNamespace>
+    <AssemblyName>yuTongWebService</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>..\bin\yuTongWebService.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\Release\X86\Server\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\yuTongWebService.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\DllLib\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CodingRule.cs" />
+    <Compile Include="GlobalStaticObj_YT.cs" />
+    <Compile Include="QueryBusModels.cs" />
+    <Compile Include="SysConfig.cs" />
+    <Compile Include="Web References\CreatePartReturn\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryBusModel\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryBus\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryCustomer\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryHitchMode\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryOrderStatus\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryPartInStore\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryPartPurchaseStauts\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryPartRetureStatus\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryPartStoreCenter\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryPart\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryProdImprovement\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryRepairProject\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryServiceSettleAccounts\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryServiceSettleStatus\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryServiceStation\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SUContact\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SUPartPurchase\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SUPartPutStore\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SUPartSale\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SUCustomer\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SURepairBill\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SUServiceOrder\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\SUServicePartStock\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\UpdatePartReture\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="WebServUtil.cs" />
+    <Compile Include="WebServ_YT_BasicData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\QueryContact\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="WebServ_YT_BusiData.cs" />
+    <Compile Include="YTCustomer.cs" />
+    <Compile Include="YuTongDic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=busModelQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryBusModel\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=busModelQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_QueryBusModel_busModelQueryService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=busQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryBus\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=busQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_QueryBus_portTypeService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=contactSU">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SUContact\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=contactSU</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_SUContact_contactSUPortTypeService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=customerQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryCustomer\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=customerQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_QueryCustomer_customerQueryService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=customerSU">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SUCustomer\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=customerSU</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_SUCustomer_customerSUService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=hitchModeQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryHitchMode\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=hitchModeQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partInStoreQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryPartInStore\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partInStoreQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partPurchaseStautsQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryPartPurchaseStauts\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partPurchaseStautsQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partPurchaseSU">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SUPartPurchase\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partPurchaseSU</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partPutStore">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SUPartPutStore\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partPutStore</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryPart\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_QueryPart_partQueryService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partRetureStatusQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryPartRetureStatus\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partRetureStatusQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partRetureUpdate">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\UpdatePartReture\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partRetureUpdate</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partReturnCreate">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\CreatePartReturn\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partReturnCreate</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partSaleSU">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SUPartSale\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partSaleSU</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_SUPartSale_partSaleSUService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partStoreCenterQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryPartStoreCenter\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=partStoreCenterQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=prodImprovementQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryProdImprovement\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=prodImprovementQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_QueryProdImprovement_prodImprovementQueryService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=queryContact">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryContact\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=queryContact</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_yutong_contact_portTypeService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=queryServiceStation">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryServiceStation\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=queryServiceStation</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_ServiceStation_portTypeService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=repairBillSU">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SURepairBill\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=repairBillSU</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=repairProjectQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryRepairProject\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=repairProjectQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_QueryRepairProject_repairProjectQueryService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=sercicePartStockSU">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SUServicePartStock\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=sercicePartStockSU</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>yuTongWebService_SUSercicePartStock_sercicePartStockSUService</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=serviceOrderStatusQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryOrderStatus\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=serviceOrderStatusQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=serviceOrderSU">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\SUServiceOrder\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=serviceOrderSU</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=serviceSettleAccountsQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryServiceSettleAccounts\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=serviceSettleAccountsQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=serviceSettleStatusQuery">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\QueryServiceSettleStatus\</RelPath>
+      <UpdateFromURL>https://isgqas.yutong.com:2222/ISG/obtainWSDL%3fserviceID=serviceSettleStatusQuery</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>
+      </CachedAppSettingsObjectName>
+      <CachedSettingsPropName>
+      </CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\CreatePartReturn\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\CreatePartReturn\obtainWSDL.wsdl" />
+    <None Include="Web References\CreatePartReturn\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\CreatePartReturn\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\CreatePartReturn\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryContact\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryContact\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryContact\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryContact\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryBusModel\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryBusModel\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryBusModel\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryBusModel\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryBusModel\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryBus\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryBus\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryBus\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryBus\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryBus\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryContact\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryContact\Result1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryCustomer\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryCustomer\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryCustomer\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryCustomer\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryCustomer\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryHitchMode\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryHitchMode\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryHitchMode\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryHitchMode\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryHitchMode\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryOrderStatus\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryOrderStatus\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryOrderStatus\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryOrderStatus\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryOrderStatus\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryPartInStore\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryPartInStore\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryPartInStore\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryPartInStore\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryPartInStore\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryPartPurchaseStauts\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryPartPurchaseStauts\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryPartPurchaseStauts\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryPartPurchaseStauts\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryPartPurchaseStauts\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryPartRetureStatus\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryPartRetureStatus\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryPartRetureStatus\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryPartRetureStatus\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryPartRetureStatus\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryPartStoreCenter\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryPartStoreCenter\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryPartStoreCenter\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryPartStoreCenter\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryPartStoreCenter\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryPart\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryPart\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryPart\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryPart\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryPart\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryProdImprovement\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryProdImprovement\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryProdImprovement\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryProdImprovement\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryProdImprovement\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryRepairProject\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryRepairProject\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryRepairProject\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryRepairProject\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryRepairProject\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryServiceSettleAccounts\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryServiceSettleAccounts\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryServiceSettleAccounts\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryServiceSettleAccounts\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryServiceSettleAccounts\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryServiceSettleStatus\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryServiceSettleStatus\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryServiceSettleStatus\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryServiceSettleStatus\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryServiceSettleStatus\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryServiceStation\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryServiceStation\obtainWSDL.wsdl" />
+    <None Include="Web References\QueryServiceStation\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\QueryServiceStation\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\QueryServiceStation\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\QueryServiceStation\Result1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SUContact\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUContact\obtainWSDL.wsdl" />
+    <None Include="Web References\SUContact\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUContact\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SUContact\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SUPartPurchase\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUPartPurchase\obtainWSDL.wsdl" />
+    <None Include="Web References\SUPartPurchase\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUPartPurchase\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SUPartPurchase\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SUPartPutStore\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUPartPutStore\obtainWSDL.wsdl" />
+    <None Include="Web References\SUPartPutStore\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUPartPutStore\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SUPartPutStore\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SUPartSale\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUPartSale\obtainWSDL.wsdl" />
+    <None Include="Web References\SUPartSale\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUPartSale\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SUPartSale\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SUCustomer\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUCustomer\obtainWSDL.wsdl" />
+    <None Include="Web References\SUCustomer\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUCustomer\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SUCustomer\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SURepairBill\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SURepairBill\obtainWSDL.wsdl" />
+    <None Include="Web References\SURepairBill\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SURepairBill\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SURepairBill\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SUServiceOrder\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUServiceOrder\obtainWSDL.wsdl" />
+    <None Include="Web References\SUServiceOrder\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUServiceOrder\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SUServiceOrder\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SUServicePartStock\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUServicePartStock\obtainWSDL.wsdl" />
+    <None Include="Web References\SUServicePartStock\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\SUServicePartStock\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\SUServicePartStock\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\SUServicePartStock\Result1.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\UpdatePartReture\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UpdatePartReture\obtainWSDL.wsdl" />
+    <None Include="Web References\UpdatePartReture\obtainXsd.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\UpdatePartReture\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\UpdatePartReture\Result.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{0EBFB67B-045C-4FDA-BE05-1DA82AB0AD06}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HXC_FuncUtility\HXC_FuncUtility.csproj">
+      <Project>{842D8CE2-E85C-45FF-8AC6-765071CFEBBC}</Project>
+      <Name>HXC_FuncUtility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{C82568A7-143C-488B-AE12-61F15CF69A80}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SYSModel\SYSModel.csproj">
+      <Project>{2C218F81-1C42-475D-A448-84980264707C}</Project>
+      <Name>SYSModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utility\Utility.csproj">
+      <Project>{E3F10FEF-C8E4-450F-B20D-5A11A5486FF1}</Project>
+      <Name>Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isg.yutong.com/repairBillSU/" targetNamespace="http://isg.yutong.com/repairBillSU/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://isgqas.yutong.com:2222/ISG/obtainXsd?serviceID=repairBillSU" namespace="http://isg.yutong.com/repairBillSU/" />
+    </xsd:schema>
+  </types>
+  <message name="repairBillSU">
+    <part name="parameters" element="tns:repairBillSU" />
+  </message>
+  <message name="repairBillSUResponse">
+    <part name="parameters" element="tns:repairBillSUResponse" />
+  </message>
+  <portType name="repairBillSUPort">
+    <operation name="repairBillSU">
+      <input message="tns:repairBillSU" />
+      <output message="tns:repairBillSUResponse" />
+    </operation>
+  </portType>
+  <binding name="repairBillSUBinding" type="tns:repairBillSUPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="repairBillSU">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="repairBillSUService">
+    <port name="repairBillSUPort" binding="tns:repairBillSUBinding">
+      <soap:address location="https://isgqas.yutong.com:2222/ISG/ws/invokeService" />
+    </port>
+  </service>
+</definitions>

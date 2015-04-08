@@ -1,0 +1,57 @@
+<!--云备份管理 cloudManage-->
+<!--sidebox-->
+    <div class="sidebox leftTreeContainer">
+    </div>
+<!--main-->
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>当前位置：</font>
+            <font>业务管理</font> ->
+            <font>云备份管理</font>
+        </div>
+        <div class="m3">
+            <div class="">
+            	<!--查询条件 -->
+                <div class=" lineS69c h60 p5 tit5 overh vehicleTeamTerm">
+                    <form name="cloudBackUpForm">
+                        <input type="hidden" name="corpManagerSearch" value="1">
+                        <input type="hidden" name="parentId" value="1">
+                        <input type="hidden" name="grandpaId" value="">
+						<!--div class=" h30">
+                    	<span class="btn1 cFFF fl mr20 queryButton">刷新</span>
+                    	<span class="btn4 fl mr20 ">下载</span>
+                    	<span class="btn4 fl mr20 ">删除</span>
+                    	</div-->
+                        <div class=" h35">
+                            <span class="btn4 fl mr10 removeButton">删 除</span>
+                            <span class="btn4 fl mr10 exportGrid">导 出</span>
+                            <span class="btn4 fl mr10 operaterLogButton">操 作 记 录</span>
+                        </div>
+                        <div class="h25 lh25 fl w180">
+                            公司名称：
+                            <input type="text" name="comName" value="" />
+                        </div>
+                        <div class="h25 lh25 fl w200">
+                            公司帐套名称：
+                            <input type="text" name="setbookName" value="" />
+                        </div>
+                        <div class="h25 lh25 fl w300">
+                            备份时间：
+	                         <input id="d005" type="text" readonly="readonly" class="Wdate" name="createTimeStart" value=""  onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d006\')||\'2020-10-01\'}'})"/> 至
+	                         <input id="d006" type="text" readonly="readonly" class="Wdate" name="createTimeEnd" value=""  onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d005\')||\'2020-10-01\'}'})"/>
+                    	</div>
+                    	<div class="h25 lh25 w">
+                            <span class="btn1 cFFF fl mr10 queryButton">查询</span>
+                            <span class="btn4 fl ml10 resetButton">清除</span>
+                        </div>
+                    </form>
+                </div>
+                <!--数据显示-->
+                <div class=" lineS mt3 bcFFF gridContainerWrap">
+                    <div class="gridContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>

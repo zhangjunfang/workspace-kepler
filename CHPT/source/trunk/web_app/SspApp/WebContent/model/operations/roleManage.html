@@ -1,0 +1,100 @@
+<!--系统角色管理 roleManage.html-->
+<!--sidebox-->  
+    <div class="sidebox TreeContainer"></div>
+<!--main--> 
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>当前位置：</font>
+            <font>系统管理</font> -> 
+            <font>角色管理</font>
+        </div>
+        <div class="m3 roleManageContent">
+            <!--内容-->
+            <!--查询条件-->
+            <div class=" lineS69c p5 tit5 overh roleManageTerm">
+                <form name="roleManageform"> 
+                    <div class=" h35">
+                        <span class="btn4 fl mr10 roleManageAddBtn">添 加</span>
+                        <span class="btn4 fl mr10 editButton">编 辑</span>
+                        <span class="btn4 fl mr10 removeButton">删 除</span>
+                        <span class="btn4 fl mr10 startButton">启 用</span>
+                        <span class="btn4 fl mr10 stopButton">吊 销</span>
+                        <span class="btn4 fl mr10 exportGrid">导 出</span>
+                        <span class="btn4 fl mr10 operaterLogButton">操作记录</span>
+                    </div>
+                    <input  name="entIds"  type="hidden" value=""/>
+                    <input type="hidden"  name="roleType" value="0"/> 
+                    <div class="h30 lh30 fl w180">
+                        角色名称：
+                        <input type="text" name="roleName"/>
+                    </div>
+                    <div class="h25 lh25 fl w180">
+                        状态：
+                        <select name="roleStatus">
+                        	<option value="">请选择</option>
+                        	<option value="0">停用</option>
+                            <option value="1">启用</option>
+                        </select>
+                    </div>
+           	        <div class="h25 lh25 fl w300">
+                        创建时间：
+                         <input id="d033" type="text" readonly="readonly" class="Wdate" name="createTimeStart" value="" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d034\')||\'2020-10-01\'}'})"/> 至
+                         <input id="d034" type="text" readonly="readonly" class="Wdate" name="createTimeEnd" value="" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d033\')||\'2020-10-01\'}'})"/>
+                   	</div>
+                    <span class="btn1 cFFF fl ml10 searchGrid"> 查 询 </span>
+                    <span class="btn4 fl ml10 resetButton">清除</span>
+                </form>
+            </div>
+            <!--数据显示-->
+            <div class=" lineS mt3 bcFFF gridListBox ">
+                <div class="roleManageBox"></div>
+            </div>
+        </div>
+
+        <!--新增HTML片断-->
+        <div class="p10 roleManageContent none">
+            <h1 class=" h40 lh30 mb20">角色权限信息 <font class="f12 ml10"> 带<font class=" cF00">*</font>号为必填项</font></h1>
+            <form name="editRoleManage">
+                <div class=" m10 h300">
+                        <input type="hidden" name="sysSpRole.entId" value=""/>
+                        <input type="hidden" name="sysSpRole.roleId"  />
+
+                    <div class="fl w250 pt10 mr20">
+                        <h4 class=" h25 lh25">管理权限：</h4>
+                        <input type="hidden" name="sysSpRole.functionId" />
+                        <div class=" lineS bcFFF h300 overa">
+                            <div class="limitsTree  w"></div>
+                        </div>
+                    </div>
+                    <div class="fl w50b pt10 ">
+                        <ul class="w">
+				            <li class="h50 lh25 overh">
+				            <div class="h25"><font class="fb cF00">* </font>角色编码：</div>
+				              <span class="pr fl">
+				              <input name="roleCode" disabled="disabled" type="text" class="mt2 abs_left {required:true,specialchars: true,noChinese:true}">
+				              </span>
+				            </li>
+                            <li class="h50 lh25 overh">
+                                <div class="h25"><font class="fb cF00">* </font>角色名称：</div>
+                                <span class=" pr">
+                                <input name="sysSpRole.roleName" type="text" class="w220 abs_left {required:true,specialchars:true,maxlength:20}"  value="">
+                                </span>
+                            </li>
+                            <li class="h120 lh25">
+                                <div class="fl h25">备注：</div>
+                                <div class="fl pr"><textarea name="sysSpRole.roleDesc" class=" w200 h80 {specialchars: true}"></textarea></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="cb"></div>
+                </div>
+
+                <div class=" w mt15 fl lineD_t pt10">
+                    <span name='saveForm' class="btn4 fl" >保存</span>
+                    <span name='cancelSave' class="btn4 fl ml10">取消</span>
+                </div>
+            </form>
+        </div>
+    </div>

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C82568A7-143C-488B-AE12-61F15CF69A80}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Model</RootNamespace>
+    <AssemblyName>Model</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\BaseCommBin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>..\BaseCommBin\Model.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>..\Release\X86\CommonDll\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\Model.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;D:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="partReturn.cs" />
+    <Compile Include="partsalel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="serviceorder.cs" />
+    <Compile Include="sys_function.cs" />
+    <Compile Include="sys_role.cs" />
+    <Compile Include="sys_user.cs" />
+    <Compile Include="tb_balance_documents.cs" />
+    <Compile Include="tb_bill_receivable.cs" />
+    <Compile Include="tb_cargo_space.cs" />
+    <Compile Include="tb_contacts.cs" />
+    <Compile Include="tb_customer.cs" />
+    <Compile Include="repairbill.cs" />
+    <Compile Include="tb_organization.cs" />
+    <Compile Include="tb_parts_purchase_billing.cs" />
+    <Compile Include="tb_parts_purchase_billing_p.cs" />
+    <Compile Include="tb_parts_purchase_order.cs" />
+    <Compile Include="tb_parts_purchase_order_2.cs" />
+    <Compile Include="tb_parts_purchase_order_p_2.cs" />
+    <Compile Include="tb_parts_purchase_plan.cs" />
+    <Compile Include="tb_parts_sale_billing.cs" />
+    <Compile Include="tb_parts_sale_billing_p.cs" />
+    <Compile Include="tb_parts_sale_order.cs" />
+    <Compile Include="tb_parts_sale_plan.cs" />
+    <Compile Include="tb_parts_stock_allot.cs" />
+    <Compile Include="tb_parts_stock_allot_p.cs" />
+    <Compile Include="tb_parts_stock_check.cs" />
+    <Compile Include="tb_parts_stock_check_p.cs" />
+    <Compile Include="tb_parts_stock_inout.cs" />
+    <Compile Include="tb_parts_stock_inout_p.cs" />
+    <Compile Include="tb_parts_stock_loss.cs" />
+    <Compile Include="tb_parts_stock_loss_p.cs" />
+    <Compile Include="tb_parts_stock_modifyprice.cs" />
+    <Compile Include="tb_parts_stock_modifyprice_p.cs" />
+    <Compile Include="tb_parts_stock_receipt.cs" />
+    <Compile Include="tb_parts_stock_receipt_p.cs" />
+    <Compile Include="tb_parts_stock_shipping.cs" />
+    <Compile Include="tb_parts_stock_shipping_p.cs" />
+    <Compile Include="tb_payment_detail.cs" />
+    <Compile Include="tb_signinfo.cs" />
+    <Compile Include="tb_signing_info.cs" />
+    <Compile Include="tb_supplier.cs" />
+    <Compile Include="tb_warehouse.cs" />
+    <Compile Include="tb_workhours.cs" />
+    <Compile Include="tr_role_function.cs" />
+    <Compile Include="tr_user_function.cs" />
+    <Compile Include="tr_user_role.cs" />
+    <Compile Include="U_Admin.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

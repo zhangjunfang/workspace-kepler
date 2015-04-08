@@ -1,0 +1,149 @@
+<!--车队管理 vehicleTeamManage-->
+<!--sidebox-->
+    <div class="sidebox leftTreeContainer">
+    </div>
+<!--main-->
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>当前位置：</font>
+            <font>系统管理</font> ->
+            <font>组织管理</font>
+        </div>
+        <div class="m3 companyContent">
+            <div class="">
+            	<!--查询条件-->
+                <div class=" lineS69c h90 p5 tit5 overh vehicleTeamTerm">
+                    <form name="vehicleTeamGrid">
+	                    <div class=" h35">
+	                    <span class="btn4 fl mr10 addVehicleTeam">添 加</span>
+                        <span class="btn4 fl mr10 editButton">编 辑</span>
+                        <span class="btn4 fl mr10 removeButton">删 除</span>
+                        <span class="btn4 fl mr10 startButton">启 用</span>
+                        <span class="btn4 fl mr10 stopButton">吊 销</span>
+	                    <span class="btn4 fl mr10 exportGrid">导 出</span>
+                        <span class="btn4 fl mr10 operaterLogButton">操作记录</span>
+	                    </div>
+                    	<div class=" h30">
+	                    	<div class="h30 lh30 fl w180">
+	                     	   组织名称：<input type="text" name="entName"/>
+	                    	</div>
+	                    	<div class="h30 lh30 fl w180">
+	                     	   所属公司：<input type="text" name="comName"/>
+	                    	</div>
+	                        <div class="h25 lh25 fl w180">
+                                状态：
+	                            <select name="entState">
+	                            	<option value="">请选择</option>
+	                            	<option value="0">吊销</option>
+	                                <option value="1">启用</option>
+	                            </select>
+	                        </div>
+                        </div>
+                        <div>
+            	        <div class="h25 lh25 fl w300">
+                            创建时间：
+	                         <input id="d031" type="text" readonly="readonly" class="Wdate" name="createTimeStart" value="" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d032\')||\'2020-10-01\'}'})"/> 至
+	                         <input id="d032" type="text" readonly="readonly" class="Wdate" name="createTimeEnd" value="" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d031\')||\'2020-10-01\'}'})"/>
+                    	</div>
+                       </div>
+                       <span class="btn1 cFFF fl ml20 queryButton">查询</span>
+                        <span class="btn4 fl ml20 resetButton">清除</span>
+                    </form>
+                </div>
+                <!--数据显示-->
+                <div class=" lineS mt3 bcFFF gridContainerWrap">
+                    <div class="gridContainer"></div>
+                </div>
+            </div>
+        </div>
+			<div class="p10 companyContent none">
+            <h1 class=" h40 lh30 mb20">组织信息</h1>
+            <div class=" bcF2 lineD lh30 h30 pl10">
+                                带<font class=" cF00">*</font>号为必填项
+            </div>
+            <div class="w pt20">
+            <form name="vehicleTeamForm">
+                <div class="w pt20">
+					<input name="entId" type="hidden" value=''/>
+                    <ul>
+                     	<li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>所属公司：</div>
+                            <span class="pr fl">
+                                <select name = "comId" class="{required:true}"  ></select>
+                        	</span>
+                        </li>
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">组织编码：</div>
+                            <span class="pr fl">
+                            <input name="corpCode" id="corpCode" disabled="disabled" type="text" class="mt2 abs_left {required:true,specialchars: true,noChinese:true}"  value="">
+                            </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>组织名称：</div>
+                            <span class="pr fl">
+                            <input name="entName" type="text" class="mt2 abs_left {required:true,specialchars:true,maxlength:10}"  value="">
+                        </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b  mb10">
+                            <div class="fl w90 tr">联系人：</div>
+                            <span class="pr fl">
+                            <input name="orgCname" type="text" class="mt2 abs_left {htmlSpecialhars: true}"  value="">
+                        </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b  mb10">
+                            <div class="fl w90 tr">联系电话：</div>
+                            <span class="pr fl">
+                            <input name="orgCphone" type="text" class="mt2 abs_left {htmlSpecialhars: true}"  value="">
+                        </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">备注：</div>
+                            <span class="pr fl">
+                            <input type="text" name="memo" class=" abs_left  mt2 w150 {maxlength:200,htmlSpecialhars: true}" />
+                        </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b  mb10">
+                               <div class="fl w90 tr">创建人：</div>
+                               <span class="pr fl">
+                               <input name="createBy" type="text"  value="">
+                           </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b  mb10">
+                               <div class="fl w90 tr">创建时间：</div>
+                               <span class="pr fl">
+                               <input name="createTime" type="text" class="mt2 abs_left {htmlSpecialhars: true}"  value="">
+                           </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b  mb10">
+                               <div class="fl w90 tr">最后编辑人：</div>
+                               <span class="pr fl">
+                               <input name="updateBy" type="text" value="">
+                           </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b  mb10">
+                               <div class="fl w90 tr">最后编辑时间：</div>
+                               <span class="pr fl">
+                               <input name="updateTime" type="text" class="mt2 abs_left {htmlSpecialhars: true}"  value="">
+                           </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b  mb10">
+                               <div class="fl w90 tr">状态：</div>
+                               <span class="pr fl">
+                                <select name="entState" class="mt2 ">
+                                    <option value="1">启动</option>
+                                    <option value="0">吊销</option>
+                                </select>
+                           </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class=" w mt15 fl lineD_t pt10">
+                    <span name='saveForm' class="btn4 fl" >保存</span>
+                    <span name='cancelSave' class="btn4 fl ml10">取消</span>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" 
+  "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+   <settings useStatementNamespaces="true" lazyLoadingEnabled="true" enhancementEnabled="true"/>
+	<sqlMap resource="com/ctfo/sys/beans/SysSpOperator.xml"/>
+	<sqlMap resource="com/ctfo/sys/beans/TbOrganization.xml"/>
+	<sqlMap resource="com/ctfo/sys/beans/TbOrgInfo.xml"/>
+	<sqlMap resource="com/ctfo/sys/beans/TbOrg.xml"/>
+	<sqlMap resource="com/ctfo/sys/beans/SysFunction.xml"/>
+    <sqlMap resource="com/ctfo/sys/beans/SysSpRole.xml"/>
+	<!-- 业务管理 -->
+	<sqlMap resource="com/ctfo/operation/beans/CompanyInfo.xml"/>
+	<sqlMap resource="com/ctfo/operation/beans/AddApp.xml"/>
+	<sqlMap resource="com/ctfo/operation/beans/TbCloudBackUp.xml"/>
+	<!-- 数据分析 -->
+	<sqlMap resource="com/ctfo/analysis/beans/RepairInfo.xml"/>
+	<sqlMap resource="com/ctfo/analysis/beans/RepairSingle.xml"/>
+	<sqlMap resource="com/ctfo/analysis/beans/RepairProject.xml"/>
+	<sqlMap resource="com/ctfo/analysis/beans/RepairMaterials.xml"/>
+	<sqlMap resource="com/ctfo/analysis/beans/RepairCharge.xml"/>
+	<sqlMap resource="com/ctfo/analysis/beans/RepairAnnex.xml"/>
+	<!-- 监控 -->
+	<sqlMap resource="com/ctfo/monitor/beans/OnlineUsers.xml"/>
+	<sqlMap resource="com/ctfo/monitor/beans/UserBehavior.xml"/>
+	<sqlMap resource="com/ctfo/monitor/beans/VisitStat.xml"/>
+	<!-- 用户档案 -->
+	<sqlMap resource="com/ctfo/archives/beans/Archives.xml"/>
+	<sqlMap resource="com/ctfo/archives/beans/ArchivesDetail.xml"/>
+	<sqlMap resource="com/ctfo/archives/beans/SysSetbook.xml"/>
+	<!-- 公告管理 -->
+	<sqlMap resource="com/ctfo/operation/beans/BulletinManage.xml"/>
+
+	<!-- 公告附件表 -->
+	<sqlMap resource="com/ctfo/annouce/beans/TbAttachment.xml"/>
+
+	<!-- 省市县 -->
+	<sqlMap resource="com/ctfo/sys/beans/SysAreaInfo.xml"/>
+	<!-- 开关表 -->
+	<sqlMap resource="com/ctfo/sys/beans/TbOnOff.xml"/>
+	<!-- 公司管理 -->
+	<sqlMap resource="com/ctfo/sys/beans/SysComInfo.xml"/>	
+	<!-- 帐套 -->
+	<sqlMap resource="com/ctfo/operation/beans/TbSetbook.xml"/>	
+	<!-- 操作记录 -->
+	<sqlMap resource="com/ctfo/sys/beans/SysOperateLog.xml"/>
+    
+    <!-- C/S  版本控制 -->
+	<sqlMap resource="com/ctfo/version/beans/Version.xml"/>
+	
+ </sqlMapConfig>

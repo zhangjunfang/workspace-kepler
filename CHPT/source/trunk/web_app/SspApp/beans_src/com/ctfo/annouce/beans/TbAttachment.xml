@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="tbAttachment">
+
+  
+  
+  
+  <resultMap class="com.ctfo.annouce.beans.TbAttachment" id="tbAttachment">
+  
+    <result column="ATTACH_ID" jdbcType="VARCHAR" property="attachId" />
+    <result column="ANNOUC_ID" jdbcType="VARCHAR" property="annoucId" />
+    <result column="ATTACH_NAME" jdbcType="VARCHAR" property="attachName" />
+    <result column="ATTACH_ALIAS_NAME" jdbcType="VARCHAR" property="attachAliasName" />
+    <result column="ATTACH_CATEGORY" jdbcType="VARCHAR" property="attachCategory" />
+    <result column="FILE_PATH" jdbcType="VARCHAR" property="filePath" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark"  />    
+  </resultMap>
+  
+  <sql id="columns">
+    ATTACH_ID,ANNOUC_ID,ATTACH_NAME,ATTACH_ALIAS_NAME,ATTACH_CATEGORY,FILE_PATH,REMARK
+  </sql>
+  <sql id="table">
+    	tb_ssp_attachment
+  </sql>
+  
+  <sql id="where">
+    WHERE  1=1
+  </sql>
+  
+  
+  <sql id="where_param">
+    <include refid="where" />
+    <include refid="equal_WHERE" />
+    <include refid="like_WHERE" />   
+    <include refid="order"/>  
+    
+  </sql>  
+  
+  <!-- set 值 -->
+  <sql id="set">
+    <dynamic prepend="set">
+     
+    </dynamic>
+  </sql>
+	<!-- 公告全表插入操作 -->
+  <insert id="insertAttachment" parameterClass="com.ctfo.annouce.beans.TbAttachment">
+    insert into tb_ssp_attachment 
+    	(ATTACH_ID,ANNOUC_ID,ATTACH_NAME,ATTACH_ALIAS_NAME,ATTACH_CATEGORY,FILE_PATH,REMARK)    
+    values 
+    	(#attachId#, #annoucId#, #attachName#, #attachAliasName#,#attachCategory#, #filePath#, #remark#)
+  </insert>
+   	
+  	
+</sqlMap>

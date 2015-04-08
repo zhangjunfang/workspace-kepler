@@ -1,0 +1,755 @@
+﻿namespace HXCPcClient.UCForm.FinancialManagement.Receivable
+{
+    partial class UCReceivableManage
+    {
+        /// <summary> 
+        /// 必需的设计器变量。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// 清理所有正在使用的资源。
+        /// </summary>
+        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region 组件设计器生成的代码
+
+        /// <summary> 
+        /// 设计器支持所需的方法 - 不要
+        /// 使用代码编辑器修改此方法的内容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UCReceivableManage));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.pnlSearch = new ServiceStationClient.ComponentUI.PanelEx();
+            this.txtCustName = new ServiceStationClient.ComponentUI.TextBoxEx();
+            this.dtInterval = new ServiceStationClient.ComponentUI.DateTimeInterval_sms();
+            this.txtCustCode = new ServiceStationClient.ComponentUI.TextBox.TextChooser();
+            this.btnSearch = new ServiceStationClient.ComponentUI.ButtonEx();
+            this.btnClear = new ServiceStationClient.ComponentUI.ButtonEx();
+            this.cboOrderStatus = new ServiceStationClient.ComponentUI.ComboBoxEx(this.components);
+            this.cboHandle = new ServiceStationClient.ComponentUI.ComboBoxEx(this.components);
+            this.cboOrgId = new ServiceStationClient.ComponentUI.ComboBoxEx(this.components);
+            this.txtOrderNum = new ServiceStationClient.ComponentUI.TextBoxEx();
+            this.cboCompany = new ServiceStationClient.ComponentUI.ComboBoxEx(this.components);
+            this.cboOrderType = new ServiceStationClient.ComponentUI.ComboBoxEx(this.components);
+            this.lblStatus = new System.Windows.Forms.Label();
+            this.lblCustName = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.lblCustCode = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dgvBillReceivable = new ServiceStationClient.ComponentUI.DataGridViewEx(this.components);
+            this.cmsMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiSearch = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiClear = new System.Windows.Forms.ToolStripMenuItem();
+            this.tss1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiAddF = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiEditF = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiCopyF = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiDeleteF = new System.Windows.Forms.ToolStripMenuItem();
+            this.tss2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiSubmitF = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiVerifyF = new System.Windows.Forms.ToolStripMenuItem();
+            this.tss3 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmiOperation = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiView = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmiPrint = new System.Windows.Forms.ToolStripMenuItem();
+            this.page = new ServiceStationClient.ComponentUI.WinFormPager();
+            this.colCheck = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.colPayableSingleID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOrderType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOrderNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOrderDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colClientCode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colClientName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDealingsBalance = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOrgId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colHandle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOperator = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colRemark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colOrderStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnlSearch.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBillReceivable)).BeginInit();
+            this.cmsMenu.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // pnlSearch
+            // 
+            this.pnlSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
+            this.pnlSearch.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(248)))), ((int)(((byte)(255)))));
+            this.pnlSearch.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(189)))), ((int)(((byte)(211)))), ((int)(((byte)(254)))));
+            this.pnlSearch.BorderWidth = 1;
+            this.pnlSearch.Controls.Add(this.txtCustName);
+            this.pnlSearch.Controls.Add(this.dtInterval);
+            this.pnlSearch.Controls.Add(this.txtCustCode);
+            this.pnlSearch.Controls.Add(this.btnSearch);
+            this.pnlSearch.Controls.Add(this.btnClear);
+            this.pnlSearch.Controls.Add(this.cboOrderStatus);
+            this.pnlSearch.Controls.Add(this.cboHandle);
+            this.pnlSearch.Controls.Add(this.cboOrgId);
+            this.pnlSearch.Controls.Add(this.txtOrderNum);
+            this.pnlSearch.Controls.Add(this.cboCompany);
+            this.pnlSearch.Controls.Add(this.cboOrderType);
+            this.pnlSearch.Controls.Add(this.lblStatus);
+            this.pnlSearch.Controls.Add(this.lblCustName);
+            this.pnlSearch.Controls.Add(this.label8);
+            this.pnlSearch.Controls.Add(this.lblCustCode);
+            this.pnlSearch.Controls.Add(this.label5);
+            this.pnlSearch.Controls.Add(this.label4);
+            this.pnlSearch.Controls.Add(this.label3);
+            this.pnlSearch.Controls.Add(this.label2);
+            this.pnlSearch.Controls.Add(this.label1);
+            this.pnlSearch.Curvature = 0;
+            this.pnlSearch.CurveMode = ((ServiceStationClient.ComponentUI.CornerCurveMode)((((ServiceStationClient.ComponentUI.CornerCurveMode.TopLeft | ServiceStationClient.ComponentUI.CornerCurveMode.TopRight)
+                        | ServiceStationClient.ComponentUI.CornerCurveMode.BottomLeft)
+                        | ServiceStationClient.ComponentUI.CornerCurveMode.BottomRight)));
+            this.pnlSearch.GradientMode = ServiceStationClient.ComponentUI.LinearGradientMode.None;
+            this.pnlSearch.Location = new System.Drawing.Point(3, 37);
+            this.pnlSearch.Name = "pnlSearch";
+            this.pnlSearch.Size = new System.Drawing.Size(1024, 146);
+            this.pnlSearch.TabIndex = 3;
+            // 
+            // txtCustName
+            // 
+            this.txtCustName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.txtCustName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.txtCustName.BackColor = System.Drawing.Color.Transparent;
+            this.txtCustName.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.txtCustName.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(208)))), ((int)(((byte)(226)))));
+            this.txtCustName.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtCustName.ForeImage = null;
+            this.txtCustName.InputtingVerifyCondition = null;
+            this.txtCustName.Location = new System.Drawing.Point(825, 17);
+            this.txtCustName.MaxLengh = 32767;
+            this.txtCustName.Multiline = false;
+            this.txtCustName.Name = "txtCustName";
+            this.txtCustName.Radius = 3;
+            this.txtCustName.ReadOnly = false;
+            this.txtCustName.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(212)))), ((int)(((byte)(228)))));
+            this.txtCustName.ShowError = false;
+            this.txtCustName.Size = new System.Drawing.Size(121, 23);
+            this.txtCustName.TabIndex = 25;
+            this.txtCustName.UseSystemPasswordChar = false;
+            this.txtCustName.Value = "";
+            this.txtCustName.VerifyCondition = null;
+            this.txtCustName.VerifyType = null;
+            this.txtCustName.VerifyTypeName = null;
+            this.txtCustName.WaterMark = null;
+            this.txtCustName.WaterMarkColor = System.Drawing.Color.Silver;
+            // 
+            // dtInterval
+            // 
+            this.dtInterval.BackColor = System.Drawing.Color.Transparent;
+            this.dtInterval.customFormat = "yyyy-MM-dd";
+            this.dtInterval.EndDate = "";
+            this.dtInterval.Location = new System.Drawing.Point(96, 103);
+            this.dtInterval.Margin = new System.Windows.Forms.Padding(0);
+            this.dtInterval.Name = "dtInterval";
+            this.dtInterval.Size = new System.Drawing.Size(263, 27);
+            this.dtInterval.StartDate = "";
+            this.dtInterval.TabIndex = 24;
+            // 
+            // txtCustCode
+            // 
+            this.txtCustCode.ChooserTypeImage = ServiceStationClient.ComponentUI.TextBox.ChooserType.Default;
+            this.txtCustCode.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtCustCode.Location = new System.Drawing.Point(579, 16);
+            this.txtCustCode.Name = "txtCustCode";
+            this.txtCustCode.ReadOnly = false;
+            this.txtCustCode.Size = new System.Drawing.Size(124, 24);
+            this.txtCustCode.TabIndex = 22;
+            this.txtCustCode.ToolTipTitle = "";
+            this.txtCustCode.ChooserClick += new System.EventHandler(this.txtCustCode_ChooserClick);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSearch.BackgroundImage")));
+            this.btnSearch.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSearch.Caption = "查询";
+            this.btnSearch.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.btnSearch.DownImage = ((System.Drawing.Image)(resources.GetObject("btnSearch.DownImage")));
+            this.btnSearch.Location = new System.Drawing.Point(964, 110);
+            this.btnSearch.MoveImage = ((System.Drawing.Image)(resources.GetObject("btnSearch.MoveImage")));
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.NormalImage = ((System.Drawing.Image)(resources.GetObject("btnSearch.NormalImage")));
+            this.btnSearch.Size = new System.Drawing.Size(60, 26);
+            this.btnSearch.TabIndex = 21;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClear.BackgroundImage")));
+            this.btnClear.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnClear.Caption = "清除";
+            this.btnClear.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.btnClear.DownImage = ((System.Drawing.Image)(resources.GetObject("btnClear.DownImage")));
+            this.btnClear.Location = new System.Drawing.Point(964, 66);
+            this.btnClear.MoveImage = ((System.Drawing.Image)(resources.GetObject("btnClear.MoveImage")));
+            this.btnClear.Name = "btnClear";
+            this.btnClear.NormalImage = ((System.Drawing.Image)(resources.GetObject("btnClear.NormalImage")));
+            this.btnClear.Size = new System.Drawing.Size(60, 26);
+            this.btnClear.TabIndex = 20;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // cboOrderStatus
+            // 
+            this.cboOrderStatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboOrderStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboOrderStatus.FormattingEnabled = true;
+            this.cboOrderStatus.Location = new System.Drawing.Point(825, 61);
+            this.cboOrderStatus.Name = "cboOrderStatus";
+            this.cboOrderStatus.Size = new System.Drawing.Size(121, 22);
+            this.cboOrderStatus.TabIndex = 19;
+            // 
+            // cboHandle
+            // 
+            this.cboHandle.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboHandle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboHandle.FormattingEnabled = true;
+            this.cboHandle.Location = new System.Drawing.Point(579, 61);
+            this.cboHandle.Name = "cboHandle";
+            this.cboHandle.Size = new System.Drawing.Size(124, 22);
+            this.cboHandle.TabIndex = 17;
+            // 
+            // cboOrgId
+            // 
+            this.cboOrgId.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboOrgId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboOrgId.FormattingEnabled = true;
+            this.cboOrgId.Location = new System.Drawing.Point(331, 61);
+            this.cboOrgId.Name = "cboOrgId";
+            this.cboOrgId.Size = new System.Drawing.Size(121, 22);
+            this.cboOrgId.TabIndex = 15;
+            this.cboOrgId.SelectedIndexChanged += new System.EventHandler(this.cboOrgId_SelectedIndexChanged);
+            // 
+            // txtOrderNum
+            // 
+            this.txtOrderNum.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.txtOrderNum.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.txtOrderNum.BackColor = System.Drawing.Color.Transparent;
+            this.txtOrderNum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.txtOrderNum.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(208)))), ((int)(((byte)(226)))));
+            this.txtOrderNum.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtOrderNum.ForeImage = null;
+            this.txtOrderNum.InputtingVerifyCondition = null;
+            this.txtOrderNum.Location = new System.Drawing.Point(331, 17);
+            this.txtOrderNum.MaxLengh = 32767;
+            this.txtOrderNum.Multiline = false;
+            this.txtOrderNum.Name = "txtOrderNum";
+            this.txtOrderNum.Radius = 3;
+            this.txtOrderNum.ReadOnly = false;
+            this.txtOrderNum.ShadowColor = System.Drawing.Color.FromArgb(((int)(((byte)(175)))), ((int)(((byte)(212)))), ((int)(((byte)(228)))));
+            this.txtOrderNum.ShowError = false;
+            this.txtOrderNum.Size = new System.Drawing.Size(126, 23);
+            this.txtOrderNum.TabIndex = 14;
+            this.txtOrderNum.UseSystemPasswordChar = false;
+            this.txtOrderNum.Value = "";
+            this.txtOrderNum.VerifyCondition = null;
+            this.txtOrderNum.VerifyType = null;
+            this.txtOrderNum.VerifyTypeName = null;
+            this.txtOrderNum.WaterMark = null;
+            this.txtOrderNum.WaterMarkColor = System.Drawing.Color.Silver;
+            // 
+            // cboCompany
+            // 
+            this.cboCompany.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboCompany.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCompany.FormattingEnabled = true;
+            this.cboCompany.Location = new System.Drawing.Point(96, 61);
+            this.cboCompany.Name = "cboCompany";
+            this.cboCompany.Size = new System.Drawing.Size(121, 22);
+            this.cboCompany.TabIndex = 11;
+            this.cboCompany.SelectedIndexChanged += new System.EventHandler(this.cboCompany_SelectedIndexChanged);
+            // 
+            // cboOrderType
+            // 
+            this.cboOrderType.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cboOrderType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboOrderType.FormattingEnabled = true;
+            this.cboOrderType.Location = new System.Drawing.Point(96, 17);
+            this.cboOrderType.Name = "cboOrderType";
+            this.cboOrderType.Size = new System.Drawing.Size(121, 22);
+            this.cboOrderType.TabIndex = 10;
+            // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(754, 66);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(65, 12);
+            this.lblStatus.TabIndex = 9;
+            this.lblStatus.Text = "单据状态：";
+            // 
+            // lblCustName
+            // 
+            this.lblCustName.Location = new System.Drawing.Point(709, 22);
+            this.lblCustName.Name = "lblCustName";
+            this.lblCustName.Size = new System.Drawing.Size(110, 12);
+            this.lblCustName.TabIndex = 8;
+            this.lblCustName.Text = "客户名称：";
+            this.lblCustName.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(520, 66);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 12);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "经办人：";
+            // 
+            // lblCustCode
+            // 
+            this.lblCustCode.Location = new System.Drawing.Point(480, 22);
+            this.lblCustCode.Name = "lblCustCode";
+            this.lblCustCode.Size = new System.Drawing.Size(93, 12);
+            this.lblCustCode.TabIndex = 6;
+            this.lblCustCode.Text = "客户编码：";
+            this.lblCustCode.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(284, 66);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "部门：";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(260, 20);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 12);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "单据编号：";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(25, 110);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 12);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "单据日期：";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(49, 66);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "公司：";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(25, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "单据类型：";
+            // 
+            // dgvBillReceivable
+            // 
+            this.dgvBillReceivable.AllowUserToAddRows = false;
+            this.dgvBillReceivable.AllowUserToDeleteRows = false;
+            this.dgvBillReceivable.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dgvBillReceivable.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvBillReceivable.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvBillReceivable.BackgroundColor = System.Drawing.Color.White;
+            this.dgvBillReceivable.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(241)))), ((int)(((byte)(243)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvBillReceivable.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvBillReceivable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvBillReceivable.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colCheck,
+            this.colPayableSingleID,
+            this.colOrderType,
+            this.colOrderNum,
+            this.colOrderDate,
+            this.colClientCode,
+            this.colClientName,
+            this.colDealingsBalance,
+            this.colOrgId,
+            this.colHandle,
+            this.colOperator,
+            this.colRemark,
+            this.colOrderStatus});
+            this.dgvBillReceivable.ContextMenuStrip = this.cmsMenu;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(233)))), ((int)(((byte)(156)))));
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvBillReceivable.DefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvBillReceivable.EnableHeadersVisualStyles = false;
+            this.dgvBillReceivable.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(221)))));
+            this.dgvBillReceivable.IsCheck = true;
+            this.dgvBillReceivable.Location = new System.Drawing.Point(3, 189);
+            this.dgvBillReceivable.MergeColumnHeaderBackColor = System.Drawing.SystemColors.Control;
+            this.dgvBillReceivable.MergeColumnNames = ((System.Collections.Generic.List<string>)(resources.GetObject("dgvBillReceivable.MergeColumnNames")));
+            this.dgvBillReceivable.MultiSelect = false;
+            this.dgvBillReceivable.Name = "dgvBillReceivable";
+            this.dgvBillReceivable.ReadOnly = true;
+            this.dgvBillReceivable.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(236)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(236)))), ((int)(((byte)(255)))));
+            this.dgvBillReceivable.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvBillReceivable.RowHeadersVisible = false;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(233)))), ((int)(((byte)(156)))));
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
+            this.dgvBillReceivable.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvBillReceivable.RowTemplate.Height = 23;
+            this.dgvBillReceivable.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvBillReceivable.ShowCheckBox = true;
+            this.dgvBillReceivable.Size = new System.Drawing.Size(1024, 302);
+            this.dgvBillReceivable.TabIndex = 4;
+            this.dgvBillReceivable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBillReceivable_CellContentClick);
+            this.dgvBillReceivable.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBillReceivable_CellDoubleClick);
+            this.dgvBillReceivable.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvBillReceivable_CellMouseClick);
+            // 
+            // cmsMenu
+            // 
+            this.cmsMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiSearch,
+            this.tsmiClear,
+            this.tss1,
+            this.tsmiAddF,
+            this.tsmiEditF,
+            this.tsmiCopyF,
+            this.tsmiDeleteF,
+            this.tss2,
+            this.tsmiSubmitF,
+            this.tsmiVerifyF,
+            this.tss3,
+            this.tsmiOperation,
+            this.tsmiView,
+            this.tsmiPrint});
+            this.cmsMenu.Name = "cmsMenu";
+            this.cmsMenu.Size = new System.Drawing.Size(153, 286);
+            // 
+            // tsmiSearch
+            // 
+            this.tsmiSearch.Name = "tsmiSearch";
+            this.tsmiSearch.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSearch.Text = "查询";
+            this.tsmiSearch.Click += new System.EventHandler(this.tsmiSearch_Click);
+            // 
+            // tsmiClear
+            // 
+            this.tsmiClear.Name = "tsmiClear";
+            this.tsmiClear.Size = new System.Drawing.Size(152, 22);
+            this.tsmiClear.Text = "清除";
+            this.tsmiClear.Click += new System.EventHandler(this.tsmiClear_Click);
+            // 
+            // tss1
+            // 
+            this.tss1.Name = "tss1";
+            this.tss1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // tsmiAddF
+            // 
+            this.tsmiAddF.Name = "tsmiAddF";
+            this.tsmiAddF.Size = new System.Drawing.Size(152, 22);
+            this.tsmiAddF.Text = "新建";
+            this.tsmiAddF.Click += new System.EventHandler(this.tsmiAdd_Click);
+            // 
+            // tsmiEditF
+            // 
+            this.tsmiEditF.Name = "tsmiEditF";
+            this.tsmiEditF.Size = new System.Drawing.Size(152, 22);
+            this.tsmiEditF.Text = "编辑";
+            this.tsmiEditF.Click += new System.EventHandler(this.tsmiEdit_Click);
+            // 
+            // tsmiCopyF
+            // 
+            this.tsmiCopyF.Name = "tsmiCopyF";
+            this.tsmiCopyF.Size = new System.Drawing.Size(152, 22);
+            this.tsmiCopyF.Text = "复制";
+            this.tsmiCopyF.Click += new System.EventHandler(this.tsmiCopy_Click);
+            // 
+            // tsmiDeleteF
+            // 
+            this.tsmiDeleteF.Name = "tsmiDeleteF";
+            this.tsmiDeleteF.Size = new System.Drawing.Size(152, 22);
+            this.tsmiDeleteF.Text = "删除";
+            this.tsmiDeleteF.Click += new System.EventHandler(this.tsmiDelete_Click);
+            // 
+            // tss2
+            // 
+            this.tss2.Name = "tss2";
+            this.tss2.Size = new System.Drawing.Size(149, 6);
+            // 
+            // tsmiSubmitF
+            // 
+            this.tsmiSubmitF.Name = "tsmiSubmitF";
+            this.tsmiSubmitF.Size = new System.Drawing.Size(152, 22);
+            this.tsmiSubmitF.Text = "提交";
+            this.tsmiSubmitF.Click += new System.EventHandler(this.tsmiSubmit_Click);
+            // 
+            // tsmiVerifyF
+            // 
+            this.tsmiVerifyF.Name = "tsmiVerifyF";
+            this.tsmiVerifyF.Size = new System.Drawing.Size(152, 22);
+            this.tsmiVerifyF.Text = "审核";
+            this.tsmiVerifyF.Click += new System.EventHandler(this.tsmiVerify_Click);
+            // 
+            // tss3
+            // 
+            this.tss3.Name = "tss3";
+            this.tss3.Size = new System.Drawing.Size(149, 6);
+            // 
+            // tsmiOperation
+            // 
+            this.tsmiOperation.Name = "tsmiOperation";
+            this.tsmiOperation.Size = new System.Drawing.Size(152, 22);
+            this.tsmiOperation.Text = "操作记录";
+            this.tsmiOperation.Click += new System.EventHandler(this.tsmiOperation_Click);
+            // 
+            // tsmiView
+            // 
+            this.tsmiView.Name = "tsmiView";
+            this.tsmiView.Size = new System.Drawing.Size(152, 22);
+            this.tsmiView.Text = "预览";
+            this.tsmiView.Click += new System.EventHandler(this.tsmiView_Click);
+            // 
+            // tsmiPrint
+            // 
+            this.tsmiPrint.Name = "tsmiPrint";
+            this.tsmiPrint.Size = new System.Drawing.Size(152, 22);
+            this.tsmiPrint.Text = "打印";
+            this.tsmiPrint.Click += new System.EventHandler(this.tsmiPrint_Click);
+            // 
+            // page
+            // 
+            this.page.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.page.BackColor = System.Drawing.Color.Transparent;
+            this.page.BtnTextNext = "下页";
+            this.page.BtnTextPrevious = "上页";
+            this.page.DisplayStyle = ServiceStationClient.ComponentUI.WinFormPager.DisplayStyleEnum.图片;
+            this.page.Location = new System.Drawing.Point(547, 497);
+            this.page.Name = "page";
+            this.page.PageCount = 0;
+            this.page.PageSize = 15;
+            this.page.RecordCount = 0;
+            this.page.Size = new System.Drawing.Size(480, 31);
+            this.page.TabIndex = 5;
+            this.page.TextImageRalitions = ServiceStationClient.ComponentUI.WinFormPager.TextImageRalitionEnum.图片显示在文字前方;
+            this.page.PageIndexChanged += new ServiceStationClient.ComponentUI.WinFormPager.EventHandler(this.page_PageIndexChanged);
+            // 
+            // colCheck
+            // 
+            this.colCheck.HeaderText = "";
+            this.colCheck.MinimumWidth = 30;
+            this.colCheck.Name = "colCheck";
+            this.colCheck.ReadOnly = true;
+            this.colCheck.Width = 30;
+            // 
+            // colPayableSingleID
+            // 
+            this.colPayableSingleID.DataPropertyName = "payable_single_id";
+            this.colPayableSingleID.HeaderText = "ID";
+            this.colPayableSingleID.Name = "colPayableSingleID";
+            this.colPayableSingleID.ReadOnly = true;
+            this.colPayableSingleID.Visible = false;
+            this.colPayableSingleID.Width = 28;
+            // 
+            // colOrderType
+            // 
+            this.colOrderType.DataPropertyName = "payment_type";
+            this.colOrderType.HeaderText = "单据类型";
+            this.colOrderType.Name = "colOrderType";
+            this.colOrderType.ReadOnly = true;
+            this.colOrderType.Width = 90;
+            // 
+            // colOrderNum
+            // 
+            this.colOrderNum.DataPropertyName = "order_num";
+            this.colOrderNum.HeaderText = "单据编号";
+            this.colOrderNum.Name = "colOrderNum";
+            this.colOrderNum.ReadOnly = true;
+            this.colOrderNum.Width = 160;
+            // 
+            // colOrderDate
+            // 
+            this.colOrderDate.DataPropertyName = "order_date";
+            this.colOrderDate.HeaderText = "单据日期";
+            this.colOrderDate.Name = "colOrderDate";
+            this.colOrderDate.ReadOnly = true;
+            // 
+            // colClientCode
+            // 
+            this.colClientCode.DataPropertyName = "cust_code";
+            this.colClientCode.HeaderText = "客户编码";
+            this.colClientCode.Name = "colClientCode";
+            this.colClientCode.ReadOnly = true;
+            // 
+            // colClientName
+            // 
+            this.colClientName.DataPropertyName = "cust_name";
+            this.colClientName.HeaderText = "客户名称";
+            this.colClientName.Name = "colClientName";
+            this.colClientName.ReadOnly = true;
+            this.colClientName.Width = 120;
+            // 
+            // colDealingsBalance
+            // 
+            this.colDealingsBalance.DataPropertyName = "cash_money";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            this.colDealingsBalance.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colDealingsBalance.HeaderText = "收款金额";
+            this.colDealingsBalance.Name = "colDealingsBalance";
+            this.colDealingsBalance.ReadOnly = true;
+            // 
+            // colOrgId
+            // 
+            this.colOrgId.DataPropertyName = "org_name";
+            this.colOrgId.HeaderText = "部门";
+            this.colOrgId.Name = "colOrgId";
+            this.colOrgId.ReadOnly = true;
+            // 
+            // colHandle
+            // 
+            this.colHandle.DataPropertyName = "handle_name";
+            this.colHandle.HeaderText = "经办人";
+            this.colHandle.Name = "colHandle";
+            this.colHandle.ReadOnly = true;
+            // 
+            // colOperator
+            // 
+            this.colOperator.DataPropertyName = "operator_name";
+            this.colOperator.HeaderText = "操作人";
+            this.colOperator.Name = "colOperator";
+            this.colOperator.ReadOnly = true;
+            // 
+            // colRemark
+            // 
+            this.colRemark.DataPropertyName = "remark";
+            this.colRemark.HeaderText = "备注";
+            this.colRemark.MinimumWidth = 170;
+            this.colRemark.Name = "colRemark";
+            this.colRemark.ReadOnly = true;
+            this.colRemark.Width = 170;
+            // 
+            // colOrderStatus
+            // 
+            this.colOrderStatus.DataPropertyName = "order_status";
+            this.colOrderStatus.HeaderText = "单据状态";
+            this.colOrderStatus.MinimumWidth = 120;
+            this.colOrderStatus.Name = "colOrderStatus";
+            this.colOrderStatus.ReadOnly = true;
+            this.colOrderStatus.Width = 120;
+            // 
+            // UCReceivableManage
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pnlSearch);
+            this.Controls.Add(this.dgvBillReceivable);
+            this.Controls.Add(this.page);
+            this.Name = "UCReceivableManage";
+            this.Load += new System.EventHandler(this.UCReceivableManage_Load);
+            this.Controls.SetChildIndex(this.page, 0);
+            this.Controls.SetChildIndex(this.dgvBillReceivable, 0);
+            this.Controls.SetChildIndex(this.pnlSearch, 0);
+            this.Controls.SetChildIndex(this.pnlOpt, 0);
+            this.pnlSearch.ResumeLayout(false);
+            this.pnlSearch.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvBillReceivable)).EndInit();
+            this.cmsMenu.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private ServiceStationClient.ComponentUI.PanelEx pnlSearch;
+        private ServiceStationClient.ComponentUI.ComboBoxEx cboOrderType;
+        private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.Label lblCustName;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblCustCode;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private ServiceStationClient.ComponentUI.ComboBoxEx cboOrderStatus;
+        private ServiceStationClient.ComponentUI.ComboBoxEx cboHandle;
+        private ServiceStationClient.ComponentUI.ComboBoxEx cboOrgId;
+        private ServiceStationClient.ComponentUI.TextBoxEx txtOrderNum;
+        private ServiceStationClient.ComponentUI.ComboBoxEx cboCompany;
+        private ServiceStationClient.ComponentUI.ButtonEx btnSearch;
+        private ServiceStationClient.ComponentUI.ButtonEx btnClear;
+        private ServiceStationClient.ComponentUI.DataGridViewEx dgvBillReceivable;
+        private ServiceStationClient.ComponentUI.WinFormPager page;
+        private ServiceStationClient.ComponentUI.TextBox.TextChooser txtCustCode;
+        private ServiceStationClient.ComponentUI.DateTimeInterval_sms dtInterval;
+        private ServiceStationClient.ComponentUI.TextBoxEx txtCustName;
+        private System.Windows.Forms.ContextMenuStrip cmsMenu;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSearch;
+        private System.Windows.Forms.ToolStripMenuItem tsmiClear;
+        private System.Windows.Forms.ToolStripSeparator tss1;
+        private System.Windows.Forms.ToolStripMenuItem tsmiAddF;
+        private System.Windows.Forms.ToolStripMenuItem tsmiEditF;
+        private System.Windows.Forms.ToolStripMenuItem tsmiCopyF;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDeleteF;
+        private System.Windows.Forms.ToolStripSeparator tss2;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSubmitF;
+        private System.Windows.Forms.ToolStripMenuItem tsmiVerifyF;
+        private System.Windows.Forms.ToolStripSeparator tss3;
+        private System.Windows.Forms.ToolStripMenuItem tsmiOperation;
+        private System.Windows.Forms.ToolStripMenuItem tsmiView;
+        private System.Windows.Forms.ToolStripMenuItem tsmiPrint;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colCheck;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colPayableSingleID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colOrderType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colOrderNum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colOrderDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colClientCode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colClientName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDealingsBalance;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colOrgId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colHandle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colOperator;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colRemark;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colOrderStatus;
+    }
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://isg.yutong.com/partReturnCreate/" targetNamespace="http://isg.yutong.com/partReturnCreate/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xsd:schema>
+      <xsd:import schemaLocation="https://isgqas.yutong.com:2222/ISG/obtainXsd?serviceID=partReturnCreate" namespace="http://isg.yutong.com/partReturnCreate/" />
+    </xsd:schema>
+  </types>
+  <message name="partReturnCreate">
+    <part name="parameters" element="tns:partReturnCreate" />
+  </message>
+  <message name="partReturnCreateResponse">
+    <part name="parameters" element="tns:partReturnCreateResponse" />
+  </message>
+  <portType name="partReturnCreatePort">
+    <operation name="partReturnCreate">
+      <input message="tns:partReturnCreate" />
+      <output message="tns:partReturnCreateResponse" />
+    </operation>
+  </portType>
+  <binding name="partReturnCreateBinding" type="tns:partReturnCreatePort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="partReturnCreate">
+      <soap:operation soapAction="" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="partReturnCreateService">
+    <port name="partReturnCreatePort" binding="tns:partReturnCreateBinding">
+      <soap:address location="https://isgqas.yutong.com:2222/ISG/ws/invokeService" />
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://isg.yutong.com/serviceSettleAccounts/" targetNamespace="http://isg.yutong.com/serviceSettleAccounts/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" namespace="http://schemas.xmlsoap.org/soap/envelope/" />
+  <xs:element name="serviceSettleAccountsQuery" type="tns:serviceSettleAccountsQuery" />
+  <xs:element name="serviceSettleAccountsQueryResponse" type="tns:serviceSettleAccountsQueryResponse" />
+  <xs:complexType name="serviceSettleAccountsQuery">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="RequestUser" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestTime" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestType" type="xs:string" />
+      <xs:element minOccurs="1" name="settlement_no" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="clientInfo" type="tns:clientInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="serviceSettleAccountsQueryResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Result" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="state" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="errorMsg" type="xs:string" />
+      <xs:element name="settlement_no" type="xs:string" />
+      <xs:element name="service_station_code" type="xs:string" />
+      <xs:element name="service_station_name" type="xs:string" />
+      <xs:element name="bill_sum_cost" type="xs:string" />
+      <xs:element name="oldpart_sum_cost" type="xs:string" />
+      <xs:element name="other_sum_cost" type="xs:string" />
+      <xs:element name="sum_cost" type="xs:string" />
+      <xs:element name="settlement_date" type="xs:string" />
+      <xs:element name="settlement_cycle" type="xs:string" />
+      <xs:element name="ServiceDetails">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="ServiceDetail">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="service_no" type="xs:string" />
+                  <xs:element name="submit_time" type="xs:string" />
+                  <xs:element name="depot_no" type="xs:string" />
+                  <xs:element name="receipt_type" type="xs:string" />
+                  <xs:element name="repairer_name" type="xs:string" />
+                  <xs:element name="approval_date" type="xs:string" />
+                  <xs:element name="other_item_sum_money" type="xs:string" />
+                  <xs:element name="man_hour_sum_money" type="xs:string" />
+                  <xs:element name="fitting_sum_money" type="xs:string" />
+                  <xs:element name="travel_cost" type="xs:string" />
+                  <xs:element name="service_sum_cost" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="OldPartDetails">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="OldPartDetail">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="recycle_no" type="xs:string" />
+                  <xs:element name="service_station_code" type="xs:string" />
+                  <xs:element name="service_station_name" type="xs:string" />
+                  <xs:element name="sum_cost" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="OtherFeeDetails">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="OtherFeeDetail">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="other_cost_no" type="xs:string" />
+                  <xs:element name="cost_name" type="xs:string" />
+                  <xs:element name="cost_type" type="xs:string" />
+                  <xs:element name="tally_time" type="xs:string" />
+                  <xs:element name="cost_explain" type="xs:string" />
+                  <xs:element name="sum_cost" type="xs:string" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="clientInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="clientID" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="serviceID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

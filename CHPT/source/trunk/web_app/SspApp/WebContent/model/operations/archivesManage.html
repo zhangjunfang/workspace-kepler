@@ -1,0 +1,52 @@
+<!--数据管理 - 用户档案 archivesManage-->
+<!--sidebox-->
+    <div class="sidebox leftTreeContainer">
+    </div>
+<!--main-->
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>当前位置：</font>
+            <font>数据管理</font> ->
+            <font>用户档案</font>
+        </div>
+        <div class="m3">
+            <div class="userManageContent">
+            	<!--查询条件-->
+                <div class=" lineS69c h85 p5 tit5 overh archivesTerm">
+                <form name="archivesForm">
+                    <div class=" h30">
+                        <span class="btn4 fl mr10 exportGrid">导 出</span>
+                        </div>
+                    	<div class=" h30">
+	                    	<div class="h30 lh30 fl w180">
+	                     	   公司名称：<input type="text" name="comName"/>
+	                    	</div>
+	                    	<div class="h30 lh30 fl w180">
+	                     	   帐套名称：<input type="text" name="setbookName"/>
+	                    	</div>
+                        </div>
+                        <div>
+	            	        <div class="h30 lh30 fl w300">
+                                注册时间：
+		                         <input id="d021" type="text" readonly="readonly" class="Wdate" name="registerTimeStart" value="" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d022\')||\'2020-10-01\'}'})"/> 至
+		                         <input id="d022" type="text" readonly="readonly" class="Wdate" name="registertTimeEnd" value="" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d021\')}',maxDate:'2020-10-01'})"/>
+	                    	</div>
+	            	        <div class="h30 lh30 fl w320">
+                                创建帐套时间：
+		                         <input id="d023" type="text" readonly="readonly" class="Wdate" name="validTimeStart" value="" onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'d024\')||\'2020-10-01\'}'})"/> 至
+		                         <input id="d024" type="text" readonly="readonly" class="Wdate" name="validTimeEnd" value="" onFocus="WdatePicker({minDate:'#F{$dp.$D(\'d023\')}',maxDate:'2020-10-01'})"/>
+	                    	</div>
+                        </div>
+                        <span class="btn1 cFFF fl ml20 queryButton">查询</span>
+                        <span class="btn4 fl ml20 resetButton">清除</span>
+                </form>
+                </div>
+                <!--数据显示-->
+                <div class=" lineS mt3 bcFFF gridContainerWrap">
+                    <div class="gridContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>

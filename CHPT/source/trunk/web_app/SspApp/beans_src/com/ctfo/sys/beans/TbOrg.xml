@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="TbOrg">
+  <typeAlias alias="dynamicSqlParameter" type="com.ctfo.local.obj.DynamicSqlParameter" />
+  <typeAlias alias="TbOrg" type="com.ctfo.sys.beans.TbOrg" />
+  <typeAlias alias="string" type="java.lang.String"/>
+  
+  <resultMap class="com.ctfo.sys.beans.TbOrg" id="TbOrg">
+    <result column="ENT_ID" jdbcType="VARCHAR" property="entId" />
+    <result column="CORP_CODE" jdbcType="Decimal" property="corpCode" nullValue="0"/>
+    <result column="ENT_NAME" jdbcType="VARCHAR" property="entName" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="OP_LOGINNAME" jdbcType="VARCHAR" property="createByName" />
+    <result column="CREATE_TIME" jdbcType="DECIMAL" property="createTime" />
+    <result column="UPDATE_BY" jdbcType="VARCHAR" property="updateBy" />
+    <result column="UPDATE_TIME" jdbcType="DECIMAL" property="updateTime" />
+    <result column="ENABLE_FLAG" jdbcType="VARCHAR" property="enableFlag" />
+    <result column="ENT_STATE" jdbcType="VARCHAR" property="entState" />
+    <result column="MEMO" jdbcType="VARCHAR" property="memo" />
+    <result column="ISCOMPANY" jdbcType="DECIMAL" property="iscompany" />
+    
+    <result column="com_id" jdbcType="VARCHAR" property="comId" />
+    <result column="ent_code" jdbcType="Decimal" property="entCode" nullValue="0"/>
+    <result column="com_name" jdbcType="VARCHAR" property="comName" />
+    <result column="ORG_CNAME" jdbcType="VARCHAR" property="orgCname" />
+    <result column="ORG_CPHONE" jdbcType="VARCHAR" property="orgCphone" />
+  </resultMap>
+  
+  <sql id="columns">
+  	   p.op_loginname,	
+	   og.ENT_ID,
+       og.CORP_CODE,
+       og.ENT_NAME,
+       og.ORG_CNAME,
+       og.ORG_CPHONE,
+       p.op_name AS CREATE_BY,
+       og.CREATE_TIME,
+       p.op_name AS UPDATE_BY,
+       og.UPDATE_TIME,
+       og.ENABLE_FLAG,
+       og.ENT_STATE,
+       og.MEMO,
+       og.ISCOMPANY,
+       og.ent_code,
+       og.com_id,
+       com.com_name
+  </sql>
+  <sql id="set">
+    <dynamic prepend="set">
+      ENT_NAME = #entName:VARCHAR#
+      ,UPDATE_BY = #updateBy:VARCHAR#
+      ,UPDATE_TIME = #updateTime:DECIMAL#
+      ,ENABLE_FLAG = #enableFlag:VARCHAR#
+      ,MEMO = #memo:VARCHAR#
+      ,ISCOMPANY = #iscompany:DECIMAL#
+      ,com_id = #comId:VARCHAR#
+      ,ORG_CNAME = #orgCname:VARCHAR#
+      ,ORG_CPHONE = #orgCphone:VARCHAR#
+    </dynamic>
+  </sql>  
+  <sql id="where_param">
+    <include refid="where" />
+    <include refid="equal_WHERE" />
+    <include refid="like_WHERE" />
+  </sql>
+  <sql id="where">
+    WHERE 1=1 and
+	og.ENABLE_FLAG = '1'
+  </sql>   
+  <sql id="equal_WHERE">
+    <isNotNull prepend="AND" property="equal.comId">
+      og.com_id =  #equal.comId:VARCHAR#
+    </isNotNull>  
+    <isNotNull prepend="AND" property="equal.entState">
+      og.ENT_STATE =  #equal.entState:VARCHAR#
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.createTimeStart">
+        <![CDATA[(#equal.createTimeStart:VARCHAR# <= og.CREATE_TIME )]]>
+    </isNotNull>
+    <isNotNull prepend="AND" property="equal.createTimeEnd">
+        <![CDATA[(#equal.createTimeEnd:VARCHAR# >= og.CREATE_TIME )]]>
+    </isNotNull>   
+  </sql>
+  <sql id="like_WHERE">
+  <isNotNull prepend="AND" property="like.entName">
+      og.ENT_NAME like CONCAT('%',#like.entName:VARCHAR#,'%')
+  </isNotNull>
+  <isNotNull prepend="AND" property="like.comName">
+      com.com_name like CONCAT('%',#like.comName:VARCHAR#,'%')
+    </isNotNull>    
+  </sql> 
+  <!-- 机构sql --> 
+  <sql id="orgSql">
+	SELECT
+		p.op_loginname,
+		og.*, oi.*,com.com_id
+	FROM
+		tb_ssp_organization og
+	INNER JOIN tb_ssp_org_info oi ON og.ent_id = oi.ent_id
+	LEFT JOIN sys_ssp_sp_operator p ON og.create_by = p.op_id
+	LEFT JOIN sys_ssp_com_info com ON og.com_id = com.com_id
+  </sql>	
+ 
+  <select id="selectParam" parameterClass="dynamicSqlParameter" resultMap="TbOrg">
+	<include refid="orgSql" />
+  </select>
+  
+  <!-- 分页查询公用语句 -->
+  <sql id="pageSql">
+	FROM
+	tb_ssp_organization og
+	LEFT JOIN sys_ssp_sp_operator p ON og.create_by = p.op_id
+	LEFT JOIN sys_ssp_com_info com ON og.com_id = com.com_id
+  </sql>
+<select id="selectPk" parameterClass="string" resultMap="TbOrg">
+  SELECT 
+    <include refid="columns" /> 
+    <include refid="pageSql" />
+    where og.ENT_ID = #entId:VARCHAR#
+  </select>
+  <select id="countParam" parameterClass="dynamicSqlParameter" resultClass="int">
+	SELECT COUNT(1)
+	<include refid="pageSql" />
+    <include refid="where_param" />
+  </select>
+
+  <select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbOrg">
+		SELECT BB.* FROM 
+					    (SELECT 
+						    <include refid="columns" /> 
+						    <include refid="pageSql" />
+						    <include refid="where_param" />
+						    ORDER BY og.CREATE_TIME DESC
+					    ) BB LIMIT #startNum#,#pagesize#
+
+  </select>
+  
+ <!-- 获取同一级别的最大机构ID -->
+ <select id="maxOrgSql"  parameterClass="map" resultClass="string">
+	select max(o.ent_id) from tb_ssp_organization o where o.parent_id=#parent_id#
+ </select>	
+  <!-- 查询组织id的max值 -->
+ <select id="queryComCode" parameterClass="dynamicSqlParameter" resultClass="int">
+  SELECT IFNULL(MAX(CORP_CODE),'20000') FROM tb_ssp_organization
+ </select>
+   <!-- 吊销与启用 -->
+  <update id="updateRevoke" parameterClass="map">
+	  UPDATE tb_ssp_organization
+	   SET ENT_STATE = #entState#
+	  WHERE ENT_ID in ($entId$)
+  </update>
+  <!-- 登录名称是否存在 -->
+  <select id="existLoginname" resultClass="int" parameterClass="map">
+	SELECT count(1)  FROM 
+ 	tb_ssp_organization
+ 	where ENT_NAME = #Loginname# and ENABLE_FLAG = '1' and ENT_STATE = '1'
+  </select>    
+  <!-- 查询組織列表 -->
+  <select id="queryEntList" parameterClass="map" resultClass="com.ctfo.sys.beans.TbOrg">  		
+		SELECT ENT_ID as entId,ENT_NAME as entName FROM tb_ssp_organization where ENABLE_FLAG = '1' and ENT_STATE = '1' and com_id = #comId#
+  </select>
+  <insert id="insert" parameterClass="TbOrg">
+    insert into tb_ssp_organization (ENT_ID, ENT_NAME, ent_code, CREATE_BY, CREATE_TIME,
+      UPDATE_BY, UPDATE_TIME, MEMO, ISCOMPANY,CORP_CODE,com_id,ORG_CNAME,ORG_CPHONE)
+    values (#entId:VARCHAR#, #entName:VARCHAR#, #entCode:VARCHAR#,
+      #createBy:VARCHAR#, #createTime:DECIMAL#, #updateBy:VARCHAR#, #updateTime:DECIMAL#,
+      #memo:VARCHAR#, #iscompany:DECIMAL#, 
+      #corpCode:VARCHAR#, #comId:VARCHAR#, #orgCname:VARCHAR#, #orgCphone:VARCHAR#)
+  </insert>
+  <update id="update" parameterClass="TbOrg">
+    update 
+    tb_ssp_organization
+    <include refid="set" />
+    where 1=1 
+      and ENT_ID = #entId:VARCHAR#
+  </update>
+</sqlMap>

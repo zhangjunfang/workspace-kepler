@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://isg.yutong.com/serviceStation/" targetNamespace="http://isg.yutong.com/serviceStation/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://schemas.xmlsoap.org/soap/envelope/" namespace="http://schemas.xmlsoap.org/soap/envelope/" />
+  <xs:element name="queryServiceStation" type="tns:queryServiceStation" />
+  <xs:element name="queryServiceStationResponse" type="tns:queryServiceStationResponse" />
+  <xs:complexType name="queryServiceStation">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="RequestUser" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestTime" type="xs:string" />
+      <xs:element minOccurs="1" name="RequestType" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="clientInfo" type="tns:clientInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="queryServiceStationResponse">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Result" type="tns:Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Result">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="state" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="errorMsg" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="1" name="station" type="tns:station" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="station">
+    <xs:sequence>
+      <xs:element name="com_code" type="xs:string" />
+      <xs:element name="com_short_name" type="xs:string" />
+      <xs:element name="com_name" type="xs:string" />
+      <xs:element name="status" type="xs:string" />
+      <xs:element name="apply_time" type="xs:string" />
+      <xs:element name="approved_time" type="xs:string" />
+      <xs:element name="category" type="xs:string" />
+      <xs:element name="com_level" type="xs:string" />
+      <xs:element name="workhours_price" type="xs:string" />
+      <xs:element name="winter_subsidy" type="xs:string" />
+      <xs:element name="repair_qualification" type="xs:string" />
+      <xs:element name="service_phone" type="xs:string" />
+      <xs:element name="com_fax" type="xs:string" />
+      <xs:element name="work_time" type="xs:string" />
+      <xs:element name="territory" type="xs:string" />
+      <xs:element name="province" type="xs:string" />
+      <xs:element name="city" type="xs:string" />
+      <xs:element name="county" type="xs:string" />
+      <xs:element name="street" type="xs:string" />
+      <xs:element name="zip_code" type="xs:string" />
+      <xs:element name="staff_counts" type="xs:string" />
+      <xs:element name="ser_staff_counts" type="xs:string" />
+      <xs:element name="repair_workshop_area" type="xs:string" />
+      <xs:element name="trench_counts" type="xs:string" />
+      <xs:element name="reception_area" type="xs:string" />
+      <xs:element name="cust_lounge_area" type="xs:string" />
+      <xs:element name="parts_sales_area" type="xs:string" />
+      <xs:element name="ytparts_warehouse_area" type="xs:string" />
+      <xs:element name="meeting_room_area" type="xs:string" />
+      <xs:element name="big_repaired_area" type="xs:string" />
+      <xs:element name="training_room_area" type="xs:string" />
+      <xs:element name="parts_warehouse_area" type="xs:string" />
+      <xs:element name="oldparts_warehouse_area" type="xs:string" />
+      <xs:element name="repair_instructions" type="xs:string" />
+      <xs:element name="unit_properties" type="xs:string" />
+      <xs:element name="institution_code" type="xs:string" />
+      <xs:element name="indepen_legalperson" type="xs:string" />
+      <xs:element name="financial_indepen" type="xs:string" />
+      <xs:element name="indepen_check" type="xs:string" />
+      <xs:element name="tax_qualification" type="xs:string" />
+      <xs:element name="legal_person" type="xs:string" />
+      <xs:element name="com_phone" type="xs:string" />
+      <xs:element name="star_level" type="xs:string" />
+      <xs:element name="tax_num" type="xs:string" />
+      <xs:element name="com_email" type="xs:string" />
+      <xs:element name="sap_code" type="xs:string" />
+      <xs:element name="parent" type="xs:string" />
+      <xs:element name="center_library" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="clientInfo">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="clientID" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="serviceID" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
