@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<substitutionProperty name="log.base" value="d:\\test\\savecenter" />
+	<!--appender 输出目的地 console 控制台 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender"
+		target="System.out">
+		<encoder charset="UTF-8">
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} [%logger]-[%le] - %m%n</pattern>
+		</encoder>
+		<target>System.out</target>
+	</appender>
+
+
+	<!--appender 输出目的地 file 文件   -->
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.base}/savecenter.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.base}/savecenter-%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+		</rollingPolicy>
+		<!-- 编码格式解析器 -->
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} [%logger]-[%le] - %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+		<connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+			<dataSource class="com.mchange.v2.c3p0.ComboPooledDataSource">
+				<driverClass>oracle.jdbc.driver.OracleDriver</driverClass>
+				<jdbcUrl>jdbc:oracle:thin:@192.168.100.53:1521:orcl</jdbcUrl>
+				<user>kcpt</user>
+				<password>kcpt</password>
+			</dataSource>
+		</connectionSource>
+	</appender>
+	
+	<!-- ===================================================================== -->  
+    <!--  以下是logger的定义                                                   										   -->  
+    <!-- ===================================================================== -->  
+    <!-- 队列监控线程 -->
+	<logger name="com.ctfo.savecenter.SaveCenterMonitor" additivity="true">  
+        <level value="WARN"/>  
+        <appender-ref ref="DB"/>  
+    </logger>
+    <!-- 数据解析线程 -->
+    <logger name="com.ctfo.savecenter.analy.AnalyseServiceThread" additivity="true">  
+        <level value="WARN"/>  
+        <appender-ref ref="DB"/>  
+    </logger>  
+    <!-- 多媒体指令线程 -->
+	<logger name="com.ctfo.savecenter.addin.kcpt.commandmanager.CommandManagerKcptThread" additivity="true">  
+        <level value="WARN"/>  
+        <appender-ref ref="DB"/>  
+    </logger>
+    <!-- 盲区补传线程 -->
+    <logger name="com.ctfo.savecenter.addin.kcpt.filemanager.FileBlindManager.run" additivity="true">  
+        <level value="ERROR"/>  
+        <appender-ref ref="DB"/>  
+    </logger>
+    <!-- 轨迹报警文件线程 -->
+    <logger name="com.ctfo.savecenter.addin.kcpt.filemanager.FileManager" additivity="true">  
+        <level value="ERROR"/>  
+        <appender-ref ref="DB"/>  
+    </logger>
+    <!-- 报警存储线程 -->
+    <logger name="com.ctfo.savecenter.addin.kcpt.trackmanager.AlarmManagerThread" additivity="true">  
+        <level value="WARN"/>  
+        <appender-ref ref="DB"/>  
+    </logger>
+    <!-- 车机状态线程 -->
+	<logger name="com.ctfo.savecenter.addin.kcpt.trackmanager.EquipmentManagerThread" additivity="true">  
+        <level value="WARN"/>  
+        <appender-ref ref="DB"/>  
+    </logger>
+    <!-- 数据分析线程 -->
+    <logger name="com.ctfo.savecenter.addin.kcpt.trackmanager.LogicAnalysis" additivity="true">  
+        <level value="WARN"/>  
+        <appender-ref ref="DB"/>  
+    </logger>
+    <!-- 轨迹主线程 -->
+    <logger name="com.ctfo.savecenter.addin.kcpt.trackmanager.TrackManagerKcptMainThread" additivity="true">  
+        <level value="WARN"/>  
+        <appender-ref ref="DB"/>  
+    </logger>
+    <!-- 轨迹更新线程 -->
+    <logger name="com.ctfo.savecenter.addin.kcpt.trackmanager.TrackManagerThread" additivity="true">  
+        <level value="WARN"/>  
+        <appender-ref ref="DB"/>  
+    </logger>
+    <!-- 轨迹缓存线程 -->
+    <logger name="com.ctfo.savecenter.addin.kcpt.trackmanager.TrackRedisManagerThread" additivity="true">  
+        <level value="WARN"/>  
+        <appender-ref ref="DB"/>  
+    </logger>
+	
+	<root level="DEBUG">
+		<appender-ref ref="file" />
+		<appender-ref ref="console" />
+		<!-- <appender-ref ref="DB" /> -->
+	</root>
+
+</configuration>

@@ -1,0 +1,693 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xconf>
+	<app>KCPTSaveCenter</app>
+	<ver>3.0.0.0</ver>
+	<desc>客车平台存储服务配置</desc>
+	
+	<item name="ManagePort">
+		<value>7250</value>
+		<comments>管理端口</comments>
+	</item>
+	<item name="AnalyseClass">
+		<value>com.ctfo.savecenter.analy.CommonAnalyseService</value>
+		<comments>解析类</comments>
+	</item>
+	<item name="ManageFlag">
+		<value>0</value>
+		<comments>消息服务配置管理测试开关  1启动消息服务直连，0通过节点管理处理</comments>
+	</item>
+	<item name="log4j">
+		<value>/opt/savecenter/log4j.properties</value>
+		<comments>log4j全路径</comments>
+	</item>
+	<item name="msgServiceManage">
+		<comments>消息服务配置管理</comments>
+		<item name="msg1">
+			<comments>消息服务器1</comments>
+			<item name="msgServicePort">
+				<value>7005</value>
+				<comments>消息服务器端口</comments>
+			</item>
+			<item name="msgServiceAddr">
+				<value>192.168.100.72</value>
+				<comments>消息服务器地址</comments>
+			</item>
+			<item name="logintype">
+				<value>SAVE</value>
+				<comments>登陆类型</comments>
+			</item>
+			<item name="userid">
+				<value>6705</value>
+				<comments>登陆id</comments>
+			</item>
+			<item name="password">
+				<value>6705</value>
+				<comments>登陆密码</comments>
+			</item>
+			<item name="reConnectTime">
+				<value>30000</value>
+				<comments>断线重连时间(ms)</comments>
+			</item>
+			<item name="connectStateTime">
+				<value>600000</value>
+				<comments>连接状态时间(ms)</comments>
+			</item>
+		</item>
+	</item>
+	
+	<item name="configServer">
+		<comments>节点管理器配置</comments>
+		<item name="localIP">
+			<value>192.168.100.71</value>
+			<comments>本地IP</comments>
+		</item>
+		<item name="localPort">
+			<value>7000</value>
+			<comments>本地端口</comments>
+		</item>
+		<item name="loginID">
+			<value>300009</value>
+			<comments>登陆id</comments>
+		</item>
+		<item name="conNums">
+			<value>1</value>
+			<comments>连接数</comments>
+		</item>
+		<item name="reconTimes">
+			<value>10</value>
+			<comments>如果与节点管理器断开，设置重连时间(单位：S)</comments>
+		</item>
+		<item name="handlerClass">
+			<value>com.ctfo.savecenter.io.ReceiveMsgHandler</value>
+			<comments>处理类</comments>
+		</item>
+		<item name="configIP">
+			<value>192.168.100.72</value>
+			<comments>节点管理器IP</comments>
+		</item>
+		<item name="configPort">
+			<value>7555</value>
+			<comments>节点管理器端口</comments>
+		</item>
+		<item name="groupID">
+			<value>0</value>
+			<comments>节点管理组ID</comments>
+		</item>
+	</item>
+	<item name="activeMQ">
+		<item name="url">
+			<value>tcp://192.168.100.84:61616</value>
+			<comments>activeMQ连接地址</comments>	
+		</item>
+		<item name="alarmQueue">
+			<value>alarmSettingQueue</value>
+			<comments>报警设置队列名称</comments>	
+		</item>
+	</item>
+	<item name="AnalyserAddIns">
+		<comments>分析插件</comments>
+		<item name="track">
+			<comments>轨迹、上下线插件</comments>
+			<item name="class1">
+				<value>com.ctfo.savecenter.addin.kcpt.trackmanager.TrackManagerKcptMainThread</value>
+				<comments>监控位置更新插件</comments>
+				<item name="count">
+					<value>5</value>
+					<comments>监控位置更新插件个数</comments>
+				</item>
+				<item name="commitFileTime">
+					<value>60</value>
+					<comments>60批量文件存储处理间隔时间(单位:S)</comments>
+				</item>
+				<item name="commitFileCount">
+					<value>10</value>
+					<comments>文件批量提交数量</comments>
+				</item>
+				<item name="commitTrackCount">
+					<value>10</value>
+					<comments>10轨迹批量数据库提交数</comments>
+				</item>
+				<item name="commitAlarmCount">
+					<value>10</value>
+					<comments>10报警批量数据库提交数</comments>
+				</item>
+				<item name="commitEqCount">
+					<value>10</value>
+					<comments>安全设备批量数据库提交数</comments>
+				</item>
+				<item name="commitTime">
+					<value>30</value>
+					<comments>30批量数据库提交间隔时间(单位:S)</comments>
+				</item>
+				<item name="trackfileurl">
+					<value>/logs/file/track</value>
+					<comments>轨迹文件目录/usr/local/lbs/file/track</comments>
+				</item>
+				<item name="alarmfileurl">
+					<value>/logs/file/alarm</value>
+					<comments>事件文件目录/usr/local/lbs/file/alarm</comments>
+				</item>
+				<item name="eventfileurl">
+					<value>/logs/file/event</value>
+					<comments>驾驶行为事件文件目录/usr/local/lbs/file/event</comments>
+				</item>
+				<item name="eloaddistfileurl">
+					<value>/logs/file/eloaddist</value>
+					<comments>发动机负荷率/usr/local/lbs/file/eloaddist</comments>
+				</item>
+				<item name="blindTrackfileurl">
+					<value>/logs/file/blindTrack</value>
+					<comments>盲区补传轨迹文件/usr/local/lbs/file/blindTrack</comments>
+				</item>
+				<item name="blindAlarmFileUrl">
+					<value>/logs/file/blindAlarm</value>
+					<comments>盲区补传报警文件/usr/local/lbs/file/blindAlarm</comments>
+				</item>
+				<item name="oilUrl">
+					<value>/logs/file/oilUrl</value>
+					<comments>油量变化文件/usr/local/lbs/file/oilUrl</comments>
+				</item>
+				<comments>MEMCACHE线程中数据库操作</comments>
+				<item name="mysql_sql_updateVehicleisonline" category="3">
+					<value>UPDATE MEM_TB_SERVICEVIEW SET ISONLINE=?,SYSUTC=?,ISVALID=0,MSGID=? WHERE VID=?</value>
+					<comments>更新车辆上下线的MYSQL轨迹表语句 </comments>
+				</item>		
+				<item name="sql_updateTrackisonline" category="3">
+					<value>UPDATE TR_VEHICLE_LASTTRACK SET ISONLINE=?,SYSUTC = ?,ISVALID=0,MSGID=?,POSITIONING=?,ACC=? WHERE VID=?</value>
+					<comments>更新车辆上下线的ORACLE轨迹表语句 </comments>
+				</item>
+				<item name="sql_saveOracleLastTrackTbl" category="3">
+					<value>INSERT INTO TH_VEHICLE_ONOFFLINE (AUTO_ID,VID,TO_ONUTC,TO_FLAG,VEHICLE_NO) VALUES(SEQ_ONOFFLINE_ID.NEXTVAL,?,?,?,?)</value>
+					<comments>存储车辆上下线表</comments>
+				</item>
+				<item name="sql_updateVehicleisonlineTbl" category="3">
+					<value>UPDATE TH_VEHICLE_ONOFFLINE SET TO_FLAG=?,TO_OFFUTC =? WHERE AUTO_ID= (SELECT MAX(AUTO_ID) FROM TH_VEHICLE_ONOFFLINE WHERE VID = ?) </value>
+					<comments>更新车辆上下线表</comments>
+				</item>
+				<comments>ORACLE数据库操作</comments>
+				<item name="sql_updateLastTrackLine">
+					<value>UPDATE TR_VEHICLE_LASTTRACK SET LON=?,LAT=?,GPS_SPEED=?,MILEAGE=DECODE(?,-1,MILEAGE,?),DIRECTION=?,UTC=?,SYSUTC=?,ISONLINE=1,MAPLON=?,MAPLAT=?,IS_MOVE=2,ELEVATION=?,OIL_MEASURE=DECODE(?,-1,OIL_MEASURE,?),ENGINE_ROTATE_SPEED =?,E_TORQUE=?,OIL_INSTANT=?,BATTERY_VOLTAGE=?,EXT_VOLTAGE=?,E_WATER_TEMP=?,RATIO=?,GEARS=?,VEHICLE_SPEED=?,AIR_PRESSURE=?,AIR_INFLOW_TPR=?,ENGINE_WORKING_LONG=DECODE(?,-1,ENGINE_WORKING_LONG,?),OIL_TOTAL=DECODE(?,-1,OIL_TOTAL,?),EEC_APP=?,OIL_TEMPERATURE=?,OIL_PRESSURE =?,ISVALID=0,BASESTATUS=?,EXTENDSTATUS=?,MSGID=?,SPEED_FROM=?,PRECISE_OIL=?,POSITIONING=?,ACC=?,LOCK_STATUS=? WHERE VID=?</value>
+					<comments>更新轨迹包带总线数据最后位置的SQL语句</comments>
+				</item>
+				<item name="sql_updateLastTrackALine">
+					<value>UPDATE TR_VEHICLE_LASTTRACK SET LON=?,LAT=?,GPS_SPEED=?,MILEAGE=DECODE(?,-1,MILEAGE,?),DIRECTION=?,UTC=?,SYSUTC=?,ISONLINE=1,MAPLON=?,MAPLAT=?,IS_MOVE=2,ALARM_UTC=?,ELEVATION=?,OIL_MEASURE=DECODE(?,-1,OIL_MEASURE,?),ENGINE_ROTATE_SPEED =?,E_TORQUE=?,OIL_INSTANT=?,BATTERY_VOLTAGE=?,EXT_VOLTAGE=?,E_WATER_TEMP=?,RATIO=?,GEARS=?,VEHICLE_SPEED=?,AIR_PRESSURE=?,AIR_INFLOW_TPR=?,ENGINE_WORKING_LONG=DECODE(?,-1,ENGINE_WORKING_LONG,?),OIL_TOTAL=DECODE(?,-1,OIL_TOTAL,?),EEC_APP=?,OIL_TEMPERATURE=?,OIL_PRESSURE =?,ALARM_CODE=?,ISVALID=0,BASESTATUS=?,EXTENDSTATUS=?,MSGID=?,SPEED_FROM=?,PRECISE_OIL=?,POSITIONING=?,ACC=?,LOCK_STATUS=? WHERE VID=?</value>
+					<comments>更新轨迹包带总线数据最后位置的SQL语句带报警</comments>
+				</item>
+				<item name="sql_updateLastTrack">
+					<value>UPDATE TR_VEHICLE_LASTTRACK SET LON=?,LAT=?,GPS_SPEED=?,MILEAGE=DECODE(?,-1,MILEAGE,?),DIRECTION=?,UTC=?,SYSUTC=?,ISONLINE=1,MAPLON=?,MAPLAT=?,IS_MOVE=2,ELEVATION=?,OIL_MEASURE=DECODE(?,-1,OIL_MEASURE,?),RATIO=?,GEARS=?,VEHICLE_SPEED=?,ISVALID=0,BASESTATUS=?,EXTENDSTATUS=?,OIL_TOTAL=DECODE(?,-1,OIL_TOTAL,?),EEC_APP=?,ENGINE_ROTATE_SPEED =?,OIL_INSTANT=?,E_TORQUE=?,MSGID=?,SPEED_FROM=?,PRECISE_OIL=?,POSITIONING=?,ACC=?,LOCK_STATUS=? WHERE VID=?</value>
+					<comments>更新轨迹包最后位置的SQL语句</comments>
+				</item>
+				<item name="sql_updateLastTrackA">
+					<value>UPDATE TR_VEHICLE_LASTTRACK SET LON=?,LAT=?,GPS_SPEED=?,MILEAGE=DECODE(?,-1,MILEAGE,?),DIRECTION=?,UTC=?,SYSUTC=?,ISONLINE=1,MAPLON=?,MAPLAT=?,IS_MOVE=2,ALARM_UTC=?,ELEVATION=?,OIL_MEASURE=DECODE(?,-1,OIL_MEASURE,?),RATIO=?,GEARS=?,VEHICLE_SPEED=?,ALARM_CODE=?,ISVALID=0,BASESTATUS=?,EXTENDSTATUS=?,OIL_TOTAL=DECODE(?,-1,OIL_TOTAL,?),EEC_APP=?,ENGINE_ROTATE_SPEED =?,OIL_INSTANT=?,E_TORQUE=?,MSGID=?,SPEED_FROM=?,PRECISE_OIL=?,POSITIONING=?,ACC=?,LOCK_STATUS=? WHERE VID=?</value>
+					<comments>更新轨迹包最后位置的SQL语句带报警</comments>
+				</item>
+				<item name="sql_updateLastTrackISonLine">
+					<value>UPDATE TR_VEHICLE_LASTTRACK SET ISONLINE=1,POSITIONING=0,SYSUTC=? WHERE VID=?</value>
+					<comments>更新非法轨迹包更新在线状态</comments>
+				</item>
+				<item name="sql_saveDumpTrack">
+					<value>INSERT INTO TH_VEHICLE_DUMP (AUTO_ID,VID,ISVALID,SYSUTC,COMMAND) VALUES(SEQ_DUMP_ID.NEXTVAL,?,?,?,?)</value>
+					<comments>存储非法轨迹包的SQL语句</comments>
+				</item>
+				<item name="sql_saveAlarmTrack">
+					<value>INSERT INTO TH_VEHICLE_ALARM(ALARM_ID,VID,UTC,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,MILEAGE,OIL_TOTAL,ALARM_CODE,SYSUTC,ALARM_STATUS,ALARM_START_UTC,ALARM_DRIVER,VEHICLE_NO,BGLEVEL,BASESTATUS,EXTENDSTATUS,ALARM_ADD_INFO_START) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+					<comments>存储报警包的SQL语句 </comments>
+				</item>
+				<item name="sql_updateAlarmTrack">
+					<value>UPDATE TH_VEHICLE_ALARM SET ALARM_END_UTC = ?,END_LAT=?,END_LON=?,END_MAPLAT=?,END_MAPLON=?,END_ELEVATION=?,END_DIRECTION=?,END_GPS_SPEED=?,END_MILEAGE=?,END_OIL_TOTAL=?, ALARM_STATUS=0,ALARM_ADD_INFO_END =?,MAX_RPM=? WHERE ALARM_ID = ?</value>
+					<comments>更新报警包结束时间的ORACLE语句 </comments>
+				</item>
+				<item name="sql_updateVehicleLineStatus">
+					<value>UPDATE TH_VEHICLE_STATUS SET GATHER_TIME = ?,TERMINAL_STATUS=?,TERMINAL_STATUS_VALUE=?,GPS_STATUS=?,GPS_STATUS_VALUE=?,E_WATER_TEMP_STATUS=DECODE(?,-1,E_WATER_TEMP_STATUS,?),E_WATER_TEMP=DECODE(?,-1,E_WATER_TEMP,?),EXT_VOLTAGE_STATUS=DECODE(?,-1,EXT_VOLTAGE_STATUS,?),EXT_VOLTAGE=DECODE(?,-1,EXT_VOLTAGE,?),OIL_PRESSURE_STATUS=?,OIL_PRESSURE=?,BRAKE_PRESSURE_STAUTS=?,BRAKE_PRESSURE=?,BRAKEPAD_FRAY_STATUS=?,BRAKEPAD_FRAY=?,OIL_ALARM_STATUS=?,OIL_ALARM=?,ABS_BUG_STATUS=?,ABS_BUG=?,COOLANT_LEVEL_STATUS=?,COOLANT_LEVEL=?,AIR_FILTER_CLOG_STATUS=?,AIR_FILTER_CLOG=?,MWERE_BLOCKING_STATUS=?,MWERE_BLOCKING=?,FUEL_BLOCKING_STATUS=?,FUEL_BLOCKING_ALARM=?,EOIL_TEMPERATURE_ALARM_STATUS=?,EOIL_TEMPERATURE_ALARM=?,RETARDER_HT_ALARM_STATUS=?,RETARDER_HT_ALARM=?,EHOUSING_HT_ALARM_STATUS=?,EHOUSING_HT_ALARM=?,VEHICLE_STATUS=?,AIR_PRESSURE_STATUS=DECODE(?,-1,AIR_PRESSURE_STATUS,?),AIR_PRESSURE=DECODE(?,-1,AIR_PRESSURE,?),GPS_FAULT_STATUS=?,GPS_FAULT=?,GPS_OPENCIRCUIT_STATUS=?,GPS_OPENCIRCUIT=?,GPS_SHORTCIRCUIT_STATUS=?,GPS_SHORTCIRCUIT=?,TEMINAL_UNDERVOLTAGE_STATUS=?,TEMINAL_UNDERVOLTAGE=?,TEMINAL_POWERDOWN_STATUS=?,TEMINAL_POWERDOWN=?,TEMINAL_SCREENFAULT_STATUS=?,TEMINAL_SCREENFAULT=?,TTS_FAULT_STATUS=?,TTS_FAULT=?,CAMERA_FAULT_STATUS=?,CAMERA_FAULT=? WHERE VID=?</value>
+					<comments>更新车辆总线状态信息</comments>
+				</item>
+				<comments>mysql数据库操作表</comments>
+				<item name="mysql_sql_updateLastTrackLine">
+					<value>UPDATE MEM_TB_SERVICEVIEW SET LON=?,LAT=?,SPEED=?,HEAD=?,UTC=?,SYSUTC=?,ISONLINE=1,MAPLON=?,MAPLAT=?,HEIGHT =?,ENGINE_ROTATE_SPEED=?,OIL_INSTANT = ?,OIL_PRESSURE=?,OIL_TEMPERATURE=?,EEC_APP=?,OIL_TOTAL=IF(?=-1,OIL_TOTAL,?),ENGINE_WORKING_LONG=IF(?=-1,ENGINE_WORKING_LONG,?),AIR_INFLOW_TPR=?,AIR_PRESSURE=?,VEHICLE_SPEED=?,BATTERY_VOLTAGE=?,E_WATER_TEMP=?,EXT_VOLTAGE=?,E_TORQUE=?,MILEAGE=IF(?=-1,MILEAGE,?),ISVALID=0,BASESTATUS=?,EXTENDSTATUS=?,MSGID=?,SPEED_FROM=?,OIL_MEASURE=?,PRECISE_OIL=?  WHERE VID=?</value>
+					<comments>更新轨迹包最后位置的MYSQL语句</comments>
+				</item>
+					<item name="mysql_sql_updateLastTrackALine">
+					<value>UPDATE MEM_TB_SERVICEVIEW SET LON=?,LAT=?,SPEED=?,HEAD=?,UTC=?,SYSUTC=?,ISONLINE=1,ALARMCODE=?,MAPLON=?,MAPLAT=?,ALARMUTC=?,HEIGHT =?,ENGINE_ROTATE_SPEED=?,OIL_INSTANT = ?,OIL_PRESSURE=?,OIL_TEMPERATURE=?,EEC_APP=?,OIL_TOTAL=IF(?=-1,OIL_TOTAL,?),ENGINE_WORKING_LONG=IF(?=-1,ENGINE_WORKING_LONG,?),AIR_INFLOW_TPR=?,AIR_PRESSURE=?,VEHICLE_SPEED=?,BATTERY_VOLTAGE=?,E_WATER_TEMP=?,EXT_VOLTAGE=?,E_TORQUE=?,MILEAGE=IF(?=-1,MILEAGE,?),ISVALID=0,BASESTATUS=?,EXTENDSTATUS=?,MSGID=?,SPEED_FROM=?,OIL_MEASURE=?,PRECISE_OIL=?  WHERE VID=?</value>
+					<comments>更新轨迹包带总线数据最后位置的MYSQL语句带报警</comments>
+				</item>
+				
+				<item name="mysql_sql_updateLastTrack">
+					<value>UPDATE MEM_TB_SERVICEVIEW SET LON=?,LAT=?,SPEED=?,HEAD=?,UTC=?,SYSUTC=?,ISONLINE=1,MAPLON=?,MAPLAT=?,HEIGHT =?,ENGINE_ROTATE_SPEED=?,OIL_INSTANT = ?,EEC_APP=?,OIL_TOTAL=IF(?=-1,OIL_TOTAL,?),VEHICLE_SPEED=?,E_TORQUE=?,MILEAGE=IF(?=-1,MILEAGE,?),ISVALID=0,BASESTATUS=?,EXTENDSTATUS=?,MSGID=?,SPEED_FROM=?,OIL_MEASURE=?,PRECISE_OIL=? WHERE VID=?</value>
+					<comments>更新轨迹包最后位置的MYSQL语句</comments>
+				</item>
+					<item name="mysql_sql_updateLastTrackA">
+					<value>UPDATE MEM_TB_SERVICEVIEW SET LON=?,LAT=?,SPEED=?,HEAD=?,UTC=?,SYSUTC=?,ISONLINE=1,ALARMCODE=?,MAPLON=?,MAPLAT=?,ALARMUTC=?,HEIGHT =?,ENGINE_ROTATE_SPEED=?,OIL_INSTANT = ?,EEC_APP=?,OIL_TOTAL=IF(?=-1,OIL_TOTAL,?),VEHICLE_SPEED=?,E_TORQUE=?,MILEAGE=IF(?=-1,MILEAGE,?),ISVALID=0,BASESTATUS=?,EXTENDSTATUS=?,MSGID=?,SPEED_FROM=?,OIL_MEASURE=?,PRECISE_OIL=? WHERE VID=?</value>
+					<comments>更新轨迹包带总线数据最后位置的MYSQL语句带报警</comments>
+				</item>
+				
+				<item name="mysql_sql_saveAlarmTrack">
+					<value>INSERT INTO MEM_TH_VEHICLE_ALARM(ALARM_ID,VID,UTC,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,MILEAGE,OIL_TOTAL,ALARM_CODE,SYSUTC,ALARM_STATUS,ALARM_START_UTC,ALARM_DRIVER,VEHICLE_NO,BGLEVEL,BASESTATUS,EXTENDSTATUS,ALARM_ADD_INFO_START) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+					<comments>存储报警包的MYSQL语句 </comments>
+				</item>
+				<item name="mysql_sql_updateAlarmTrack">
+					<value>UPDATE MEM_TH_VEHICLE_ALARM SET ALARM_END_UTC = ?,END_LAT=?,END_LON=?,END_MAPLAT=?,END_MAPLON=?,END_ELEVATION=?,END_DIRECTION=?,END_GPS_SPEED=?,END_MILEAGE=?,END_OIL_TOTAL=?,ALARM_STATUS=0,ALARM_ADD_INFO_END=?,MAX_RPM=? WHERE ALARM_ID = ?</value>
+					<comments>更新报警包结束时间的MYSQL语句 </comments>
+				</item>
+				<item name="mysql_sql_updateLastTrackISonLine">
+					<value>UPDATE MEM_TB_SERVICEVIEW SET ISONLINE=1,ISVALID=?,MSGID=? WHERE VID=?</value>
+					<comments>更新非法轨迹包更新在线状态</comments>
+				</item>
+				
+				<item name="mysql_sql_queryVehicleStatus">
+					<value>SELECT ALARMCODE FROM MEM_TB_SERVICEVIEW WHERE VID=?</value>
+					<comments>查询车辆最新报警状态</comments>
+				</item>
+			</item>
+		</item>
+		<item name="control">
+			<comments>轨迹分析报文的插件</comments>
+			<item name="class1">
+				<value>com.ctfo.savecenter.addin.kcpt.commandmanager.CommandManagerKcptMainThread</value>
+				<comments>监控指令存储插件</comments>
+				<item name="count">
+					<value>5</value>
+					<comments>监控指令存储插件个数</comments>
+				</item>
+				<item name="commitCommandCount">
+					<value>10</value>
+					<comments>指令数据批量提交数量</comments>
+				</item>
+				<item name="commitMediaCount">
+					<value>10</value>
+					<comments>多媒体数据批量提交数量</comments>
+				</item>
+				<item name="commitTime">
+					<value>10</value>
+					<comments>批量数据库提交间隔时间(单位:S)</comments>
+				</item>
+				<item name="eventfileurl">
+					<value>/logs/file/event</value>
+					<comments>事件文件目录/usr/local/lbs/file/event</comments>
+				</item>
+				<item name="eloaddistfileurl">
+					<value>/logs/file/eloaddist</value>
+					<comments>发动机负荷率/usr/local/lbs/file/eloaddist</comments>
+				</item>
+				<item name="oilUrl">
+					<value>/logs/file/oilUrl</value>
+					<comments>油量变化文件/usr/local/lbs/file/oilUrl</comments>
+				</item>
+				<item name="sql_saveDownControlCommand">
+					<value>INSERT INTO TH_VEHICLE_COMMAND(OP_ID,VID,VEHICLE_NO,CO_SUTC,CO_TYPE,CO_FROM,CO_SEQ,CO_CHANNEL,CO_PARM,CO_COMMAND,CO_SUBTYPE,CREATE_BY,CREATE_TIME,AUTO_ID,CO_OEMCODE) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,SEQ_CMD_ID.NEXTVAL,?)</value>
+					<comments>存储控制指令的SQL语句</comments>
+				</item>
+				<item name="sql_updateUpControlCommand">
+					<value>UPDATE TH_VEHICLE_COMMAND SET CO_STATUS=? ,CR_TIME=?,CR_RESULT=? WHERE CO_SEQ=?</value>
+					<comments>更新控制指令的SQL语句</comments>
+				</item>
+				<item name="sql_updateVehiclePicture">
+					<value>UPDATE TH_VEHICLE_MEDIA SET MTYPE_CODE = ?,UTC = ?,MEDIA_URI = ?,LENS_NO = ?,LAT =?,LON=?,MAPLON=?,MAPLAT=?,ELEVATION=?,DIRECTION=?,GPS_SPEED=?,EVENTID=?,EVENT_STATUS=?,MFORMAT_CODE=?,EVENT_TYPE=?,DEVICE_NO=? WHERE MEDIA_ID = ( SELECT MEDIA_ID FROM (SELECT MEDIA_ID FROM  TH_VEHICLE_MEDIA WHERE VID = ?  AND (UTC IS NULL OR UTC = '')  ORDER BY SYSUTC) WHERE ROWNUM &lt; 2 ) </value>
+					<comments>更新车辆照片信息</comments>
+				</item>
+				<item name="sql_saveVehicleDispatchMsg">
+					<value>INSERT INTO TH_VEHICLE_DISPATCH_MSG (DMSG_ID,VID,VEHICLE_NO,DMSG_UTC,SEND_FLAG,SEQ,VEHICLE_COLOR,UMSG_SRTIME,UMSG_CONTENT) VALUES(SEQ_DISPATCH_ID.NEXTVAL,?,?,?,?,?,?,?,?) </value>
+					<comments>存储车辆调度信息</comments>
+				</item>
+				<item name="sql_updateVehicleDispatchMsg">
+					<value>UPDATE TH_VEHICLE_DISPATCH_MSG SET UMSG_SRTIME = ?, SEND_RESULT = ?,DMSG_STATUS=? WHERE SEQ = ? </value>
+					<comments>更新车辆调度信息</comments>
+				</item>
+				<item name="sql_updateTerminalParam">
+					<value>UPDATE TB_TERMINAL_HISTORY_PARAM SET SET_RESULT = ?, UPDATE_TIME = ?,UPDATE_BY = ? WHERE SEQ = ?</value>
+					<comments>更新终端参数历史</comments>
+				</item>
+				<item name="sql_updateLineSetting">
+					<value>UPDATE TR_LINE_VEHICLE SET SEND_COMMAND_STATUS = ?, UPDATE_TIME = ? WHERE SEQ = ?</value>
+					<comments>更新线路表</comments>
+				</item>
+				<item name="sql_updateAreaSetting">
+					<value>UPDATE TR_BIND_AREA SET SEND_STATUS = ?, RECEIVE_UTC = ? WHERE SEQ = ?</value>
+					<comments>更新电子围栏</comments>
+				</item>
+				<item name="sql_querySubType">
+					<value>SELECT CO_SUBTYPE FROM TH_VEHICLE_COMMAND WHERE CO_SEQ = ?</value>
+					<comments>查询指令子类型</comments>
+				</item>
+				<item name="sql_checkTerminalParam">
+					<value>SELECT T.PARAM_ID FROM TB_TERMINAL_PARAM T WHERE T.TID = ( SELECT S.TID FROM TR_SERVICEUNIT S WHERE VID = ?)</value>
+					<comments>核实终端参数设置</comments>
+				</item>
+				<item name="sql_saveTerminalParam">
+					<value>INSERT INTO TB_TERMINAL_PARAM (PARAM_ID,TID,PARAM_VALUE,CREATE_TIME,UPDATE_TIME) VALUES(?,NVL((SELECT S.TID FROM TR_SERVICEUNIT S WHERE VID = ?),0),?,?,?)</value>
+					<comments>存储终端参数设置</comments>
+				</item>
+				<item name="sql_updateTerminalParamInfo">
+					<value>UPDATE TB_TERMINAL_PARAM SET PARAM_VALUE =?,UPDATE_TIME=? WHERE TID = (SELECT S.TID FROM TR_SERVICEUNIT S WHERE VID = ?) AND PARAM_ID = ?</value>
+					<comments>更新终端参数信息</comments>
+				</item>
+				<item name="sql_updateTerminalUpdaeInfoVersion">
+					<value>UPDATE TB_TERMINAL_UPDATEINFO SET FINSIH_FLAG = ?,FINISH_TIME=? WHERE INFO_ID = (SELECT MAX(INFO_ID) FROM TB_TERMINAL_UPDATEINFO WHERE VID = ?)</value>
+					<comments>更新终端终端版本号</comments>
+				</item>
+				<item name="sql_updateTerminalVersion" >
+					<value>UPDATE TB_TERMINAL SET TER_HARDVER =?,TER_SOFTVER = ? WHERE TID = (SELECT S.TID FROM TR_SERVICEUNIT S WHERE VID = ?)</value>
+					<comments>更新终端终端版本号</comments>
+				</item>
+				<item name="sql_checkTerminalUpdaeInfoVersion">
+					<value>SELECT HARDWARE_VERSION,FIRMWARE_VERSION FROM TB_TERMINAL_UPDATEINFO WHERE INFO_ID = (SELECT MAX(INFO_ID) FROM TB_TERMINAL_UPDATEINFO WHERE VID = ?)</value>
+					<comments>更新终端终端版本号</comments>
+				</item>
+				<item name="sql_saveVehicleRegister">
+					<value>INSERT INTO TH_TERMINAL_REGISTER(AUTO_ID,TID,OEM_CODE,PROVINCE_ID,CITY_ID,MANUFACTURER_ID,VEHICLE_NO,VEHICLE_COLOR,UTC,RESULT,COMMADDR) VALUES(SEQ_ID.NEXTVAL,?,?,?,?,?,?,?,?,?,?)</value>
+					<comments>存储车辆注册信息</comments>
+				</item>
+				<item name="sql_saveVehicleAKey">
+					<value>INSERT INTO TH_VEHICLE_CHECKED(PID,COMMADDR,AKEY,RESULT,SEQ,UTC,RESULTUTC,OEM_CODE) VALUES(?,?,?,?,?,?,?,?)</value>
+					<comments>存储车辆鉴权信息</comments>
+				</item>
+				<item name="sql_saveVehicleLogOff" >
+					<value>INSERT INTO TH_VEHICLE_LOGOFF(PID,VID,RESULT,SEQ,UTC,RESULTUTC,OEM_CODE) VALUES(?,?,?,?,?,?,?)</value>
+					<comments>存储车辆注销信息</comments>
+				</item>
+				<item name="sql_updateVehicleLogOff" >
+					<value>UPDATE TH_TERMINAL_REGISTER SET LOGOFFUTC=? WHERE UTC= (SELECT MAX(UTC) FROM TH_TERMINAL_REGISTER WHERE TID= (SELECT L.TMAC FROM TB_TERMINAL L WHERE TID=( SELECT S.TID FROM TR_SERVICEUNIT S WHERE VID = ?)) AND RESULT=0 ) AND TID=(SELECT L.TMAC FROM TB_TERMINAL L WHERE TID=( SELECT S.TID FROM TR_SERVICEUNIT S WHERE VID = ?))</value>
+					<comments>更新车辆注销信息</comments>
+				</item>
+				<item name="sql_saveMultimediaEvent" >
+					<value>INSERT INTO TH_VEHICLE_MULTIMEDIA_EVENT(PID,VID,MULTIMEDIA_TYPE,MULTIMEDIA_FORMAT,EVENT_NUM,CHANNEL_ID,TAKINGSEQ,EVENT_TRIGGER_TIME,SYSUTC,MULT_MEDIA_ID) VALUES(?,?,?,?,?,?,?,?,?,?)</value>
+					<comments>存储多媒体事件信息</comments>
+				</item>
+				<item name="sql_saveDriverInfo" >
+					<value>INSERT INTO TH_VEHICLE_DRIVER(PID,VID,DRIVER_NAME,DRIVER_NO,DRIVER_CERTIFICATE,CERTIFICATE_AGENCY,UTC,STATUS) VALUES(?,?,?,?,?,?,?,?)</value>
+					<comments>存储驾驶员身份信息</comments>
+				</item>
+				<item name="sql_saveEticket">
+					<value>INSERT INTO TH_VEHICLE_ETICKET(PID,VID,CONTENT,UTC) VALUES(?,?,?,?)</value>
+					<comments>存储电子运单历史信息</comments>
+				</item>
+				<item name="sql_saveMediaIdx" >
+					<value>INSERT INTO TH_VEHICLE_MEDIA_IDX (PID,SEQ,VID,MEDIA_ID,MTYPE_CODE,LENS_NO,EVENT_TYPE,LAT,LON,MAPLON,MAPLAT,DIRECTION,GPS_SPEED,GPS_TIME,SYSUTC) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+					<comments>存储多媒体数据检索</comments>
+				</item>
+				<item name="sql_saveMultMedia" >
+					<value>INSERT INTO TH_VEHICLE_MEDIA (MEDIA_ID,MULT_MEDIA_ID,VID,DEVICE_NO,MTYPE_CODE,MFORMAT_CODE,EVENT_TYPE,UTC,MEDIA_URI,LENS_NO,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,STATUS_CODE,ENABLE_FLAG,EVENT_TRIGGER_TIME,SYSUTC,DEV_TYPE) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,1,?,?,?)</value>
+					<comments>存储多媒体数据</comments>
+				</item>
+				<item name="sql_saveEventId">
+					<value>INSERT INTO TH_VEHICLE_EVENTS (PID,VID,EVENT_ID,UTC) VALUES(?,?,?,?)</value>
+					<comments>存储事件ID</comments>
+				</item>
+				<item name="sql_updateQuerstionAnswer">
+					<value>UPDATE TH_QUESTION_ANSWER T SET T.REPLY_UTC = ?, T.ANSWER_CONTENT = ? WHERE T.SEQ = ?</value>
+					<comments>更新提问应答</comments>
+				</item>
+				<item name="sql_saveBridge">
+					<value>INSERT INTO TH_VEHICLE_BRIDGE (PID,VID,UTC,CONTENT,TYPE,MSGTYPE) VALUES(?,?,?,?,0,?)</value>
+					<comments>存储数据上行透传</comments>
+				</item>
+				<item name="sql_saveCompress">
+					<value>INSERT INTO TH_VEHICLE_COMPRESS (PID,VID,UTC,CONTENT) VALUES(?,?,?,?)</value>
+					<comments>存储数据上行透传</comments>
+				</item>
+				<item name="sql_saveRecorder">
+					<value>INSERT INTO TH_VEHICLE_RECORDER (PID,VID,UTC,CONTENT,CO_SEQ) VALUES(?,?,?,?,?)</value>
+					<comments>存储行驶记录仪</comments>
+				</item>
+				<item name="sql_saveInfoplay">
+					<value>INSERT INTO TH_VEHICLE_INFOPLAY (PID,VID,TYPE,UTC,STATUS) VALUES(?,?,?,?,?)</value>
+					<comments>存储信息点播取消</comments>
+				</item>
+				<item name="sql_updatePhotoSetting">
+					<value>UPDATE TH_PHOTO_SETTINGS_LOG SET SEND_STATUS = ? WHERE COMMAND_SEQ = ?</value>
+					<comments>更新触发拍照状态</comments>
+				</item>
+				<item name="sql_saveOilChanged">
+					<value>INSERT INTO TH_OILMASS_CHANGE_DETAIL (CHANGE_ID,CHANGE_TYPE,VID,UTC,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,SYSUTC,CURR_OILLEVEL,CURR_OILMAS,CHANGE_OILMASS) VALUES(SEQ_OILMASS_CHANGE_ID.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+					<comments>存储油量监控变化</comments>
+				</item>
+				<item name="sql_saveDriverLoginInfo">
+					<value>INSERT INTO TH_DRIVER_LOGIN_RECORD (AUTO_ID,VID,DEVICE_NO,STAFF_NAME,DRIVER_CODE,DRIVER_IDNO,QUALIFICATION_NO,ISSUE_NAME,DRIVER_ICCARD,ON_LINE_TIME,STATUS,WRITE_TIME,TERMINAL_TIME) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+					<comments>存储驾驶员登录信息</comments>
+				</item>
+				<item name="sql_selectDriverInfo">
+					<value>SELECT STAFF_ID,DRIVER_ICCARD FROM TB_EMPLOYEE WHERE STAFF_NAME = ? AND CARD_ID = ?</value>
+					<comments>查询驾驶员登录信息</comments>
+				</item>
+				<item name="sql_updateSIMiccid">
+					<value>
+						UPDATE TB_SIM
+						   SET ICCID_ELECTRON = ?
+						 WHERE COMMADDR = ?
+						   AND ENABLE_FLAG = 1
+					</value>
+					<comments>更新SIM卡ICCID </comments>
+				</item>
+				<item name="sql_saveStealOilAlarm">
+					<value>INSERT INTO TH_VEHICLE_ALARM (ALARM_ID,VID,UTC,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,ALARM_CODE,SYSUTC,ALARM_START_UTC,BGLEVEL,ALARM_END_UTC,END_LAT,END_LON,END_MAPLAT,END_MAPLON,END_ELEVATION,END_DIRECTION,END_GPS_SPEED,ALARM_STATUS) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,0)</value>
+					<comments>存储偷油告警</comments>
+				</item>
+				<comments>MYSQL指令操作</comments>
+				<item name="mysql_sql_saveDownControlCommand">
+					<value>INSERT INTO MEM_TH_VEHICLE_COMMAND(OP_ID,VID,VEHICLE_NO,CO_SUTC,CO_TYPE,CO_SEQ,CO_CHANNEL,CO_PARM,CO_COMMAND,CO_OEMCODE,CO_SUBTYPE,CREATE_BY,CREATE_TIME)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+					<comments>存储控制指令的SQL语句</comments>
+				</item>
+				<item name="mysql_sql_updateUpControlCommand">
+					<value>UPDATE MEM_TH_VEHICLE_COMMAND SET CO_STATUS=?,CR_TIME=?,CR_RESULT=? WHERE CO_SEQ=?</value>
+					<comments>更新控制指令的SQL语句</comments>
+				</item>
+				<item name="mysql_sql_updateVehiclePicture">
+					<value>INSERT MEM_TH_VEHICLE_MEDIA  (MTYPE_CODE,UTC,MEDIA_URI,LENS_NO,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,EVENTID,MEDIA_ID,VID,DEVICE_NO,STATUS_CODE,ENABLE_FLAG,EVENT_TRIGGER_TIME) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,1,?) </value>
+					<comments>存储车辆拍照照片信息</comments>
+				</item>
+				<item name="sql_saveEngineFaultInfo">
+					<value>INSERT INTO KCPT.TH_ENG_BUG(BUG_ID,VID,VEHICLE_NO,VIN_CODE,COMMADDR,STATUS,BUG_CODE,BUG_DESC,BUG_FLAG,BASIC_CODE,LAT,LON,MAPLAT,MAPLON,ELEVATION,DIRECTION,GPS_SPEEDING,REPORT_TIME) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) </value>
+					<comments>存储发动机故障信息</comments>
+				</item>
+				<item name="sql_updateEngBugDispose">
+					<value>UPDATE KCPT.TH_ENG_BUG_DISPOSE SET CLEAR_FLAG=? WHERE CO_SEQ=?</value>
+					<comments>更新发动机故障处理信息</comments>
+				</item>
+				<item name="sql_deleteEngVersionInfo">
+					<value>DELETE FROM KCPT.TB_ENG_VERSION WHERE VID=? AND VIN_CODE=? AND COMMADDR=?</value>
+					<comments>删除发动机版本信息</comments>
+				</item>
+				<item name="sql_saveEngVersionInfo">
+					<value>INSERT INTO KCPT.TB_ENG_VERSION(VERSION_ID,VID,VEHICLE_NO,VIN_CODE,COMMADDR,VERSION_CODE,VERSION_VAULE,REPORT_TIME) VALUES(?,?,?,?,?,?,?,?)</value>
+					<comments>存储发动机版本信息</comments>
+				</item>
+				<item name="sql_saveOrUpdateLockVehicleDetail">
+					<value>
+					MERGE INTO TB_LOCK_VEHICLE_DETAIL T1
+						USING (SELECT ? AS PID,? AS VID,? AS VEHICLE_STATUS,? AS LOCK_TYPE,? AS MAX_RPM,? AS PRE_LOCK_TIME,? AS UPDATE_TIME FROM dual) T2
+						ON ( T1.VID=T2.VID)
+						WHEN MATCHED THEN
+						  UPDATE SET T1.VEHICLE_STATUS=T2.VEHICLE_STATUS,T1.LOCK_TYPE=T2.LOCK_TYPE,T1.MAX_RPM=T2.MAX_RPM,T1.PRE_LOCK_TIME=T2.PRE_LOCK_TIME,T1.UPDATE_TIME=T2.UPDATE_TIME
+						WHEN NOT MATCHED THEN 
+						  INSERT (PID,VID,VEHICLE_STATUS,LOCK_TYPE,MAX_RPM,PRE_LOCK_TIME,UPDATE_TIME) VALUES(T2.PID,T2.VID,T2.VEHICLE_STATUS,T2.LOCK_TYPE,T2.MAX_RPM,T2.PRE_LOCK_TIME,T2.UPDATE_TIME)
+					</value>
+					<comments>插入或者更新锁车信息</comments>
+				</item>
+				<item name="sql_updateUnlockCode">
+					<value>
+					UPDATE KCPT.TB_LOCK_VEHICLE_DETAIL SET UNLOCK_CODE=?,VEHICLE_STATUS=? WHERE VID=?
+					</value>
+					<comments>更新解锁码</comments>
+				</item>
+				<item name="sql_updateLockVehicleStatusStatement">
+					<value>
+					UPDATE KCPT.TB_LOCK_VEHICLE_DETAIL SET VEHICLE_STATUS=?,UPDATE_TIME=? WHERE VID=?
+					</value>
+					<comments>更新锁车状态</comments>
+				</item>
+				<item name="sql_saveQualityRecord">
+					<value>
+					INSERT INTO TB_QUALITY_RECORD
+					  (ID,VID,VIN,RECORD_TIME,RECORD_PARAM,
+					   RECORD_VALUE,TERMINAL_CONFIG,GPRS_STRENGTH,GPS_STATE,SPEED_PLUS)
+					VALUES
+					  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+					</value>
+					<comments>保存质检单信息</comments>
+				</item>
+			</item>
+		</item>
+	</item>
+	
+	<item name="database">
+		<comments>数据库连接配置</comments>
+		<item name="DbImpl">
+			<value>com.ctfo.savecenter.dao.MonitorDBAdapter</value>
+			<comments>数据接口驱动类型</comments>
+		</item>
+		<item name="JDBCDriver">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+			<comments>数据库类型</comments>
+		</item>
+		<item name="JDBCUrl">
+			<value>jdbc:oracle:thin:@192.168.100.84:1521:orcl</value>
+			<comments>数据库连接URL 192.168.5.120:1521:orcl</comments>
+		</item>
+		<item name="JDBCUser">
+			<value>kcpt</value>
+			<comments>数据库登录用户名</comments>
+		</item>
+		<item name="JDBCPassword">
+			<value>kcpt_2013</value>
+			<comments>ORACLE数据库登录密码</comments>
+		</item>
+
+		<item name="MysqlJDBCDriver">
+			<value>com.mysql.jdbc.Driver</value>
+			<comments>Mysql数据库类型</comments>
+		</item>
+		<item name="MysqlJDBCUrl">
+			<value>jdbc:mysql://192.168.100.84:3306/KCPT?autoreconnect=true&amp;characterEncoding=GBK</value>
+			<comments>Mysql数据库连接URL 192.168.2.13:3306</comments>
+		</item>
+		<item name="MysqlJDBCUser">
+			<value>root</value>
+			<comments>Mysql数据库登录用户名</comments>
+		</item>
+		<item name="MysqlJDBCPassword">
+			<value>123456</value>
+			<comments>Mysql数据库登录密码</comments>
+		</item>
+		<item name="DBReconnectWait">
+			<value>60000</value>
+			<comments>数据库断线重连延时(秒)</comments>
+		</item>
+		<item name="delay">
+			<value>3600000</value>
+			<comments>检测线程休眠时间</comments>
+		</item>
+		<item name="connectionPoolSize">
+			<value>50</value>
+			<comments>连接池连接数目</comments>
+		</item>
+		<item name="minLimit">
+			<value>10</value>
+			<comments>连接池最小连接数</comments>
+		</item>
+		<item name="InitialLimit">
+			<value>10</value>
+			<comments>连接池初始化连接数</comments>
+		</item>
+		<item name="abandonedConnectionTimeout">
+			<value>30</value>
+			<comments>30Sets the maximum time that a connection can remain unused before the connection is closed and returned to the cache(单位:S)</comments>
+		</item>
+		<item name="propertyCheckInterval">
+			<value>60</value>
+			<comments>60Sets the time interval at which the cache manager inspects and enforces all specified cache properties (单位:S)</comments>
+		</item>
+		<item name="inactivityTimeout">
+			<value>30</value>
+			<comments>30Sets the maximum time a physical connection can remain idle in a connection cache.(单位:S)</comments>
+		</item>
+		<item name="redisHost">
+			<value>192.168.100.74</value>
+			<comments>连接REDIS HOST</comments>
+		</item>
+		<item name="redisPort">
+			<value>6379</value>
+			<comments>连接REDIS PORT</comments>
+		</item>
+		<item name="redisPwd">
+			<value>kcpt</value>
+			<comments>连接 REDIS 密码</comments>
+		</item>
+		<item name="redisMaxWait">
+			<value>1000</value>
+			<comments>连接REDIS 超时时间(单位：秒)</comments>
+		</item>
+		<item name="redisTimeout">
+			<value>1000</value>
+			<comments>连接超时时间</comments>
+		</item>
+		<item name="redisMaxActive">
+			<value>200</value>
+			<comments>pool最多有多少个状态为idle</comments>
+		</item>
+		<item name="redisMaxIdle">
+			<value>20</value>
+			<comments>最大能够保持空闲状态的对象数 </comments>
+		</item>
+		<item name="sqlstatement">
+			<comments>轨迹存储SQL语句</comments>
+			<item name="sql_queryAllVehicle">
+				<value>SELECT v.TYRE_R,v.REAR_AXLE_RATE,v.vehicle_no, S.SUID,V.VID AS VID,PLATE_COLOR AS plate_color_id,M.COMMADDR AS t_identifyno,T.OEM_CODE AS oemcode,T.TMODEL_CODE,T.TID,V.VIN_CODE FROM TB_SIM M INNER JOIN TR_SERVICEUNIT S ON S.SID = M.SID INNER JOIN TB_VEHICLE V ON V.VID = S.VID INNER JOIN TB_TERMINAL T ON T.TID = S.TID WHERE COMMADDR IS NOT NULL AND V.ENABLE_FLAG =1 AND T.ENABLE_FLAG =1</value>
+				<comments>初始化加载所有车辆基本信息 </comments>
+			</item>
+			<item name="sql_queryVehicleByMacid">
+				<value>SELECT S.SUID,V.VID AS VID,PLATE_COLOR AS plate_color_id,M.COMMADDR AS t_identifyno,T.OEM_CODE AS oemcode,T.TMODEL_CODE,T.TID,vehicle_no,TYRE_R,REAR_AXLE_RATE,V.VIN_CODE FROM TB_SIM M INNER JOIN TR_SERVICEUNIT S ON S.SID = M.SID INNER JOIN TB_VEHICLE V ON V.VID = S.VID INNER JOIN TB_TERMINAL T ON T.TID = S.TID  WHERE COMMADDR = ? AND T.OEM_CODE = ? AND V.ENABLE_FLAG =1 AND T.ENABLE_FLAG =1</value>
+				<comments>如果内存中不存在当前车辆信息，则从数据库加载</comments>
+			</item>
+			<item name="update3GPhotoVehicleInfoSql">
+				<value>SELECT S.SUID,V.VID AS VID,PLATE_COLOR AS plate_color_id,M.COMMADDR AS t_identifyno,T.OEM_CODE AS oemcode,T.TMODEL_CODE,T.TID,vehicle_no,TYRE_R,REAR_AXLE_RATE,TD.DVR_SIMNUM,V.VIN_CODE FROM TB_SIM M INNER JOIN TR_SERVICEUNIT S ON S.SID = M.SID INNER JOIN TB_VEHICLE V ON V.VID = S.VID INNER JOIN TB_TERMINAL T ON T.TID = S.TID INNER JOIN KCPT.TB_DVR TD ON TD.DVR_ID = S.DVR_ID  WHERE TD.DVR_SIMNUM IS NOT NULL AND V.ENABLE_FLAG =1 AND T.ENABLE_FLAG =1 AND T.TER_STATE=2</value>
+				<comments>更新3G手机号对应MAC_ID的车辆信息</comments>
+			</item>
+			<item name="sql_queryVehicleStatusCode">
+					<value> 
+						SELECT V.VID, TERMINAL_STATUS_VALTYPE,MIN_TERMINAL_STATUS,MAX_TERMINAL_STATUS,
+						 GPS_STATUS_VALTYPE,MIN_GPS_STATUS,MAX_GPS_STATUS,
+						 E_WATER_TEMP_VALTYPE,MIN_E_WATER_TEMP,MAX_E_WATER_TEMP,
+						 EXT_VOLTAGE_VALTYPE,MIN_EXT_VOLTAGE,MAX_EXT_VOLTAGE,
+						 OIL_PRESSURE_VALTYPE,MIN_OIL_PRESSURE,MAX_OIL_PRESSURE,
+						 BRAKE_PRESSURE_VALTYPE,MIN_BRAKE_PRESSURE,MAX_BRAKE_PRESSURE,
+						 BRAKEPAD_FRAY_VALTYPE,MIN_BRAKEPAD_FRAY,MAX_BRAKEPAD_FRAY,
+						 OIL_ALARM_VALTYPE,MIN_OIL_ALARM,MAX_OIL_ALARM,ABS_BUG_VALTYPE,
+						 MIN_ABS_BUG,MAX_ABS_BUG,COOLANT_LEVEL_VALTYPE,MIN_COOLANT_LEVEL,
+						 MAX_COOLANT_LEVEL,AIR_FILTER_CLOG_VALTYPE,MIN_AIR_FILTER_CLOG,
+						 MAX_AIR_FILTER_CLOG,MWERE_BLOCKING_VALTYPE,MIN_MWERE_BLOCKING,
+						 MAX_MWERE_BLOCKING,FUEL_BLOCKING_VALTYPE,MIN_FUEL_BLOCKING,
+						 MAX_FUEL_BLOCKING,EOIL_TEMPERATURE_VALTYPE,MIN_EOIL_TEMPERATURE_ALARM,
+						 MAX_EOIL_TEMPERATURE_ALARM,RETARDER_HT_ALARM_VALTYPE,MIN_RETARDER_HT_ALARM,
+						 MAX_RETARDER_HT_ALARM,EHOUSING_HT_ALARM_VALTYPE,MIN_EHOUSING_HT_ALARM
+						 ,MAX_EHOUSING_HT_ALARM,AIR_PRESSURE_VALTYPE,MIN_AIR_PRESSURE,MAX_AIR_PRESSURE FROM TB_VSTATUS_REF S INNER JOIN TB_VEHICLE V ON S.VS_REF_ID = V.VS_REF_ID WHERE V.VID = ?
+					</value>
+					<comments>根据车辆ID查询车辆状态编码信息</comments>
+				</item>
+				<item name="sql_queryVehicleInfo">
+					<value>SELECT V.REAR_AXLE_RATE,V.TYRE_R,V.VEHICLE_NO,V.VIN_CODE,V.VLINE_ID,V.INNER_CODE, O.ENT_ID,O.ENT_NAME,E.ENT_ID AS EID, E.ENT_NAME AS ENAME, VS.STAFF_ID,EMP.STAFF_NAME,V.VBRAND_CODE FROM TB_VEHICLE V LEFT JOIN TB_ORGANIZATION O  ON V.ENT_ID = O.ENT_ID LEFT JOIN TB_ORGANIZATION E ON E.ENT_ID = O.PARENT_ID LEFT JOIN TR_VEHICLE_STAFF VS ON VS.VID = V.VID LEFT JOIN TB_EMPLOYEE EMP ON EMP.STAFF_ID = VS.STAFF_ID WHERE V.VID = ?</value>
+					<comments>查询 后桥速比,轮胎滚动半径,车辆编号，车架号，企业编号，企业名称，车队编号，车队名称,车牌号、车辆内部编码、线路、司机 </comments>
+				</item>
+				<item name="sql_queryAlarmType">
+					<value>SELECT ALARM_CODE ,ALARM_NAME,A_TYPE,PARENT_CODE FROM SYS_ALARM_TYPE WHERE PARENT_CODE != '-1'</value>
+					<comments>查询报警编码 </comments>
+				</item>
+				<item name="sql_queryDeleteVehicle">
+					<value>SELECT VID FROM TB_VEHICLE WHERE ENABLE_FLAG='0' and UPDATE_TIME &gt;?</value>
+					<comments>查询报警编码 </comments>
+				</item>
+				<item name="sql_corpHasAlarmLevel">
+					<value>
+					  SELECT DISTINCT AET.ENT_ID
+					    FROM KCPT.TB_ALARM_ENT_CONF AET, KCPT.TB_ALARM_ENT_INFO AEI
+					   WHERE AET.SYS_ALARM_LEVEL_ID = 1
+					     AND AEI.TB_ALARM_ENT_CONF_ID = AET.PID
+					</value>
+					<comments>查询有告警设置企业列表</comments>
+				</item>
+				<item name="sql_corpToListVid">
+					<value>
+					  SELECT TV.ENT_ID, VID
+					  FROM (SELECT T.ENT_ID
+					          FROM TB_ORGANIZATION T
+					         WHERE T.ENABLE_FLAG != 0
+					           AND T.ENT_TYPE = 2
+					         START WITH T.PARENT_ID = ?
+					        CONNECT BY PRIOR T.ENT_ID = T.PARENT_ID) ET,
+					       KCPT.TB_VEHICLE TV
+					 WHERE TV.ENABLE_FLAG = 1
+					   AND TV.VEHICLE_STATE = 2
+					   AND TV.ENT_ID = ET.ENT_ID
+					</value>
+					<comments>查询设置告警等级企业对应车辆LIST</comments>
+				</item>
+				<item name="sql_corpToListAlarm">
+					<value>
+					 SELECT AEI.SYS_ALARM_TYPE_ID
+					  FROM KCPT.TB_ALARM_ENT_CONF AET, KCPT.TB_ALARM_ENT_INFO AEI
+					 WHERE AEI.SYS_ALARM_TYPE_ID NOT LIKE 'A%'  AND AEI.SYS_ALARM_TYPE_ID NOT LIKE 'B%' AND ENT_ID = ?
+					   AND AEI.TB_ALARM_ENT_CONF_ID = AET.PID
+					</value>
+					<comments>查询设置企业对应报警列表</comments>
+				</item>
+		</item>
+	</item>
+</xconf>

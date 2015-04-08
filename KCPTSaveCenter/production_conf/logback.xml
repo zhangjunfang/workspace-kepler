@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<substitutionProperty name="log.base" value="/logs/savecenter" />
+	<!--appender 输出目的地 file 文件   -->
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.base}/savecenter.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.base}/savecenter-%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+		</rollingPolicy>
+		<!-- 编码格式解析器 -->
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} [%logger]-[%le] - %m%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 日志级别 -->
+	<root level="DEBUG">
+		<appender-ref ref="file" />
+	</root>
+</configuration>
