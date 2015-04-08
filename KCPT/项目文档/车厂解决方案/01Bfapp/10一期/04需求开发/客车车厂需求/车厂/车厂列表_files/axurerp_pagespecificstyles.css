@@ -1,0 +1,4700 @@
+body {
+    margin: 0px;
+}
+
+div {
+    background-repeat: no-repeat;
+}
+
+.raw_image {
+    width: 100%;
+    height: 100%;
+}
+
+.preload {
+    display: none;
+}
+div.main_container {
+}
+
+.form_sketch {
+    border-color: transparent;
+    background-color: transparent;
+}
+
+#u0 {
+    position:absolute;
+    left:10px;
+    top:10px;
+    width:1165px;
+    height:339px
+}
+
+.u0_table {
+    background-image: url('../车厂列表_files/u0_table.png');
+}
+
+.u0_table {
+    position:absolute;
+    left:-3px;
+    top:-3px;
+    width:1169px;
+    height:343px;
+}
+
+.u1_original {
+    background-image: url('../车厂列表_files/u1_original.png');
+}
+
+.u1_container {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:27px;
+    height:20px;
+}
+
+.u2 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u1 {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:27px;
+    height:20px
+}
+
+.u3_original {
+    background-image: url('../车厂列表_files/u3_original.png');
+}
+
+.u3_container {
+    position:absolute;
+    left:27px;
+    top:0px;
+    width:91px;
+    height:20px;
+}
+
+.u4 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:87px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u3 {
+    position:absolute;
+    left:27px;
+    top:0px;
+    width:91px;
+    height:20px
+}
+
+.u5_original {
+    background-image: url('../车厂列表_files/u5_original.png');
+}
+
+.u5_container {
+    position:absolute;
+    left:118px;
+    top:0px;
+    width:125px;
+    height:20px;
+}
+
+.u6 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:121px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u5 {
+    position:absolute;
+    left:118px;
+    top:0px;
+    width:125px;
+    height:20px
+}
+
+.u7_original {
+    background-image: url('../车厂列表_files/u7_original.png');
+}
+
+.u7_container {
+    position:absolute;
+    left:243px;
+    top:0px;
+    width:115px;
+    height:20px;
+}
+
+.u8 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:111px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u7 {
+    position:absolute;
+    left:243px;
+    top:0px;
+    width:115px;
+    height:20px
+}
+
+.u9_original {
+    background-image: url('../车厂列表_files/u9_original.png');
+}
+
+.u9_container {
+    position:absolute;
+    left:357px;
+    top:0px;
+    width:118px;
+    height:20px;
+}
+
+.u10 {
+    position:absolute;
+    left:2px;
+    top:3px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u9 {
+    position:absolute;
+    left:357px;
+    top:0px;
+    width:118px;
+    height:20px
+}
+
+.u11_original {
+    background-image: url('../车厂列表_files/u11_original.png');
+}
+
+.u11_container {
+    position:absolute;
+    left:476px;
+    top:0px;
+    width:103px;
+    height:20px;
+}
+
+.u12 {
+    position:absolute;
+    left:2px;
+    top:3px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u11 {
+    position:absolute;
+    left:476px;
+    top:0px;
+    width:103px;
+    height:20px
+}
+
+.u13_original {
+    background-image: url('../车厂列表_files/u13_original.png');
+}
+
+.u13_container {
+    position:absolute;
+    left:578px;
+    top:0px;
+    width:77px;
+    height:20px;
+}
+
+.u14 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:73px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u13 {
+    position:absolute;
+    left:578px;
+    top:0px;
+    width:77px;
+    height:20px
+}
+
+.u15_original {
+    background-image: url('../车厂列表_files/u15_original.png');
+}
+
+.u15_container {
+    position:absolute;
+    left:655px;
+    top:0px;
+    width:110px;
+    height:20px;
+}
+
+.u16 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:106px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u15 {
+    position:absolute;
+    left:655px;
+    top:0px;
+    width:110px;
+    height:20px
+}
+
+.u17_original {
+    background-image: url('../车厂列表_files/u17_original.png');
+}
+
+.u17_container {
+    position:absolute;
+    left:765px;
+    top:0px;
+    width:152px;
+    height:20px;
+}
+
+.u18 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:148px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u17 {
+    position:absolute;
+    left:765px;
+    top:0px;
+    width:152px;
+    height:20px
+}
+
+.u19_original {
+    background-image: url('../车厂列表_files/u19_original.png');
+}
+
+.u19_container {
+    position:absolute;
+    left:917px;
+    top:0px;
+    width:94px;
+    height:20px;
+}
+
+.u20 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:90px;
+    height:13px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u19 {
+    position:absolute;
+    left:917px;
+    top:0px;
+    width:94px;
+    height:20px
+}
+
+.u21_original {
+    background-image: url('../车厂列表_files/u21_original.png');
+}
+
+.u21_container {
+    position:absolute;
+    left:1010px;
+    top:0px;
+    width:150px;
+    height:20px;
+}
+
+.u22 {
+    position:absolute;
+    left:2px;
+    top:2px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u21 {
+    position:absolute;
+    left:1010px;
+    top:0px;
+    width:150px;
+    height:20px
+}
+
+.u23_original {
+    background-image: url('../车厂列表_files/u23_original.png');
+}
+
+.u23_container {
+    position:absolute;
+    left:0px;
+    top:20px;
+    width:27px;
+    height:24px;
+}
+
+.u24 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u23 {
+    position:absolute;
+    left:0px;
+    top:20px;
+    width:27px;
+    height:24px
+}
+
+.u25_original {
+    background-image: url('../车厂列表_files/u25_original.png');
+}
+
+.u25_container {
+    position:absolute;
+    left:27px;
+    top:20px;
+    width:91px;
+    height:24px;
+}
+
+.u26 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u25 {
+    position:absolute;
+    left:27px;
+    top:20px;
+    width:91px;
+    height:24px
+}
+
+.u27_original {
+    background-image: url('../车厂列表_files/u27_original.png');
+}
+
+.u27_container {
+    position:absolute;
+    left:118px;
+    top:20px;
+    width:125px;
+    height:24px;
+}
+
+.u28 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u27 {
+    position:absolute;
+    left:118px;
+    top:20px;
+    width:125px;
+    height:24px
+}
+
+.u29_original {
+    background-image: url('../车厂列表_files/u29_original.png');
+}
+
+.u29_container {
+    position:absolute;
+    left:243px;
+    top:20px;
+    width:115px;
+    height:24px;
+}
+
+.u30 {
+    position:absolute;
+    left:2px;
+    top:3px;
+    width:111px;
+    height:18px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u29 {
+    position:absolute;
+    left:243px;
+    top:20px;
+    width:115px;
+    height:24px
+}
+
+.u31_original {
+    background-image: url('../车厂列表_files/u31_original.png');
+}
+
+.u31_container {
+    position:absolute;
+    left:357px;
+    top:20px;
+    width:118px;
+    height:24px;
+}
+
+.u32 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u31 {
+    position:absolute;
+    left:357px;
+    top:20px;
+    width:118px;
+    height:24px
+}
+
+.u33_original {
+    background-image: url('../车厂列表_files/u33_original.png');
+}
+
+.u33_container {
+    position:absolute;
+    left:476px;
+    top:20px;
+    width:103px;
+    height:24px;
+}
+
+.u34 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u33 {
+    position:absolute;
+    left:476px;
+    top:20px;
+    width:103px;
+    height:24px
+}
+
+.u35_original {
+    background-image: url('../车厂列表_files/u35_original.png');
+}
+
+.u35_container {
+    position:absolute;
+    left:578px;
+    top:20px;
+    width:77px;
+    height:24px;
+}
+
+.u36 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u35 {
+    position:absolute;
+    left:578px;
+    top:20px;
+    width:77px;
+    height:24px
+}
+
+.u37_original {
+    background-image: url('../车厂列表_files/u37_original.png');
+}
+
+.u37_container {
+    position:absolute;
+    left:655px;
+    top:20px;
+    width:110px;
+    height:24px;
+}
+
+.u38 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u37 {
+    position:absolute;
+    left:655px;
+    top:20px;
+    width:110px;
+    height:24px
+}
+
+.u39_original {
+    background-image: url('../车厂列表_files/u39_original.png');
+}
+
+.u39_container {
+    position:absolute;
+    left:765px;
+    top:20px;
+    width:152px;
+    height:24px;
+}
+
+.u40 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u39 {
+    position:absolute;
+    left:765px;
+    top:20px;
+    width:152px;
+    height:24px
+}
+
+.u41_original {
+    background-image: url('../车厂列表_files/u41_original.png');
+}
+
+.u41_container {
+    position:absolute;
+    left:917px;
+    top:20px;
+    width:94px;
+    height:24px;
+}
+
+.u42 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u41 {
+    position:absolute;
+    left:917px;
+    top:20px;
+    width:94px;
+    height:24px
+}
+
+.u43_original {
+    background-image: url('../车厂列表_files/u43_original.png');
+}
+
+.u43_container {
+    position:absolute;
+    left:1010px;
+    top:20px;
+    width:150px;
+    height:24px;
+}
+
+.u44 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u43 {
+    position:absolute;
+    left:1010px;
+    top:20px;
+    width:150px;
+    height:24px
+}
+
+.u45_original {
+    background-image: url('../车厂列表_files/u45_original.png');
+}
+
+.u45_container {
+    position:absolute;
+    left:0px;
+    top:44px;
+    width:27px;
+    height:28px;
+}
+
+.u46 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u45 {
+    position:absolute;
+    left:0px;
+    top:44px;
+    width:27px;
+    height:28px
+}
+
+.u47_original {
+    background-image: url('../车厂列表_files/u47_original.png');
+}
+
+.u47_container {
+    position:absolute;
+    left:27px;
+    top:44px;
+    width:91px;
+    height:28px;
+}
+
+.u48 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u47 {
+    position:absolute;
+    left:27px;
+    top:44px;
+    width:91px;
+    height:28px
+}
+
+.u49_original {
+    background-image: url('../车厂列表_files/u49_original.png');
+}
+
+.u49_container {
+    position:absolute;
+    left:118px;
+    top:44px;
+    width:125px;
+    height:28px;
+}
+
+.u50 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u49 {
+    position:absolute;
+    left:118px;
+    top:44px;
+    width:125px;
+    height:28px
+}
+
+.u51_original {
+    background-image: url('../车厂列表_files/u51_original.png');
+}
+
+.u51_container {
+    position:absolute;
+    left:243px;
+    top:44px;
+    width:115px;
+    height:28px;
+}
+
+.u52 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:111px;
+    height:18px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u51 {
+    position:absolute;
+    left:243px;
+    top:44px;
+    width:115px;
+    height:28px
+}
+
+.u53_original {
+    background-image: url('../车厂列表_files/u53_original.png');
+}
+
+.u53_container {
+    position:absolute;
+    left:357px;
+    top:44px;
+    width:118px;
+    height:28px;
+}
+
+.u54 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u53 {
+    position:absolute;
+    left:357px;
+    top:44px;
+    width:118px;
+    height:28px
+}
+
+.u55_original {
+    background-image: url('../车厂列表_files/u55_original.png');
+}
+
+.u55_container {
+    position:absolute;
+    left:476px;
+    top:44px;
+    width:103px;
+    height:28px;
+}
+
+.u56 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u55 {
+    position:absolute;
+    left:476px;
+    top:44px;
+    width:103px;
+    height:28px
+}
+
+.u57_original {
+    background-image: url('../车厂列表_files/u57_original.png');
+}
+
+.u57_container {
+    position:absolute;
+    left:578px;
+    top:44px;
+    width:77px;
+    height:28px;
+}
+
+.u58 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u57 {
+    position:absolute;
+    left:578px;
+    top:44px;
+    width:77px;
+    height:28px
+}
+
+.u59_original {
+    background-image: url('../车厂列表_files/u59_original.png');
+}
+
+.u59_container {
+    position:absolute;
+    left:655px;
+    top:44px;
+    width:110px;
+    height:28px;
+}
+
+.u60 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u59 {
+    position:absolute;
+    left:655px;
+    top:44px;
+    width:110px;
+    height:28px
+}
+
+.u61_original {
+    background-image: url('../车厂列表_files/u61_original.png');
+}
+
+.u61_container {
+    position:absolute;
+    left:765px;
+    top:44px;
+    width:152px;
+    height:28px;
+}
+
+.u62 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u61 {
+    position:absolute;
+    left:765px;
+    top:44px;
+    width:152px;
+    height:28px
+}
+
+.u63_original {
+    background-image: url('../车厂列表_files/u63_original.png');
+}
+
+.u63_container {
+    position:absolute;
+    left:917px;
+    top:44px;
+    width:94px;
+    height:28px;
+}
+
+.u64 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u63 {
+    position:absolute;
+    left:917px;
+    top:44px;
+    width:94px;
+    height:28px
+}
+
+.u65_original {
+    background-image: url('../车厂列表_files/u65_original.png');
+}
+
+.u65_container {
+    position:absolute;
+    left:1010px;
+    top:44px;
+    width:150px;
+    height:28px;
+}
+
+.u66 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u65 {
+    position:absolute;
+    left:1010px;
+    top:44px;
+    width:150px;
+    height:28px
+}
+
+.u67_original {
+    background-image: url('../车厂列表_files/u23_original.png');
+}
+
+.u67_container {
+    position:absolute;
+    left:0px;
+    top:72px;
+    width:27px;
+    height:24px;
+}
+
+.u68 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u67 {
+    position:absolute;
+    left:0px;
+    top:72px;
+    width:27px;
+    height:24px
+}
+
+.u69_original {
+    background-image: url('../车厂列表_files/u25_original.png');
+}
+
+.u69_container {
+    position:absolute;
+    left:27px;
+    top:72px;
+    width:91px;
+    height:24px;
+}
+
+.u70 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u69 {
+    position:absolute;
+    left:27px;
+    top:72px;
+    width:91px;
+    height:24px
+}
+
+.u71_original {
+    background-image: url('../车厂列表_files/u27_original.png');
+}
+
+.u71_container {
+    position:absolute;
+    left:118px;
+    top:72px;
+    width:125px;
+    height:24px;
+}
+
+.u72 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u71 {
+    position:absolute;
+    left:118px;
+    top:72px;
+    width:125px;
+    height:24px
+}
+
+.u73_original {
+    background-image: url('../车厂列表_files/u29_original.png');
+}
+
+.u73_container {
+    position:absolute;
+    left:243px;
+    top:72px;
+    width:115px;
+    height:24px;
+}
+
+.u74 {
+    position:absolute;
+    left:2px;
+    top:3px;
+    width:111px;
+    height:18px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u73 {
+    position:absolute;
+    left:243px;
+    top:72px;
+    width:115px;
+    height:24px
+}
+
+.u75_original {
+    background-image: url('../车厂列表_files/u31_original.png');
+}
+
+.u75_container {
+    position:absolute;
+    left:357px;
+    top:72px;
+    width:118px;
+    height:24px;
+}
+
+.u76 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u75 {
+    position:absolute;
+    left:357px;
+    top:72px;
+    width:118px;
+    height:24px
+}
+
+.u77_original {
+    background-image: url('../车厂列表_files/u33_original.png');
+}
+
+.u77_container {
+    position:absolute;
+    left:476px;
+    top:72px;
+    width:103px;
+    height:24px;
+}
+
+.u78 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u77 {
+    position:absolute;
+    left:476px;
+    top:72px;
+    width:103px;
+    height:24px
+}
+
+.u79_original {
+    background-image: url('../车厂列表_files/u35_original.png');
+}
+
+.u79_container {
+    position:absolute;
+    left:578px;
+    top:72px;
+    width:77px;
+    height:24px;
+}
+
+.u80 {
+    position:absolute;
+    left:2px;
+    top:5px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u79 {
+    position:absolute;
+    left:578px;
+    top:72px;
+    width:77px;
+    height:24px
+}
+
+.u81_original {
+    background-image: url('../车厂列表_files/u37_original.png');
+}
+
+.u81_container {
+    position:absolute;
+    left:655px;
+    top:72px;
+    width:110px;
+    height:24px;
+}
+
+.u82 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u81 {
+    position:absolute;
+    left:655px;
+    top:72px;
+    width:110px;
+    height:24px
+}
+
+.u83_original {
+    background-image: url('../车厂列表_files/u39_original.png');
+}
+
+.u83_container {
+    position:absolute;
+    left:765px;
+    top:72px;
+    width:152px;
+    height:24px;
+}
+
+.u84 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u83 {
+    position:absolute;
+    left:765px;
+    top:72px;
+    width:152px;
+    height:24px
+}
+
+.u85_original {
+    background-image: url('../车厂列表_files/u41_original.png');
+}
+
+.u85_container {
+    position:absolute;
+    left:917px;
+    top:72px;
+    width:94px;
+    height:24px;
+}
+
+.u86 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u85 {
+    position:absolute;
+    left:917px;
+    top:72px;
+    width:94px;
+    height:24px
+}
+
+.u87_original {
+    background-image: url('../车厂列表_files/u43_original.png');
+}
+
+.u87_container {
+    position:absolute;
+    left:1010px;
+    top:72px;
+    width:150px;
+    height:24px;
+}
+
+.u88 {
+    position:absolute;
+    left:2px;
+    top:4px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u87 {
+    position:absolute;
+    left:1010px;
+    top:72px;
+    width:150px;
+    height:24px
+}
+
+.u89_original {
+    background-image: url('../车厂列表_files/u89_original.png');
+}
+
+.u89_container {
+    position:absolute;
+    left:0px;
+    top:96px;
+    width:27px;
+    height:30px;
+}
+
+.u90 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u89 {
+    position:absolute;
+    left:0px;
+    top:96px;
+    width:27px;
+    height:30px
+}
+
+.u91_original {
+    background-image: url('../车厂列表_files/u91_original.png');
+}
+
+.u91_container {
+    position:absolute;
+    left:27px;
+    top:96px;
+    width:91px;
+    height:30px;
+}
+
+.u92 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u91 {
+    position:absolute;
+    left:27px;
+    top:96px;
+    width:91px;
+    height:30px
+}
+
+.u93_original {
+    background-image: url('../车厂列表_files/u93_original.png');
+}
+
+.u93_container {
+    position:absolute;
+    left:118px;
+    top:96px;
+    width:125px;
+    height:30px;
+}
+
+.u94 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u93 {
+    position:absolute;
+    left:118px;
+    top:96px;
+    width:125px;
+    height:30px
+}
+
+.u95_original {
+    background-image: url('../车厂列表_files/u95_original.png');
+}
+
+.u95_container {
+    position:absolute;
+    left:243px;
+    top:96px;
+    width:115px;
+    height:30px;
+}
+
+.u96 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:111px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u95 {
+    position:absolute;
+    left:243px;
+    top:96px;
+    width:115px;
+    height:30px
+}
+
+.u97_original {
+    background-image: url('../车厂列表_files/u97_original.png');
+}
+
+.u97_container {
+    position:absolute;
+    left:357px;
+    top:96px;
+    width:118px;
+    height:30px;
+}
+
+.u98 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u97 {
+    position:absolute;
+    left:357px;
+    top:96px;
+    width:118px;
+    height:30px
+}
+
+.u99_original {
+    background-image: url('../车厂列表_files/u99_original.png');
+}
+
+.u99_container {
+    position:absolute;
+    left:476px;
+    top:96px;
+    width:103px;
+    height:30px;
+}
+
+.u100 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u99 {
+    position:absolute;
+    left:476px;
+    top:96px;
+    width:103px;
+    height:30px
+}
+
+.u101_original {
+    background-image: url('../车厂列表_files/u101_original.png');
+}
+
+.u101_container {
+    position:absolute;
+    left:578px;
+    top:96px;
+    width:77px;
+    height:30px;
+}
+
+.u102 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u101 {
+    position:absolute;
+    left:578px;
+    top:96px;
+    width:77px;
+    height:30px
+}
+
+.u103_original {
+    background-image: url('../车厂列表_files/u103_original.png');
+}
+
+.u103_container {
+    position:absolute;
+    left:655px;
+    top:96px;
+    width:110px;
+    height:30px;
+}
+
+.u104 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u103 {
+    position:absolute;
+    left:655px;
+    top:96px;
+    width:110px;
+    height:30px
+}
+
+.u105_original {
+    background-image: url('../车厂列表_files/u105_original.png');
+}
+
+.u105_container {
+    position:absolute;
+    left:765px;
+    top:96px;
+    width:152px;
+    height:30px;
+}
+
+.u106 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u105 {
+    position:absolute;
+    left:765px;
+    top:96px;
+    width:152px;
+    height:30px
+}
+
+.u107_original {
+    background-image: url('../车厂列表_files/u107_original.png');
+}
+
+.u107_container {
+    position:absolute;
+    left:917px;
+    top:96px;
+    width:94px;
+    height:30px;
+}
+
+.u108 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u107 {
+    position:absolute;
+    left:917px;
+    top:96px;
+    width:94px;
+    height:30px
+}
+
+.u109_original {
+    background-image: url('../车厂列表_files/u109_original.png');
+}
+
+.u109_container {
+    position:absolute;
+    left:1010px;
+    top:96px;
+    width:150px;
+    height:30px;
+}
+
+.u110 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u109 {
+    position:absolute;
+    left:1010px;
+    top:96px;
+    width:150px;
+    height:30px
+}
+
+.u111_original {
+    background-image: url('../车厂列表_files/u111_original.png');
+}
+
+.u111_container {
+    position:absolute;
+    left:0px;
+    top:126px;
+    width:27px;
+    height:30px;
+}
+
+.u112 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u111 {
+    position:absolute;
+    left:0px;
+    top:126px;
+    width:27px;
+    height:30px
+}
+
+.u113_original {
+    background-image: url('../车厂列表_files/u113_original.png');
+}
+
+.u113_container {
+    position:absolute;
+    left:27px;
+    top:126px;
+    width:91px;
+    height:30px;
+}
+
+.u114 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u113 {
+    position:absolute;
+    left:27px;
+    top:126px;
+    width:91px;
+    height:30px
+}
+
+.u115_original {
+    background-image: url('../车厂列表_files/u115_original.png');
+}
+
+.u115_container {
+    position:absolute;
+    left:118px;
+    top:126px;
+    width:125px;
+    height:30px;
+}
+
+.u116 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u115 {
+    position:absolute;
+    left:118px;
+    top:126px;
+    width:125px;
+    height:30px
+}
+
+.u117_original {
+    background-image: url('../车厂列表_files/u117_original.png');
+}
+
+.u117_container {
+    position:absolute;
+    left:243px;
+    top:126px;
+    width:115px;
+    height:30px;
+}
+
+.u118 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:111px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u117 {
+    position:absolute;
+    left:243px;
+    top:126px;
+    width:115px;
+    height:30px
+}
+
+.u119_original {
+    background-image: url('../车厂列表_files/u119_original.png');
+}
+
+.u119_container {
+    position:absolute;
+    left:357px;
+    top:126px;
+    width:118px;
+    height:30px;
+}
+
+.u120 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u119 {
+    position:absolute;
+    left:357px;
+    top:126px;
+    width:118px;
+    height:30px
+}
+
+.u121_original {
+    background-image: url('../车厂列表_files/u121_original.png');
+}
+
+.u121_container {
+    position:absolute;
+    left:476px;
+    top:126px;
+    width:103px;
+    height:30px;
+}
+
+.u122 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u121 {
+    position:absolute;
+    left:476px;
+    top:126px;
+    width:103px;
+    height:30px
+}
+
+.u123_original {
+    background-image: url('../车厂列表_files/u123_original.png');
+}
+
+.u123_container {
+    position:absolute;
+    left:578px;
+    top:126px;
+    width:77px;
+    height:30px;
+}
+
+.u124 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u123 {
+    position:absolute;
+    left:578px;
+    top:126px;
+    width:77px;
+    height:30px
+}
+
+.u125_original {
+    background-image: url('../车厂列表_files/u125_original.png');
+}
+
+.u125_container {
+    position:absolute;
+    left:655px;
+    top:126px;
+    width:110px;
+    height:30px;
+}
+
+.u126 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u125 {
+    position:absolute;
+    left:655px;
+    top:126px;
+    width:110px;
+    height:30px
+}
+
+.u127_original {
+    background-image: url('../车厂列表_files/u127_original.png');
+}
+
+.u127_container {
+    position:absolute;
+    left:765px;
+    top:126px;
+    width:152px;
+    height:30px;
+}
+
+.u128 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u127 {
+    position:absolute;
+    left:765px;
+    top:126px;
+    width:152px;
+    height:30px
+}
+
+.u129_original {
+    background-image: url('../车厂列表_files/u129_original.png');
+}
+
+.u129_container {
+    position:absolute;
+    left:917px;
+    top:126px;
+    width:94px;
+    height:30px;
+}
+
+.u130 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u129 {
+    position:absolute;
+    left:917px;
+    top:126px;
+    width:94px;
+    height:30px
+}
+
+.u131_original {
+    background-image: url('../车厂列表_files/u131_original.png');
+}
+
+.u131_container {
+    position:absolute;
+    left:1010px;
+    top:126px;
+    width:150px;
+    height:30px;
+}
+
+.u132 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u131 {
+    position:absolute;
+    left:1010px;
+    top:126px;
+    width:150px;
+    height:30px
+}
+
+.u133_original {
+    background-image: url('../车厂列表_files/u89_original.png');
+}
+
+.u133_container {
+    position:absolute;
+    left:0px;
+    top:156px;
+    width:27px;
+    height:30px;
+}
+
+.u134 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u133 {
+    position:absolute;
+    left:0px;
+    top:156px;
+    width:27px;
+    height:30px
+}
+
+.u135_original {
+    background-image: url('../车厂列表_files/u91_original.png');
+}
+
+.u135_container {
+    position:absolute;
+    left:27px;
+    top:156px;
+    width:91px;
+    height:30px;
+}
+
+.u136 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u135 {
+    position:absolute;
+    left:27px;
+    top:156px;
+    width:91px;
+    height:30px
+}
+
+.u137_original {
+    background-image: url('../车厂列表_files/u93_original.png');
+}
+
+.u137_container {
+    position:absolute;
+    left:118px;
+    top:156px;
+    width:125px;
+    height:30px;
+}
+
+.u138 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u137 {
+    position:absolute;
+    left:118px;
+    top:156px;
+    width:125px;
+    height:30px
+}
+
+.u139_original {
+    background-image: url('../车厂列表_files/u95_original.png');
+}
+
+.u139_container {
+    position:absolute;
+    left:243px;
+    top:156px;
+    width:115px;
+    height:30px;
+}
+
+.u140 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:111px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u139 {
+    position:absolute;
+    left:243px;
+    top:156px;
+    width:115px;
+    height:30px
+}
+
+.u141_original {
+    background-image: url('../车厂列表_files/u97_original.png');
+}
+
+.u141_container {
+    position:absolute;
+    left:357px;
+    top:156px;
+    width:118px;
+    height:30px;
+}
+
+.u142 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u141 {
+    position:absolute;
+    left:357px;
+    top:156px;
+    width:118px;
+    height:30px
+}
+
+.u143_original {
+    background-image: url('../车厂列表_files/u99_original.png');
+}
+
+.u143_container {
+    position:absolute;
+    left:476px;
+    top:156px;
+    width:103px;
+    height:30px;
+}
+
+.u144 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u143 {
+    position:absolute;
+    left:476px;
+    top:156px;
+    width:103px;
+    height:30px
+}
+
+.u145_original {
+    background-image: url('../车厂列表_files/u101_original.png');
+}
+
+.u145_container {
+    position:absolute;
+    left:578px;
+    top:156px;
+    width:77px;
+    height:30px;
+}
+
+.u146 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u145 {
+    position:absolute;
+    left:578px;
+    top:156px;
+    width:77px;
+    height:30px
+}
+
+.u147_original {
+    background-image: url('../车厂列表_files/u103_original.png');
+}
+
+.u147_container {
+    position:absolute;
+    left:655px;
+    top:156px;
+    width:110px;
+    height:30px;
+}
+
+.u148 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u147 {
+    position:absolute;
+    left:655px;
+    top:156px;
+    width:110px;
+    height:30px
+}
+
+.u149_original {
+    background-image: url('../车厂列表_files/u105_original.png');
+}
+
+.u149_container {
+    position:absolute;
+    left:765px;
+    top:156px;
+    width:152px;
+    height:30px;
+}
+
+.u150 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u149 {
+    position:absolute;
+    left:765px;
+    top:156px;
+    width:152px;
+    height:30px
+}
+
+.u151_original {
+    background-image: url('../车厂列表_files/u107_original.png');
+}
+
+.u151_container {
+    position:absolute;
+    left:917px;
+    top:156px;
+    width:94px;
+    height:30px;
+}
+
+.u152 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u151 {
+    position:absolute;
+    left:917px;
+    top:156px;
+    width:94px;
+    height:30px
+}
+
+.u153_original {
+    background-image: url('../车厂列表_files/u109_original.png');
+}
+
+.u153_container {
+    position:absolute;
+    left:1010px;
+    top:156px;
+    width:150px;
+    height:30px;
+}
+
+.u154 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u153 {
+    position:absolute;
+    left:1010px;
+    top:156px;
+    width:150px;
+    height:30px
+}
+
+.u155_original {
+    background-image: url('../车厂列表_files/u155_original.png');
+}
+
+.u155_container {
+    position:absolute;
+    left:0px;
+    top:186px;
+    width:27px;
+    height:28px;
+}
+
+.u156 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u155 {
+    position:absolute;
+    left:0px;
+    top:186px;
+    width:27px;
+    height:28px
+}
+
+.u157_original {
+    background-image: url('../车厂列表_files/u157_original.png');
+}
+
+.u157_container {
+    position:absolute;
+    left:27px;
+    top:186px;
+    width:91px;
+    height:28px;
+}
+
+.u158 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u157 {
+    position:absolute;
+    left:27px;
+    top:186px;
+    width:91px;
+    height:28px
+}
+
+.u159_original {
+    background-image: url('../车厂列表_files/u159_original.png');
+}
+
+.u159_container {
+    position:absolute;
+    left:118px;
+    top:186px;
+    width:125px;
+    height:28px;
+}
+
+.u160 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u159 {
+    position:absolute;
+    left:118px;
+    top:186px;
+    width:125px;
+    height:28px
+}
+
+.u161_original {
+    background-image: url('../车厂列表_files/u161_original.png');
+}
+
+.u161_container {
+    position:absolute;
+    left:243px;
+    top:186px;
+    width:115px;
+    height:28px;
+}
+
+.u162 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:111px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u161 {
+    position:absolute;
+    left:243px;
+    top:186px;
+    width:115px;
+    height:28px
+}
+
+.u163_original {
+    background-image: url('../车厂列表_files/u163_original.png');
+}
+
+.u163_container {
+    position:absolute;
+    left:357px;
+    top:186px;
+    width:118px;
+    height:28px;
+}
+
+.u164 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u163 {
+    position:absolute;
+    left:357px;
+    top:186px;
+    width:118px;
+    height:28px
+}
+
+.u165_original {
+    background-image: url('../车厂列表_files/u165_original.png');
+}
+
+.u165_container {
+    position:absolute;
+    left:476px;
+    top:186px;
+    width:103px;
+    height:28px;
+}
+
+.u166 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u165 {
+    position:absolute;
+    left:476px;
+    top:186px;
+    width:103px;
+    height:28px
+}
+
+.u167_original {
+    background-image: url('../车厂列表_files/u167_original.png');
+}
+
+.u167_container {
+    position:absolute;
+    left:578px;
+    top:186px;
+    width:77px;
+    height:28px;
+}
+
+.u168 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u167 {
+    position:absolute;
+    left:578px;
+    top:186px;
+    width:77px;
+    height:28px
+}
+
+.u169_original {
+    background-image: url('../车厂列表_files/u169_original.png');
+}
+
+.u169_container {
+    position:absolute;
+    left:655px;
+    top:186px;
+    width:110px;
+    height:28px;
+}
+
+.u170 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u169 {
+    position:absolute;
+    left:655px;
+    top:186px;
+    width:110px;
+    height:28px
+}
+
+.u171_original {
+    background-image: url('../车厂列表_files/u171_original.png');
+}
+
+.u171_container {
+    position:absolute;
+    left:765px;
+    top:186px;
+    width:152px;
+    height:28px;
+}
+
+.u172 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u171 {
+    position:absolute;
+    left:765px;
+    top:186px;
+    width:152px;
+    height:28px
+}
+
+.u173_original {
+    background-image: url('../车厂列表_files/u173_original.png');
+}
+
+.u173_container {
+    position:absolute;
+    left:917px;
+    top:186px;
+    width:94px;
+    height:28px;
+}
+
+.u174 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u173 {
+    position:absolute;
+    left:917px;
+    top:186px;
+    width:94px;
+    height:28px
+}
+
+.u175_original {
+    background-image: url('../车厂列表_files/u175_original.png');
+}
+
+.u175_container {
+    position:absolute;
+    left:1010px;
+    top:186px;
+    width:150px;
+    height:28px;
+}
+
+.u176 {
+    position:absolute;
+    left:2px;
+    top:6px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u175 {
+    position:absolute;
+    left:1010px;
+    top:186px;
+    width:150px;
+    height:28px
+}
+
+.u177_original {
+    background-image: url('../车厂列表_files/u89_original.png');
+}
+
+.u177_container {
+    position:absolute;
+    left:0px;
+    top:214px;
+    width:27px;
+    height:30px;
+}
+
+.u178 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u177 {
+    position:absolute;
+    left:0px;
+    top:214px;
+    width:27px;
+    height:30px
+}
+
+.u179_original {
+    background-image: url('../车厂列表_files/u91_original.png');
+}
+
+.u179_container {
+    position:absolute;
+    left:27px;
+    top:214px;
+    width:91px;
+    height:30px;
+}
+
+.u180 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u179 {
+    position:absolute;
+    left:27px;
+    top:214px;
+    width:91px;
+    height:30px
+}
+
+.u181_original {
+    background-image: url('../车厂列表_files/u93_original.png');
+}
+
+.u181_container {
+    position:absolute;
+    left:118px;
+    top:214px;
+    width:125px;
+    height:30px;
+}
+
+.u182 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u181 {
+    position:absolute;
+    left:118px;
+    top:214px;
+    width:125px;
+    height:30px
+}
+
+.u183_original {
+    background-image: url('../车厂列表_files/u95_original.png');
+}
+
+.u183_container {
+    position:absolute;
+    left:243px;
+    top:214px;
+    width:115px;
+    height:30px;
+}
+
+.u184 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:111px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u183 {
+    position:absolute;
+    left:243px;
+    top:214px;
+    width:115px;
+    height:30px
+}
+
+.u185_original {
+    background-image: url('../车厂列表_files/u97_original.png');
+}
+
+.u185_container {
+    position:absolute;
+    left:357px;
+    top:214px;
+    width:118px;
+    height:30px;
+}
+
+.u186 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u185 {
+    position:absolute;
+    left:357px;
+    top:214px;
+    width:118px;
+    height:30px
+}
+
+.u187_original {
+    background-image: url('../车厂列表_files/u99_original.png');
+}
+
+.u187_container {
+    position:absolute;
+    left:476px;
+    top:214px;
+    width:103px;
+    height:30px;
+}
+
+.u188 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u187 {
+    position:absolute;
+    left:476px;
+    top:214px;
+    width:103px;
+    height:30px
+}
+
+.u189_original {
+    background-image: url('../车厂列表_files/u101_original.png');
+}
+
+.u189_container {
+    position:absolute;
+    left:578px;
+    top:214px;
+    width:77px;
+    height:30px;
+}
+
+.u190 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u189 {
+    position:absolute;
+    left:578px;
+    top:214px;
+    width:77px;
+    height:30px
+}
+
+.u191_original {
+    background-image: url('../车厂列表_files/u103_original.png');
+}
+
+.u191_container {
+    position:absolute;
+    left:655px;
+    top:214px;
+    width:110px;
+    height:30px;
+}
+
+.u192 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u191 {
+    position:absolute;
+    left:655px;
+    top:214px;
+    width:110px;
+    height:30px
+}
+
+.u193_original {
+    background-image: url('../车厂列表_files/u105_original.png');
+}
+
+.u193_container {
+    position:absolute;
+    left:765px;
+    top:214px;
+    width:152px;
+    height:30px;
+}
+
+.u194 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u193 {
+    position:absolute;
+    left:765px;
+    top:214px;
+    width:152px;
+    height:30px
+}
+
+.u195_original {
+    background-image: url('../车厂列表_files/u107_original.png');
+}
+
+.u195_container {
+    position:absolute;
+    left:917px;
+    top:214px;
+    width:94px;
+    height:30px;
+}
+
+.u196 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u195 {
+    position:absolute;
+    left:917px;
+    top:214px;
+    width:94px;
+    height:30px
+}
+
+.u197_original {
+    background-image: url('../车厂列表_files/u109_original.png');
+}
+
+.u197_container {
+    position:absolute;
+    left:1010px;
+    top:214px;
+    width:150px;
+    height:30px;
+}
+
+.u198 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u197 {
+    position:absolute;
+    left:1010px;
+    top:214px;
+    width:150px;
+    height:30px
+}
+
+.u199_original {
+    background-image: url('../车厂列表_files/u111_original.png');
+}
+
+.u199_container {
+    position:absolute;
+    left:0px;
+    top:244px;
+    width:27px;
+    height:30px;
+}
+
+.u200 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u199 {
+    position:absolute;
+    left:0px;
+    top:244px;
+    width:27px;
+    height:30px
+}
+
+.u201_original {
+    background-image: url('../车厂列表_files/u113_original.png');
+}
+
+.u201_container {
+    position:absolute;
+    left:27px;
+    top:244px;
+    width:91px;
+    height:30px;
+}
+
+.u202 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u201 {
+    position:absolute;
+    left:27px;
+    top:244px;
+    width:91px;
+    height:30px
+}
+
+.u203_original {
+    background-image: url('../车厂列表_files/u115_original.png');
+}
+
+.u203_container {
+    position:absolute;
+    left:118px;
+    top:244px;
+    width:125px;
+    height:30px;
+}
+
+.u204 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u203 {
+    position:absolute;
+    left:118px;
+    top:244px;
+    width:125px;
+    height:30px
+}
+
+.u205_original {
+    background-image: url('../车厂列表_files/u117_original.png');
+}
+
+.u205_container {
+    position:absolute;
+    left:243px;
+    top:244px;
+    width:115px;
+    height:30px;
+}
+
+.u206 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:111px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u205 {
+    position:absolute;
+    left:243px;
+    top:244px;
+    width:115px;
+    height:30px
+}
+
+.u207_original {
+    background-image: url('../车厂列表_files/u119_original.png');
+}
+
+.u207_container {
+    position:absolute;
+    left:357px;
+    top:244px;
+    width:118px;
+    height:30px;
+}
+
+.u208 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u207 {
+    position:absolute;
+    left:357px;
+    top:244px;
+    width:118px;
+    height:30px
+}
+
+.u209_original {
+    background-image: url('../车厂列表_files/u121_original.png');
+}
+
+.u209_container {
+    position:absolute;
+    left:476px;
+    top:244px;
+    width:103px;
+    height:30px;
+}
+
+.u210 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u209 {
+    position:absolute;
+    left:476px;
+    top:244px;
+    width:103px;
+    height:30px
+}
+
+.u211_original {
+    background-image: url('../车厂列表_files/u123_original.png');
+}
+
+.u211_container {
+    position:absolute;
+    left:578px;
+    top:244px;
+    width:77px;
+    height:30px;
+}
+
+.u212 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u211 {
+    position:absolute;
+    left:578px;
+    top:244px;
+    width:77px;
+    height:30px
+}
+
+.u213_original {
+    background-image: url('../车厂列表_files/u125_original.png');
+}
+
+.u213_container {
+    position:absolute;
+    left:655px;
+    top:244px;
+    width:110px;
+    height:30px;
+}
+
+.u214 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u213 {
+    position:absolute;
+    left:655px;
+    top:244px;
+    width:110px;
+    height:30px
+}
+
+.u215_original {
+    background-image: url('../车厂列表_files/u127_original.png');
+}
+
+.u215_container {
+    position:absolute;
+    left:765px;
+    top:244px;
+    width:152px;
+    height:30px;
+}
+
+.u216 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u215 {
+    position:absolute;
+    left:765px;
+    top:244px;
+    width:152px;
+    height:30px
+}
+
+.u217_original {
+    background-image: url('../车厂列表_files/u129_original.png');
+}
+
+.u217_container {
+    position:absolute;
+    left:917px;
+    top:244px;
+    width:94px;
+    height:30px;
+}
+
+.u218 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u217 {
+    position:absolute;
+    left:917px;
+    top:244px;
+    width:94px;
+    height:30px
+}
+
+.u219_original {
+    background-image: url('../车厂列表_files/u131_original.png');
+}
+
+.u219_container {
+    position:absolute;
+    left:1010px;
+    top:244px;
+    width:150px;
+    height:30px;
+}
+
+.u220 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u219 {
+    position:absolute;
+    left:1010px;
+    top:244px;
+    width:150px;
+    height:30px
+}
+
+.u221_original {
+    background-image: url('../车厂列表_files/u89_original.png');
+}
+
+.u221_container {
+    position:absolute;
+    left:0px;
+    top:274px;
+    width:27px;
+    height:30px;
+}
+
+.u222 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u221 {
+    position:absolute;
+    left:0px;
+    top:274px;
+    width:27px;
+    height:30px
+}
+
+.u223_original {
+    background-image: url('../车厂列表_files/u91_original.png');
+}
+
+.u223_container {
+    position:absolute;
+    left:27px;
+    top:274px;
+    width:91px;
+    height:30px;
+}
+
+.u224 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u223 {
+    position:absolute;
+    left:27px;
+    top:274px;
+    width:91px;
+    height:30px
+}
+
+.u225_original {
+    background-image: url('../车厂列表_files/u93_original.png');
+}
+
+.u225_container {
+    position:absolute;
+    left:118px;
+    top:274px;
+    width:125px;
+    height:30px;
+}
+
+.u226 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u225 {
+    position:absolute;
+    left:118px;
+    top:274px;
+    width:125px;
+    height:30px
+}
+
+.u227_original {
+    background-image: url('../车厂列表_files/u95_original.png');
+}
+
+.u227_container {
+    position:absolute;
+    left:243px;
+    top:274px;
+    width:115px;
+    height:30px;
+}
+
+.u228 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:111px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u227 {
+    position:absolute;
+    left:243px;
+    top:274px;
+    width:115px;
+    height:30px
+}
+
+.u229_original {
+    background-image: url('../车厂列表_files/u97_original.png');
+}
+
+.u229_container {
+    position:absolute;
+    left:357px;
+    top:274px;
+    width:118px;
+    height:30px;
+}
+
+.u230 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u229 {
+    position:absolute;
+    left:357px;
+    top:274px;
+    width:118px;
+    height:30px
+}
+
+.u231_original {
+    background-image: url('../车厂列表_files/u99_original.png');
+}
+
+.u231_container {
+    position:absolute;
+    left:476px;
+    top:274px;
+    width:103px;
+    height:30px;
+}
+
+.u232 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u231 {
+    position:absolute;
+    left:476px;
+    top:274px;
+    width:103px;
+    height:30px
+}
+
+.u233_original {
+    background-image: url('../车厂列表_files/u101_original.png');
+}
+
+.u233_container {
+    position:absolute;
+    left:578px;
+    top:274px;
+    width:77px;
+    height:30px;
+}
+
+.u234 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u233 {
+    position:absolute;
+    left:578px;
+    top:274px;
+    width:77px;
+    height:30px
+}
+
+.u235_original {
+    background-image: url('../车厂列表_files/u103_original.png');
+}
+
+.u235_container {
+    position:absolute;
+    left:655px;
+    top:274px;
+    width:110px;
+    height:30px;
+}
+
+.u236 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u235 {
+    position:absolute;
+    left:655px;
+    top:274px;
+    width:110px;
+    height:30px
+}
+
+.u237_original {
+    background-image: url('../车厂列表_files/u105_original.png');
+}
+
+.u237_container {
+    position:absolute;
+    left:765px;
+    top:274px;
+    width:152px;
+    height:30px;
+}
+
+.u238 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u237 {
+    position:absolute;
+    left:765px;
+    top:274px;
+    width:152px;
+    height:30px
+}
+
+.u239_original {
+    background-image: url('../车厂列表_files/u107_original.png');
+}
+
+.u239_container {
+    position:absolute;
+    left:917px;
+    top:274px;
+    width:94px;
+    height:30px;
+}
+
+.u240 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u239 {
+    position:absolute;
+    left:917px;
+    top:274px;
+    width:94px;
+    height:30px
+}
+
+.u241_original {
+    background-image: url('../车厂列表_files/u109_original.png');
+}
+
+.u241_container {
+    position:absolute;
+    left:1010px;
+    top:274px;
+    width:150px;
+    height:30px;
+}
+
+.u242 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u241 {
+    position:absolute;
+    left:1010px;
+    top:274px;
+    width:150px;
+    height:30px
+}
+
+.u243_original {
+    background-image: url('../车厂列表_files/u111_original.png');
+}
+
+.u243_container {
+    position:absolute;
+    left:0px;
+    top:304px;
+    width:27px;
+    height:30px;
+}
+
+.u244 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:23px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u243 {
+    position:absolute;
+    left:0px;
+    top:304px;
+    width:27px;
+    height:30px
+}
+
+.u245_original {
+    background-image: url('../车厂列表_files/u113_original.png');
+}
+
+.u245_container {
+    position:absolute;
+    left:27px;
+    top:304px;
+    width:91px;
+    height:30px;
+}
+
+.u246 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:87px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u245 {
+    position:absolute;
+    left:27px;
+    top:304px;
+    width:91px;
+    height:30px
+}
+
+.u247_original {
+    background-image: url('../车厂列表_files/u115_original.png');
+}
+
+.u247_container {
+    position:absolute;
+    left:118px;
+    top:304px;
+    width:125px;
+    height:30px;
+}
+
+.u248 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:121px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u247 {
+    position:absolute;
+    left:118px;
+    top:304px;
+    width:125px;
+    height:30px
+}
+
+.u249_original {
+    background-image: url('../车厂列表_files/u117_original.png');
+}
+
+.u249_container {
+    position:absolute;
+    left:243px;
+    top:304px;
+    width:115px;
+    height:30px;
+}
+
+.u250 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:111px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u249 {
+    position:absolute;
+    left:243px;
+    top:304px;
+    width:115px;
+    height:30px
+}
+
+.u251_original {
+    background-image: url('../车厂列表_files/u119_original.png');
+}
+
+.u251_container {
+    position:absolute;
+    left:357px;
+    top:304px;
+    width:118px;
+    height:30px;
+}
+
+.u252 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:114px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u251 {
+    position:absolute;
+    left:357px;
+    top:304px;
+    width:118px;
+    height:30px
+}
+
+.u253_original {
+    background-image: url('../车厂列表_files/u121_original.png');
+}
+
+.u253_container {
+    position:absolute;
+    left:476px;
+    top:304px;
+    width:103px;
+    height:30px;
+}
+
+.u254 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:99px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u253 {
+    position:absolute;
+    left:476px;
+    top:304px;
+    width:103px;
+    height:30px
+}
+
+.u255_original {
+    background-image: url('../车厂列表_files/u123_original.png');
+}
+
+.u255_container {
+    position:absolute;
+    left:578px;
+    top:304px;
+    width:77px;
+    height:30px;
+}
+
+.u256 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:73px;
+    height:14px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u255 {
+    position:absolute;
+    left:578px;
+    top:304px;
+    width:77px;
+    height:30px
+}
+
+.u257_original {
+    background-image: url('../车厂列表_files/u125_original.png');
+}
+
+.u257_container {
+    position:absolute;
+    left:655px;
+    top:304px;
+    width:110px;
+    height:30px;
+}
+
+.u258 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:106px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u257 {
+    position:absolute;
+    left:655px;
+    top:304px;
+    width:110px;
+    height:30px
+}
+
+.u259_original {
+    background-image: url('../车厂列表_files/u127_original.png');
+}
+
+.u259_container {
+    position:absolute;
+    left:765px;
+    top:304px;
+    width:152px;
+    height:30px;
+}
+
+.u260 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:148px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u259 {
+    position:absolute;
+    left:765px;
+    top:304px;
+    width:152px;
+    height:30px
+}
+
+.u261_original {
+    background-image: url('../车厂列表_files/u129_original.png');
+}
+
+.u261_container {
+    position:absolute;
+    left:917px;
+    top:304px;
+    width:94px;
+    height:30px;
+}
+
+.u262 {
+    position:absolute;
+    left:2px;
+    top:8px;
+    width:90px;
+    height:15px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u261 {
+    position:absolute;
+    left:917px;
+    top:304px;
+    width:94px;
+    height:30px
+}
+
+.u263_original {
+    background-image: url('../车厂列表_files/u131_original.png');
+}
+
+.u263_container {
+    position:absolute;
+    left:1010px;
+    top:304px;
+    width:150px;
+    height:30px;
+}
+
+.u264 {
+    position:absolute;
+    left:2px;
+    top:7px;
+    width:146px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u263 {
+    position:absolute;
+    left:1010px;
+    top:304px;
+    width:150px;
+    height:30px
+}
+
+.u266 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u268 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u270 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u272 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u274 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u276 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u278 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u280 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u282 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u284 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u286 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+
+.u288 {
+    position:absolute;
+    left:16px;
+    top:0px;
+    width:2px;
+    height:16px;
+    ;
+    ;
+    ;
+    font-family:Arial;
+    text-align:left;
+    word-wrap:break-word;
+}
+

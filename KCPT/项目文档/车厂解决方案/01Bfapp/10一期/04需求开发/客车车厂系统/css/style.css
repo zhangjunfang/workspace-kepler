@@ -1,0 +1,675 @@
+@CHARSET "UTF-8";
+/*Css Reset*/
+body{
+	margin:0 auto;
+	padding:0px;
+	font-size:12px;
+	font-family:Verdana, Geneva, sans-serif"宋体";
+	color:#737474;
+}
+
+.clear {
+	height:0;
+	font-size:0;
+	clear:both;
+}
+body, div, address, blockquote, iframe, ul, ol, dl, dt, dd, li, dl, h1, h2, h3, h4, h5, h6, p, pre, table, caption, th, td, form, legend, fieldset, input, button, select, textarea {margin:0; padding:0; font-weight: normal;font-style: normal;font-size: 100%; font-family: inherit;}
+ ol, ul ,li{list-style: none;}
+ img {border: 0;}
+ body {color:#000;background:#FFF; font: 12px/1.5 Arial, Helvetica, sans-serif;}
+ .clearfix:after {clear:both; content:"."; display:block; height:0pt; visibility:hidden; overflow:hidden;}
+ .clear{clear:both;height:1px; margin-top:-1px; width:100%;} 
+.dis{display:block;}
+ .undis{display:none;}
+/*------------------------------loginStart------------------------------*/
+/*背景图start*/
+.login{
+	width:1440px;
+	height:900px;
+	margin:0 auto;
+}
+.loginTop{
+	width:1440px;
+	height:574px;
+	background:url(../images/login_bj01.jpg) no-repeat;
+}
+.loginBottom{
+	width:1440px;
+	height:326px;
+	background:url(../images/login_bj02.jpg) no-repeat;
+}
+.logo{
+	width:576px;
+	height:66px;
+	margin:0 auto;
+	padding-top:190px;
+	margin-bottom:30px;
+	display:block;
+}
+.loginTu{
+	width:558px;
+	height:271px;
+	background:url(../images/login01.png) no-repeat;
+	margin:0 auto;
+	padding-top:30px;
+}
+.loginFont{
+	width:342px;
+	height:150px;
+	margin:0 auto;
+}
+.yonghuming{
+	width:320px;
+	height:26px;
+	float:left;
+}
+.yonghuming p{
+	width:60px;
+	line-height:26px;
+	font-size:14px;
+	font-weight:bold;
+	color:#022c5a;
+	float:left;
+}
+.loginInput{
+	width:187px;
+	height:26px;
+	line-height:26px;
+	background:url(../images/login02.png) no-repeat;
+	border:none;
+}
+.mimaInput{
+	width:187px;
+	height:26px;
+	background:url(../images/login02.png) no-repeat;
+	border:none;
+	margin-top:13px;
+	display:block;
+}
+.mimaMain{
+	width:342px;
+	height:26px;
+	clear:both;
+	margin-bottom:10px;
+	display:block;
+}
+.mima{
+	width:252px;
+	height:26px;
+	float:left;
+}
+.mima p{
+	width:60px;
+	line-height:26px;
+	text-align:right;
+	font-size:14px;
+	font-weight:bold;
+	color:#022c5a;
+	float:left;
+	margin-top:14px;
+	display:block;
+}
+.mimaFont{
+	width:60px;
+	height:26px;
+	line-height:26px;
+	text-align:right;
+	font-size:12px;
+	text-decoration:underline;
+	color:#ffea00;
+	float:left;
+	margin-top:10px;
+}
+.yzmInput{
+	width:81px;
+	height:26px;
+	background:url(../images/login03.png) no-repeat;
+	border:none;
+	float:left;
+	margin-top:15px;
+}
+.yanzhengma{
+	width:85px;
+	height:26px;
+	line-height:26px;
+	text-align:right;
+	font-size:12px;
+	text-decoration:underline;
+	color:#ffea00;
+	float:left;
+	margin-top:15px;
+}
+.yzmInputOne{
+	width:80px;
+	height:20px;
+	background:none;
+	border:none;
+	float:left;
+}
+.login_button0{
+	width:138px;
+	height:54px;
+	background:url(../images/login_button01.png) no-repeat;
+	float:right;
+	margin-top:13px;
+	display:block;
+}
+.loginPrint{
+	width:1312px;
+	height:143px;
+	margin:0 auto;
+}
+.loginPrintOne{
+	width:164px;
+	height:143px;
+	float:left;
+}
+.loginCopyright{
+	width:365px;
+	height:50px;
+	line-height:25px;
+	text-align:center;
+	color:#FFF;
+	margin:0 auto;
+	margin-top:60px;
+	display:block;
+}
+/*背景图End*/
+/*------------------------------loginEnd------------------------------*/
+
+
+/*------------------------------首页Start------------------------------*/
+.indexMain{
+	width:99.9%;
+	border:1px solid #386486;
+	clear:both;
+}
+/*topStart*/
+.top{
+	width:100%;
+	height:80px;
+	background:url(../images/index_Bj01.png) repeat-x;
+}
+.indexTop{
+	width:100%;
+	height:80px;
+	background:url(../images/index_Bj02.png) no-repeat;
+}
+.logoTow{
+	width:338px;
+	height:53px;
+	float:left;
+	margin-top:12px;
+	margin-left:10px;
+	display:block;
+}
+.indexCc {
+	color:white;
+	float:right;
+	line-height:20px;
+	margin:33px 30px 0 0;
+}
+
+.indexCc {
+	color:white;
+	float:right;
+	line-height:20px;
+	margin:33px 30px 0 0;
+}
+.indexMenu {
+	float:right;
+	margin-right:20px;
+	padding-top:5px;
+	min-width:200px;
+}
+.indexMenu ul {
+	margin:0;
+	padding:0;
+}
+
+.indexMenu li {
+	float:left;
+	margin:0 10px;
+	width:72px;
+	height:72px;
+	list-style-type: none;
+	text-align:center;
+	color:white;
+	line-height:20px;
+}
+
+.indexMenu li a:link {
+	color:white;
+	text-decoration:none;
+}
+
+.indexMenu li a:visited {
+	color:white;
+	text-decoration:none;
+}
+/*topEnd*/
+/*mainStart*/
+.main{
+	width:99.4%;
+	height:700px;
+	margin:5px 5px 0 5px;
+	clear:both;
+}
+/*leftStart*/
+.left{
+	width:270px;
+	display:inline-block;
+	position:absolute;
+}
+.leftTu{
+	width:92px;
+	height:27px;
+	background:url(../images/login_button05.png) no-repeat;
+}
+.leftBj{
+	width:271px;
+	height:3px;
+	background:url(../images/login_button06.png) repeat-x;
+}
+.leftOne{
+	width:270px;
+	height:660px;
+	background:#e7f4fc;
+	border:1px solid #badaee;
+	display:inline-block;
+	position:absolute;
+}
+.leftShurukuang{
+	height:30px;
+	margin:10px 5px 5px 5px;
+	display:block;
+}
+.leftInput{
+	width:155px;
+	height:22px;
+	background:#ffffff;
+	border:1px solid #b3bac1;
+	float:left;
+}
+.leftInputOne{
+	width:78px;
+	height:26px;
+	background:url(../images/login_button07.png) no-repeat;
+	border:none;
+	float:left;
+	margin-left:10px;
+	display:block;
+}
+/*leftEnd*/
+/*rightStart*/
+.right{
+	height:680px;
+	float:right;
+	margin-left:276px;
+}
+.rightTop{
+	width:100%;
+	height:28px;
+	background:url(../images/index_Bj03.png) repeat-x;
+	border:1px solid #badaee;
+}
+.rightIcon{
+	width:600px;
+	height:28px;
+	line-height:28px;
+	clear:both;
+}
+.rightIconL{
+	width:10px;
+	height:11px;
+	background:url(../images/login_button08.png) no-repeat;
+	float:left;
+	margin:9px 5px 0px 5px;
+}
+.rightIconR{
+	overflow:hidden;
+}
+.rightIconR strong{
+	font-weight:inherit;
+}
+.rightIconR span{
+	color:#ff0000;
+
+}
+.indexZzmc{
+	width:100%;
+	height:116px;
+	background:url(../images/index_Bj04.png) repeat-x;
+	border:1px solid #badaee;
+	float:left;
+	overflow:hidden;
+	margin-top:5px;
+	display:block;
+}
+.rightFont{
+	width:60px;
+	line-height:28px;
+	float:left;
+	margin-left:18px;
+	display:block;
+}
+.rightInputM{
+	width:100%;
+	margin-bottom:5px;
+	display:block;
+	float:left;
+}
+.rightInput{
+	width:220px;
+	height:22px;
+	float:left;
+	margin-top:12px;
+	margin-right:100px;
+	margin-left:20px;
+	display:block;
+}
+.rightInput span{
+	width:50px;
+	height:25px;
+	line-height:26px;
+}
+.rightButton{
+	width:78px;
+	height:26px;
+	background:url(../images/login_button09.png) no-repeat;
+	float:left;
+	margin-top:11px;
+	display:block;
+}
+.rightInputOne{
+	width:120px;
+	height:22px;
+	background:#ffffff;
+	border:1px solid #b3bac1;
+}
+.rightPljf{
+	width:100%;
+	height:31px;
+	background:url(../images/index_Bj05.png) repeat-x;
+	border:1px solid #badaee;
+	margin-top:127px;
+	display:block;
+}
+.rightPljfButton{
+	width:75px;
+	height:24px;
+	line-height:24px;
+	text-align:center;
+	background:url(../images/login_button10.png) no-repeat;
+	float:left;
+	margin-top:4px;
+	margin-left:20px;
+	display:block;
+}
+.rightPljfButtonOne{
+	width:354px;
+	float:right;
+	margin-right:100px;
+	display:block;
+}
+.rightPljfButtonTwo{
+	width:105px;
+	height:24px;
+	line-height:24px;
+	text-align:center;
+	background:url(../images/login_button11.png) no-repeat;
+	float:left;
+	margin-top:4px;
+	margin-left:13px;
+	display:block;
+}
+/*rightEnd*/
+
+/*mainEnd*/
+.bottom{
+	width:100%;
+	height:44px;
+	background:#02408d;
+}
+/*------------------------------首页End------------------------------*/
+
+/*------------------------------welcomeStart------------------------------*/
+.welcome{
+	width:1438px;
+	height:778px;
+	margin:0 auto;
+}
+/*------------------------------welcomeEnd------------------------------*/
+
+/*------------------------------批量交付Start------------------------------*/
+.piliangjiaofu{
+	width:800px;
+	height:600px;
+}
+.pljfTop{
+	height:34px;
+	clear:both;
+}
+.pljfTopL{
+	width:757px;
+	height:34px;
+	float:left;
+	clear:both;
+}
+.pljfTopLeft{
+	width:32px;
+	height:34px;
+	background:url(../images/topLeft.png) no-repeat;
+	float:left;
+}
+.pljfIcon{
+	width:16px;
+	height:16px;
+	margin:8px 0px 0px 12px;
+}
+.pljfTopRight{
+	width:725px;
+	height:34px;
+	line-height:34px;
+	color:#FFF;
+	background:url(../images/top1pxBg.png) repeat-x;
+	float:left;
+}
+.pljfTopR{
+	width:43PX;
+	height:34px;
+	background:url(../images/topRightClose.png) no-repeat;
+	float:left;
+}
+.pljsMain{
+	width:797px;
+	height:532px;
+	background:#f9f9f9;
+	border:1px solid #9c9c9c;
+	clear:both;
+}
+.pljsDemand{
+	width:797px;
+	height:31px;
+	background:url(../images/index_Bj06.png) repeat-x;
+	border-bottom:1px solid #badaee;
+	clear:both;
+}
+.pljsDemandLeft{
+	width:398px;
+	height:31px;
+	float:left;
+}
+.pljsDemandLeftTree{
+	width:287px;
+	height:31px;
+	float:left;
+	border-right:#d7e9f4 1px solid;
+}
+.pljsInput{
+	width:164px;
+	height:22px;
+	background:#FFF;
+	border:1px solid #b3bac1;
+	margin:2px 6px 0px 10px;
+	float:left;
+}
+.pljsButton{
+	width:78px;
+	height:26px;
+	background:url(../images/login_button09.png) no-repeat;
+	border:none;
+	float:left;
+	margin-top:2px;
+	display:block;
+}
+.pljsDemandRight{
+	width:398px;
+	height:31px;
+	line-height:31px;
+	color:#0254c0;
+	text-indent:12px;
+	border-left:1px solid #d7e9f4;
+	float:left;
+}
+.pljsDemandRightTab{
+	width:250px;
+	height:31px;
+	line-height:31px;
+	color:#0254c0;
+	text-align:center;
+	border-left:1px solid #d7e9f4;
+	border-right:1px solid #d7e9f4;
+	float:left;
+	display:inline;
+	margin-left:3px;
+}
+.pljsContent{
+	width:797px;
+	height:500px;
+	clear:both;
+}
+.pljsContentLeft{
+	width:200px;
+	height:500px;
+	float:left;
+}
+.pljsContentLeftTree{
+	float:left;
+	width:287px;
+	height:500px;
+	border-right:#d7e9f4 1px solid;
+}
+.pljsContentRightTab{
+	float:left;
+	display:inline;
+	margin-left:3px;
+	width:250px;
+	height:500px;
+	border-left:#d7e9f4 1px solid;
+	border-right:#d7e9f4 1px solid;
+}
+.pljsTree{
+	width:100px;
+	height:23px;
+	margin:10px 0px 0px 15px;
+	display:block;
+}
+.pljsTree img{
+	width:11px;
+	height:11px;
+	float:left;
+	margin-top:2px;
+	margin-right:5px;
+	display:block;
+}
+.pljsContentRight{
+	width:398px;
+	height:500px;
+	border-left:1px solid #d7e9f4;
+	float:left;
+}
+.pljsTable{
+	width:398px;
+}
+.pljsTdd{
+	height:26px;
+	line-height:26px;
+	text-align:center;
+	color:#000000;
+	background:url(../images/index_Bj07.png) repeat-x;
+}
+.pljsTdr{
+	height:26px;
+	line-height:26px;
+	text-align:center;
+	color:#000000;
+	background:url(../images/index_Bj07.png) repeat-x;
+	border-left:1px solid #badaee;
+}
+.pljsFont{
+	color:#737474;
+	line-height:26px;
+	text-align:center;
+}
+.pljsFontOnt{
+	background:#eaf3fa;
+	color:#737474;
+	line-height:26px;
+	text-align:center;
+}
+.pljsBottom{
+	width:799px;
+	height:34px;
+	clear:both;
+}
+.pljsBottomL{
+	width:791px;
+	height:34px;
+	float:left;
+	clear:both;
+}
+.pljsBottomRight{
+	width:783px;
+	height:34px;
+	float:left;
+	background:url(../images/tip-bg20.png) repeat-x;
+}
+.pljsQuerenjiaofei{
+	width:166px;
+	height:26px;
+	margin:0 auto;
+	margin-top:4px;
+}
+.qrjfRight{
+	width:78px;
+	height:26px;
+	float:left;
+}
+.qrjfInput{
+	width:78px;
+	height:22px;
+	background:#FFF;
+	border:1px solid #b3bac1;
+	color:#d9d9d9;
+	float:left;
+}
+.Querenjiaofei{
+	width:78px;
+	height:26px;
+	background:url(../images/login_button12.png) no-repeat;
+	float:left;
+	margin-right:10px;
+	display:block;
+}
+.pljsBottomR{
+	width:8px;
+	height:34px;
+	float:left;
+}
+.pljsBottomLeft{
+	width:8px;
+	height:34px;
+	float:left;
+}
+/*------------------------------批量交付End------------------------------*/
