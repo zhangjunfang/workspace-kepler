@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<bean id="SpringBUtils" class="com.ctfo.informationser.util.SpringBUtils"
+		scope="singleton" />
+
+	<!-- 配置的资源文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/system.properties
+				</value>
+				<value>classpath:/jdbc.properties
+				</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="kcptoracleDataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean"
+		init-method="init" destroy-method="close">
+		<description>oracle xa datasource</description>
+		<property name="uniqueResourceName" value="${oracle_resourceName}" />
+		<property name="xaDataSourceClassName" value="${oracle_xaDataSourceClassName}" />
+		<property name="xaProperties">
+			<props>
+				<prop key="user">${oracle_user}</prop>
+				<prop key="password">${oracle_password}</prop>
+				<prop key="URL">${oracle_url}</prop>
+			</props>
+		</property>
+		   <!-- 测试失效链接 -->
+		<property name="testQuery"> <value>select 1 from dual</value> </property>
+		<property name="poolSize" value="${oracle_poolSize}" />
+		<property name="maxPoolSize" value="${oracle_maxPoolSize}" />    
+		<!-- 最大空闲时间，超过空闲时间的连接将被丢弃。为0或负数则永不丢弃。默认为0秒 -->
+		<property name="maxIdleTime" value="${oracle_maxIdleTime}" />
+	</bean>
+	
+	
+	
+	
+	<!--#####  JTA事务配置开始 -->
+
+	
+	
+	<!-- 注入ibaits配置文件 -->
+	  <bean id="sqlMapClient" 
+		class="org.springframework.beans.factory.config.ListFactoryBean" >
+ 		<property name="sourceList">  
+       		<list>
+         		<value>classpath:/com/ctfo/informationser/resource/basic/SqlMapConfig.xml</value>
+        	</list>  
+    	</property> 
+ 	</bean>
+ 
+	
+	
+	<bean id="kcptoracleSqlMapClient" 
+		class="org.springframework.orm.ibatis.SqlMapClientFactoryBean" >
+		<property name="configLocations" ref="sqlMapClient"/>
+		<property name="dataSource" ref="kcptoracleDataSource"/>
+	</bean>
+	
+	<bean id="kcptoracleClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient">
+			<ref bean="kcptoracleSqlMapClient" />
+		</property>
+	</bean>
+	
+	<!-- oracle库dao抽象类 -->
+	<bean id="genericIbatisAbstract" class="com.ctfo.informationser.local.daoImpl.GenericIbatisAbstract"
+		abstract="true">
+		<property name="sqlMapClientTemplate">
+			<ref bean="kcptoracleClientTemplate" />
+		</property>
+	</bean>
+	
+	<bean id="atomikosUserTransaction" class="com.atomikos.icatch.jta.UserTransactionImp">
+		<description>UserTransactionImp1</description>
+		<property name="transactionTimeout" value="300000" />
+	</bean>
+
+	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close">
+		<description>UserTransactionManager1</description>
+		<property name="forceShutdown">
+			<value>true</value>
+		</property>
+	</bean>
+
+	<bean id="springTransactionManager"
+		class="org.springframework.transaction.jta.JtaTransactionManager">
+		<description>JtaTransactionManager1</description>
+		<property name="transactionManager">
+			<ref bean="atomikosTransactionManager" />
+		</property>
+		<property name="userTransaction">
+			<ref bean="atomikosUserTransaction" />
+		</property>
+	</bean>
+	
+<!--##### JTA事务结束-->
+
+	<!-- 哪些类哪些方法使用事务 -->
+	<aop:config>
+		<aop:pointcut id="allServiceRmiMethod"
+			expression="execution(* com.ctfo.informationser.*.service.impl.*ServiceRmiImpl.*(..))
+						||execution(* com.ctfo.informationser.*.service.impl.*RmiImpl.*(..)) 
+					  ||execution(* com.ctfo.informationser.*.service.impl.VehicleInfoServiceImpl.*(..))" />
+			<aop:pointcut id="noFindServiceRmiMethod"
+			expression="execution(* com.ctfo.informationser.*.service.impl.*RmiImpl.*(..)) 
+					  ||execution(* com.ctfo.informationser.*.service.impl.*ServiceImpl.*(..))" /> 
+		<aop:advisor pointcut-ref="allServiceRmiMethod"	advice-ref="txAdvice"/>
+		<aop:advisor pointcut-ref="noFindServiceRmiMethod"	advice-ref="logAdviceHandler"/>
+	</aop:config>
+
+	<!-- 事务的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="springTransactionManager">
+		<tx:attributes>
+			<tx:method name="add*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="modify*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="remove*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="update*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />	
+			<tx:method name="is*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />	
+			<tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+	 
+
+
+
+	
+	<!--处理日志方面的bean -->
+	<bean name="logAdviceHandler" class="com.ctfo.informationser.log.LoggerRoundAdvice" />
+	
+	<!--处理异常方面的bean -->
+	<bean id="exceptionHandler" class="com.ctfo.informationser.log.ExceptionHandler" />
+
+
+
+	
+
+	<!-- 配置ServiceRmi操作抽象类 -->
+	<bean id="remoteJavaServiceRmiAbstract"
+		class="com.ctfo.informationser.basic.service.RemoteJavaServiceRmiAbstract"
+		abstract="true">
+	</bean>
+
+</beans>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<!-- 配置数据源-主 -->
+	<bean id="writeJedisDataSource" class="com.ctfo.redis.core.RedisDataSource" init-method="init">
+		<property name="redis_host" value="${REDIS.HOST.MAIN}" />
+		<property name="redis_port" value="${REDIS.PORT.MAIN}" />
+		<property name="redis_password" value="${REDIS.PASSWORD.MAIN}" />
+		<property name="maxActive" value="${REDIS.pool.maxActive}" />
+		<property name="maxIdle" value="${REDIS.pool.maxIdle}" />
+		<property name="maxWait" value="${REDIS.pool.maxWait}" />
+		<property name="redis_timeout" value="${REDIS.redis_timeout}" />
+	</bean>
+	<!-- 配置数据源-从 -->
+	<bean id="readJedisDataSource" class="com.ctfo.redis.core.RedisDataSource" init-method="init">
+		<property name="redis_host" value="${REDIS.HOST.FROM}" />
+		<property name="redis_port" value="${REDIS.PORT.FROM}" />
+		<property name="redis_password" value="${REDIS.PASSWORD.FROM}" />
+		<property name="maxActive" value="${REDIS.pool.maxActive}" />
+		<property name="maxIdle" value="${REDIS.pool.maxIdle}" />
+		<property name="maxWait" value="${REDIS.pool.maxWait}" />
+		<property name="redis_timeout" value="${REDIS.redis_timeout}" />
+	</bean>
+
+	<!-- 配置jedisDao-主 -->
+	<bean id="writeJedisDao" class="com.ctfo.redis.core.RedisDaoSupport">
+		<property name="redisDataSource" ref="writeJedisDataSource" />
+	</bean>
+	<!-- 配置jedisDao-从 -->
+	<bean id="readJedisDao" class="com.ctfo.redis.core.RedisDaoSupport">
+		<property name="redisDataSource" ref="readJedisDataSource" />
+	</bean>
+
+</beans>

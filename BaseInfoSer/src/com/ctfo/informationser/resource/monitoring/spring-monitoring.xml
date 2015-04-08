@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+
+	<bean id="thAlarmTodoRmi" class="com.ctfo.informationser.monitoring.service.impl.VehicleAlarmTodoRmiImpl" parent="remoteJavaServiceRmiAbstract">
+		<property name="vehicleAlarmTodoDao" ref="vehicleAlarmTodoDao" />
+	</bean>
+
+	<bean id="vehicleAlarmTodoDao" class="com.ctfo.informationser.monitoring.dao.impl.ThVehicleAlarmTodoDaoImpl" parent="genericIbatisAbstract">
+		<property name="sqlmapNamespace" value="ThVehicleAlarmtodo"></property>
+	</bean>
+	
+	<bean id="thPlatInfosRmi" class="com.ctfo.informationser.monitoring.service.impl.ThPlatInfosRmiImpl" parent="remoteJavaServiceRmiAbstract">
+		<property name="thPlatInfosDao" ref="thPlatInfosDao" />
+	</bean>
+
+	<bean id="thPlatInfosDao" class="com.ctfo.informationser.monitoring.dao.impl.ThPlatInfosDaoImpl" parent="genericIbatisAbstract">
+		<property name="sqlmapNamespace" value="ThPlatInfos"></property>
+	</bean>
+	
+	<bean id="thVehicleEarlywarningRmi" class="com.ctfo.informationser.monitoring.service.impl.VehicleEarlywarningServiceRmiImpl" parent="remoteJavaServiceRmiAbstract">
+		<property name="vehicleEarlywarningDao" ref="vehicleEarlywarningDao" />
+		<property name="vehicleBaseInfoDao" ref="vehicleBaseInfoDao" />
+	</bean>
+
+
+	<bean id="vehicleInforService" class="com.ctfo.informationser.monitoring.service.impl.VehicleInfoServiceImpl" parent="remoteJavaServiceRmiAbstract">
+		<property name="vehicleBaseInfoDao" ref="vehicleBaseInfoDao" />
+		<property name="writeJedisDao" ref="writeJedisDao" /><!-- redis服务-主 -->
+		<property name="readJedisDao" ref="readJedisDao" /><!-- redis服务-从 -->
+		<property name="isCheckVehicleAndVin" value="${isCheckVehicleAndVin}" />
+		<property name="isAllowRepeatRegister" value="${isAllowRepeatRegister}" />
+		<property name="registerType" value="${registerType}" />
+	</bean>
+	
+	<bean id="vehicleEarlywarningDao" class="com.ctfo.informationser.monitoring.dao.impl.ThVehicleEarlywarningDaoImpl" parent="genericIbatisAbstract">
+		<property name="sqlmapNamespace" value="ThVehicleEarlywarning"></property>
+	</bean>
+	<bean id="thvehicleEticketDao" class="com.ctfo.informationser.monitoring.dao.impl.ThVehicleEticketDaoImpl" parent="genericIbatisAbstract">
+		<property name="sqlmapNamespace" value="ThvehicleEticket"></property>
+	</bean>
+	<bean id="vehicleBaseInfoDao" class="com.ctfo.informationser.monitoring.dao.impl.VehicleInfoDaoImpl" parent="genericIbatisAbstract">
+		<property name="sqlmapNamespace" value="VehicleInfo"></property>
+	</bean>
+	
+	<bean id="thLinkStatusServiceRmi" class="com.ctfo.informationser.monitoring.service.impl.ThLinkStatusServiceRmiImpl" parent="remoteJavaServiceRmiAbstract">
+		<property name="thLinkStatusDao" ref="thLinkStatusDao" />
+	</bean>
+	<bean id="thLinkStatusDao" class="com.ctfo.informationser.monitoring.dao.impl.ThLinkStatusDaoImpl" parent="genericIbatisAbstract">
+		<property name="sqlmapNamespace" value="ThLinkStatus"></property>
+	</bean>
+</beans>

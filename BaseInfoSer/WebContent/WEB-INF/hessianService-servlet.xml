@@ -1,0 +1,12 @@
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="hessianServerImpl" class="com.ctfo.informationser.hessian.HessianServerImpl">
+		<property name="suffix" value="" />
+	</bean>
+
+<!-- 	<bean name="/hessianService" class="org.springframework.remoting.caucho.HessianServiceExporter"> -->
+<bean name="/hessianService" class="com.ctfo.informationser.hessian.CtfoHessianServiceExporter">
+		<property name="service" ref="hessianServerImpl" />
+		<property name="serviceInterface" value="com.ctfo.hessian.service.HessianServer" />
+	</bean>
+</beans>

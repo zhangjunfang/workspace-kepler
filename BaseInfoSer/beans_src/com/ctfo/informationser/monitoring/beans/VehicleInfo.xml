@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="VehicleInfo" >
+  <typeAlias type="com.ctfo.local.obj.DynamicSqlParameter" alias="dynamicSqlParameter" />
+  <resultMap id="VehicleInfo" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="akey" property="akey" jdbcType="VARCHAR" />
+    <result column="oemcode" property="oemcode" jdbcType="VARCHAR" />
+    <result column="vehicleNo" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="plateColor" property="plateColor" jdbcType="DECIMAL" />
+    <result column="tmodelCode" property="tmodelCode" jdbcType="DECIMAL" />
+    <result column="tmac" property="tmac" jdbcType="DECIMAL" />
+    <result column="commaddr" property="commaddr" jdbcType="VARCHAR" />
+    <result column="city_Id" property="cityId" jdbcType="DECIMAL" />
+    <result column="staffName" property="staffName" jdbcType="VARCHAR" />
+    <result column="driverNo" property="driverNo" jdbcType="VARCHAR" />
+    <result column="bussinessId" property="bussinessId" jdbcType="VARCHAR" />
+    <result column="drivercardDep" property="drivercardDep" jdbcType="VARCHAR" />
+    <result column="eticketContent" property="eticketContent" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="selectColumn">
+  	<isNull property="" prepend=",">
+  		
+  	</isNull>
+  </sql>
+  <sql id="where_param">
+  	<isNull property="" prepend=",">
+  		
+  	</isNull>
+  </sql>
+  <!-- 查询车，终端，卡信息 -->
+  <resultMap id="getAllBaseInfoMap" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="vid" property="vid" jdbcType="VARCHAR" />
+    <result column="vehicle_state" property="vehicleState" jdbcType="VARCHAR" />
+    <result column="vehicleRegStatus" property="vehicleRegStatus" jdbcType="VARCHAR" />
+    <result column="tid" property="tid" jdbcType="VARCHAR" />
+    <result column="ter_state" property="terState" jdbcType="DECIMAL" />
+    <result column="auth_Code" property="akey" jdbcType="VARCHAR" />
+    <result column="terRegStatus" property="terRegStatus" jdbcType="VARCHAR" />
+    <result column="oem_code" property="oemcode" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getAllBaseInfo" resultMap="getAllBaseInfoMap" parameterClass="dynamicSqlParameter">
+    
+    <!-- 不验证车牌号和手机号  
+    SELECT vv.*,
+    tt.*,
+    ss.*
+  FROM
+    (SELECT v.vid,
+      v.vehicle_state,
+      v.reg_status AS vehicleRegStatus
+    FROM tb_vehicle v
+    WHERE v.enable_flag != 0
+    ) vv
+  inner JOIN tr_serviceunit tr
+  ON tr.vid = vv.vid
+  inner JOIN
+    (SELECT t.tid,
+      t.ter_state,
+      t.reg_status AS terRegStatus,
+      t.auth_code,
+      t.oem_code
+    FROM tb_terminal t
+    WHERE t.enable_flag != 0
+    AND t.tmac           = #equal.tmac#
+    ) tt
+  ON tt.tid = tr.tid
+  inner JOIN
+    (SELECT s.sid
+    FROM tb_sim s
+    WHERE s.enable_flag != 0
+    AND s.commaddr       = #equal.commaddr#
+    ) ss
+  ON tr.sid = ss.sid where rownum=1
+    -->
+     <!-- 修改终端号重复 2012-11-08 刘志伟-->
+    SELECT V.VID,
+       V.VEHICLE_STATE,
+       V.REG_STATUS AS VEHICLEREGSTATUS,
+       TER.TID AS TID,
+       TER.TER_STATE AS TER_STATE,
+       TER.AUTH_CODE AS AUTH_CODE,
+       TER.REG_STATUS AS TERREGSTATUS,
+       TER.OEM_CODE AS OEM_CODE,
+       SIM.SID AS SID
+        FROM TB_VEHICLE V, TR_SERVICEUNIT TS, TB_TERMINAL TER, TB_SIM SIM
+                WHERE V.VID = TS.VID
+                 AND TS.TID = TER.TID
+                AND TS.SID = SIM.SID
+        AND V.ENABLE_FLAG != '0'
+           AND TER.TMAC = #equal.tmac#
+       	   AND SIM.COMMADDR = #equal.commaddr#
+ 
+  <!-- 解决终端标识不唯一     2012-04-30 dengwei 注释
+  	SELECT vv.*,tt.*,ss.*
+	FROM
+	 (SELECT v.vid,v.vehicle_state,v.reg_status AS vehicleRegStatus
+	   FROM tb_vehicle v , tr_serviceunit ts, tb_terminal ter,tb_sim sim
+       WHERE v.vid=ts.vid and ts.tid=ter.tid and ts.sid=sim.sid
+	    AND v.enable_flag != 0
+	    <isNotNull prepend="" property="equal.isCheckVehicleAndVin">
+	       AND v.vehicle_no  = #equal.vehicleNo#
+	       AND v.plate_color = #equal.plateColor#
+	    </isNotNull>
+	    <isNull prepend="" property="equal.isCheckVehicleAndVin">
+	       AND ter.tmac = #equal.tmac#
+           AND sim.commaddr = #equal.commaddr#
+	    </isNull>
+	  AND v.ENABLE_FLAG!=0
+	  ) vv
+	LEFT JOIN tr_serviceunit tr
+	ON tr.vid = vv.vid
+	LEFT JOIN
+	  (SELECT t.tid,
+	    t.ter_state,
+	    t.reg_status AS terRegStatus,
+	    t.auth_code,
+	    t.oem_code
+	  FROM tb_terminal t
+	  WHERE t.enable_flag != 0
+	  AND t.tmac = #equal.tmac#
+	  AND t.tid in
+	    (SELECT tid
+	    FROM tr_serviceunit
+	    WHERE vid in
+	      (SELECT vehicle.vid
+	      FROM tb_vehicle vehicle
+	      WHERE vehicle.enable_flag != 0
+	      <isNotNull prepend="" property="equal.isCheckVehicleAndVin">
+	         AND vehicle.vehicle_no = #equal.vehicleNo#
+	         AND vehicle.plate_color = #equal.plateColor#
+	      </isNotNull>
+	      AND vehicle.ENABLE_FLAG!   =0
+	      )
+	    )
+	  ) tt
+	ON 1 = 1
+	LEFT JOIN
+	  (SELECT s.sid
+	  FROM tb_sim s
+	  WHERE s.enable_flag != 0
+	  AND s.commaddr= #equal.commaddr#
+	  and s.sid in 
+	  (SELECT sid
+	    FROM tr_serviceunit
+	    WHERE vid in
+	      (SELECT vehicle.vid
+	      FROM tb_vehicle vehicle
+	      WHERE vehicle.enable_flag != 0
+	      <isNotNull prepend="" property="equal.isCheckVehicleAndVin">
+	          AND vehicle.vehicle_no = #equal.vehicleNo#
+	          AND vehicle.plate_color = #equal.plateColor#
+	      </isNotNull>
+	      AND vehicle.ENABLE_FLAG!=0
+	      )
+	    )
+	  ) ss
+	ON 1 = 1-->
+  
+<!-- 终端标识重复，查询异常，如果终端标识唯一 则这个SQL正常修改于2012-3-23 17:15 邓伟提出终端标识重复的BUG-->
+<!--   	select vv.*, tt.*, ss.* -->
+<!-- 	  from (select v.vid, v.vehicle_state, v.reg_status as vehicleRegStatus -->
+<!-- 	          from tb_vehicle v -->
+<!-- 	         where v.enable_flag != 0 -->
+<!-- 	           and v.vehicle_no =  #equal.vehicleNo# -->
+<!-- 	           and v.plate_color =  #equal.plateColor# and v.ENABLE_FLAG!=0) vv -->
+<!-- 	  left join (select t.tid, t.ter_state, t.reg_status as terRegStatus, t.auth_code,t.oem_code -->
+<!-- 	               from tb_terminal t -->
+<!-- 	              where t.enable_flag != 0 -->
+<!-- 	                and t.tmac =  #equal.tmac# and ) tt on 1 = 1 -->
+<!-- 	  left join (select s.sid -->
+<!-- 	               from tb_sim s -->
+<!-- 	              where s.enable_flag != 0 -->
+<!-- 	                and s.commaddr = #equal.commaddr#) ss on 1 = 1 -->
+  </select>
+  
+  
+  
+  <!-- 车辆的车牌颜色为0时，通过VIN号比对查询 -->
+   <select id="getAllBaseInfoByVin" resultMap="getAllBaseInfoMap" parameterClass="dynamicSqlParameter">
+   SELECT V.VID,
+       V.VEHICLE_STATE,
+       V.REG_STATUS AS VEHICLEREGSTATUS,
+       TER.TID AS TID,
+       TER.TER_STATE AS TER_STATE,
+       TER.AUTH_CODE AS AUTH_CODE,
+       TER.REG_STATUS AS TERREGSTATUS,
+       TER.OEM_CODE AS OEM_CODE,
+       SIM.SID AS SID
+          FROM tb_vehicle v , tr_serviceunit ts, tb_terminal ter,tb_sim sim
+       WHERE v.vid=ts.vid and ts.tid=ter.tid and ts.sid=sim.sid
+           AND v.enable_flag != 0
+        <isNotNull prepend="" property="equal.isCheckVehicleAndVin">
+	        AND v.VIN_CODE = #equal.vehicleNo#
+	    </isNotNull>
+	    <isNull prepend="" property="equal.isCheckVehicleAndVin">
+          	AND ter.tmac = #equal.tmac#
+           AND sim.commaddr = #equal.commaddr#
+	    </isNull>
+<!--  	SELECT vv.*,-->
+<!--	  tt.*,-->
+<!--	  ss.*-->
+<!--	FROM-->
+<!--	  (SELECT v.vid,-->
+<!--	    v.vehicle_state,-->
+<!--	    v.reg_status AS vehicleRegStatus-->
+<!--	  FROM tb_vehicle v , tr_serviceunit ts, tb_terminal ter,tb_sim sim-->
+<!--       WHERE v.vid=ts.vid and ts.tid=ter.tid and ts.sid=sim.sid-->
+<!--	   AND v.enable_flag != 0-->
+<!--	  <isNotNull prepend="" property="equal.isCheckVehicleAndVin">-->
+<!--	     AND v.VIN_CODE = #equal.vehicleNo#-->
+	     <!-- AND v.plate_color = #equal.plateColor#  新增车辆时，车牌颜色没有0的选项，因此不校验车牌颜色  -->
+<!--	  </isNotNull>-->
+<!--	  -->
+<!--	  <isNull prepend="" property="equal.isCheckVehicleAndVin">-->
+<!--	       AND ter.tmac = #equal.tmac#-->
+<!--           AND sim.commaddr = #equal.commaddr#-->
+<!--	   </isNull>-->
+<!---->
+<!--	  ) vv-->
+<!--	LEFT JOIN tr_serviceunit tr-->
+<!--	ON tr.vid = vv.vid-->
+<!--	LEFT JOIN-->
+<!--	  (SELECT t.tid,-->
+<!--	    t.ter_state,-->
+<!--	    t.reg_status AS terRegStatus,-->
+<!--	    t.auth_code,-->
+<!--	    t.oem_code-->
+<!--	  FROM tb_terminal t-->
+<!--	  WHERE t.enable_flag != 0-->
+<!--	  AND t.tmac = #equal.tmac#-->
+<!--	  AND t.tid in-->
+<!--	    (SELECT tid-->
+<!--	    FROM tr_serviceunit-->
+<!--	    WHERE vid in-->
+<!--	      (SELECT vehicle.vid-->
+<!--	      FROM tb_vehicle vehicle-->
+<!--	      WHERE vehicle.enable_flag != 0-->
+<!--	      <isNotNull prepend="" property="equal.isCheckVehicleAndVin">-->
+<!--	         AND vehicle.VIN_CODE = #equal.vehicleNo#-->
+	         <!-- AND vehicle.plate_color = #equal.plateColor# -->
+<!--	      </isNotNull>-->
+<!--	      AND vehicle.ENABLE_FLAG!   =0-->
+<!--	      )-->
+<!--	    )-->
+<!--	  ) tt-->
+<!--	ON 1 = 1-->
+<!--	LEFT JOIN-->
+<!--	  (SELECT s.sid-->
+<!--	  FROM tb_sim s-->
+<!--	  WHERE s.enable_flag != 0-->
+<!--	  AND s.commaddr = #equal.commaddr#-->
+<!--	  and s.sid in-->
+<!--	  (SELECT sid-->
+<!--	    FROM tr_serviceunit-->
+<!--	    WHERE vid in-->
+<!--	      (SELECT vehicle.vid-->
+<!--	      FROM tb_vehicle vehicle-->
+<!--	      WHERE vehicle.enable_flag != 0-->
+<!--	      <isNotNull prepend="" property="equal.isCheckVehicleAndVin">-->
+<!--	         AND vehicle.VIN_CODE = #equal.vehicleNo#-->
+	         <!-- AND vehicle.plate_color = #equal.plateColor# -->
+<!--	      </isNotNull>-->
+<!--	      AND vehicle.ENABLE_FLAG!=0-->
+<!--	      )-->
+<!--	    )-->
+<!--	  ) ss-->
+<!--	ON 1 = 1-->
+  </select>
+  
+ 
+  
+  <!-- 根据，车，卡，终端，查询绑定 -->
+  <select id="getCountForServiceunit" resultClass="Long" parameterClass="dynamicSqlParameter">
+  	select count(1) from tr_serviceunit tr where
+  	tr.vid = #equal.vid# and tr.sid=#equal.sid# and tr.tid=#equal.tid#
+  </select>
+  
+  <!-- 根据车牌号，车牌颜色查询车辆信息 -->
+  <resultMap id="getRegVehicleInfoMap" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="OEM_CODE" property="oemcode" jdbcType="VARCHAR" />
+    <result column="VEHICLE_NO" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="PLATE_COLOR" property="plateColor" jdbcType="VARCHAR" />
+    <result column="TMODEL_CODE" property="tmodelCode" jdbcType="VARCHAR" />
+    <result column="TMAC" property="tmac" jdbcType="VARCHAR" />
+    <result column="COMMADDR" property="commaddr" jdbcType="VARCHAR" />
+    <result column="CITY_ID" property="cityId" jdbcType="VARCHAR" />
+     <result column="MANUFACTURER_ID" property="manufacturerId" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getRegVehicleInfo" parameterClass="dynamicSqlParameter" resultMap="getRegVehicleInfoMap">
+	<!--注释 dengwei   city_id 取车辆基本的信息，不取车辆注册时上传的信息   select * from (
+	 SELECT v.vehicle_no,
+		  v.vehicle_color AS PLATE_COLOR,
+		  CASE
+		    WHEN LENGTH(v.province_id)=6
+		    THEN v.province_id
+		    WHEN LENGTH(v.province_id)=2
+		    THEN v.province_id
+		      ||'0000'
+		    ELSE v.city_id
+		  END city_Id,
+		  v.oem_code AS tmodel_code,
+		  v.manufacturer_id,
+		  v.tid AS tmac,
+		  v.oem_code,
+		  v.commaddr
+		FROM th_terminal_register v
+		WHERE v.result=0 and v.logoffutc =0 and v.commaddr = #equal.commaddr#
+		ORDER BY utc desc) where rownum=1-->
+   SELECT tv.vehicle_no,
+		  tv.plate_color AS PLATE_COLOR,
+		 tv.area_code city_Id,
+		  v.oem_code AS tmodel_code,
+		  v.manufacturer_id,
+		  v.tid AS tmac,
+		  v.oem_code,
+		  v.commaddr
+		FROM th_terminal_register v,
+         tr_serviceunit r,
+         tb_sim s,
+         tb_vehicle tv
+		WHERE v.result=0 and v.logoffutc =0 and v.commaddr = #equal.commaddr#
+    and s.sid = r.sid and r.vid=tv.vid 
+		and rownum =1
+   <!--   select v.vehicle_no, -->
+<!--        v.vehicle_color as PLATE_COLOR, -->
+<!--        case when length(v.province_id)=6 then v.province_id when  length(v.province_id)=2 then v.province_id||'0000' else v.city_id end city_Id, -->
+<!--        v.oem_code as tmodel_code, -->
+<!--        v.manufacturer_id, -->
+<!--        v.tid as tmac, -->
+<!--        v.oem_code, -->
+<!--        ss.commaddr -->
+<!--   from th_terminal_register v, tb_terminal t, tb_sim ss, tr_serviceunit l -->
+<!--   where v.tid = t.tid -->
+<!--    and ss.sid = l.sid -->
+<!--    and l.tid = t.tid -->
+<!--    and ss.commaddr = #equal.commaddr# -->
+<!--    and ss.enable_flag != 0 and rownum=1 -->
+   
+   
+  </select>
+  <!-- 根据SIM卡和终端型号查询车辆信息 -->
+  <resultMap id="getBaseVehicleInfoMap" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="PLATE_COLOR" property="plateColor" jdbcType="VARCHAR" />
+    <result column="VEHICLE_NO" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="CITY_ID" property="cityId" jdbcType="VARCHAR" />
+  </resultMap> 
+  <select id="getBaseVehicleInfo" parameterClass="dynamicSqlParameter" resultMap="getBaseVehicleInfoMap">
+	  select v.vehicle_no,
+	       v.plate_color,v.area_code city_id
+	  from tb_vehicle v
+	 where v.ENABLE_FLAG = '1' and v.vid = (select s.vid
+	                   from tr_serviceunit s
+	                  where s.sid = (select sim.sid
+	                                   from tb_sim sim
+	                                  where sim.commaddr=#equal.commaddr# and sim.ENABLE_FLAG!='0'))
+  </select>
+  <!-- 根据车牌号，车牌颜色查询车辆信息 -->
+   <resultMap id="getDriverOfVehicleByTypeMap" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="vehicle_No" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="plate_Color" property="plateColor" jdbcType="DECIMAL" />
+    <result column="city_Id" property="cityId" jdbcType="DECIMAL" />
+    <result column="staff_Name" property="staffName" jdbcType="VARCHAR" />
+    <result column="driver_No" property="driverNo" jdbcType="VARCHAR" />
+    <result column="bussiness_Id" property="bussinessId" jdbcType="VARCHAR" />
+    <result column="drivercard_Dep" property="drivercardDep" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getDriverOfVehicleByType" parameterClass="dynamicSqlParameter" resultMap="getDriverOfVehicleByTypeMap">
+  	select vv.vehicle_no,vv.plate_color,vv.area_code CITY_ID,e.card_id driver_no,e.staff_Name,e.bussiness_Id,e.drivercard_Dep
+       from tb_vehicle vv
+          left join tr_vehicle_staff tr
+          on tr.vid =vv.vid
+          left join tb_employee e on e.staff_id =tr.staff_id
+         where vv.plate_color = #equal.plateColor# and vv.vehicle_no = #equal.vehicleNo# and vv.ENABLE_FLAG!=0 and e.enable_flag !='0' and rownum=1
+  </select>
+  <!-- 根据车牌号，车牌颜色查询车辆电子运单信息 -->
+  <resultMap id="getEticketByVehicleMap" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="vehicle_No" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="plate_Color" property="plateColor" jdbcType="DECIMAL" />
+    <result column="city_Id" property="cityId" jdbcType="VARCHAR" />
+    <result column="eticket_Content" property="eticketContent" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getEticketByVehicle" parameterClass="dynamicSqlParameter" resultMap="getEticketByVehicleMap">
+  	select * from (
+  	select v.vehicle_no,v.plate_color,v.area_code CITY_ID, e.content eticket_content
+	  from tb_vehicle v
+	  left join th_vehicle_eticket e on e.vid=v.vid
+	 where v.plate_color = #equal.plateColor# and v.vehicle_no = #equal.vehicleNo# and v.ENABLE_FLAG!='0'  order by utc desc) t
+	 where rownum=1 
+  </select>
+   <resultMap id="getTernimalByVehicleByTypeMap" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+     <result column="OEM_CODE" property="oemcode" jdbcType="VARCHAR" />
+    <result column="COMMADDR" property="commaddr" jdbcType="VARCHAR" />
+    <result column="city_Id" property="cityId" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 根据车牌号，车牌颜色查询终端信息 -->
+  <select id="getTernimalByVehicleByType" parameterClass="dynamicSqlParameter" resultMap="getTernimalByVehicleByTypeMap">
+  	select t.OEM_CODE, ss.commaddr,v.area_code city_id
+	  from tb_terminal t, tb_sim ss,tb_vehicle v
+	 where ss.sid = (select s.sid
+	                   from tr_serviceunit s
+	                  where s.vid = (select v.vid
+	                                   from tb_vehicle v
+	                                  where v.plate_color = #equal.plateColor# and v.vehicle_no = #equal.vehicleNo#  and v.ENABLE_FLAG!='0'))
+	   and t.tid = (select s.tid
+	                  from tr_serviceunit s
+	                 where s.vid = (select v.vid
+	                                  from tb_vehicle v
+	                                 where v.plate_color = #equal.plateColor# and v.vehicle_no = #equal.vehicleNo#  and v.ENABLE_FLAG!='0'))
+	    and v.vid = (select v.vid
+                                    from tb_vehicle v
+                                   where v.plate_color = #equal.plateColor# and v.vehicle_no = #equal.vehicleNo#  and v.ENABLE_FLAG!='0')
+  </select>
+  <!-- 根据电话号码，终端型号，驾驶员从业资格证，驾驶员身份证验证驾驶员信息 -->
+  <select id="isDriverOfVehicle" parameterClass="dynamicSqlParameter" resultClass="Long">
+  	select count(1)
+	  from tb_employee e
+	 where e.staff_id in
+	       (select st.staff_id
+	          from tr_vehicle_staff st
+	         where st.vid =
+	               (select tr.vid
+	                  from tr_serviceunit tr
+	                 where tr.sid =
+	                       (select sim.sid
+	                          from tb_sim sim
+	                         where sim.commaddr = #equal.commaddr# and sim.ENABLE_FLAG!='0')))
+	   and e.CARD_ID = #equal.driverNo#
+	   and e.bussiness_id = #equal.bussinessId#	  	
+  </select>
+  <select id="modifyByRegStatus" parameterClass="dynamicSqlParameter">
+  	BEGIN 
+  	update tb_vehicle v set v.reg_status=#updateValue.regStatus#,v.UPDATE_TIME=#updateValue.updateTime# where v.vid=#equal.vid#;
+  	update tb_terminal t set t.reg_status=#updateValue.regStatus#, t.UPDATE_TIME=#updateValue.updateTime# where t.tid=#equal.tid#;
+  	END;
+  </select>
+  <!-- 车辆静态信息 -->
+  <resultMap id="VehicleStaticInfo" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="vehicle_No" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="plate_Color" property="plateColor" jdbcType="VARCHAR" />
+    <result column="vehicle_type" property="generalCode" jdbcType="VARCHAR" />
+    <result column="code_Name" property="codeName" jdbcType="VARCHAR" />
+    <result column="transtype_Code" property="transtypeCode" jdbcType="VARCHAR" />
+    <result column="city_Id" property="cityId" jdbcType="VARCHAR" />
+    <result column="licence_No" property="licenceNo" jdbcType="VARCHAR" />
+    <result column="org_shortname" property="orgCname" jdbcType="VARCHAR" />
+    <result column="org_Cphone" property="orgCphone" jdbcType="VARCHAR" />
+    <result column="vehicle_Operation_Id" property="vehicleOperationId" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getDetailOfVehicleInfo" resultMap="VehicleStaticInfo" parameterClass="dynamicSqlParameter">
+  	select v.vehicle_No,
+       v.plate_Color,
+       v.vehicle_type,
+       s.code_name,
+       v.transtype_Code,
+       v.area_code city_Id,
+       v.vehicle_Operation_Id,
+       org.org_shortname,
+       org.org_Cphone,
+       org.licence_No
+	  from tb_vehicle v
+	  left join SYS_GENERAL_CODE s on s.general_code = v.vehicle_type and s.parent_general_code='SYS_VEHICLE_TYPE'
+	  left join (select 
+	  				oo.org_shortname,
+              		oo.org_Cphone,
+              		oo.licence_No
+	               from tb_org_info oo
+	              where oo.ent_id =
+	                    (select tb.parent_id
+	                       from tb_organization tb
+	                      where tb.ent_id =
+	                            (select v.ent_id
+	                               from tb_vehicle v
+	                              where v.vehicle_no = #equal.vehicleNo#
+	                                and v.plate_color = #equal.plateColor#  and v.ENABLE_FLAG!=0))) org on 1 = 1
+	  where v.plate_color = #equal.plateColor#
+   		and v.vehicle_no = #equal.vehicleNo# and v.ENABLE_FLAG!='0'          
+  </select>
+  <!-- 根据手机号查询车辆信息 -->
+  <resultMap id="akeyVehicleInfo" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+     <result column="AUTH_CODE" property="akey" jdbcType="VARCHAR" />
+     <result column="OEM_CODE" property="oemcode" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 鉴权查询 -->
+  <select id="getAkeyVehicleInfo" parameterClass="dynamicSqlParameter" resultMap="akeyVehicleInfo">
+		SELECT T.AUTH_CODE, T.OEM_CODE
+  		FROM TB_TERMINAL T, TB_SIM SS, TR_SERVICEUNIT S
+ 		WHERE T.TID = S.TID
+   		AND S.SID = SS.SID
+   		AND SS.ENABLE_FLAG!='0'
+   		AND SS.COMMADDR = #equal.commaddr#
+   		AND T.REG_STATUS!=-1
+  </select>
+  <!-- 根据车牌号，车牌颜色查询车辆Id -->
+  <resultMap id="vidVehicleInfo" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="VID" property="vid" jdbcType="VARCHAR" />
+  </resultMap>
+   <select id="getVidVehicleInfoMap" parameterClass="dynamicSqlParameter" resultMap="vidVehicleInfo">
+   SELECT T.VID
+   FROM TB_VEHICLE T
+   WHERE T.VEHICLE_NO=#equal.vehicleNo#
+   AND T.PLATE_COLOR = #equal.plateColor# and T.ENABLE_FLAG!='0' 
+  </select>
+  <!-- 根据SIM获取车辆，终端，SIM卡ID -->
+   <resultMap id="getAllIdForLogoffMap" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="vid" property="vid" jdbcType="VARCHAR" />
+    <result column="tid" property="tid" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getAllIdForLogoff" resultMap="getAllIdForLogoffMap" parameterClass="dynamicSqlParameter">
+  	SELECT tr.vid,
+	  tr.sid,
+	  tr.tid
+	FROM tr_serviceunit tr
+	WHERE tr.sid=
+	  ( SELECT s.sid FROM tb_sim s WHERE s.commaddr=#equal.commaddr# and s.enable_flag!='0'
+	  )
+  </select>
+  
+  <!-- 根据3G号码获取2G号和oemcode -->
+  <resultMap id="get2gBy3gMap" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="COMMADDR" property="commaddr" jdbcType="VARCHAR" />
+    <result column="OEM_CODE" property="oemcode" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="get2gBy3g" resultMap="get2gBy3gMap" parameterClass="dynamicSqlParameter">
+       select tm.commaddr, tt.oem_code
+		  from kcpt.tb_sim tm
+		  join kcpt.tr_serviceunit ts
+		    on tm.sid = ts.sid
+		  join kcpt.tb_dvr td
+		    on td.dvr_id = ts.dvr_id
+		  join kcpt.tb_terminal tt
+		    on ts.tid = tt.tid
+		   and td.enable_flag = '1'
+		 where 1 = 1
+		   and tm.enable_flag = '1'
+		   and tt.ter_state=2
+		   and td.dvr_simnum = #equal.sim3:VARCHAR#
+  </select>
+  <!-- 根据2G号码获取3G号和oemcode -->
+   <select id="get3gBy2g" resultMap="get2gBy3gMap" parameterClass="dynamicSqlParameter">
+       select td.dvr_simnum as commaddr, tt.oem_code
+		  from kcpt.tb_sim tm
+		  join kcpt.tr_serviceunit ts
+		    on tm.sid = ts.sid
+		  join kcpt.tb_dvr td
+		    on td.dvr_id = ts.dvr_id
+		  join kcpt.tb_terminal tt
+		    on ts.tid = tt.tid
+		   and td.enable_flag = '1'
+		 where 1 = 1
+		   and tm.enable_flag = '1'
+		   and tt.ter_state=2
+		   and tm.commaddr = #equal.sim2:VARCHAR#
+  </select>
+  
+  <resultMap id="get2gBy3gMap" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+    <result column="COMMADDR" property="commaddr" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 获得2g3gSim卡号映射表 -->
+   <select id="get2g3gSimMapping" resultMap="get2gBy3gMap" >
+       select tt.oem_code ||'_'|| tm.commaddr||':'|| tt.oem_code || '_' || td.dvr_simnum as commaddr
+		  from kcpt.tb_sim tm
+		  join kcpt.tr_serviceunit ts
+		    on tm.sid = ts.sid
+		  join kcpt.tb_dvr td
+		    on td.dvr_id = ts.dvr_id
+		  join kcpt.tb_terminal tt
+		    on ts.tid = tt.tid
+		   and td.enable_flag = '1'
+		 where  tm.enable_flag = '1'
+  </select>
+  
+   <!-- 通过手机号查询车辆注册信息 -->
+   <select id="getAllBaseInfoByPhoneNumber" resultMap="getAllBaseInfoMap" parameterClass="dynamicSqlParameter">
+   SELECT V.VID,
+       V.VEHICLE_STATE,
+       V.REG_STATUS AS VEHICLEREGSTATUS,
+       TER.TID AS TID,
+       TER.TER_STATE AS TER_STATE,
+       TER.AUTH_CODE AS AUTH_CODE,
+       TER.REG_STATUS AS TERREGSTATUS,
+       TER.OEM_CODE AS OEM_CODE,
+       SIM.SID AS SID
+          FROM tb_vehicle v , tr_serviceunit ts, tb_terminal ter,tb_sim sim
+       WHERE v.vid=ts.vid and ts.tid=ter.tid and ts.sid=sim.sid
+           AND v.enable_flag != '0'
+           AND sim.commaddr = #equal.commaddr#
+  </select>
+  
+  <!-- 通过终端id查询车辆注册信息, 老运营车辆接入为避免冲突重新写SQL -->
+  <resultMap id="getBaseInfoMap" class="com.ctfo.informationser.monitoring.beans.VehicleInfo" >
+  	<result column="vid" property="vid" jdbcType="VARCHAR" />
+    <result column="vehicle_state" property="vehicleState" jdbcType="VARCHAR" />
+    <result column="plate_color" property="plateColor" jdbcType="VARCHAR" />
+    <result column="vehicle_no" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="vehicleRegStatus" property="vehicleRegStatus" jdbcType="VARCHAR" />
+    <result column="tid" property="tid" jdbcType="VARCHAR" />
+    <result column="ter_state" property="terState" jdbcType="VARCHAR" />
+    <result column="auth_Code" property="akey" jdbcType="VARCHAR" />
+    <result column="terRegStatus" property="terRegStatus" jdbcType="VARCHAR" />
+    <result column="oem_code" property="oemcode" jdbcType="VARCHAR" />
+    <result column="tmac" property="tmac" jdbcType="VARCHAR" />
+    <result column="sid" property="sid" jdbcType="VARCHAR" />
+    <result column="commaddr" property="commaddr" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getAllBaseInfoByTmac" resultMap="getBaseInfoMap" parameterClass="dynamicSqlParameter">
+     SELECT v.VID				AS VID,
+		    v.VEHICLE_STATE		AS VEHICLE_STATE,
+		    v.REG_STATUS 		AS VEHICLEREGSTATUS,
+		    v.PLATE_COLOR 		AS PLATE_COLOR,
+		    v.VEHICLE_NO 		AS VEHICLE_NO,
+		    ter.TID 			AS TID,
+		    ter.TER_STATE 		AS TER_STATE,
+		    ter.AUTH_CODE 		AS AUTH_CODE,
+		    ter.REG_STATUS 		AS TERREGSTATUS,
+		    ter.OEM_CODE 		AS OEM_CODE,
+		    ter.TMAC			AS TMAC,
+		    sim.SID 			AS SID,
+		    sim.COMMADDR		AS COMMADDR
+       FROM TB_VEHICLE v, TR_SERVICEUNIT ts, TB_TERMINAL ter, TB_SIM sim
+      WHERE v.VID = ts.VID 
+        AND ts.TID = ter.TID
+        AND ts.SID = sim.SID
+        AND v.ENABLE_FLAG != '0'
+        AND ter.TMAC = #equal.tmac#
+  </select>
+  
+</sqlMap>
