@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<bean id="SpringBUtils" class="com.ctfo.dataanalysisservice.util.SpringBUtils" scope="singleton" />
+
+
+
+	<!-- 配置的资源文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:/jdbc.properties</value>
+				
+			</list>
+		</property>
+	</bean>
+
+   
+  
+	
+ <!-- dataSource  -->
+ <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName"
+            value="${oracle_xaDataSourceClassName}">
+        </property>
+        <property name="url"
+            value="${oracle_url}">
+        </property>
+        <property name="username" value="${oracle_user}"></property>
+        <property name="password" value="${oracle_password}"></property>
+    </bean>
+
+<!--1:配置一个JdbcTemplate实例，并将这个“共享的”，“安全的”实例注入到不同的DAO类中去-->
+    <bean id="jdbcTemplate"
+        class="org.springframework.jdbc.core.JdbcTemplate" abstract="false"
+        lazy-init="false" autowire="default" dependency-check="default">
+        <property name="dataSource">
+            <ref bean="dataSource" />
+        </property>
+    </bean>
+
+
+
+ <bean id = "transactionManager" 
+         class = "org.springframework.jdbc.datasource.DataSourceTransactionManager"> 
+         <property name = "dataSource" ref="dataSource"/> 
+    </bean>
+    
+    
+  
+
+    <bean id = "dbBase" 
+         class = "com.ctfo.dataanalysisservice.dao.DbBase"> 
+         <property name="jdbcTemplate" ref="jdbcTemplate"/> 
+    </bean>
+    
+
+  
+
+	
+</beans>

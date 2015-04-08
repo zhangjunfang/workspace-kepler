@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xconf>
+	<app>DataAnalysiSservice</app>
+	<ver>1.0.0.0</ver>
+	<desc>客车平台数据分析服务</desc>
+	
+	<item name="ManagePort">
+		<value>7250</value>
+		<comments>管理端口</comments>
+	</item>
+	<item name="AnalyseClass">
+		<value>com.ctfo.dataanalysisservice.service.AlarmAnalyseService</value>
+		<comments>数据分析类</comments>
+	</item>
+	
+	<item name="DataDistributeThreadCount">
+		<value>1</value>
+		<comments>数据初始分发默认线程数</comments>
+	</item>
+	
+	
+	<item name="BussinesDistributeCount">
+		<comments>按车辆id取模的队列个数</comments>
+        <value>1</value>
+	</item>
+	
+
+    <item name="DataSaveThreadCount">
+		<comments>数据存储服务线程个数</comments>
+        <value>1</value>
+	</item>
+	
+	<item name="KeyPointTimeTolerance">
+		<comments>判断关键点时间容差(单位:S)</comments>
+        <value>300</value>
+	</item>
+	
+	
+	<item name="AddInClass">
+		<comments>软报警插件解析业务类</comments>
+		<item name="AreaAlarm">
+		<comments>围栏区域分析报警业务类</comments>
+		<value>com.ctfo.dataanalysisservice.addin.AreaAlarmAddIn</value>
+		</item>
+		<item name="KeyPointAlarm">
+		<comments>关键点分析报警业务类</comments>
+		<value>com.ctfo.dataanalysisservice.addin.KeyPointAlarmAddIn</value>
+		</item> 
+		<item name="LineAlarm">
+		<comments>线路(偏移,分段限速)分析报警业务类</comments>
+		<value>com.ctfo.dataanalysisservice.addin.LineAlarmAddIn</value>
+		</item>
+	</item>
+		
+	
+	<item name="ManageFlag">
+		<value>1</value>
+		<comments>消息服务配置管理测试开关  1启动消息服务直连，0通过节点管理处理</comments>
+	</item>
+	
+
+	
+	<item name="msgServiceManage">
+		<comments>消息服务配置管理</comments>
+		<item name="msg1">
+			<comments>消息服务器1</comments>
+			<item name="msgServicePort">
+				<value>7505</value>
+				<comments>消息服务器端口</comments>
+			</item>
+			<item name="msgServiceAddr">
+				<value>192.168.5.212</value>
+				<comments>消息服务器地址192.168.5.212</comments>
+			</item>
+			<item name="logintype">
+				<value>SAVE</value>
+				<comments>登陆类型</comments>
+			</item>
+			<item name="userid">
+				<value>6701</value>
+				<comments>登陆id</comments>
+			</item>
+			<item name="password">
+				<value>6701</value>
+				<comments>登陆密码</comments>
+			</item>
+			<item name="reConnectTime">
+				<value>30000</value>
+				<comments>断线重连时间(ms)</comments>
+			</item>
+			<item name="connectStateTime">
+				<value>6000000</value>
+				<comments>连接状态时间(ms)</comments>
+			</item>
+		</item>
+	</item>
+	
+	<item name="configServer">
+		<comments>节点管理器配置</comments>
+		<item name="localIP">
+			<value>127.0.0.1</value>
+			<comments>本地IP</comments>
+		</item>
+		<item name="localPort">
+			<value>7000</value>
+			<comments>本地端口</comments>
+		</item>
+		<item name="loginID">
+			<value>300009</value>
+			<comments>登陆id</comments>
+		</item>
+		<item name="conNums">
+			<value>2</value>
+			<comments>连接数</comments>
+		</item>
+		<item name="handlerClass">
+			<value>com.ctfo.savecenter.io.ReceiveMsgHandler</value>
+			<comments>处理类</comments>
+		</item>
+		<item name="configIP">
+			<value>192.168.5.45</value>
+			<comments>节点管理器IP</comments>
+		</item>
+		<item name="configPort">
+			<value>7555</value>
+			<comments>节点管理器端口</comments>
+		</item>
+	</item>
+	
+	
+	
+	<item name="DBconfig">
+		<comments>数据库配置</comments>
+		 <item name="DRIVER_NAME">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+			<comments>驱动</comments>
+		</item>
+		 <item name="DATABASE_URL">
+			<value>jdbc:oracle:thin:@192.168.5.211:1521:orcl</value>
+			<comments>连接url</comments>
+		</item>
+		<item name="DATABASE_USER">
+			<value>kcpt</value>
+			<comments>用户名</comments>
+		</item>
+		<item name="DATABASE_PASSWORD">
+			<value>kcpt</value>
+			<comments>密码</comments>
+		</item>
+		
+		<item name="INITIAL_POOLSIZE">
+			<value>10</value>
+			<comments>初始连接池大小</comments>
+		</item>
+		<item name="MIN_POOLSIZE">
+			<value>10</value>
+			<comments>连接池最小连接数</comments>
+		</item>
+		<item name="MAX_POOLSIZE">
+			<value>20</value>
+			<comments>连接池最大连接数</comments>
+		</item>
+		<item name="ACQUIRE_INCREMENT">
+			<value>10</value>
+			<comments>连接池连接数的增量</comments>
+		</item>
+		<item name="TIMEOUT">
+			<value>5000</value>
+			<comments>超时时间</comments>
+		</item>
+		<item name="MAX_IDLETIME">
+			<value>1800</value>
+			<comments>连接最大空闲时间</comments>
+		</item>
+			<item name="IDLE_TEST_PERIOD">
+			<value>3000</value>
+			<comments>测连接有效的时间间隔</comments>
+		</item>
+			<item name="VALIDATE">
+			<value>true</value>
+			<comments>是否每次验证数据库连接</comments>
+		</item>
+		
+		
+		<item name="MYSQLDRIVER_NAME">
+			<value>com.mysql.jdbc.Driver</value>
+			<comments>驱动</comments>
+		</item>
+		 <item name="MYSQLDATABASE_URL">
+			<value>jdbc:mysql://192.168.5.212:3306/MEMDB?autoreconnect=true&amp;characterEncoding=GBK</value>
+			<comments>连接url</comments>
+		</item>
+		<item name="MYSQLDATABASE_USER">
+			<value>root</value>
+			<comments>用户名</comments>
+		</item>
+		<item name="MYSQLDATABASE_PASSWORD">
+			<value>123456</value>
+			<comments>密码</comments>
+		</item>
+		
+	</item>	
+</xconf>
