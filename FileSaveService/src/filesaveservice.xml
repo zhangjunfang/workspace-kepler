@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<file desc="文件存储配置">
+		<property name="trackPath" desc="轨迹目录">${trackPath}</property>
+		<property name="trackInterval" desc="轨迹提交间隔">${trackSubmitFrequency}</property>
+		<property name="localInterval" desc="本地模式提交间隔">${localInterval}</property>
+		<property name="localBatchSize" desc="本地模式批量提交数">${localBatchSize}</property>
+		<property name="localModePath" desc="本地模式存储路径">${localModePath}</property>
+		<property name="localModeDuration" desc="本地模式持续时间">${localModeDuration}</property>
+		<property name="localblindHours" desc="本地补传时间点">${localblindHours}</property>
+		<property name="openLocalMode" desc="开启本地模式">${openLocalMode}</property>
+		<property name="processDays" desc="处理跨天数">${processDays}</property>
+		<property name="alarmPath" desc="补传轨迹目录">${alarmPath}</property>
+		<property name="blindTrackPath" desc="补传轨迹目录">${blindTrackPath}</property>
+		<property name="blindAlarmPath" desc="补传报警目录">${blindAlarmPath}</property>
+		<property name="blindBatchSize" desc="补传提交数">${blindBatchSize}</property>
+		<property name="blindBatchTime" desc="补传提交时间">${blindBatchTime}</property>
+		<property name="eventPath" desc="驾驶事件目录">${eventPath}</property>
+		<property name="eloadPath" desc="发动机信息目录">${eloadPath}</property>
+		<property name="oilPath" desc="油量信息目录">${oilPath}</property>
+		<property name="threadSize" desc="线程数量">${threadSize}</property>
+		<property name="loadDisplay" desc="显示负载">${loadDisplay}</property>
+		<property name="managementPort" desc="管理端口">${managementPort}</property>
+		<property name="msgLoginName" desc="登录名">${msgLoginName}</property>
+		<property name="msgLoginPassword" desc="密码">${msgLoginPassword}</property>
+		<property name="msgLoginGroupId" desc="组编号">${msgLoginGroupId}</property>
+		<property name="msgLoginGroup" desc="组">${msgLoginGroup}</property>
+		<property name="msgLoginType" desc="登录类型">${msgLoginType}</property>
+		<property name="msgLoginIp" desc="通讯地址">${msgLoginIp}</property>
+		<property name="msgLoginPort" desc="端口">${msgLoginPort}</property>
+	</file>
+	
+	<redis desc="Redis缓存服务客户端配置">
+		<property name="host" desc="Redis服务器IP">${redisHost}</property>
+		<property name="port" desc="Redis服务器端口">${redisPort}</property>
+		<property name="pass" desc="Redis密码">${redisPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="maxIdle" desc="最大空闲连接数">3</property>
+		<property name="maxWait" desc="最大等待时间(毫秒)">3000</property>
+		<property name="timeOut" desc="连接超时时间">3000</property>
+	</redis>
+	
+	<oracle desc="Oracle缓存服务客户端配置">
+		<property name="url" desc="连接路径">${oracleUrl}</property>
+		<property name="username" desc="用户名">${oracleUser}</property>
+		<property name="password" desc="密码">${oraclePass}</property>
+		<property name="maxActive" desc="最大连接数">100</property>
+		<property name="minIdle" desc="最小空闲连接数">10</property>
+		<property name="initialSize" desc="初始化连接数">10</property>
+		<property name="maxWait" desc="最大连接数">60000</property>
+		<property name="timeBetweenEvictionRunsMillis" desc="隔多久才进行一次检测，检测需要关闭的空闲连接">60000</property>
+		<property name="minEvictableIdleTimeMillis" desc="连接在池中最小生存的时间">300000</property>
+		<property name="maxOpenPreparedStatements" desc="最大预定义缓存数">20</property>
+		<property name="testWhileIdle" desc="申请连接的时候检测连接是否有效的值">true</property>
+		<property name="testOnBorrow" desc="申请连接前的时候检测连接是否有效的值">true</property>
+		<property name="testOnReturn" desc="归还连接时检测连接是否有效的值">false</property>
+		<property name="removeAbandoned" desc="显示堆栈信息">true</property>
+	</oracle>
+	
+	<tasks>
+		<task name="DriverTask" enable="true" desc="码表同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.filesaveservice.task.DriverTask</class>
+			<interval unit="minute" delay="1" desc="任务间隔">1</interval><!-- 任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时" -->
+			<properties desc="自定义配置">
+			</properties>
+		</task>
+		
+		<task name="RegionTask" enable="true" desc="码表同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.filesaveservice.task.RegionTask</class>
+			<interval unit="minute" delay="1" desc="任务间隔">10</interval><!-- 任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时" -->
+			<properties desc="自定义配置">
+				<property name="regionFilePath" desc="区域文件目录">${regionFilePath}</property>
+				<property name="grid_x" desc="偏离经度">44095967</property>
+				<property name="grid_y" desc="偏移纬度">32137832</property>
+				<property name="grid_len" desc="偏移量">100000</property>
+			</properties>
+		</task>
+		
+		<task name="VehicleCacheTask" enable="true" desc="码表同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.filesaveservice.task.VehicleCacheTask</class>
+			<!-- 任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时" -->
+			<interval unit="minute" delay="1" desc="任务间隔">1</interval>
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认60分钟)">2</property>
+				<property name="sql_syncAll" desc="全量同步查询语句">	SELECT V.VEHICLE_NO, S.SUID, V.VID AS VID, V.PLATE_COLOR AS PLATE_COLOR_ID, M.COMMADDR AS T_IDENTIFYNO, T.OEM_CODE AS OEMCODE, T.TMODEL_CODE, T.TID, V.VIN_CODE FROM TB_SIM M	 INNER JOIN TR_SERVICEUNIT S	  ON S.SID = M.SID    INNER JOIN TB_VEHICLE V ON V.VID = S.VID INNER JOIN TB_TERMINAL T ON T.TID = S.TID WHERE COMMADDR IS NOT NULL AND V.ENABLE_FLAG = '1' AND T.ENABLE_FLAG = '1'</property>
+				<property name="sql_syncIncrements" desc="增量同步查询语句">SELECT V.VEHICLE_NO, S.SUID, V.VID AS VID, V.PLATE_COLOR AS PLATE_COLOR_ID, M.COMMADDR AS T_IDENTIFYNO, T.OEM_CODE AS OEMCODE, T.TMODEL_CODE, T.TID, V.VIN_CODE FROM TB_SIM M	 INNER JOIN TR_SERVICEUNIT S	  ON S.SID = M.SID    INNER JOIN TB_VEHICLE V ON V.VID = S.VID INNER JOIN TB_TERMINAL T ON T.TID = S.TID WHERE COMMADDR IS NOT NULL AND V.ENABLE_FLAG = '1' AND T.ENABLE_FLAG = '1' AND (M.UPDATE_TIME >= ? OR M.CREATE_TIME >= ? OR S.UPDATE_TIME >= ? OR S.CREATE_TIME >= ? OR V.UPDATE_TIME >= ? OR V.CREATE_TIME >= ? OR T.UPDATE_TIME >= ? OR T.CREATE_TIME >= ?)</property>
+				<property name="sql_syncAll_3g" desc="3g全量同步查询语句">SELECT S.SUID, V.VID AS VID, V.PLATE_COLOR AS PLATE_COLOR_ID, M.COMMADDR  AS T_IDENTIFYNO, T.OEM_CODE  AS OEMCODE, T.TMODEL_CODE, T.TID, VEHICLE_NO, TD.DVR_SIMNUM, V.VIN_CODE FROM TB_SIM M INNER JOIN TR_SERVICEUNIT S ON S.SID = M.SID INNER JOIN TB_VEHICLE V ON V.VID = S.VID INNER JOIN TB_TERMINAL T ON T.TID = S.TID INNER JOIN KCPT.TB_DVR TD ON TD.DVR_ID = S.DVR_ID WHERE TD.DVR_SIMNUM IS NOT NULL AND V.ENABLE_FLAG = '1' AND T.ENABLE_FLAG = '1' AND T.TER_STATE = 2</property>
+				<property name="sql_syncIncrements_3g" desc="3g增量同步查询语句">SELECT S.SUID, V.VID AS VID, V.PLATE_COLOR AS PLATE_COLOR_ID, M.COMMADDR  AS T_IDENTIFYNO, T.OEM_CODE  AS OEMCODE, T.TMODEL_CODE, T.TID, VEHICLE_NO, TD.DVR_SIMNUM, V.VIN_CODE FROM TB_SIM M INNER JOIN TR_SERVICEUNIT S ON S.SID = M.SID INNER JOIN TB_VEHICLE V ON V.VID = S.VID INNER JOIN TB_TERMINAL T ON T.TID = S.TID INNER JOIN KCPT.TB_DVR TD ON TD.DVR_ID = S.DVR_ID WHERE TD.DVR_SIMNUM IS NOT NULL AND V.ENABLE_FLAG = '1' AND T.ENABLE_FLAG = '1' AND T.TER_STATE = 2 AND (M.UPDATE_TIME >= ? OR M.CREATE_TIME >= ? OR S.UPDATE_TIME >= ? OR S.CREATE_TIME >= ? OR V.UPDATE_TIME >= ? OR V.CREATE_TIME >= ? OR T.UPDATE_TIME >= ? OR T.CREATE_TIME >= ? OR TD.UPDATE_TIME >=? OR TD.CREATE_TIME >=?)</property>
+			</properties>
+		</task>
+	</tasks>
+	
+</configuration>
