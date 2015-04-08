@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+        http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd  
+        ">  
+  
+    <!-- Application name -->  
+    <dubbo:application name="hello-world-app" />  
+  
+    <!-- registry address, used for service to register itself -->  
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />  
+  
+    <!-- expose this service through dubbo protocol, through port 20880 -->  
+    <!--  
+    <dubbo:protocol name="dubbo" port="20880" />  
+      
+    <dubbo:protocol name="dubbo" port="9090" server="netty"  
+        client="netty" codec="dubbo" serialization="hessian2" charset="UTF-8"  
+        threadpool="fixed" threads="100" queues="0" iothreads="9" buffer="8192"  
+        accepts="1000" payload="8388608" />  
+        -->  
+    <!-- Service interface   Concurrent Control  -->  
+    <dubbo:service interface="com.huangjie.dubbo_Service.service.IProcessData"  
+        ref="demoService" executes="10" />  
+  
+    <!-- Default Protocol -->  
+    <!--  
+    <dubbo:protocol server="netty" />  
+    -->  
+  
+    <!-- designate implementation -->  
+    <bean id="demoService" class="com.huangjie.dubbo_Service.service.impl.ProcessDataImpl" />  
+  
+</beans>    
