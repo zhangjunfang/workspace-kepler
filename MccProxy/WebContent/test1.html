@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns:v="urn:schemeas-microsoft-com:vml"
+	xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>中交兴路运营监控平台</title>
+
+<script type="text/javascript" src="script/plugins/jquery/jquery-1.4.2.min.js"></script>
+
+<script type="text/javascript">
+	$.ajaxSetup(
+	{
+		cache : false
+	//关闭AJAX相应的缓存
+	});
+	
+	function loadScript(src)
+	{
+		document.write('<' + 'script src="' + src + '"' + ' type="text/javascript" charset="UTF-8"><' + '/script>');
+	}
+	function loadCss(src)
+	{
+		document.write('<' + 'link href="' + src + '"' + ' rel="stylesheet" type="text/css" charset="UTF-8"/>');
+	}
+	function initialize()
+	{		
+		loadScript("script/utils/util.js");
+		
+	}
+	initialize();
+
+
+	function getseq(u){
+		var d = new Date();
+		return u+"_"+d.UTC()+"_0"
+	}
+
+	
+	$(document).ready(function(){
+
+	$("#display-a").toggle(function(){$("#tongyong").show();},function(){$("#tongyong").hide();});
+
+	
+
+	
+	$("#alarm_btn").click(function(){
+	   var ttStr = $("#xmlStr").val();
+	   
+		JAjax('remoteMcc.action', {
+			xmlStr:ttStr
+            },'html', function(x){
+            $("#center").text(x);
+        },function(x){
+			$("#center").text(x);});
+	});
+
+	});
+
+	
+</script>
+<style type="text/css">
+v\:* {
+	behavior: url(#default#VML);
+}
+
+li {
+	background-color: #CCCCCC;
+	text-align: center;
+	float: left;
+	width: 260px;
+	margin: 3px;
+	padding: 3px;
+	list-style-type: none;
+}
+</style>
+</head>
+<body>
+	<!-- TODO -->
+	<div id="tongyong" style="display: none;">
+		<ul style="list-style: none; width: 1200px;">
+			<li>指令类型:<input style="margin-left: 5px;" type="radio"
+				name="key" value="CAITS" />CAITS<input type="radio" name="key"
+				value="CAITR" />CAITR
+			</li>
+			<li>下发方式:<select name="type"
+				style="margin-left: 5px; width: 150px;">
+					<option value="0">服务端决定方式</option>
+					<option value="1">SMS方式</option>
+					<option value="2">GPRS方式</option>
+					<option value="3">WEBSERVICE</option>
+					<option value="4">其他</option>
+			</select>
+			</li>
+			<li>用户名:<input type="text" name="user" value="1"
+				style="margin-left: 5px; width: 100px;" /></li>
+			<li>手机号码:<input type="text" name="sim" value="4C54_13312345678"
+				style="margin-left: 5px; width: 150px;" /></li>
+
+		</ul>
+	</div>
+	<div id="hidediv">
+		<a id="display-a">显示/隐藏配置</a>
+	</div>
+	<div>
+		<form action="">
+			<div class="index_layout" id="layout_all">
+				<div class="index_layout_top" id="north"></div>
+				<!-- <textarea rows="10" cols="50" name="xmlStr" id="xmlStr"></textarea> -->
+				指令类型：<select name="sendtype" style="margin-left: 5px; width: 150px;">
+					<option value="D_CTLM">D_CTLM</option>
+					<option value="D_CALL">D_CALL</option>
+					<option value="D_SNDM">D_SNDM</option>
+					<option value="D_SETP">D_SETP</option>
+					<option value="D_GETP">D_GETP</option>
+					<option value="D_REQD">D_REQD</option>
+					<option value="D_ADDT">D_ADDT</option>
+					<option value="D_DELT">D_DELT</option>
+					<option value="L_PROV">L_PROV</option>
+				</select><br /> 指令内容：
+				<textarea rows="5" cols="30" name="xmlStr" id="xmlStr"></textarea>
+				<input id="alarm_btn" value="提交设置" type="button" name="type"></input>
+				<div id="center"
+					style="border: 1px red; width: 800px; height: 600px; background: red;">&nbsp;</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

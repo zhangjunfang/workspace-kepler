@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<redis desc="Redis缓存服务客户端配置">
+		<property name="host" desc="Redis服务器IP">${redisHost}</property>
+		<property name="port" desc="Redis服务器端口">${redisPort}</property>
+		<property name="pass" desc="Redis密码">${redisPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="maxIdle" desc="最大空闲连接数">10</property>
+		<property name="maxWait" desc="最大等待时间(毫秒)">10000</property>
+		<property name="timeOut" desc="连接超时时间">30000</property>
+	</redis>
+	
+	<oracle desc="Oracle缓存服务客户端配置">
+		<property name="url" desc="连接路径">${oracleUrl}</property>
+		<property name="username" desc="用户名">${oracleUser}</property>
+		<property name="password" desc="密码">${oraclePass}</property>
+		<property name="initialSize" desc="初始化连接数">10</property>
+		<property name="maxActive" desc="最大连接数">100</property>
+		<property name="minIdle" desc="最小空闲连接数">10</property>
+		<property name="maxWait" desc="最大等待">60000</property>
+		<property name="timeBetweenEvictionRunsMillis" desc="隔多久才进行一次检测，检测需要关闭的空闲连接">60000</property>
+		<property name="minEvictableIdleTimeMillis" desc="连接在池中最小生存的时间">300000</property>
+		<property name="testWhileIdle" desc="测试空闲连接">true</property>
+		<property name="testOnBorrow" desc="从数据库连接池中取得连接时，对其的有效性进行检查">true</property>
+		<property name="testOnReturn" desc="用完连接放回连接池时是否对有效性进行检查">false</property>
+		<property name="maxPoolPreparedStatementPerConnectionSize" desc="打开PSCache，并且指定每个连接上PSCache的大小">10</property>
+	</oracle>
+	
+	<msg desc="msg客户端配置">
+		<property name="msgHost" desc="服务器地址">${msgHost}</property>
+		<property name="msgPort" desc="端口">${msgPort}</property>
+		<property name="msgUserName" desc="用户名">${msgUserName}</property>
+		<property name="msgPassword" desc="密码">${msgPassword}</property>
+		<property name="loginType" desc="登录类型">UWEB</property>
+		<property name="msgGroup" desc="组名">${msgGroup}</property>
+		<property name="msgGroupId" desc="组编号">${msgGroupId}</property>
+		<property name="reConnectTime" desc="重连时间:(单位:毫秒)">10000</property> 
+		<property name="readerIdle" desc="读通道空闲时间">55</property>
+		<property name="writerIdle" desc="写通道空闲时间">60</property>
+	</msg>
+	<tasks desc="任务列表">
+		<task name="DispatchRulesQuery" enable="true" desc="调度规则查询任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.mcc.task.DispatchRulesQuery</class>
+			<interval unit="minute" delay="0" desc="任务间隔">1</interval>
+			<properties desc="自定义配置">
+				<property name="clearInterval" desc="清理间隔(单位:分钟 ; 默认60分钟)">30</property>
+			</properties>
+		</task>
+	</tasks>
+	
+	<appParam desc="应用参数">
+		<!-- 数据库SQL语句 -->
+		<property name="sql_unBindArea" desc="围栏解绑SQL">UPDATE TR_BIND_AREA SET AREA_STATUS = 3, SEND_STATUS = -1, SEND_UTC = ? WHERE SEQ = ?</property>
+		<property name="sql_updateAreaId" desc="围栏状态更新SQL">UPDATE TB_AREA SET AREA_STATUS = 2 WHERE AREA_ID = ?</property>
+		<property name="sql_queryDispatchRules" desc="查询调度规则SQL">SELECT T.DIS_ID AS ID,T.INFO_NAME AS NAME,T.INFO_BODY AS CONTENT,T.CREATE_ID AS CREATEBY,T.CREATE_UTC AS CREATEUTC,T.START_TIME AS STARTUTC,T.END_TIME AS ENDUTC,T.SEND_TIME AS SENDTIME,T.INFO_TYPE AS TYPE,T.IS_OFFLINE AS ISOFFLINE,T.OFFLINE_HOUR AS OFFLINECYCLE, T.SEND_PERIOD AS SENDCYCLE,FUN_DATE2UTC(SYSDATE) AS SYSUTC FROM KCPT.TB_TIMING_DISPATCH T WHERE T.STATE=1 AND T.ENABLE_FLAG=1</property>
+		<property name="sql_updateDispatchRules" desc="更新调度规则SQL">UPDATE KCPT.TB_TIMING_DISPATCH T SET STATE=0 WHERE DIS_ID = ?</property>
+		<property name="sql_queryRulesVehicle" desc="查询调度规则关联车辆SQL">SELECT TTD.VID,TV.VEHICLE_NO AS PLATE, TV.PLATE_COLOR AS PLATECOLOR FROM KCPT.TR_TIMING_DISPATCH_VEHICLE TTD LEFT JOIN KCPT.TB_VEHICLE TV ON TTD.VID=TV.VID WHERE TV.ENABLE_FLAG='1' AND TV.VEHICLE_STATE='2' AND TTD.DIS_ID=?</property>
+		<property name="sql_insertTimingDispatch" desc="存储定时调度信息SQL">INSERT INTO KCPT.TH_VEHICLE_DISPATCH_MSG (DMSG_ID,VID,VEHICLE_NO,VEHICLE_COLOR,DMSG_UTC,DMSG_SRTIME,DMSG_FLAG,DMSG_CONTENT,SEQ,DSEND_USER_ID,SEND_FLAG,SEND_RESULT,DMSG_STATUS) VALUES(?,?,?,?,?,?,?,?,?,?,0,-1,1)</property>
+		
+		<!-- 消息总线配置 -->
+		<property name="mqName" desc="队列名称">${mqName}</property>
+		<property name="mqUrl" desc="队列地址">${mqUrl}</property>
+		
+		<!-- 指令缓存过期时间 -->
+		<property name="commandCacheExpireSeconds" desc="队列名称">${commandCacheExpireSeconds}</property>
+		
+	</appParam>
+	
+</configuration>

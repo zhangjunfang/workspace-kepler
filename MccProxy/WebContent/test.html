@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns:v="urn:schemeas-microsoft-com:vml" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>中交兴路运营监控平台</title>
+
+<script type="text/javascript" src="script/plugins/jquery/jquery-1.4.2.min.js"></script>
+
+<script type="text/javascript">
+	$.ajaxSetup(
+	{
+		cache : false
+	//关闭AJAX相应的缓存
+	});
+	
+	function loadScript(src)
+	{
+		document.write('<' + 'script src="' + src + '"' + ' type="text/javascript" charset="UTF-8"><' + '/script>');
+	}
+	function loadCss(src)
+	{
+		document.write('<' + 'link href="' + src + '"' + ' rel="stylesheet" type="text/css" charset="UTF-8"/>');
+	}
+	function initialize()
+	{
+		//loadScript("script/plugins/jquery/jquery-ui-1.8.13.custom.min.js");
+		loadScript("script/plugins/YLMarquee-1.1.js");
+		loadScript("script/plugins/sortable.js");
+		loadScript("script/plugins/jquery/jquery.divresizer.js");
+		loadScript("script/plugins/jquery/jquery.marquee.js");
+		//loadScript("script/plugins/jquery/jquery.mask.js");
+		loadScript("script/config.js");
+		loadScript("script/function.js");
+		loadScript("script/sha1.js");
+		loadScript("script/areaInfo.js");
+		loadScript("script/utils/log.js");
+		loadScript("script/utils/util.js");
+		loadScript("script/controller/object.js");
+		loadScript("script/plugins/jquery/jquery.times.js");
+		loadScript("script/view/tabs/jquery-ui-1.8.4.custom.min.js");
+		loadScript("script/plugins/jquery/jquery.messager.js");
+		loadScript("script/plugins/jquery/jquery.ui.slider.js");
+		loadScript("script/plugins/jquery/jquery.ui.core.js");
+		loadScript("script/plugins/jquery/jquery.ui.widget.js");
+		loadScript("script/plugins/jquery/jquery.ui.mouse.js");
+		loadScript("script/plugins/jquery/jquery.ui.accordion.js");
+		loadScript("script/plugins/jquery/jquery.ui.draggable.js");
+		loadScript("script/plugins/jquery/jquery.ui.droppable.js");
+		loadScript("script/plugins/jquery/jquery.ui.sortable.js");
+		loadScript("script/plugins/jquery/jquery.ui.progressbar.js");
+		loadScript("script/plugins/jquery/jquery.mouseDelay.js");
+		loadScript("http://api.trafficguide.com.cn/js/api_ajax.js");
+		loadScript("http://api.trafficguide.com.cn/maps.js");
+		loadScript("http://api.trafficguide.com.cn/js/api.js");
+		loadScript("http://api.trafficguide.com.cn/place/place_maps.js");
+		loadScript("script/map/ClusterManager.js");
+		loadScript("script/map/SpaceConverge.js");
+		loadScript("script/map/SE.RichLayer.js");
+		loadScript("script/map/ctfo.map.api.v.0.1.js");
+		loadScript("script/map/sectionalview.js");
+		loadScript("script/map/rect.js");
+		loadScript("script/map/SE_MapTool.js");
+		loadScript("script/cartrack/IconConvert.js");
+		
+		loadScript("script/cartrack/CarPath.js");
+		loadScript("script/carmon/AlarmList.js");
+		loadScript("script/alarm/AlarmProcessList.js");
+		loadScript("script/carmon/messagebox.js");
+		loadScript("script/utils/ajax.js");
+		loadScript("script/plugins/ddsmoothmenu.js");
+		loadScript("script/carmon/AdvancedSearch.js");
+		loadScript("script/carmon/VehicleMonitor.js");
+		loadScript("script/alarm/VehicleAlarm.js");
+		loadScript("script/carmon/jquery.popwindow.js");
+		//loadScript("script/controller/pms.firstpage.js");
+		loadScript("script/controller/pms.system.js");
+		loadScript("script/controller/pms.monitor.js");
+		loadScript("script/controller/pms.track.js");
+		loadScript("script/controller/pms.alarm.js");
+		//loadScript("script/controller/pms.safeInfo.js");
+		loadScript("script/controller/pms.alarmDeal.js");
+		loadScript("script/view/grid/flexigrid.js");
+		loadScript("script/plugins/jquery/jquery.jgrid.js");
+		loadScript("script/plugins/jquery/swfobject.js");
+		loadScript("script/view/fusioncharts/FusionCharts.js");
+		loadScript("script/view/tinyaccordion/script.js");
+		loadScript("script/plugins/jquery/jquery.form.js");
+		loadScript("script/plugins/jquery/jquery.validate.js");
+		loadScript("script/controller/validator.js");
+		loadScript("script/plugins/jquery/jfrom.js");
+		//loadScript("script/view/loading/jquery.bgiframe.min.js");
+		//loadScript("script/view/loading/loading-min.js");
+		loadScript("script/view/datepicker/WdatePicker.js");
+		loadScript("area/js/areaUtil.js");
+		loadScript("area/plugin/TabPanel.js");
+		loadScript("area/plugin/Fader.js");
+		loadScript("area/js/point.js");
+		loadScript("area/js/AreaObject.js");
+		//loadScript("label/js/LabelObject.js");
+		loadScript("script/view/formvalidator/formValidator.js");
+		loadScript("script/view/image/PreviewImage.js");
+		loadScript("script/view/formvalidator/formValidatorRegex.js");
+		//loadScript("script/plugins/jquery/jquery.messager.js");
+		loadScript("script/view/loading/jquery.loadmask.js");
+		//loadScript("script/view/tips/jquery.poshytip.min.js");
+		//loadScript("script/view/fileupload/ajaxfileupload.js");
+		//loadScript("script/plugins/jquery-autocomplete/lib/jquery.bgiframe.min.js");
+		//loadScript("script/plugins/jquery-autocomplete/lib/jquery.ajaxQueue.js");
+		//loadScript("script/plugins/jquery-autocomplete/lib/thickbox-compressed.js");
+		//loadScript("script/plugins/jquery-autocomplete/jquery.autocomplete.js");
+		//loadScript("script/plugins/tree/dhtmlxcommon.js");
+		//loadScript("script/plugins/tree/dhtmlxtree.js");
+		loadScript("script/plugins/json2.js");
+		loadScript("script/plugins/jquery/hoverIntent.js");
+		loadScript("script/plugins/jquery/superfish.js");
+		
+	
+	}
+	initialize();
+
+	$(document).ready(function(){
+
+	$("#alarm_btn").click(function(){
+
+	   var ttStr = $("#xmlStr").val();
+
+		JAjax('sendCommandAction.action', {
+			xmlStr:ttStr,
+			textType:"0",
+			textByte:"1",
+			opId:"50000001",
+			tmac:"4C54_15810964021",
+			textContent:"中华啊 ，我爱中华",
+			suid:'36855',
+			modelName:"ThVehicleText",
+			methodName:"addThVehicleTextDoc",
+			serverName:"com.ctfo.lbs.service.monitor.ThVehicleTextService"
+            },'xml', function(x){
+                
+            $("#center").text(x.xml);
+        });
+		
+	});
+
+	});
+
+	
+</script>
+<style type="text/css">
+v\:* {
+	behavior: url(#default#VML);
+}
+</style>
+</head>
+<body>
+	<!-- TODO -->
+	<div id="checkup"></div>
+	<div id="checkupOverlay" style="display:none"></div>
+	<form action="" >
+	<div class="index_layout" id="layout_all">
+	
+	<select name="type" >
+		<option value="0">服务端决定方式</option>
+		<option value="1">SMS方式</option>
+		<option value="2">GPRS方式 </option>
+		<option value="3">WEBSERVICE</option>
+		<option value="4">其他</option>
+	</select>
+	
+		<div class="index_layout_top" id="north"></div>
+		<textarea rows="10" cols="50" name="xmlStr" id="xmlStr"></textarea>
+		<input id="alarm_btn" value="提交设置" type="button" name="type" ></input>
+		<div id="center" style="border: 1px red;width: 800px;height: 600px;background: red;">&nbsp;</div>
+	</div>
+	
+	</form>
+</body>
+</html>

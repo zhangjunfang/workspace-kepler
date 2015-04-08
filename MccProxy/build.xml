@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="MccProxy" default="allwar" basedir=".">
+	<property name="build.dir" value="${basedir}/build"/>
+	<property name="build.classes.dir" value="${build.dir}/classes"/>
+	<property name="war.dir" value="${basedir}/war"/>
+	<property name="src.dir" value="${basedir}/src"/>
+	<property name="webcontent.dir" value="${basedir}/WebContent"/>
+	<property name="webcontentwebinf.dir" value="${webcontent.dir}/WEB-INF"/>
+	<property name="webcontentlib.dir" value="${webcontentwebinf.dir}/lib"/>
+	<property name="test_conf.dir" value="${basedir}/test_conf"/>
+	<property name="production_conf.dir" value="${basedir}/production_conf"/>
+	<property name="develop_conf.dir" value="${basedir}/develop_conf"/>
+	<property name="demo_conf.dir" value="${basedir}/demo_conf"/>
+	<property name="hunan_conf.dir" value="${basedir}/hunan_conf"/>
+	<property name="shanxi_conf.dir" value="${basedir}/shanxi_conf"/>
+	<property name="tomact.link" value="/home/apache-tomcat-7.0.27/lib"/>
+	<!--<property name="tomact.link" value="C:\tomcat\tomcat7\lib" />-->
+	<path id="classpath1">
+		<fileset dir="${webcontentlib.dir}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	<path id="classpath2">
+		<fileset dir="${tomact.link}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	<path id="classpath">
+		<path refid="classpath1"/>
+		<path refid="classpath2"/>
+	</path>
+	<target name="clean">
+		<delete dir="${war.dir}"/>
+		<delete dir="${build.dir}"/>
+	</target>
+	<target name="init" depends="clean">
+		<mkdir dir="${war.dir}" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+	<target name="compile" depends="init">
+		<echo>=== COMPILE ===</echo>
+		<echo>Compiling ${src.dir} files ...</echo>
+		<javac debug="on" srcdir="${src.dir}" destdir="${build.classes.dir}" includes="**/*" includeantruntime="false">
+			<compilerarg line="-encoding UTF-8 "/>
+			<classpath refid="classpath"/>
+		</javac>
+	</target>
+	<target name="develop-war" depends="compile">
+		<echo>=== PACKAGE ===</echo>
+		<!-- copy the config files -->
+		<copy todir="${build.classes.dir}">
+			<fileset dir="${src.dir}">
+				<exclude name="**/*.java"/>
+			</fileset>
+		</copy>
+		<echo>=== copydevelopconf ===</echo>
+		<copy todir="${build.classes.dir}" overwrite="true">
+			<fileset dir="${develop_conf.dir}">
+			</fileset>
+		</copy>
+		<!-- the ant war task. with all resources in place, create the war file -->
+		<war destfile="${war.dir}/develop/mccproxy.war" webxml="${webcontentwebinf.dir}/web.xml"  basedir="${webcontent.dir}">
+			<classes dir="${build.classes.dir}" />
+		</war>
+	</target>
+	<target name="test-war">
+		<echo>=== copytestconf ===</echo>
+		<copy todir="${build.classes.dir}" overwrite="true">
+			<fileset dir="${test_conf.dir}">
+			</fileset>
+		</copy>
+		<war destfile="${war.dir}/test/mccproxy.war" webxml="${webcontentwebinf.dir}/web.xml"  basedir="${webcontent.dir}">
+			<classes dir="${build.classes.dir}" />
+		</war>
+	</target>
+	<target name="production-war">
+		<echo>=== copyproductionconf ===</echo>
+		<copy todir="${build.classes.dir}" overwrite="true">
+			<fileset dir="${production_conf.dir}">
+			</fileset>
+		</copy>
+
+		<war destfile="${war.dir}/production/mccproxy.war" webxml="${webcontentwebinf.dir}/web.xml" basedir="${webcontent.dir}">
+			<classes dir="${build.classes.dir}" />
+		</war>
+	</target>
+
+	<target name="demo-war">
+		<echo>=== copydemoconf ===</echo>
+		<copy todir="${build.classes.dir}" overwrite="true">
+			<fileset dir="${demo_conf.dir}">
+			</fileset>
+		</copy>
+
+		<war destfile="${war.dir}/demo/mccproxy.war" webxml="${webcontentwebinf.dir}/web.xml" basedir="${webcontent.dir}">
+			<classes dir="${build.classes.dir}" />
+		</war>
+	</target>
+	<target name="hunan-war">
+		<echo>=== copyhunanconf ===</echo>
+		<copy todir="${build.classes.dir}" overwrite="true">
+			<fileset dir="${hunan_conf.dir}">
+			</fileset>
+		</copy>
+
+		<war destfile="${war.dir}/hunan/mccproxy.war" webxml="${webcontentwebinf.dir}/web.xml" basedir="${webcontent.dir}">
+			<classes dir="${build.classes.dir}" />
+		</war>
+	</target>
+	<target name="shanxi-war">
+		<echo>=== copyshanxiconf ===</echo>
+		<copy todir="${build.classes.dir}" overwrite="true">
+			<fileset dir="${shanxi_conf.dir}">
+			</fileset>
+		</copy>
+
+		<war destfile="${war.dir}/shanxi/mccproxy.war" webxml="${webcontentwebinf.dir}/web.xml" basedir="${webcontent.dir}">
+			<classes dir="${build.classes.dir}" />
+		</war>
+	</target>
+	<target name="allwar">
+		<antcall target="compile"/>
+		<antcall target="develop-war"/>
+		<antcall target="production-war"/>
+		<antcall target="demo-war"/>
+		<antcall target="test-war"/>
+		<antcall target="hunan-war"/>
+		<antcall target="shanxi-war"/>
+	</target>
+</project>
+
+
