@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>org.storevm</groupId>
+	<artifactId>distributed-session-parent</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	
+	<name>Storevm Distributed Session Parent Project</name>
+	<url>http://www.storevm.org</url>
+	
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jetty.server.version>6.1.26</jetty.server.version>
+		<tomcat.server.version>7.0.5</tomcat.server.version>
+		<log4j.version>1.2.15</log4j.version>
+		<commons.logging.version>1.1.1</commons.logging.version>
+		<commons.lang3.version>3.1</commons.lang3.version>
+		<commons.beanutils.version>1.8.3</commons.beanutils.version>
+		<commons.collections.version>3.2.1</commons.collections.version>
+		<commons.pool.version>1.6</commons.pool.version>
+		<zookeeper.version>3.4.3</zookeeper.version>
+		<servlet.api.version>2.5</servlet.api.version>
+		<hessian.version>4.0.7</hessian.version>
+		<slf4j.version>1.6.4</slf4j.version>
+		<spring.maven.artifact.version>3.0.6.RELEASE</spring.maven.artifact.version>
+	</properties>
+	
+	<developers>
+		<developer>
+			<id> ocean</id>
+			<name> ocean</name>
+			<email>jacktanlikejava@gmail.com</email>
+			<url>http://www.storevm.org</url>
+			<organization>Storevm</organization>
+			<organizationUrl>http://www.storevm.org</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>-6</timezone>
+		</developer>
+	</developers>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- jetty -->
+			<dependency>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty</artifactId>
+				<version>${jetty.server.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-util</artifactId>
+				<version>${jetty.server.version}</version>
+			</dependency>
+			
+			<!-- tomcat catalina -->
+			<dependency>
+				<groupId>org.apache.tomcat</groupId>
+				<artifactId>tomcat-catalina</artifactId>
+				<version>${tomcat.server.version}</version>
+			</dependency>
+
+			<!-- commons logging -->
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>${commons.logging.version}</version>
+			</dependency>
+
+			<!-- log4j -->
+			<dependency>
+				<groupId>log4j</groupId>
+				<artifactId>log4j</artifactId>
+				<version>${log4j.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>javax.jms</groupId>
+						<artifactId>jms</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>com.sun.jdmk</groupId>
+						<artifactId>jmxtools</artifactId>
+					</exclusion>
+					<exclusion>
+						<groupId>com.sun.jmx</groupId>
+						<artifactId>jmxri</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		
+			<!-- apache commons -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${commons.lang3.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils-core</artifactId>
+				<version>${commons.beanutils.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>${commons.collections.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-pool</groupId>
+				<artifactId>commons-pool</artifactId>
+				<version>${commons.pool.version}</version>
+			</dependency>
+
+			<!-- zookeeper -->
+			<dependency>
+				<groupId>org.apache.zookeeper</groupId>
+				<artifactId>zookeeper</artifactId>
+				<version>${zookeeper.version}</version>
+			</dependency>
+			
+			<!-- slf4j -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+
+			<!-- servlet -->
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>${servlet.api.version}</version>
+			</dependency>
+		
+			<!-- hessian -->
+			<dependency>
+				<groupId>com.caucho</groupId>
+				<artifactId>hessian</artifactId>
+				<version>${hessian.version}</version>
+			</dependency>
+			
+			<!-- spring framework -->
+			<dependency>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>org.springframework.web</artifactId>
+          		<version>${spring.maven.artifact.version}</version>
+        	</dependency>
+			<dependency>
+          		<groupId>org.springframework</groupId>
+          		<artifactId>org.springframework.core</artifactId>
+          		<version>${spring.maven.artifact.version}</version>
+          		<exclusions>
+            		<exclusion>
+              			<groupId>org.apache.commons</groupId>
+              			<artifactId>com.springsource.org.apache.commons.logging</artifactId>
+            		</exclusion>
+          		</exclusions>
+        	</dependency>
+
+			<!-- sub project -->
+			<dependency>
+				<groupId>org.storevm</groupId>
+				<artifactId>distributed-session-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.storevm</groupId>
+				<artifactId>distributed-session-test</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.6</source>
+						<target>1.6</target>
+					</configuration>
+				</plugin>
+				<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>2.0.2</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<configuration>
+						<useProjectReferences>true</useProjectReferences>
+						<downloadSources>true</downloadSources>
+						<pde>false</pde>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	<pluginRepositories>
+		<pluginRepository>
+			<id>Nexus Plugin</id>
+			<url>http://mvn.storevm.org:8081/mvn/content/groups/public</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+	
+	<repositories>
+		<repository>
+			<releases>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<id>nexus</id>
+			<name>Nexus Releases</name>
+			<url>http://mvn.storevm.org:8081/mvn/content/groups/public</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+	
+	<distributionManagement>
+		<!-- use the following if you're not using a snapshot version. -->
+		<repository>
+			<id>nexus @storvm</id>
+			<name>Storevm Nexus Releases</name>
+			<url>
+				http://mvn.storevm.org:8081/mvn/content/repositories/releases</url>
+		</repository>
+		<!-- use the following if you ARE using a snapshot version. -->
+		<snapshotRepository>
+			<id>nexus @storvm</id>
+			<name>Storevm Nexus Snapshots</name>
+			<url>http://mvn.storevm.org:8081/mvn/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
+	<modules>
+		<module>core</module>
+		<module>test</module>
+	</modules>
+
+</project>
