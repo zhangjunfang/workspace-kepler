@@ -1,0 +1,816 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xconf>
+	<app>DataAnaly</app>
+	<ver>1.0.0.0</ver>
+	<desc>软报警数据分析服务</desc>
+	
+	<item name="ManagePort">
+		<value>7251</value>
+		<comments>管理端口</comments>
+	</item>
+	<item name="AnalyseClass">
+		<value>com.ctfo.analy.protocal.CommonAnalyseService</value>
+		<comments>数据分析类</comments>
+	</item>
+	
+	<item name="KeyPointTimeTolerance">
+		<comments>判断关键点时间容差(单位:S)</comments>
+        <value>300</value>
+	</item>
+	
+	<item name="SyncTime">
+		<comments>定时同步时间间隔(单位:S)</comments>
+        <value>120</value>
+	</item>
+	
+	<item name="AnalyserAddIns">
+		<comments>软报警插件解析业务类，软报警启动0、2、7、8、9、10； GPS巡检启动4、5、6</comments>
+		<value>1</value>
+		<item name="0">
+			<comments>围栏区域分析报警业务类</comments>
+			<item name="class">
+				<value>com.ctfo.analy.addin.impl.AreaAlarmThread2</value>
+			</item>
+			<item name="count">
+				<value>1</value>
+			</item>
+		</item>
+		<item name="2">
+			<comments>线路(偏移,分段限速)分析报警业务类</comments>
+			<item name="class">
+				<value>com.ctfo.analy.addin.impl.LineAlarmThread2</value>
+			</item>
+			<item name="count">
+				<value>1</value>
+			</item>
+		</item>
+		<item name="4">
+			<comments>道路等级报警业务类</comments>
+			<item name="class">
+				<value>com.ctfo.analy.addin.impl.RoadAlarmThread</value>
+			</item>
+			<item name="count">
+				<value>0</value>
+			</item>
+		</item>
+		<item name="5">
+			<comments>非法运营软报警业务类</comments>
+			<item name="class">
+				<value>com.ctfo.analy.addin.impl.IllegalOperationsThread</value>
+			</item>
+			<item name="count">
+				<value>0</value>
+			</item>
+		</item>
+		<item name="6">
+			<comments>GPS巡检业务类</comments>
+			<item name="class">
+				<value>com.ctfo.analy.addin.impl.GPSInspectionThread</value>
+			</item>
+			<item name="count">
+				<value>0</value>
+			</item>
+		</item>
+		<item name="7">
+			<comments>车辆离线报警业务类</comments>
+			<item name="class">
+				<value>com.ctfo.analy.addin.impl.VehicleOnoffLineAlarmThread</value>
+			</item>
+			<item name="count">
+				<value>1</value>
+			</item>
+		</item>
+		<item name="8">
+			<comments>报警自动下发消息提示业务类（终端上报告警）</comments>
+			<item name="class">
+				<value>com.ctfo.analy.addin.impl.TerminalAlarmThread</value>
+			</item>
+			<item name="count">
+				<value>1</value>
+			</item>
+		</item>
+		<item name="9">
+			<comments>疲劳驾驶软报警业务类</comments>
+			<item name="class">
+				<value>com.ctfo.analy.addin.impl.FatigueAnalyserThread</value>
+			</item>
+			<item name="count">
+				<value>1</value>
+			</item>
+		</item>
+		<item name="10">
+			<comments>车辆进出站分析业务类</comments>
+			<item name="class">
+				<value>com.ctfo.analy.addin.impl.StationAnalyserThread</value>
+			</item>
+			<item name="count">
+				<value>1</value>
+			</item>
+		</item>
+	</item>
+	
+	<item name="ManageFlag">
+		<value>0</value>
+		<comments>消息服务配置管理测试开关  1启动消息服务直连，0通过节点管理处理</comments>
+	</item>
+	
+	<item name="msgServiceManage">
+		<comments>消息服务配置管理</comments>
+		<item name="msg1">
+			<comments>消息服务器1</comments>
+			<item name="msgServicePort">
+				<value>7505</value>
+				<comments>消息服务器端口</comments>
+			</item>
+			<item name="msgServiceAddr">
+				<value>192.168.100.50</value>
+				<comments>消息服务器地址127.0.0.1</comments>
+			</item>
+			<item name="logintype">
+				<value>SAVE</value>
+				<comments>登陆类型</comments>
+			</item>
+			<item name="userid">
+				<value>6704</value>
+				<comments>登陆id</comments>
+			</item>
+			<item name="password">
+				<value>6704</value>
+				<comments>登陆密码</comments>
+			</item>
+			<item name="reConnectTime">
+				<value>30000</value>
+				<comments>断线重连时间(ms)</comments>
+			</item>
+			<item name="connectStateTime">
+				<value>6000000</value>
+				<comments>连接状态时间(ms)</comments>
+			</item>
+		</item>
+	</item>
+	
+	<item name="configServer">
+		<comments>节点管理器配置</comments>
+		<item name="localIP">
+			<value>192.168.100.50</value>
+			<comments>本地IP</comments>
+		</item>
+		<item name="localPort">
+			<value>6004</value>
+			<comments>本地端口</comments>
+		</item>
+		<item name="loginID">
+			<value>400162</value>
+			<comments>登陆id</comments>
+		</item>
+		<item name="conNums">
+			<value>1</value>
+			<comments>连接数</comments>
+		</item>
+		<item name="handlerClass">
+			<value>com.ctfo.analy.io.ReceiveMsgHandler</value>
+			<comments>处理类</comments>
+		</item>
+		<item name="configIP">
+			<value>192.168.100.50</value>
+			<comments>节点管理器IP</comments>
+		</item>
+		<item name="configPort">
+			<value>7555</value>
+			<comments>节点管理器端口</comments>
+		</item>
+	</item>
+	<item name="gpsInspectionConfigFile">
+		<comments>GPS巡检配置文件路径</comments>
+	        <value>/home/kcpt/dataanaly/downmsg.txt</value>
+	</item>	
+	<item name="database">
+		<comments>数据库连接配置</comments>
+		<item name="DbImpl">
+			<value>com.ctfo.analy.dao.MonitorDBAdapter</value>
+			<comments>数据接口驱动类型</comments>
+		</item>
+		<item name="JDBCDriver">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+			<comments>数据库类型</comments>
+		</item>
+		<item name="JDBCUrl">
+			<value>jdbc:oracle:thin:@192.168.100.53:1521:orcl</value>
+			<comments>数据库连接URL jdbc:oracle:thin:@192.168.100.53:1521:orcl</comments>
+		</item>
+		<item name="JDBCUser">
+			<value>kcpt</value>
+			<comments>数据库登录用户名</comments>
+		</item>
+		<item name="JDBCPassword">
+			<value>kcpt</value>
+			<comments>ORACLE数据库登录密码</comments>
+		</item>
+
+		<item name="MysqlJDBCDriver">
+			<value>com.mysql.jdbc.Driver</value>
+			<comments>Mysql数据库类型</comments>
+		</item>
+		<item name="MysqlJDBCUrl">
+			<value>jdbc:mysql://192.168.100.52:3306/KCPT?autoreconnect=true&amp;characterEncoding=GBK</value>
+			<comments>Mysql数据库连接URL 192.168.2.13:3306</comments>
+		</item>
+		<item name="MysqlJDBCUser">
+			<value>kcpt</value>
+			<comments>Mysql数据库登录用户名</comments>
+		</item>
+		<item name="MysqlJDBCPassword">
+			<value>123456</value>
+			<comments>Mysql数据库登录密码</comments>
+		</item>
+		<item name="DBReconnectWait">
+			<value>60000</value>
+			<comments>数据库断线重连延时(秒)</comments>
+		</item>
+		<item name="delay">
+			<value>3600000</value>
+			<comments>检测线程休眠时间</comments>
+		</item>
+		<item name="connectionPoolSize">
+			<value>30</value>
+			<comments>连接池连接数目</comments>
+		</item>
+		<item name="minLimit">
+			<value>2</value>
+			<comments>连接池最小连接数</comments>
+		</item>
+		<item name="InitialLimit">
+			<value>10</value>
+			<comments>连接池初始化连接数</comments>
+		</item>
+		<item name="abandonedConnectionTimeout">
+			<value>30</value>
+			<comments>Sets the maximum time that a connection can remain unused before the connection is closed and returned to the cache(单位:S)</comments>
+		</item>
+		<item name="propertyCheckInterval">
+			<value>60</value>
+			<comments>Sets the time interval at which the cache manager inspects and enforces all specified cache properties (单位:S)</comments>
+		</item>
+		<item name="inactivityTimeout">
+			<value>30</value>
+			<comments>Sets the maximum time a physical connection can remain idle in a connection cache.(单位:S)</comments>
+		</item>
+		<item name="sqlstatement">
+			<comments>轨迹分析SQL语句</comments>
+			<item name="sql_queryAlarmVehicle">
+				<value>
+					SELECT V.VEHICLE_NO,
+				       V.VID AS VID,
+				       M.COMMADDR AS COMMADDR,
+				       VINFO.PENT_ID,
+				       VINFO.PENT_NAME,
+				       VINFO.ENT_ID,
+				       VINFO.ENT_NAME,
+				       VINFO.INNER_CODE,
+				       VINFO.VIN_CODE
+				  FROM TB_SIM M,
+				       TR_SERVICEUNIT S,
+				       TB_VEHICLE V,
+				       (SELECT ENT_ID
+				          FROM TB_ORGANIZATION WHERE ENT_TYPE != 4
+				         START WITH ENT_ID = 1
+				        CONNECT BY PRIOR ENT_ID = PARENT_ID) ORG,
+				       VIEW_VEHICLE_INFO VINFO
+				 WHERE V.ENABLE_FLAG = 1 AND V.VEHICLE_STATE != 3
+				   AND V.ENT_ID = ORG.ENT_ID
+				   AND V.VID = S.VID
+				   AND S.SID = M.SID
+				   AND VINFO.VID = V.VID
+					</value>
+				<comments>初始化加载所有车辆基本信息 </comments>
+			</item>
+			<item name="sql_queryAreaAlarm">
+				<value>
+					SELECT TRB.VID,
+					       TR.AREA_ID           AREAID,
+					       A.AREA_NAME          AREANAME,
+					       TRA.LONLAT_STR       LONLAT,
+					       TR.AREA_MAXSPEED*10     AREAMAXSPEED,
+					       TR.SUPERSPEED_TIMES  SUPERSPEEDTIMES,
+					       TR.AREA_USETYPE      USETYPE,
+					       TR.AREA_BEGINTIME*1000    AREABEGINTIME,
+					       TR.AREA_ENDTIME*1000      AREAENDTIME,
+					       A.AREA_SHAPE         AREASHAPE,
+					       TR.MESSAGE_VALUE,
+					       TR.VEHICLE_DOOR_TYPE
+					  FROM TR_VEHICLE_AREA TR
+					  JOIN TR_BIND_AREA TRB
+					    ON TRB.AREA_ID = TR.AREA_ID
+					  JOIN TB_AREA A
+					    ON A.AREA_ID = TR.AREA_ID
+					  JOIN TR_AREA TRA
+					    ON TRA.AREA_ID = TR.AREA_ID
+					 WHERE TR.AREA_DECIDE = 1
+					   AND TR.AREA_ENABLE = 1
+					   AND TRB.SEND_STATUS = 0
+					   AND TRB.AREA_STATUS != 3
+					   AND A.AREA_STATUS = 1
+					 ORDER BY TR.VID
+				</value>
+				<comments>查询区域报警车辆信息 AND FUN_DATE2UTC(SYSDATE) BETWEEN TR.AREA_BEGINTIME AND TR.AREA_ENDTIME</comments>
+			</item>
+			
+			<item name="sql_queryLineAlarm">
+				<value>	 
+				select tl.pid,
+		               tl.line_id LineId,
+		               tcl.line_name linename,
+		               tl.road_wight roadWight,
+		               tl.speed_threshold speedThreshold,
+		               tl.speed_time_threshold speedTimeThreshold,
+		               tlv.vid,
+		               tlv.usetype usetype,
+		               tlv.PERIOD_BEGINTIME periodbegintime,
+		               tlv.PERIOD_ENDTIME periodendtime,
+		               tlv.line_begintime startTime,
+		               tlv.line_endtime endTime,
+		               TL.START_STATION_ID,
+                   	   TL.END_STATION_ID
+		          from tb_line_prop tl
+		          join tr_line_vehicle tlv on tl.line_id = tlv.class_line_id
+		          join tb_class_line tcl on tlv.class_line_id = tcl.line_id
+		           and FUN_DATE2UTC(sysdate) between tlv.line_begintime and tlv.line_endtime
+		           and tlv.line_status in (1, 2)
+		           and tcl.judgment = 1
+		           and tcl.enable_flag = 1
+ 				</value>
+			<comments>查询线路报警车辆信息 </comments>
+			</item>
+			<item name="sql_queryLineAlarmNode">
+				<value>	 
+				SELECT F_LINK_LOB(MAPLON || ',' || MAPLAT) LONLAT
+				  FROM TB_STATION
+				 WHERE LINE_ID = ?
+				   AND STATION_NO BETWEEN ? AND ?
+				   AND ENABLE_FLAG = 1
+				 GROUP BY LINE_ID
+ 				</value>
+			<comments>查询设置过告警参数的线路节点 </comments>
+			</item>
+			<item name="sql_queryRoadAlarm">
+				<value>
+				select tvs.vid,
+				       tss.config_id,
+				       tss.config_name,
+				       tss.ent_id,
+				       tss.create_by,
+				       tss.create_time,
+				       tss.update_by,
+				       tss.update_time,
+				       tss.enable_flag,
+				       tss.is_default,
+				       tss.ew_speed_limit,
+				       tss.ew_continue_limit,
+				       tss.nr_speed_limit,
+				       tss.nr_continue_limit,
+				       tss.pr_speed_limit,
+				       tss.pr_continue_limit,
+				       tss.cr_speed_limit,
+				       tss.cr_continue_limit,
+				       tss.or_speed_limit,
+				       tss.or_continue_limit
+				  from TR_VEHICLE_SECTIONCFG tvs
+				  join TB_SECTION_SPEEDLIMIT tss
+				    on tvs.config_id = tss.config_id
+				   and tss.enable_flag = '1'
+ 				</value>
+			<comments>查询所有绑定的道路等級配置信息 </comments>
+			</item>
+			<item name="sql_queryIllegealOperationsAlarm">
+				<value>
+				SELECT VID, V.ENT_ID, START_TIME, END_TIME, DEFERRED, ISDEFAULT
+				  FROM TB_VEHICLE V
+				  JOIN (SELECT A.ENT_ID,
+				                    B.TB_ID,
+				                    START_TIME,
+				                    END_TIME,
+				                    DEFERRED,
+				                    B.ISDEFAULT
+				               FROM (SELECT CONNECT_BY_ROOT ORG.ENT_ID CFG_ENT_ID, ORG.ENT_ID
+				                       FROM TB_ORGANIZATION ORG
+				                       LEFT JOIN (SELECT ENT_ID
+				                                   FROM TB_ILLEGEAL_OPERATION_SETTIME
+				                                  WHERE ENABLE_FLAG = '1') TIO
+				                         ON ORG.ENT_ID = TIO.ENT_ID
+				                      START WITH ORG.ENT_ID = TIO.ENT_ID
+				                     CONNECT BY PRIOR ORG.ENT_ID = ORG.PARENT_ID
+				                            AND NOT EXISTS
+				                      (SELECT 1
+				                                   FROM TB_ILLEGEAL_OPERATION_SETTIME
+				                                  WHERE ENT_ID = ORG.ENT_ID)) A,
+				                    TB_ILLEGEAL_OPERATION_SETTIME B
+				              WHERE A.CFG_ENT_ID = B.ENT_ID) CFG
+				    ON V.ENT_ID = CFG.ENT_ID
+ 				</value>
+			<comments>查询所有绑定违规运营报警的车辆信息 </comments>
+			</item>
+			
+			<item name="sql_saveVehicleAlarm">
+				<value>INSERT INTO TH_VEHICLE_ALARM(ALARM_ID,VID,UTC,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,MILEAGE,OIL_TOTAL,ALARM_CODE,SYSUTC,ALARM_STATUS,ALARM_START_UTC,ALARM_DRIVER,VEHICLE_NO,BGLEVEL,BASESTATUS,EXTENDSTATUS,ALARM_ADD_INFO_START,ALARM_SRC,ALARM_ADD_INFO,AREA_ID) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+				<comments>存储报警信息</comments>
+			</item>
+			<item name="sql_updateVehicleAlarm">
+				<value>UPDATE TH_VEHICLE_ALARM SET ALARM_END_UTC = ?,END_LAT=?,END_LON=?,END_MAPLAT=?,END_MAPLON=?,END_ELEVATION=?,END_DIRECTION=?,END_GPS_SPEED=?,END_MILEAGE=?,END_OIL_TOTAL=?, ALARM_STATUS=0,ALARM_ADD_INFO_END =? WHERE ALARM_ID = ?</value>
+				<comments>更新报警信息</comments>
+			</item>
+			
+			<item name="mysql_saveVehicleAlarm">
+				<value>INSERT INTO MEM_TH_VEHICLE_ALARM(ALARM_ID,VID,UTC,LAT,LON,MAPLON,MAPLAT,ELEVATION,DIRECTION,GPS_SPEED,MILEAGE,OIL_TOTAL,ALARM_CODE,SYSUTC,ALARM_STATUS,ALARM_START_UTC,ALARM_DRIVER,VEHICLE_NO,BGLEVEL,BASESTATUS,EXTENDSTATUS,ALARM_ADD_INFO_START,ALARM_ADD_INFO) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)</value>
+				<comments>存储报警信息</comments>
+			</item>
+			<item name="mysql_updateVehicleAlarm">
+				<value>UPDATE MEM_TH_VEHICLE_ALARM SET ALARM_END_UTC = ?,END_LAT=?,END_LON=?,END_MAPLAT=?,END_MAPLON=?,END_ELEVATION=?,END_DIRECTION=?,END_GPS_SPEED=?,END_MILEAGE=?,END_OIL_TOTAL=?, ALARM_STATUS=0,ALARM_ADD_INFO_END =? WHERE ALARM_ID = ?</value>
+				<comments>更新报警信息</comments>
+			</item>
+			<item name="sql_saveVehicleAlarmEventInfo" >
+				<value>
+					INSERT INTO TH_VEHICLE_ALARM_EVENT (AUTO_ID,VID,DEVICE_NO,ALARM_CODE,AREA_ID,MTYPE_CODE,MEDIA_URI,BEGIN_UTC,BEGIN_LAT,BEGIN_LON,BEGIN_MAPLAT,BEGIN_MAPLON,BEGIN_ELEVATION,BEGIN_DIRECTION,BEGIN_GPS_SPEED,END_UTC,END_LAT,END_LON,END_MAPLAT,END_MAPLON,END_ELEVATION,END_DIRECTION,END_GPS_SPEED,ALARM_EVENT_TIME,KEYPOINT_GPS_SPEED,Vline_Id,Inner_Code,Vehicleno,MILEAGE,OIL_WEAR,C_VIN,LINE_NAME,CORP_ID,CORP_NAME,TEAM_ID,TEAM_NAME,ALARM_SRC) VALUES(SEQ_ALARMID_EVENT_ID.NEXTVAL,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+				</value>
+				<comments>存储报警事件统计信息 </comments>
+			</item>
+			<item name="sql_gpsInsVehicle">
+				<value>
+					SELECT V.VEHICLE_NO, V.VID AS VID, M.COMMADDR AS COMMADDR
+					  FROM TB_SIM M,
+					       TR_SERVICEUNIT S,
+					       TB_VEHICLE V,
+					       (SELECT ENT_ID
+					          FROM TB_ORGANIZATION
+					         START WITH ENT_ID = ?
+					        CONNECT BY PRIOR ENT_ID = PARENT_ID) ORG
+					 WHERE V.ENABLE_FLAG = 1
+					   AND V.ENT_ID = ORG.ENT_ID
+					   AND V.VID = S.VID
+					   AND S.SID = M.SID
+				</value>
+				<comments>查询GPS巡检车辆信息</comments>
+			</item>
+			<item name="sql_saveGpsInspection">
+				<value>INSERT INTO TS_GPS_CHECK (AUTO_ID,VID,RECEIVE_TIME,SPEED,ACC_STATUS,LAT,LON,MAPLON,MAPLAT,LOCATION_DESC) VALUES(?,?,?,?,?,?,?,?,?,?)</value>
+				<comments>存储gps巡检信息</comments>
+			</item>
+			<item name="sql_queryNewVehicle">
+				<value>
+						SELECT V.VID VID, SIM.COMMADDR COMMADDR, V.VEHICLE_NO VEHICLENO,
+							VINFO.PENT_ID,
+					       VINFO.PENT_NAME,
+					       VINFO.ENT_ID,
+					       VINFO.ENT_NAME,
+					       V.INNER_CODE,
+					       V.VIN_CODE
+						  FROM TB_VEHICLE V, TR_SERVICEUNIT TS, TB_SIM SIM,VIEW_VEHICLE_INFO VINFO
+						 WHERE V.ENABLE_FLAG = 1 AND V.VEHICLE_STATE != 3
+						   AND (V.UPDATE_TIME &gt;= ? OR V.CREATE_TIME &gt; = ? OR
+						       SIM.UPDATE_TIME &gt;= ? OR
+						       SIM.CREATE_TIME &gt;= ? OR TS.UPDATE_TIME &gt;= ? OR
+						       TS.CREATE_TIME &gt;= ?)
+						   AND V.VID = TS.VID
+						   AND SIM.SID = TS.SID
+						   AND V.VID=VINFO.VID
+						   
+					</value>
+				<comments>加载增量车辆基本信息 </comments>
+			</item>
+			
+			
+			<item name="sql_queryDelVehicle">
+				<value>
+						SELECT SIM.COMMADDR
+						  FROM TB_SIM SIM
+						 WHERE SIM.ENABLE_FLAG = 0
+						   AND SIM.UPDATE_TIME &gt;= ?
+						   UNION
+						   SELECT SIM.COMMADDR
+						  FROM TB_VEHICLE V, TR_SERVICEUNIT TS, TB_SIM SIM
+						 WHERE V.VEHICLE_STATE = 3
+						   AND V.UPDATE_TIME &gt;= ?
+						   AND V.VID = TS.VID
+						   AND SIM.SID = TS.SID
+					</value>
+				<comments>加载已删除车辆基本信息 </comments>
+			</item>
+			<item name="sql_queryOrgAlarmConf">
+				<value>
+					SELECT ENT_ID,WMSYS.WM_CONCAT(ALARM_CODE) ALARM_CODE FROM MVIEW_ALARM_CONF T GROUP BY ENT_ID
+					</value>
+				<comments>加载企业告警等级配置信息 </comments>
+			</item>
+				<item name="sql_queryAlarmNotice">
+				<value>
+				SELECT A.ENT_ID,  ALARM_CLASS,  ALARM_CODE,   DISPLAY_FLAG,   TTS_FLAG,  MSG
+				FROM (SELECT CONNECT_BY_ROOT ORG.ENT_ID CFG_ENT_ID, ORG.ENT_ID
+				FROM TB_ORGANIZATION ORG
+				LEFT JOIN (SELECT ENT_ID FROM tb_alarm_notice WHERE enable_flag = '1') TIO
+                    ON ORG.ENT_ID = TIO.ENT_ID
+                 START WITH ORG.ENT_ID = TIO.ENT_ID
+                 CONNECT BY PRIOR ORG.ENT_ID = ORG.PARENT_ID AND NOT EXISTS
+                 (SELECT 1 FROM tb_alarm_notice WHERE ENT_ID = ORG.ENT_ID)) A,
+                 tb_alarm_notice B      WHERE A.CFG_ENT_ID = B.ENT_ID
+				</value>
+				<comments>查询企业车辆告警下发消息内容 </comments>
+			</item>
+			<item name="vehicleAlarmUpdateSql">
+				<comments>车辆报警添加更新SQL</comments>
+				<value>
+						SELECT V.VID VID,
+						       SIM.COMMADDR    COMMADDR,
+						       V.VEHICLE_NO    VEHICLENO,
+						       VINFO.PENT_ID,
+						       VINFO.PENT_NAME,
+						       VINFO.ENT_ID,
+						       VINFO.ENT_NAME,
+						       V.INNER_CODE,
+						       V.VIN_CODE
+						  FROM TB_VEHICLE V, TR_SERVICEUNIT TS, TB_SIM SIM, VIEW_VEHICLE_INFO VINFO,TB_TERMINAL TT
+						 WHERE V.VID = VINFO.VID
+						   AND V.VID = TS.VID 
+						   AND SIM.SID = TS.SID 
+						   AND TS.TID=TT.TID
+						   AND V.ENABLE_FLAG = 1
+						   AND V.VEHICLE_STATE != 3 
+					</value>
+			</item>
+			<item name="vehicleAlarmBlukAddSql">
+				<comments>批量插入时更新 </comments>
+				<value>
+					SELECT V.VEHICLE_NO,
+				       V.VID AS VID,
+				       M.COMMADDR AS COMMADDR,
+				       VINFO.PENT_ID,
+				       VINFO.PENT_NAME,
+				       VINFO.ENT_ID,
+				       VINFO.ENT_NAME,
+				       VINFO.INNER_CODE,
+				       VINFO.VIN_CODE
+				  FROM TB_SIM M,
+				       TR_SERVICEUNIT S,
+				       TB_VEHICLE V,
+				       (SELECT ENT_ID
+				          FROM TB_ORGANIZATION WHERE ENT_TYPE != 4
+				         START WITH ENT_ID = 1
+				        CONNECT BY PRIOR ENT_ID = PARENT_ID) ORG,
+				       VIEW_VEHICLE_INFO VINFO
+				 WHERE V.ENABLE_FLAG = 1 AND V.VEHICLE_STATE != 3
+				   AND V.ENT_ID = ORG.ENT_ID
+				   AND V.VID = S.VID
+				   AND S.SID = M.SID
+				   AND VINFO.VID = V.VID
+					</value>
+			</item>
+			<item name="roadAlarmUpdateSql">
+			<comments>查询所有绑定的道路等級配置信息 </comments>
+				<value>
+				select tvs.vid,
+				       tss.config_id,
+				       tss.config_name,
+				       tss.ent_id,
+				       tss.create_by,
+				       tss.create_time,
+				       tss.update_by,
+				       tss.update_time,
+				       tss.enable_flag,
+				       tss.is_default,
+				       tss.ew_speed_limit,
+				       tss.ew_continue_limit,
+				       tss.nr_speed_limit,
+				       tss.nr_continue_limit,
+				       tss.pr_speed_limit,
+				       tss.pr_continue_limit,
+				       tss.cr_speed_limit,
+				       tss.cr_continue_limit,
+				       tss.or_speed_limit,
+				       tss.or_continue_limit
+				  from TR_VEHICLE_SECTIONCFG tvs
+				  join TB_SECTION_SPEEDLIMIT tss
+				    on tvs.config_id = tss.config_id
+				   and tss.enable_flag = '1'
+ 				</value>
+			</item>
+			<item name="areaAlarmQuerySQL">
+			<comments>区域报警</comments>
+				<value>
+					SELECT TRB.VID,
+					       TR.AREA_ID           AREAID,
+					       A.AREA_NAME          AREANAME,
+					       TRA.LONLAT_STR       LONLAT,
+					       TR.AREA_MAXSPEED*10     AREAMAXSPEED,
+					       TR.SUPERSPEED_TIMES  SUPERSPEEDTIMES,
+					       TR.AREA_USETYPE      USETYPE,
+					       TR.AREA_BEGINTIME*1000    AREABEGINTIME,
+					       TR.AREA_ENDTIME*1000      AREAENDTIME,
+					       A.AREA_SHAPE         AREASHAPE,
+					       TR.MESSAGE_VALUE,
+					       TR.VEHICLE_DOOR_TYPE
+					  FROM TR_VEHICLE_AREA TR
+					  JOIN TR_BIND_AREA TRB
+					    ON TRB.AREA_ID = TR.AREA_ID
+					  JOIN TB_AREA A
+					    ON A.AREA_ID = TR.AREA_ID
+					  JOIN TR_AREA TRA
+					    ON TRA.AREA_ID = TR.AREA_ID
+					 WHERE TR.AREA_DECIDE = 1
+					   AND TR.AREA_ENABLE = 1
+					   AND TRB.SEND_STATUS = 0
+					   AND TRB.AREA_STATUS != 3
+					   AND A.AREA_STATUS = 1
+					
+				</value>
+			</item>
+			<item name="lineAlarmQuerySQL">
+			<comments>查询线路报警车辆信息 </comments>
+				<value>	 
+				select tl.pid,
+			       ts.line_id    LineId,
+			       tcl.line_name linename,
+			       tl.road_wight roadWight,
+			       ts.maplon || ',' || ts.maplat lonlat,
+			       tl.speed_threshold      speedThreshold,
+			       tl.speed_time_threshold speedTimeThreshold,
+			       tlv.vid,
+			       tlv.usetype             usetype,
+			       tlv.PERIOD_BEGINTIME    periodbegintime,
+			       tlv.PERIOD_ENDTIME      periodendtime,
+			       tlv.line_begintime      startTime,
+			       tlv.line_endtime        endTime
+			  from kcpt.tb_line_prop tl
+			  join kcpt.tb_station ts
+			    on tl.line_id = ts.line_id
+			  join kcpt.tr_line_vehicle tlv
+			    on ts.line_id = tlv.class_line_id
+			  join kcpt.tb_class_line tcl
+			    on tlv.class_line_id = tcl.line_id
+			 where 1 = 1
+			   and tcl.judgment = 1
+			   and tcl.enable_flag = 1
+			   and tlv.line_status in (1, 2)
+			   and ts.lon > 0
+			   and ts.station_no between tl.start_station_id and tl.end_station_id
+			   and FUN_DATE2UTC(sysdate) between tlv.line_begintime and
+			       tlv.line_endtime
+		       group by tl.pid,
+		          ts.line_id,
+		          tcl.line_name,
+		          tl.road_wight,
+		          tl.speed_threshold,
+		          tl.speed_time_threshold,
+		          tlv.vid,
+		          tlv.usetype,
+		          tlv.PERIOD_BEGINTIME,
+		          tlv.PERIOD_ENDTIME,
+		          tlv.line_begintime,
+		          tlv.line_endtime,
+		          ts.maplon,
+		          ts.maplat
+ 				</value>
+			</item>
+			<item name="illeOptQuerySQL">
+			<comments>查询线路报警车辆信息 </comments>
+				<value>	 
+				SELECT VID, V.ENT_ID, START_TIME, END_TIME, DEFERRED, ISDEFAULT ,cfg.tb_id
+				  FROM TB_VEHICLE V
+				  JOIN (SELECT A.ENT_ID,
+				               B.TB_ID,
+				               START_TIME,
+				               END_TIME,
+				               DEFERRED,
+				               B.ISDEFAULT
+				          FROM (SELECT CONNECT_BY_ROOT ORG.ENT_ID CFG_ENT_ID, ORG.ENT_ID
+				                  FROM TB_ORGANIZATION ORG
+				                  LEFT JOIN (SELECT ENT_ID
+				                              FROM TB_ILLEGEAL_OPERATION_SETTIME
+				                             WHERE ENABLE_FLAG = '1') TIO
+				                    ON ORG.ENT_ID = TIO.ENT_ID
+				                 START WITH ORG.ENT_ID = TIO.ENT_ID
+				                CONNECT BY PRIOR ORG.ENT_ID = ORG.PARENT_ID
+				                       AND NOT EXISTS
+				                 (SELECT 1 FROM TB_ILLEGEAL_OPERATION_SETTIME
+				                             WHERE ENT_ID = ORG.ENT_ID)) A,
+				               TB_ILLEGEAL_OPERATION_SETTIME B
+				         WHERE A.CFG_ENT_ID = B.ENT_ID ) CFG 
+				    ON V.ENT_ID = CFG.ENT_ID
+ 				</value>
+			</item>
+			<item name="sql_queryTrVehicleStationInfo">
+			<comments>查询车辆站点绑定信息 </comments>
+				<value>	 
+					SELECT B.VID,
+				       C.STATION_ID,
+				       C.STATION_CODE,
+				       C.STATION_NAME,
+				       C.STATION_RADIUS,
+				       C.MAPLON,
+				       C.MAPLAT,
+				       A.LINE_ID,
+				       A.STATION_NUMBER
+				  FROM TR_LINE_STATION A, TR_LINE_VEHICLE B, TB_LINE_STATION C
+				 WHERE A.LINE_ID = B.CLASS_LINE_ID
+				   AND A.STATION_ID = C.STATION_ID
+				   AND C.ENABLE_FLAG = '1'
+ 				</value>
+			</item>
+			<item name="sql_saveVehicleOverStation">
+			<comments>保存车辆过站信息 </comments>
+				<value>	 
+					INSERT INTO TH_VEHICLE_OVER_STATION
+					(OVER_ID,VID,LINE_ID,
+					STATION_ID,STATION_NUMBER,STATION_NAME,
+					OVER_UTC,OVER_TYPE,MILEAGE
+					)VALUES(?,?,?,?,?,?,?,?,?)
+ 				</value>
+			</item>
+		</item>
+	</item>
+		<!-- 消息总线 -->
+	<item name="activeMQ">
+		<item name="mqUrl">
+			<value>tcp://192.168.100.52:61616</value>
+			<comments>activeMQ连接地址</comments>	
+		</item>
+		<item name="t_vehicle">
+			<value>t_vehicle</value>
+			<comments>车辆变更广播名称</comments>	
+		</item>
+		<item name="t_sim">
+			<value>t_sim</value>
+			<comments>卡变更广播名称</comments>	
+		</item>
+		<item name="t_org">
+			<value>t_org</value>
+			<comments>组织变更广播名称</comments>	
+		</item>
+		<item name="t_serviceunit">
+			<value>t_serviceunit</value>
+			<comments>关系变更名称</comments>	
+		</item>
+		<item name="t_vehicle_sectioncfg">
+			<value>t_vehicle_sectioncfg</value>
+			<comments>车辆区间设置变更广播名称</comments>	
+		</item>
+		<item name="t_section_speedlimit">
+			<value>t_section_speedlimit</value>
+			<comments>车辆区间限速变更广播名称</comments>	
+		</item>
+		<item name="t_vehicle_area">
+			<value>t_vehicle_area</value>
+			<comments>车辆区域变更广播名称</comments>	
+		</item>
+		<item name="t_bind_area">
+			<value>t_bind_area</value>
+			<comments>绑定区域变更广播名称</comments>	
+		</item>
+		<item name="t_tr_area">
+			<value>t_tr_area</value>
+			<comments>区域关系变更广播名称</comments>	
+		</item>
+		<item name="t_area">
+			<value>t_area</value>
+			<comments>区域变更广播名称</comments>	
+		</item>
+		<item name="t_line_prop">
+			<value>t_line_prop</value>
+			<comments>线路设置变更广播名称</comments>	
+		</item>
+		<item name="t_station">
+			<value>t_station</value>
+			<comments>站点变更广播名称</comments>	
+		</item>
+		<item name="t_line_vehicle">
+			<value>t_line_vehicle</value>
+			<comments>线路车辆变更广播名称</comments>	
+		</item>
+		<item name="t_class_line">
+			<value>t_class_line</value>
+			<comments>线路类型变更广播名称</comments>	
+		</item>
+		<item name="t_illegeal_operation_settime">
+			<value>t_illegeal_operation_settime</value>
+			<comments>非法运营变更广播名称</comments>	
+		</item>
+		<item name="t_alarm_notice">
+			<value>t_alarm_notice</value>
+			<comments>告警提示变更广播名称</comments>	
+		</item>
+		<item name="t_terminal">
+			<value>t_terminal</value>
+			<comments>终端变更广播名称</comments>	
+		</item>
+		<item name="t_terminal_protocol">
+			<value>t_terminal_protocol</value>
+			<comments>终端厂商变更广播名称</comments>	
+		</item>
+		<item name="t_terminal_oem">
+			<value>t_terminal_oem</value>
+			<comments>终端协议变更广播名称</comments>	
+		</item>
+		<item name="t_line_station">
+			<value>t_line_station</value>
+			<comments>线路站点绑定关系变更广播名称</comments>	
+		</item>
+		
+	</item>
+</xconf>
