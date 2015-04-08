@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<MetaData>
+	<History CreateBy="wuqiangjun" CreateOn="2011-12-06" UpdateBy="" UpdateOn=""></History>
+
+	<Service Name="vehicleInforService" Description="车辆服务" ImplClassName="">
+		<ServiceAction Name="isRegVehicle" Description="获取车辆注册结果">
+			<ServiceRequestModel>
+				<InputParameter Name="vehicleColor" Description="车牌颜色" Mandatory="true" DataType="" Mapapp="plateColor" />
+				<InputParameter Name="vehicleno" Description="车牌号" Mandatory="true" DataType="" Mapapp="vehicleNo" />
+				<InputParameter Name="phoneNum" Description="电话号码" Mandatory="true" DataType="" Mapapp="commaddr" />
+				<InputParameter Name="terminaltype" Description="终端型号" Mandatory="true" DataType="" Mapapp="tmodelCode" />
+				<InputParameter Name="terminalid" Description="终端ID" Mandatory="true" DataType=""  Mapapp="tmac" />
+				<InputParameter Name="cityid" Description="区域ID" Mandatory="true" DataType="" Mapapp="cityId" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：等待回应0：成功，1：车辆已被注册，2：数据库中无该车辆，3：终端已被注册，4，数据库中无该终端" DataType="int" />
+					<Attribute Name="akey" Description="车辆鉴权" DataType="int" />
+					<Attribute Name="oemcode" Description="设备厂家编号" Mandatory="" DataType="" Mapapp="oemcode" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		<!-- 非国标车机注册 -->
+		<ServiceAction Name="isRegVehicleNOGB" Description="获取车辆注册结果">
+			<ServiceRequestModel>
+				<InputParameter Name="vehicleColor" Description="车牌颜色" Mandatory="true" DataType="" Mapapp="plateColor" />
+				<InputParameter Name="vehicleno" Description="车牌号" Mandatory="true" DataType="" Mapapp="vehicleNo" />
+				<InputParameter Name="phoneNum" Description="电话号码" Mandatory="true" DataType="" Mapapp="commaddr" />
+				<InputParameter Name="terminaltype" Description="终端型号" Mandatory="true" DataType="" Mapapp="tmodelCode" />
+				<InputParameter Name="terminalid" Description="终端ID" Mandatory="true" DataType=""  Mapapp="tmac" />
+				<InputParameter Name="cityid" Description="区域ID" Mandatory="true" DataType="" Mapapp="cityId" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：等待回应0：成功，1：车辆已被注册，2：数据库中无该车辆，3：终端已被注册，4，数据库中无该终端" DataType="int" />
+					<Attribute Name="akey" Description="车辆鉴权" DataType="int" />
+					<Attribute Name="oemcode" Description="设备厂家编号" Mandatory="" DataType="" Mapapp="oemcode" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		
+		<!-- 老运营非国标车机注册 -->
+		<ServiceAction Name="isRegVehicleNOGBNew" Description="获取车辆注册结果">
+			<ServiceRequestModel>
+				<InputParameter Name="vehicleColor" Description="车牌颜色" Mandatory="true" DataType="" Mapapp="plateColor" />
+				<InputParameter Name="vehicleno" Description="车牌号" Mandatory="true" DataType="" Mapapp="vehicleNo" />
+				<InputParameter Name="phoneNum" Description="电话号码" Mandatory="true" DataType="" Mapapp="commaddr" />
+				<InputParameter Name="terminaltype" Description="终端型号" Mandatory="true" DataType="" Mapapp="tmodelCode" />
+				<InputParameter Name="terminalid" Description="终端ID" Mandatory="true" DataType=""  Mapapp="tmac" />
+				<InputParameter Name="cityid" Description="区域ID" Mandatory="true" DataType="" Mapapp="cityId" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：等待回应0：成功，1：车辆已被注册，2：数据库中无该车辆，3：终端已被注册，4，数据库中无该终端" DataType="int" />
+					<Attribute Name="akey" Description="车辆鉴权" DataType="int" />
+					<Attribute Name="oemcode" Description="设备厂家编号" Mandatory="" DataType="" Mapapp="oemcode" />
+					<Attribute Name="plateColor" Description="车牌颜色" DataType="" Mapapp="plateColor" />
+					<Attribute Name="vehicleNo" Description="车牌号码" DataType="" Mapapp="vehicleNo" />
+					<Attribute Name="phoneNum" Description="SIM卡号" DataType="" Mapapp="commaddr" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		
+		<!-- 根据手机号注册 -->
+		<ServiceAction Name="isRegVehicleByPhoneNumber" Description="根据手机号获取车辆注册结果">
+			<ServiceRequestModel>
+				<InputParameter Name="phoneNumber" Description="手机号" Mandatory="true" DataType="" Mapapp="phoneNumber" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：等待回应0：成功，1：车辆已被注册，2：数据库中无该车辆，3：终端已被注册，4，数据库中无该终端" DataType="int" />
+					<Attribute Name="akey" Description="车辆鉴权" DataType="int" />
+					<Attribute Name="oemcode" Description="设备厂家编号" Mandatory="" DataType="" Mapapp="oemcode" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		
+		<ServiceAction Name="isCheckVehicle" Description="车辆鉴权">
+			<ServiceRequestModel>
+				<InputParameter Name="akey" Description="鉴权码" Mandatory="true" DataType="" Mapapp="akey" />
+				<InputParameter Name="phoneNum" Description="电话号码" Mandatory="true" DataType="" Mapapp="commaddr" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：鉴权失败，0：鉴权成功" DataType="int" />
+					<Attribute Name="oemcode" Description="设备厂家编号" Mandatory="" DataType="" Mapapp="oemcode" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+
+		<ServiceAction Name="isLogoffVehicle" Description="车辆注销">
+			<ServiceRequestModel>
+				<InputParameter Name="vehicleColor" Description="车牌颜色" Mandatory="true" DataType="" Mapapp="plateColor" />
+				<InputParameter Name="vehicleno" Description="车牌号" Mandatory="true" DataType="" Mapapp="vehicleNo" />
+				<InputParameter Name="phoneNum" Description="电话号码" Mandatory="true" DataType="" Mapapp="commaddr" />
+				<InputParameter Name="terminaltype" Description="终端型号" Mandatory="true" DataType="" Mapapp="tmodelCode" />
+				<InputParameter Name="manufacturerid" Description="制造商ID" Mandatory="true" DataType="" Mapapp="tmac" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：注销失败，0：注销成功" DataType="int" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		<!-- PCC -->
+		<ServiceAction Name="getRegVehicleInfo" Description="根据SIM卡和终端型号查询车辆信息">
+			<ServiceRequestModel>
+				<InputParameter Name="phoneNum" Description="电话号码" Mandatory="true" DataType="" Mapapp="commaddr" />
+				<InputParameter Name="terminaltype" Description="终端型号" Mandatory="true" DataType="" Mapapp="tmodelCode" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="vehicleno" Description="车牌号码" DataType="" Mapapp="vehicleNo" />
+					<Attribute Name="vehicleColor" Description="车牌颜色" DataType="" Mapapp="plateColor" />
+					<Attribute Name="manufacturerid" Description="生产商唯一编号" DataType="" Mapapp="manufacturerId" />
+					<Attribute Name="terminaltype" Description="终端型号" DataType="" Mapapp="tmodelCode" />
+					<Attribute Name="terminalid" Description="终端唯一编号" DataType="" Mapapp="tmac" />
+					<Attribute Name="phoneNum" Description="SIM卡号" DataType="" Mapapp="commaddr" />
+					<Attribute Name="cityid" Description="区域" DataType="" Mapapp="cityId" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+
+		<ServiceAction Name="getBaseVehicleInfo" Description="根据SIM卡和终端型号查询车辆信息">
+			<ServiceRequestModel>
+				<InputParameter Name="phoneNum" Description="电话号码" Mandatory="true" DataType="" Mapapp="commaddr" />
+				<InputParameter Name="terminaltype" Description="终端型号" Mandatory="true" DataType="" Mapapp="tmodelCode" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="vehicleno" Description="车牌号码" DataType="" Mapapp="vehicleNo" />
+					<Attribute Name="vehicleColor" Description="车牌颜色" DataType="" Mapapp="plateColor" />
+					<Attribute Name="cityid" Description="区域" DataType="" Mapapp="cityId" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+
+		<ServiceAction Name="getDriverOfVehicleByType" Description="根据车牌号，车牌颜色查询车辆信息,上报驾驶员业务类型">
+			<ServiceRequestModel>
+				<InputParameter Name="vehicleno" Description="车牌号码" DataType="" Mapapp="vehicleNo" />
+				<InputParameter Name="vehicleColor" Description="车牌颜色" DataType="" Mapapp="plateColor" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="vehicleno" Description="车牌号码" DataType="" Mapapp="vehicleNo" />
+					<Attribute Name="vehicleColor" Description="车牌颜色" DataType="" Mapapp="plateColor" />
+					<Attribute Name="cityid" Description="区域ID" DataType="" Mapapp="cityId" />
+					<Attribute Name="driverName" Description="驾驶员姓名" DataType="" Mapapp="staffName" />
+					<Attribute Name="driverNo" Description="身份证" DataType="" Mapapp="driverNo" />
+					<Attribute Name="driverCertificate" Description="从业资格证" DataType="" Mapapp="bussinessId" />
+					<Attribute Name="certificateAgency" Description="发证机构" DataType="" Mapapp="drivercardDep" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		
+		<ServiceAction Name="getEticketByVehicle" Description="根据车牌号，车牌颜色查询车辆信息,上报电子运单业务类型">
+			<ServiceRequestModel>
+				<InputParameter Name="vehicleno" Description="车牌号码" DataType="" Mapapp="vehicleNo" />
+				<InputParameter Name="vehicleColor" Description="车牌颜色" DataType="" Mapapp="plateColor" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="vehicleno" Description="车牌号码" DataType="" Mapapp="vehicleNo" />
+					<Attribute Name="vehicleColor" Description="车牌颜色" DataType="" Mapapp="plateColor" />
+					<Attribute Name="cityid" Description="车辆籍贯地" DataType="" Mapapp="cityId" />
+					<Attribute Name="eticketContent" Description="电子运单内容" DataType="" Mapapp="eticketContent" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		<ServiceAction Name="getTernimalByVehicleByType" Description="根据车牌号，车牌颜色查询车辆信息">
+			<ServiceRequestModel>
+				<InputParameter Name="vehicleno" Description="车牌号码" DataType="" Mapapp="vehicleNo" />
+				<InputParameter Name="vehicleColor" Description="车牌颜色" DataType="" Mapapp="plateColor" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="phoneNum" Description="电话号码" Mandatory="true" DataType="" Mapapp="commaddr" />
+					<Attribute Name="terminaltype" Description="终端型号" Mandatory="true" DataType="" Mapapp="oemcode" />
+					<Attribute Name="cityid" Description="区域" DataType="" Mapapp="cityId" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		<ServiceAction Name="getDetailOfVehicleInfo" Description="根据车牌号，车牌颜色查询车辆信息">
+			<ServiceRequestModel>
+				<InputParameter Name="vehicleno" Description="车牌号码" DataType="" Mapapp="vehicleNo" />
+				<InputParameter Name="vehicleColor" Description="车牌颜色" DataType="" Mapapp="plateColor" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="vehicleno" Description="车牌号码" DataType="" Mapapp="vehicleNo" />
+					<Attribute Name="plateColorId" Description="车牌颜色编号" DataType="" Mapapp="plateColor" />
+					<Attribute Name="vehicletypeId" Description="车辆类型编" DataType="" Mapapp="generalCode" />
+					<Attribute Name="typeName" Description="车辆类型名称" DataType="" Mapapp="codeName" />
+					<Attribute Name="transTypeDesc" Description="行业类型" DataType="" Mapapp="transtypeCode" />
+					<Attribute Name="city" Description="车辆籍贯地" DataType="" Mapapp="cityId" />
+					<Attribute Name="corpId" Description="企业id" DataType="corpId" Mapapp="licenceNo" />
+					<Attribute Name="corpName" Description="企业名称" DataType="" Mapapp="orgCname" />
+					<Attribute Name="linkPhone" Description="企业联系人电话" DataType="" Mapapp="orgCphone" />
+					<Attribute Name="spId" Description="运营机构id" DataType="" Mapapp="vehicleOperationId" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		
+		<ServiceAction Name="isDriverOfVehicle" Description="根据电话号码，终端型号，驾驶员从业资格证，驾驶员身份证验证驾驶员信息" >
+		     <ServiceRequestModel>
+		      	<InputParameter Name="phoneNum" Description="电话号码" Mandatory="true" DataType="" Mapapp="commaddr" />
+				<InputParameter Name="terminaltype" Description="终端型号" Mandatory="true" DataType="" Mapapp="tmodelCode" />
+				<InputParameter Name="driverNo"  Description="驾驶员身份证" DataType="String" Mapapp="driverNo" />
+		      	<InputParameter Name="driverCertificate"  Description="从业资格证" DataType="String" Mapapp="bussinessId" />
+		     </ServiceRequestModel>
+		     <ServiceResponseModel>
+		      	<OutputParameter Name="Item">
+		      		<Attribute Name="result"  Description="-1验证失败，0验证成功" DataType="int"/>
+		      		<Attribute Name="message"  Description="识别结果描述" DataType="int"/>
+		        </OutputParameter>
+		      </ServiceResponseModel>
+	    </ServiceAction>
+	    
+	    <ServiceAction Name="synCheckData" Description="同步数据">
+			<ServiceRequestModel>
+				<InputParameter Name="akey" Description="鉴权码" Mandatory="true" DataType="" Mapapp="akey" />
+				<InputParameter Name="phoneNum" Description="电话号码" Mandatory="true" DataType="" Mapapp="commaddr" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：失败，0：成功" DataType="int" />
+					<Attribute Name="oemcode" Description="设备厂家编号" Mandatory="" DataType="" Mapapp="oemcode" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		
+		<ServiceAction Name="get2gBy3g" Description="根据2G卡号获取3G卡号">
+			<ServiceRequestModel>
+				<InputParameter Name="sim3" Description="3Gsim卡号" Mandatory="true" DataType="" Mapapp="sim3" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="commaddr" Description="2Gsim卡号" DataType="" Mapapp="commaddr"/>
+					<Attribute Name="oemcode" Description="3G终端OEM_CODE" DataType="" Mapapp="oemcode"/>
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		<ServiceAction Name="get3gBy2g" Description="根据3G卡号获取2G卡号">
+			<ServiceRequestModel>
+				<InputParameter Name="sim2" Description="2Gsim卡号" Mandatory="true" DataType="" Mapapp="sim2" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="commaddr" Description="3Gsim卡号" DataType="" Mapapp="commaddr"/>
+					<Attribute Name="oemcode" Description="终端OEM_CODE" DataType="" Mapapp="oemcode"/>
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+		<ServiceAction Name="get2g3gSimMapping" Description="获得2g3gSIM卡号映射对应表">
+			<ServiceRequestModel>
+				<InputParameter Name="registerNum" Description="注册编号" Mandatory="true" DataType="" Mapapp="registerNum" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="simMapping" Description="2g3gSIM卡号映射对应表" DataType="" Mapapp="simMapping"/>
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+	</Service>
+	
+	<Service Name="thAlarmTodoRmi" Description="报警服务" ImplClassName="">
+		<ServiceAction Name="add" Description="添加报警">
+		<ServiceRequestModel>
+				<InputParameter Name="supervisionEndUtc" Description="督办截止时间" Mandatory="true" DataType="" Mapapp="supervisionEndUtc" />
+				<InputParameter Name="supervisionId" Description="报警督办ID" Mandatory="true" DataType="" Mapapp="supervisionId" />
+				<InputParameter Name="supervisionLevel" Description="督办级别,0:紧急,1:一般" Mandatory="true" DataType="" Mapapp="supervisionLevel" />
+				<InputParameter Name="supervisor" Description="督办人" Mandatory="true" DataType="" Mapapp="supervisor" />
+				<InputParameter Name="supervisorEmail" Description="督办联系电子邮件" Mandatory="true" DataType="" Mapapp="supervisorEmail" />
+				<InputParameter Name="supervisorTel" Description="督办联系电话" Mandatory="true" DataType="" Mapapp="supervisorTel" />
+				<InputParameter Name="vehicleColor" Description="车牌颜色" Mandatory="true" DataType="" Mapapp="vehicleColor" />
+				<InputParameter Name="vehicleNo" Description="车牌号" Mandatory="true" DataType="" Mapapp="vehicleno" />
+				<InputParameter Name="wanSrc" Description="1:车载终端,2:企业监控平台,3:政府监管平台,9其它" Mandatory="true" DataType="" Mapapp="wanSrc" />
+				<InputParameter Name="wanType" Description="报警类型" Mandatory="true" DataType="" Mapapp="wanType" />
+				<InputParameter Name="warUtc" Description="报警时间" Mandatory="true" DataType="" Mapapp="warUtc" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：失败0：成功"  DataType="int" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+	</Service>
+	<Service Name="thPlatInfosRmi" Description="报文服务" ImplClassName="">
+		<ServiceAction Name="addForMsgInfo" Description="添加报文">
+		<ServiceRequestModel>
+				<InputParameter Name="messageContent" Description="信息内容" Mandatory="true" DataType="" Mapapp="messageContent" />
+				<InputParameter Name="messageId" Description="信息标识，查岗或报文的ID" Mandatory="true" DataType="" Mapapp="messageId" />
+				<InputParameter Name="objectId" Description="对象标识，运营商编码或企业码" Mandatory="true" DataType="" Mapapp="objectId" />
+				<InputParameter Name="objectType" Description="对象类型，0下级平台所属单一平台，1当前连接的下级平台，2下级平台所属单一业户，3下级平台所有业户，4下级平台所有平台，5下级平台所有平台与业户，6下级平台所属所有政府监管平台，7下级平台所有企业监控平台，8下级平台所有经营性平台，9下级平台所有非经营性监控平台" Mandatory="true" DataType="" Mapapp="objectType" />
+				<InputParameter Name="areaId" Description="省域编码" Mandatory="true" DataType="" Mapapp="areaId" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：失败0：成功"  DataType="int" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+	</Service>
+	<Service Name="thPlatInfosRmi" Description="查岗服务" ImplClassName="">
+		<ServiceAction Name="addForMsgPost" Description="查岗服务">
+		<ServiceRequestModel>
+				<InputParameter Name="messageContent" Description="信息内容" Mandatory="true" DataType="" Mapapp="messageContent" />
+				<InputParameter Name="messageId" Description="信息标识，查岗或报文的ID" Mandatory="true" DataType="" Mapapp="messageId" />
+				<InputParameter Name="objectId" Description="对象标识，运营商编码或企业码" Mandatory="true" DataType="" Mapapp="objectId" />
+				<InputParameter Name="objectType" Description="对象类型，0下级平台所属单一平台，1当前连接的下级平台，2下级平台所属单一业户，3下级平台所有业户，4下级平台所有平台，5下级平台所有平台与业户，6下级平台所属所有政府监管平台，7下级平台所有企业监控平台，8下级平台所有经营性平台，9下级平台所有非经营性监控平台" Mandatory="true" DataType="" Mapapp="objectType" />
+				<InputParameter Name="areaId" Description="省域编码" Mandatory="true" DataType="" Mapapp="areaId" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：失败0：成功"  DataType="int" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+	</Service>
+	<Service Name="thVehicleEarlywarningRmi" Description="预警服务" ImplClassName="">
+		<ServiceAction Name="add" Description="预警报警">
+		<ServiceRequestModel>
+				<InputParameter Name="alarmDescr" Description="报警描述" Mandatory="true" DataType="" Mapapp="alarmDescr"/>
+				<InputParameter Name="alarmFrom" Description="报警来源" Mandatory="true" DataType="" Mapapp="alarmFrom" />
+				<InputParameter Name="alarmTime" Description="报警时间" Mandatory="true" DataType="" Mapapp="alarmTime" />
+				<InputParameter Name="alarmType" Description="报警类型" Mandatory="true" DataType="" Mapapp="alarmType" />
+				<InputParameter Name="vehicleNo" Description="车牌号" Mandatory="true" DataType="" Mapapp="vehicleNo"/>
+				<InputParameter Name="vehicleColor" Description="车牌颜色" Mandatory="true" DataType="" Mapapp="plateColor" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：失败0：成功"  DataType="int" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+	</Service>
+	
+	<Service Name="thLinkStatusServiceRmi" Description="链路通断服务" ImplClassName="">
+		<ServiceAction Name="add" Description="链路通断">
+		<ServiceRequestModel>
+				<InputParameter Name="areaId" Description="省域编码" Mandatory="true" DataType="" Mapapp="areaId"/>
+				<InputParameter Name="utc" Description="时间" Mandatory="true" DataType="" Mapapp="utc" />
+				<InputParameter Name="linkType" Description="0：主链路，1：从链路" Mandatory="true" DataType="" Mapapp="linkType" />
+				<InputParameter Name="status" Description="0:连接，-1断开" Mandatory="true" DataType="" Mapapp="status" />
+			</ServiceRequestModel>
+			<ServiceResponseModel>
+				<OutputParameter Name="Item">
+					<Attribute Name="result" Description="-1：失败0：成功"  DataType="int" />
+				</OutputParameter>
+			</ServiceResponseModel>
+		</ServiceAction>
+	</Service>
+	
+</MetaData>
+
+
+

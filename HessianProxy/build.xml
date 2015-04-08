@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="HessianProxy" default="allwar" basedir=".">
+	<property name="build.dir" value="${basedir}/build"/>
+	<property name="build.classes.dir" value="${build.dir}/classes"/>
+	<property name="war.dir" value="${basedir}/war"/>
+	<property name="beans_src.dir" value="${basedir}/beans_src"/>
+	<property name="src.dir" value="${basedir}/src"/>
+	<property name="hessian_src.dir" value="${basedir}/hessian_src"/>
+	<property name="web_src.dir" value="${basedir}/web_src"/>
+	<property name="test_src.dir" value="${basedir}/test_src"/>
+	<property name="test_conf.dir" value="${basedir}/test_conf"/>
+	<property name="demo_conf.dir" value="${basedir}/demo_conf"/>
+	<property name="production_conf.dir" value="${basedir}/production_conf"/>
+	<property name="develop_conf.dir" value="${basedir}/develop_conf" />
+	<property name="hunan_conf.dir" value="${basedir}/hunan_conf" />
+	<property name="webcontent.dir" value="${basedir}/WebContent"/>
+	<property name="webcontentwebinf.dir" value="${webcontent.dir}/WEB-INF"/>
+	<property name="webcontentlib.dir" value="${webcontentwebinf.dir}/lib"/>
+	<property name="tomact.link" value="/home/apache-tomcat-7.0.27/lib"/>
+	<path id="classpath1">
+		<fileset dir="${webcontentlib.dir}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	<path id="classpath2">
+		<fileset dir="${tomact.link}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	<path id="classpath">
+		<path refid="classpath1"/>
+		<path refid="classpath2"/>
+	</path>
+	<target name="init" depends="clean">
+		<mkdir dir="${war.dir}" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+	</target>
+	<target name="clean">
+		<delete dir="${war.dir}"/>
+		<delete dir="${build.dir}"/>
+	</target>
+	<target name="compile" depends="init">
+		<echo>=== COMPILE ===</echo>
+		<javac debug="on" destdir="${build.classes.dir}" includes="**/*" includeantruntime="on">
+			<src path="${beans_src.dir}" />
+			<src path="${src.dir}" />
+			<src path="${web_src.dir}" />
+			<src path="${hessian_src.dir}" />
+			<src path="${test_src.dir}" />
+			<compilerarg line="-encoding UTF-8 "/>
+			<classpath refid="classpath" />
+		</javac>
+	</target>
+	<target name="develop-war" depends="compile">
+         <echo>=== PACKAGE ===</echo>
+       <copy todir="${build.classes.dir}">
+            <fileset dir="${src.dir}">
+               <exclude name="**/*.java"/>
+            </fileset>
+       </copy>
+       <copy todir="${build.classes.dir}">
+            <fileset dir="${beans_src.dir}">
+                <exclude name="**/*.java"/>
+            </fileset>
+       </copy>
+       <copy todir="${build.classes.dir}">
+           <fileset dir="${hessian_src.dir}">
+               <exclude name="**/*.java"/>
+           </fileset>
+       </copy>
+       <copy todir="${build.classes.dir}">
+           <fileset dir="${web_src.dir}">
+                <exclude name="**/*.java"/>
+           </fileset>
+       </copy>
+       <copy todir="${build.classes.dir}">
+            <fileset dir="${test_src.dir}">
+                 <exclude name="**/*.java"/>
+            </fileset>
+       </copy>
+	   <war destfile="${war.dir}/develop/HessianProxy.war" webxml="${webcontentwebinf.dir}/web.xml"  basedir="${webcontent.dir}">
+         <classes dir="${build.classes.dir}" />
+    </war>
+   </target>
+	<target name="test-war">
+		<echo>=== copytestconf ===</echo>
+		<copy todir="${build.classes.dir}" overwrite="true">
+			<fileset dir="${test_conf.dir}">
+			</fileset>
+		</copy>
+		<war destfile="${war.dir}/test/HessianProxy.war" webxml="${webcontentwebinf.dir}/web.xml"  basedir="${webcontent.dir}">
+			<classes dir="${build.classes.dir}" />
+		</war>
+	</target>
+	<target name="production-war">
+		<echo>=== copyproductionconf ===</echo>
+		<copy todir="${build.classes.dir}" overwrite="true">
+			<fileset dir="${production_conf.dir}">
+			</fileset>
+		</copy>
+
+		<war destfile="${war.dir}/production/HessianProxy.war" webxml="${webcontentwebinf.dir}/web.xml" basedir="${webcontent.dir}">
+			<classes dir="${build.classes.dir}" />
+		</war>
+	</target>
+	<target name="demo-war">
+		<echo>=== copydemoconf ===</echo>
+		<copy todir="${build.classes.dir}" overwrite="true">
+			<fileset dir="${demo_conf.dir}">
+			</fileset>
+		</copy>
+
+		<war destfile="${war.dir}/demo/HessianProxy.war" webxml="${webcontentwebinf.dir}/web.xml" basedir="${webcontent.dir}">
+			<classes dir="${build.classes.dir}" />
+		</war>
+	</target>
+	<target name="hunan-war">
+		<echo>=== copyhunanconf ===</echo>
+		<copy todir="${build.classes.dir}" overwrite="true">
+			<fileset dir="${hunan_conf.dir}">
+			</fileset>
+		</copy>
+		<war destfile="${war.dir}/hunan/HessianProxy.war" webxml="${webcontentwebinf.dir}/web.xml" basedir="${webcontent.dir}">
+			<classes dir="${build.classes.dir}" />
+		</war>
+	</target>
+	<target name="allwar">
+		<antcall target="compile"/>
+		<antcall target="develop-war"/>
+		<antcall target="production-war"/>
+		<antcall target="test-war"/>
+		<antcall target="demo-war"/>
+		<antcall target="hunan-war" />
+	</target>
+</project>

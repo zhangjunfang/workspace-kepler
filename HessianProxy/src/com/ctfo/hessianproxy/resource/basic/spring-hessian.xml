@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+	<!-- 业务支撑后台Hessian访问 -->
+	<bean id="serHessianRemoteManager" class="com.ctfo.hessianproxy.remoteservice.impl.RemoteManagerImpl" parent="hessianRemoteAbstract">
+		<property name="hessianServer" ref="hessianServer" />
+	</bean>
+	<!-- Hessian通信结构 -->
+	<bean id="hessianServer" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+		<property name="serviceUrl" value="http://${system.serverName}:${system.httpPort}/${system.serverPath}/${system.contextPath}" />
+		<property name="serviceInterface" value="com.ctfo.hessian.service.HessianServer" />
+		<property name="proxyFactory">
+			<bean class="com.ctfo.hessianproxy.hessian.CtfoHessianProxyFactory" />
+		</property>
+		<property name="overloadEnabled" value="true"></property>
+	</bean>
+</beans>

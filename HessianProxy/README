@@ -1,0 +1,6 @@
+1.HTTP服务代理，为PCC和MSG提供注册，鉴权，静态信息交换等功能
+2.开发已完成
+3.开发人员：吴强军
+4.非WEB工程
+5.接收到请求后转发给工程BaseInfoSer调用数据库并返回数据
+6.项目部署需更新com.ctfo.hessianproxy.resource.basic.system.properties,log4j.properties
