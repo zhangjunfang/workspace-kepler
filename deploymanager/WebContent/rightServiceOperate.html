@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bootstrap Admin</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script type="text/javascript">
+	$(document).ready(function(){
+		setOptions("operateServiceForm","serviceType","serviceType");
+		setOptions("operateServiceForm","launchType","launchType");
+		if(editObj){
+			$("#serviceManageTitle").text("编辑服务");
+			$("#operateServiceForm").find("input[name=serviceName]").val(editObj[0].serviceName);
+			$("#operateServiceForm").find("#serviceType").val(editObj[0].serviceType);
+			$("#operateServiceForm").find("#launchType").val(editObj[0].launchType);
+			$("#operateServiceForm").find("textarea").val(editObj[0].launchShell);
+		}
+		else{
+			$("#serviceManageTitle").text("添加服务");
+		}
+		
+		$("#operateServiceForm").find("textarea").width($("#operateServiceForm").find("input[name=serviceName]").width());
+		
+		$("#operateServiceForm").find("#operateServiceSubmit").click(function(){
+			operate_param.serviceName = $("#operateServiceForm").find("input[name=serviceName]").val();
+			operate_param.serviceType = $("#operateServiceForm").find("#serviceType").val();
+			operate_param.launchType = $("#operateServiceForm").find("#launchType").val();
+			operate_param.launchShell = $("#operateServiceForm").find("textarea").val();
+			if(editObj){
+				operate_param.operateId = editObj[0].serviceId;
+				getEditInfo(editObj[0].serviceId,"service");
+			}
+			else{
+				addInfo("service");
+			}
+			//加验证
+			
+			setTipDivContent();
+			$("#common_a").trigger("click");
+			
+		}); 
+		
+		$("#operateServiceForm").find("#operateServiceReset").click(function(){
+			if(editObj){
+				$("#operateServiceForm").find("input[name=serviceName]").val(editObj[0].serviceName);
+				$("#operateServiceForm").find("#serviceType").val(editObj[0].serviceType);
+				$("#operateServiceForm").find("#launchType").val(editObj[0].launchType);
+				$("#operateServiceForm").find("textarea").val(editObj[0].launchShell);
+			}
+			else{
+				//$("#operateServiceForm").find("input").val("");
+				document.getElementById("operateServiceForm").reset();
+			}
+		});
+	});
+	
+	function serviceAdd(){
+		$.ajax({ 
+			type:"POST",
+			url:"addService.do",
+			data:{
+				 	servicename: operate_param.serviceName, 
+				  	servicetype: operate_param.serviceType,
+				  	launchtype: operate_param.launchType,
+				  	launchshell: operate_param.launchShell
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "服务添加成功";
+					operateType = -1;
+					toMainRight("rightServiceList");
+				}
+				else{
+					tip_div.alert = "添加失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+	
+	function serviceEdit(){
+		$.ajax({ 
+			type:"POST",
+			url:"editService.do",
+			data:{
+					editId: operate_param.operateId,
+					servicename: operate_param.serviceName, 
+				  	servicetype: operate_param.serviceType,
+				  	launchtype: operate_param.launchType,
+				  	launchshell: operate_param.launchShell
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "服务修改成功";
+					operateType = -1;
+					toMainRight("rightServiceList");
+				}
+				else{
+					tip_div.alert = "操作失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	  <div class="span4 offset4 dialog">
+        <div class="block">
+            <div id="serviceManageTitle" class="block-heading">创建角色</div>
+            <div class="block-body">
+                <form id="operateServiceForm">
+                    <label>服务名称</label>
+                    <input type="text" name="serviceName" class="span12">
+                    <label>服务类型</label>
+                    <select id="serviceType" name="serviceType" class="input-xlarge">
+                    </select>
+                    <label>启动类型</label>
+                    <select id="launchType" name="launchType" class="input-xlarge">
+                    </select>
+                    <label>启动Shell脚本</label>
+                    <textarea rows="5" cols="10" name="launchShell"></textarea>
+                    <br/>
+                   <!--  <label>邮箱地址</label>
+                    <input type="text" name="email" class="span12"> -->
+                    <a href="javascript:void(0)" id="operateServiceSubmit" class="btn btn-primary pull-right">提交</a>
+                    <a href="javascript:void(0)" id="operateServiceReset" class="btn btn-primary pull-right" style="margin-right: 10px;">重置</a>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

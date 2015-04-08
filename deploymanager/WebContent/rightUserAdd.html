@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bootstrap Admin</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		setOptions("addUserForm","roleid","role");
+		
+		$("#addUserForm").find("span").css({
+			"float" : "right",
+			"color" : "red"
+		});
+		
+		$("#addUserForm").find("#addUserReset").click(function(){
+			$("#addUserForm").find("input").val("");
+			$("#addUserForm").find("#roleid").val("1");
+		});
+		
+		//用户名验证
+		var userValid = 1;
+		$("#addUserForm").find("input[name=username]").blur(function(){
+			var username = $("#addUserForm").find("input[name=username]").val();
+			var reg = /^[a-zA-Z]{1}([a-zA-Z0-9]|[_]){5,11}$/;
+
+			if(username){
+				$.ajax({
+					type:"POST",
+					url:"checkUserExist.do",
+					data:{ username: username },
+					success:function(data){
+						if(data == "used"){
+							userValid = 1;
+							$("#addUserForm").find("#checkUserExist").css({"color" : "red"});
+							$("#addUserForm").find("#checkUserExist").text("该用户名已存在");
+						}
+						else{
+							if(reg.exec(username)){
+								userValid = 0;
+								$("#addUserForm").find("#checkUserExist").css({"color" : "green"});
+								$("#addUserForm").find("#checkUserExist").text("用户可以注册");
+							}
+							else{
+								userValid = 1;
+								$("#addUserForm").find("#checkUserExist").css({"color" : "red"});
+								$("#addUserForm").find("#checkUserExist").text("用户名格式错误");
+							}
+						}
+					}
+				});
+			}
+			else{
+				userValid = 1;
+				$("#addUserForm").find("#checkUserExist").css({"color" : "red"});
+				$("#addUserForm").find("#checkUserExist").text("请填写用户名");
+			}
+		});
+		
+		//密码验证
+		var passValid = 1;
+		$("#addUserForm").find("input[name=password]").blur(function(){
+			var passTip1 = "";
+			var reg=/^(\w){6,20}$/;
+
+			if(!$(this).val()){
+				passValid = 1;
+				passTip1 = "请输入密码";
+			}
+			else if(!reg.exec($(this).val())){
+				passValid = 1;
+				passTip1 = "密码格式错误";
+			}
+			else if(reg.exec($(this).val())){
+				passValid = 0;
+				passTip1 = "";
+			}
+			
+			$("#addUserForm").find("#pass1").text(passTip1);
+			
+			if($("#addUserForm").find("input[name=password1]").val()){
+				$("#addUserForm").find("input[name=password1]").trigger("blur");
+			}
+		});
+		
+		$("#addUserForm").find("input[name=password1]").blur(function(){
+			var passTip2 = "";
+			if($(this).val() != $("#addUserForm").find("input[name=password]").val()){
+				passValid = 1;
+				passTip2 = "两次密码输入不一致";
+			}
+			else{
+				passValid = 0;
+				passTip2 = "";
+			}
+			
+			$("#addUserForm").find("#pass2").text(passTip2);
+		});
+		
+		//姓名验证
+		/* var nameValid = 0;
+		$("#addUserForm").find("input[name=realname]").blur(function(){
+			var reg = ^[\u4E00-\u9FA5]+$;
+			var nameTip = "";
+			if(!$(this).val()){
+				passTip = "请填写姓名";
+			}
+			else{
+				passTip = "";
+			}
+			
+			$("#addUserForm").find("#rname").text(passTip);
+		}); */
+		
+		$("#addUserForm").find("#addUserSubmit").click(function(){
+			if((userValid + passValid) != 0){
+				return false;
+			}
+			var username = $("#addUserForm").find("input[name=username]").val();
+			var password = $("#addUserForm").find("input[name=password]").val();
+			var password1 = $("#addUserForm").find("input[name=password1]").val();
+			var roleid = $("#addUserForm").find("select[name=roleid]").val();
+			var realname = $("#addUserForm").find("input[name=realname]").val();
+			
+			//提交
+			operate_param.username = $("#addUserForm").find("input[name=username]").val();
+			operate_param.password = $("#addUserForm").find("input[name=password]").val();
+			operate_param.roleId = $("#addUserForm").find("select[name=roleid]").val();
+			operate_param.realName = $("#addUserForm").find("input[name=realname]").val();
+			addInfo("user");
+			setTipDivContent();
+			$("#common_a").trigger("click");
+		});
+		
+	});
+	
+	function userAdd(){
+		$.ajax({ 
+			type:"POST",
+			url:"addOperator.do",
+			data:{
+					username: operate_param.username,
+				 	password: operate_param.password, 
+				  	roleid: operate_param.roleId,
+				  	realname: operate_param.realName
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "用户添加成功";
+					operateType = -1;
+					toMainRight("rightUserList");
+				}
+				else{
+					tip_div.alert = "添加失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	  <div class="span4 offset4 dialog">
+        <div class="block">
+            <div class="block-heading">添加新用户</div>
+            <div class="block-body">
+                <form id="addUserForm" action="addOperator.do" method="post">
+                    <label>用户名称<span id="checkUserExist"></span></label>
+                    <input type="text" name="username" class="span12" title="以字母开头，6-12位，可包含数字、下划线">
+                    <label>密码<span id="pass1"></span></label>
+                    <input type="password" name="password" class="span12" title="6-18位，可包含字母、数字、下划线">
+                    <label>再次输入密码<span id="pass2"></span></label>
+                    <input type="password" name="password1" class="span12">
+                    <label>姓名<span id="rname"></span></label>
+                    <input type="text" name="realname" class="span12">
+                    <label>角色分配</label>
+                    <select id="roleid" name="roleid" class="input-xlarge">
+                    </select>
+                    <br/>
+                   <!--  <label>邮箱地址</label>
+                    <input type="text" name="email" class="span12"> -->
+                    <a href="javascript:void(0)" id="addUserSubmit" class="btn btn-primary pull-right">提交</a>
+                    <a href="javascript:void(0)" id="addUserReset" class="btn btn-primary pull-right" style="margin-right: 10px;">重置</a>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

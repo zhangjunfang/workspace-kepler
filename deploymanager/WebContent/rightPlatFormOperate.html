@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bootstrap Admin</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		
+		var oldPlatName = ""; 
+		
+		if(editObj){
+			$("#platFormManageTitle").text("编辑平台");
+			$("#platFormForm").find("input[name=platname]").val(editObj[0].platName);
+			oldPlatName = editObj[0].platName;
+			$("#platFormForm").find("textarea").val(editObj[0].remark);
+		}
+		else{
+			oldPlatName = " ";
+			$("#platFormManageTitle").text("添加平台");
+		}
+		
+		$("#platFormForm").find("span").css({
+			"float" : "right",
+			"color" : "red"
+		});
+		
+		$("#platFormForm").find("textarea").width($("#platFormForm").find("input[name=platname]").width());
+		
+		//平台验证
+		var platValid = 1;
+		$("#platFormForm").find("input[name=platname]").blur(function(){
+			var platTip = "";
+			var platname = $("#platFormForm").find("input[name=platname]").val();
+			
+			if(platname != oldPlatName){
+				$("#platFormForm").find("#plat_name").css({"color" : "red"});
+				if(!platname){
+					platValid = 1;
+					platTip = "请填写角色名称";
+				}
+				else if(platname.length > 20){
+					platValid = 1;
+					platTip = "角色名称请不要超过20字符";
+				}
+				else{
+					$.ajax({ 
+						type:"POST",
+						url:"checkPlatExist.do",
+						data:{ platname: platname },
+						success:function(data){
+							if(data == "used"){
+								platValid = 1;
+								platTip = "该平台名已存在";
+								$("#platFormForm").find("#plat_name").text(platTip);
+							}
+							else{
+								platValid = 0;
+								platTip = "平台名可以使用";
+								$("#platFormForm").find("#plat_name").css({"color" : "green"});
+								$("#platFormForm").find("#plat_name").text(platTip);
+							}
+						}
+					});
+				}
+				$("#platFormForm").find("#plat_name").text(platTip);
+			}
+			else{
+				platValid = 0;
+				platTip = "";
+				$("#platFormForm").find("#plat_name").text(platTip);
+			}
+		});
+		
+		//平台备注验证
+		var platDescValid = 1;
+		$("#platFormForm").find("textarea").blur(function(){
+			var descTip = "";
+			if($("#platFormForm").find("textarea").val().length > 200){
+				platDescValid = 1;
+				descTip = "描述内容请不要超过200字符";
+			}
+			else{
+				platDescValid = 0;
+				descTip = "";
+			}
+			$("#platFormForm").find("#plat_desc").text(descTip);
+		});
+		
+		$("#platFormForm").find("#platFormSubmit").click(function(){
+			$("#platFormForm").find("input[name=platname]").trigger("blur");
+			$("#platFormForm").find("textarea").trigger("blur");
+			if((platValid + platDescValid) != 0){
+				//alert(roleValid+"..."+roleDescValid)
+				return false;
+			}
+			
+			//var platname = $("#platFormForm").find("input[name=platname]").val();
+			//var platdesc = $("#platFormForm").find("textarea").val();
+			operate_param.platName = $("#platFormForm").find("input[name=platname]").val();
+			operate_param.remark = $("#platFormForm").find("textarea").val();
+			if(editObj){
+				operate_param.operateId = editObj[0].platId;
+				getEditInfo(editObj[0].platId,"plat");
+			}
+			else{
+				addInfo("plat");
+			}
+			
+			setTipDivContent();
+			$("#common_a").trigger("click");
+			
+			//加验证
+			
+		}); 
+		
+		$("#platFormForm").find("#platFormReset").click(function(){
+			if(editObj){
+				$("#platFormForm").find("input[name=platname]").val(editObj[0].platName);
+				$("#platFormForm").find("textarea").val(editObj[0].remark);
+			}
+			else{
+				//$("#platFormForm").find("input").val("");
+				document.getElementById("platFormForm").reset();
+			}
+		}); 
+	});
+	
+	function platAdd(){
+		$.ajax({ 
+			type:"POST",
+			url:"addPlatForm.do",
+			data:{
+				 	platname: operate_param.platName, 
+				  	remark: operate_param.remark
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "平台添加成功";
+					operateType = -1;
+					toMainRight("rightPlatFormList");
+				}
+				else{
+					tip_div.alert = "添加失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+	
+	function platEdit(){
+		$.ajax({ 
+			type:"POST",
+			url:"editPlatForm.do",
+			data:{
+					editId: operate_param.operateId,
+				 	platname: operate_param.platName, 
+				  	remark: operate_param.remark
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "平台修改成功";
+					operateType = -1;
+					toMainRight("rightPlatFormList");
+				}
+				else{
+					tip_div.alert = "操作失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	  <div class="span4 offset4 dialog">
+        <div class="block">
+            <div id="platFormManageTitle" class="block-heading">创建角色</div>
+            <div class="block-body">
+                <form id="platFormForm">
+                    <label>平台名称<span id="plat_name"></span></label>
+                    <input type="text" name="platname" class="span12">
+                    <label>平台备注<span id="plat_desc"></span></label>
+                    <textarea rows="5" cols="10" name="remark"></textarea>
+                    <br/>
+                   <!--  <label>邮箱地址</label>
+                    <input type="text" name="email" class="span12"> -->
+                    <a href="javascript:void(0)" id="platFormSubmit" class="btn btn-primary pull-right">提交</a>
+                    <a href="javascript:void(0)" id="platFormReset" class="btn btn-primary pull-right" style="margin-right: 10px;">重置</a>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

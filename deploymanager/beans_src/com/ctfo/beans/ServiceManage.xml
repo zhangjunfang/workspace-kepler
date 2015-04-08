@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Services">
+	<typeAlias type="com.ctfo.service.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<resultMap id="ServiceInfos" class="com.ctfo.beans.Services">
+		<result column="SERVICE_ID" property="serviceId" jdbcType="DECIMAL" />
+		<result column="SERVICE_NAME" property="serviceName" jdbcType="VARCHAR" />
+		<result column="SERVICE_TYPE" property="serviceType" jdbcType="VARCHAR" />
+		<result column="LAUNCH_TYPE" property="launchType" jdbcType="VARCHAR" />
+		<result column="LAUNCH_SHELL" property="launchShell" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getServiceList" resultMap="ServiceInfos" parameterClass="dynamicSqlParameter">
+		select s.serviceid service_id,
+	  	       s.service_name,
+	  	       sp.service_type_name service_type,
+	  	       sl.launch_type_name launch_type,
+	  	       s.launch_shell
+	  	  from tb_service s 
+	  	  join tb_service_type sp on s.service_Type = sp.service_type_id
+	  	  join tb_service_launch sl on s.launch_Type = sl.launch_type_id
+		limit #page#,#rows#
+	</select>
+	
+	<select id="getServiceListCount" resultClass="int" parameterClass="dynamicSqlParameter">
+		select count(1) 
+		  from tb_service s 
+	  	  join tb_service_type sp on s.service_Type = sp.service_type_id
+	  	  join tb_service_launch sl on s.launch_Type = sl.launch_type_id
+	</select>
+	
+	<select id="getEditService" resultClass="com.ctfo.beans.Services" parameterClass="dynamicSqlParameter">
+		select serviceid,
+	  	       service_name servicename,
+	  	       service_type servicetype,
+	  	       launch_type launchtype,
+	  	       launch_shell launchshell
+	  	  from tb_service 
+        where serviceid=#equal.editId#
+	</select>
+	
+	<insert id="addService" parameterClass="dynamicSqlParameter">
+		<![CDATA[
+			insert into tb_Service(service_name,service_type,launch_type,launch_shell) 
+			values (#equal.serviceName#,#equal.serviceType#,#equal.launchType#,#equal.launchShell#)
+		]]>
+		<selectKey resultClass="java.lang.Integer" keyProperty="id" type="pre">
+			<![CDATA[SELECT LAST_INSERT_ID() AS ID ]]>
+		</selectKey>
+	</insert>
+	
+	<delete id="delService" parameterClass="dynamicSqlParameter">
+		delete from tb_Service where serviceid = #equal.delId#
+	</delete>
+	
+	<update id="editService" parameterClass="dynamicSqlParameters">
+			update tb_Service set service_name=#equal.serviceName#,
+				              	  service_type=#equal.serviceType#,
+				               	  launch_type=#equal.launchType#,
+				               	  launch_shell=#equal.launchShell#
+				           where serviceid=#equal.editId#
+	</update>
+</sqlMap>

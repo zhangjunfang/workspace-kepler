@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bootstrap Admin</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		var oldRoleName = ""; 
+		
+		$("#operateRolerForm").find("span").css({
+			"float" : "right",
+			"color" : "red"
+		});
+		
+		if(editObj){
+			$("#roleManageTitle").text("编辑角色");
+			$("#operateRolerForm").find("input[name=rolename]").val(editObj[0].roleName);
+			oldRoleName = editObj[0].roleName;
+			$("#operateRolerForm").find("textarea").val(editObj[0].roleDesc);
+		}
+		else{
+			oldRoleName = " ";
+			$("#roleManageTitle").text("添加角色");
+		}
+		
+		//角色验证
+		var roleValid = 1;
+		$("#operateRolerForm").find("input[name=rolename]").blur(function(){
+			var roleTip = "";
+			var rolename = $("#operateRolerForm").find("input[name=rolename]").val();
+			
+			if(rolename != oldRoleName){
+				$("#operateRolerForm").find("#role_name").css({"color" : "red"});
+				if(!rolename){
+					roleValid = 1;
+					roleTip = "请填写角色名称";
+				}
+				else if(rolename.length > 20){
+					roleValid = 1;
+					roleTip = "角色名称请不要超过20字符";
+				}
+				else{
+					$.ajax({ 
+						type:"POST",
+						url:"checkRoleExist.do",
+						data:{ rolename: rolename },
+						success:function(data){
+							if(data == "used"){
+								roleValid = 1;
+								roleTip = "该角色名已存在";
+								$("#operateRolerForm").find("#role_name").text(roleTip);
+							}
+							else{
+								roleValid = 0;
+								roleTip = "角色名可以使用";
+								$("#operateRolerForm").find("#role_name").css({"color" : "green"});
+								$("#operateRolerForm").find("#role_name").text(roleTip);
+							}
+						}
+					});
+				}
+				$("#operateRolerForm").find("#role_name").text(roleTip);
+			}
+			else{
+				roleValid = 0;
+				roleTip = "";
+				$("#operateRolerForm").find("#role_name").text(roleTip);
+			}
+		});
+		
+		//角色描述验证
+		var roleDescValid = 1;
+		$("#operateRolerForm").find("textarea").blur(function(){
+			var descTip = "";
+			if($("#operateRolerForm").find("textarea").val().length > 200){
+				roleDescValid = 1;
+				descTip = "描述内容请不要超过200字符";
+			}
+			else{
+				roleDescValid = 0;
+				descTip = "";
+			}
+			$("#operateRolerForm").find("#role_desc").text(descTip);
+		});
+		
+		//提交
+		$("#operateRolerForm").find("#operateRoleSubmit").click(function(){
+			$("#operateRolerForm").find("input[name=rolename]").trigger("blur");
+			$("#operateRolerForm").find("textarea").trigger("blur");
+			if((roleValid + roleDescValid) != 0){
+				//alert(roleValid+"..."+roleDescValid)
+				return false;
+			}
+			
+			//var rolename = $("#operateRolerForm").find("input[name=rolename]").val();
+			//var roledesc = $("#operateRolerForm").find("input[name=roledesc]").val();
+			operate_param.roleName = $("#operateRolerForm").find("input[name=rolename]").val();
+			operate_param.roleDesc = $("#operateRolerForm").find("textarea").val();
+			if(editObj){
+				operate_param.operateId = editObj[0].roleId;
+				getEditInfo(editObj[0].roleId,"role");
+			}
+			else{
+				addInfo("role");
+			}
+			
+			setTipDivContent();
+			$("#common_a").trigger("click");
+			
+		}); 
+		
+		$("#operateRolerForm").find("#operateRoleReset").click(function(){
+			if(editObj){
+				$("#operateRolerForm").find("input[name=rolename]").val(editObj[0].roleName);
+				$("#operateRolerForm").find("textarea").val(editObj[0].roleDesc);
+			}
+			else{
+				//$("#operateRolerForm").find("input").val("");
+				document.getElementById("operateRolerForm").reset();
+			}
+		});
+	});
+	
+	function roleAdd(){
+		$.ajax({ 
+			type:"POST",
+			url:"addRole.do",
+			data:{
+				 	rolename: operate_param.roleName, 
+				  	roledesc: operate_param.roleDesc
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "角色添加成功";
+					operateType = -1;
+					toMainRight("rightRoleList");
+				}
+				else{
+					tip_div.alert = "添加失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+	
+	function roleEdit(){
+		$.ajax({ 
+			type:"POST",
+			url:"editRole.do",
+			data:{
+					editId: operate_param.operateId,
+				 	rolename: operate_param.roleName, 
+				  	roledesc: operate_param.roleDesc
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "角色修改成功";
+					operateType = -1;
+					toMainRight("rightRoleList");
+				}
+				else{
+					tip_div.alert = "操作失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	  <div class="span4 offset4 dialog">
+        <div class="block">
+            <div id="roleManageTitle" class="block-heading">创建角色</div>
+            <div class="block-body">
+                <form id="operateRolerForm">
+                    <label>角色名称<span id="role_name"></span></label>
+                    <input type="text" name="rolename" class="span12">
+                    <label>角色描述<span id="role_desc"></span></label>
+                    <textarea rows="5" cols="10" name="roledesc" class="span12"></textarea>
+                    <br/>
+                   <!--  <label>邮箱地址</label>
+                    <input type="text" name="email" class="span12"> -->
+                    <a href="javascript:void(0)" id="operateRoleSubmit" class="btn btn-primary pull-right">提交</a>
+                    <a href="javascript:void(0)" id="operateRoleReset" class="btn btn-primary pull-right" style="margin-right: 10px;">重置</a>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

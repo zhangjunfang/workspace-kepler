@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SysSpOperator">
+	<typeAlias type="com.ctfo.service.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<resultMap id="SysSpOperatorLogin" class="com.ctfo.beans.SysSpOperator">
+		<result column="OP_ID" property="opId" jdbcType="DECIMAL" />
+		<result column="OP_LOGINNAME" property="opLoginname" jdbcType="VARCHAR" />
+		<result column="OP_PASS" property="opPass" jdbcType="VARCHAR" />
+		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+		<result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+	
+		<!-- <result column="OP_ID" property="opId" jdbcType="DECIMAL" />
+		<result column="ENT_ID" property="entId" jdbcType="DECIMAL" />
+		<result column="OP_LOGINNAME" property="opLoginname" jdbcType="VARCHAR" />
+		<result column="OP_PASS" property="opPass" jdbcType="VARCHAR" />
+		<result column="OP_AUTHCODE" property="opAuthcode" jdbcType="VARCHAR" />
+		<result column="OP_NAME" property="opName" jdbcType="VARCHAR" />
+		<result column="OP_SUPER" property="opSuper" jdbcType="VARCHAR" />
+		<result column="OP_SEX" property="opSex" jdbcType="VARCHAR" />
+		<result column="OP_BIRTH" property="opBirth" jdbcType="DECIMAL" />
+		<result column="OP_COUNTRY" property="opCountry" jdbcType="VARCHAR" />
+		<result column="OP_PROVINCE" property="opProvince" jdbcType="VARCHAR" />
+		<result column="OP_CITY" property="opCity" jdbcType="VARCHAR" />
+		<result column="OP_ADDRESS" property="opAddress" jdbcType="VARCHAR" />
+		<result column="OP_MOBILE" property="opMobile" jdbcType="VARCHAR" />
+		<result column="OP_PHONE" property="opPhone" jdbcType="VARCHAR" />
+		<result column="OP_FAX" property="opFax" jdbcType="VARCHAR" />
+		<result column="OP_EMAIL" property="opEmail" jdbcType="VARCHAR" />
+		<result column="OP_IDENTITY_ID" property="opIdentityId" jdbcType="VARCHAR" />
+		<result column="OP_DUTY" property="opDuty" jdbcType="VARCHAR" />
+		<result column="OP_WORKID" property="opWorkid" jdbcType="VARCHAR" />
+		<result column="OP_STARTUTC" property="opStartutc" jdbcType="DECIMAL" />
+		<result column="OP_ENDUTC" property="opEndutc" jdbcType="DECIMAL" />
+		<result column="OP_TYPE" property="opType" jdbcType="VARCHAR" />
+		<result column="OP_MEM" property="opMem" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="DECIMAL" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+		<result column="OP_ZIP" property="opZip" jdbcType="VARCHAR" />
+		<result column="OP_STATUS" property="opStatus" jdbcType="VARCHAR" />
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="PARENT_ENTID" property="parentEntId" jdbcType="DECIMAL" />
+		<result column="CORP_CODE" property="corpCode" jdbcType="VARCHAR" />
+		<result column="ENT_TYPE" property="entType" jdbcType="DECIMAL" />
+		<result column="ORG_LOGO" property="orgLogo" jdbcType="VARCHAR" />
+		<result column="SEQ_CODE" property="seqCode" jdbcType="VARCHAR" />
+		<result column="IS_MEMBER" property="isMember" jdbcType="VARCHAR" />
+		<result column="IMSI" property="imsi" jdbcType="VARCHAR" />
+		<result column="PHOTO" property="photo" jdbcType="VARCHAR" />
+		<result column="BUSINESS_LICENSE" property="businessLicense" jdbcType="VARCHAR" />
+		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" /> -->
+	</resultMap>
+	
+	<select id="selectParamForLogin" resultMap="SysSpOperatorLogin" parameterClass="dynamicSqlParameter">
+	    select userid op_id,
+	           username op_loginname,
+	           userpwd op_pass,
+	           realname real_name,
+	           roleid role_id
+
+	      from tb_user
+	     where username = #equal.opLoginname:VARCHAR#
+	
+		<!-- select spunicom.OP_ID,
+	       spunicom.ENT_ID,
+	       spunicom.OP_LOGINNAME,
+	       spunicom.OP_AUTHCODE,
+	       spunicom.OP_NAME,
+	       spunicom.OP_SUPER,
+	       spunicom.OP_PASS,
+	       spunicom.OP_SEX,
+	       spunicom.OP_BIRTH,
+	       spunicom.OP_COUNTRY,
+	       spunicom.OP_PROVINCE,
+	       spunicom.OP_CITY,
+	       spunicom.OP_ADDRESS,
+	       spunicom.OP_MOBILE,
+	       spunicom.OP_PHONE,
+	       spunicom.OP_FAX,
+	       spunicom.OP_EMAIL,
+	       spunicom.OP_IDENTITY_ID,
+	       spunicom.OP_DUTY,
+	       spunicom.OP_WORKID,
+	       spunicom.OP_STARTUTC,
+	       spunicom.OP_ENDUTC,
+	       spunicom.OP_TYPE,
+	       spunicom.OP_MEM,
+	       spunicom.CREATE_BY,
+	       spunicom.CREATE_TIME,
+	       spunicom.UPDATE_BY,
+	       spunicom.UPDATE_TIME,
+	       spunicom.ENABLE_FLAG,
+	       spunicom.OP_ZIP,
+	       spunicom.OP_STATUS,
+	       spunicom.IS_MEMBER,
+	       spunicom.IMSI,
+	       spunicom.PHOTO,
+	       vorg.ent_name           as ENT_NAME,
+	       vorg.corp_code          as CORP_CODE,
+	       vorg.parent_id          as PARENT_ENTID,
+	       vorg.ent_type           as ENT_TYPE,
+	       vorg.ORG_LOGO           as ORG_LOGO,
+	       vorg.SEQ_CODE           as SEQ_CODE,
+	       vorg.BUSINESS_LICENSE   as BUSINESS_LICENSE,
+	       R.ROLE_ID
+	  from (select *
+	          from SYS_SP_OPERATOR sp
+	         where sp.enable_flag != 0
+               <isNotEmpty prepend="AND" property="equal.opPass">
+	       	       sp.OP_PASS = #equal.opPass:VARCHAR#
+       		   </isNotEmpty>
+	           <isNotEmpty prepend="AND" property="equal.opType">
+	       	       (sp.op_type = '0' or sp.op_type = #equal.opType:VARCHAR#)
+       		   </isNotEmpty>
+       		   <isEmpty prepend="AND" property="equal.opType">
+	       	       (sp.op_type = '0' or sp.op_type != '3')
+       		   </isEmpty>
+       		   and lower(OP_LOGINNAME) = #equal.opLoginname:VARCHAR#
+	           ) spunicom,
+	       view_organization vorg,
+	       tr_operator_role R
+	 where vorg.ent_id = spunicom.ent_id
+	   and vorg.corp_code = #equal.corpCode:VARCHAR#
+	   and vorg.enable_flag != 0
+	   and R.OP_ID = spunicom.OP_ID -->
+	</select>
+	
+</sqlMap>

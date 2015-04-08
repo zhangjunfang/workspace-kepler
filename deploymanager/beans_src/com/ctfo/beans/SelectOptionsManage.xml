@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SelectOptions">
+	<typeAlias type="com.ctfo.service.DynamicSqlParameter" alias="dynamicSqlParameters" />
+	
+	<select id="getRoleOptions" resultClass="java.util.HashMap" parameterClass="dynamicSqlParameters">
+	  	select roleid,
+	  	       role_name rolename
+	  	  from tb_role
+	</select>
+	
+	<select id="getPlatOptions" resultClass="java.util.HashMap" parameterClass="dynamicSqlParameters">
+	  	select pid,platname from tb_platform
+	</select>
+	
+	<select id="getServiceTypeOptions" resultClass="java.util.HashMap" parameterClass="dynamicSqlParameters">
+	  	select service_type_id stid,service_type_name stname from tb_service_type
+	</select>
+	
+	<select id="getServiceLaunchOptions" resultClass="java.util.HashMap" parameterClass="dynamicSqlParameters">
+	  	select launch_type_id ltid,launch_type_name ltname from tb_service_launch
+	</select>
+	
+</sqlMap>

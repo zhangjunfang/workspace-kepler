@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Role">
+	<typeAlias type="com.ctfo.service.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<resultMap id="RoleInfos" class="com.ctfo.beans.Role">
+		<result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+		<result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+		<result column="CREATE_OP" property="creater" jdbcType="VARCHAR" />
+		<result column="UPDATE_OP" property="updater" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getRoleList" resultMap="RoleInfos" parameterClass="dynamicSqlParameter">
+		select r.roleid role_id,
+		       r.role_name,
+		       r.role_desc,
+		       u1.realname create_op,
+		       u2.realname update_op,
+		       r.create_time create_date,
+		       r.update_time update_date
+		  from tb_role r left join tb_user u1 on r.create_by = u1.userid
+		                 left join tb_user u2 on r.update_by = u2.userid
+		             			limit #page#,#rows#
+	</select>
+	
+	<select id="getRoleListCount" resultClass="int" parameterClass="dynamicSqlParameter">
+		select count(1)
+		  from tb_role r left join tb_user u1 on r.create_by = u1.userid
+		                 left join tb_user u2 on r.update_by = u2.userid
+	</select>
+	
+	<select id="getEditRole" resultClass="com.ctfo.beans.Role" parameterClass="dynamicSqlParameter">
+		select roleid,
+		       role_name rolename,
+		       role_desc roledesc
+		      
+		  from tb_role where roleid=#equal.editId#
+	</select>
+	
+	<insert id="addRole" parameterClass="dynamicSqlParameter">
+		<![CDATA[
+			insert into tb_role(role_name,role_desc,create_by,create_time,TB_ROLE_ROLEID) 
+			values (#equal.rolename#,#equal.roledesc#,#equal.creater#,(select now() from dual),2)
+		]]>
+		<selectKey resultClass="java.lang.Integer" keyProperty="id" type="pre">
+			<![CDATA[SELECT LAST_INSERT_ID() AS ID ]]>
+		</selectKey>
+	</insert>
+	
+	<delete id="delRole" parameterClass="dynamicSqlParameter">
+		delete from tb_role where roleid = #equal.roleid#
+	</delete>
+	
+	<update id="editRole" parameterClass="dynamicSqlParameters">
+			update tb_role set role_name=#equal.rolename#,
+				               role_desc=#equal.roledesc#,
+				               update_by=#equal.updater#,
+				               update_time=(select now() from dual)
+				         where roleid=#equal.editId#
+	</update>
+	
+	<select id="checkRoleExist" resultClass="java.lang.Integer" parameterClass="dynamicSqlParameter">
+		select count(1) from tb_role where role_name=#equal.rolename#
+	</select>
+</sqlMap>

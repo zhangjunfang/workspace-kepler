@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PlatForm">
+	<typeAlias type="com.ctfo.service.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<resultMap id="PlatFormInfos" class="com.ctfo.beans.PlatForm">
+		<result column="PLAT_ID" property="platId" jdbcType="DECIMAL" />
+		<result column="PLAT_NAME" property="platName" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getPlatFormList" resultMap="PlatFormInfos" parameterClass="dynamicSqlParameter">
+		select pid plat_id,
+		       platname plat_name,
+		       remark
+		  from tb_platform 
+		  	limit #page#,#rows#
+	</select>
+	
+	<select id="getPlatFormListCount" resultClass="int" parameterClass="dynamicSqlParameter">
+		select count(1) from tb_platform 
+	</select>
+	
+	<select id="getEditPlatForm" resultClass="com.ctfo.beans.PlatForm" parameterClass="dynamicSqlParameter">
+		select pid platid,
+		       platname,
+		       remark
+		      
+		  from tb_platform where pid=#equal.editId#
+	</select>
+	
+	<insert id="addPlatForm" parameterClass="dynamicSqlParameter">
+		<![CDATA[
+			insert into tb_platform(platname,remark) 
+			values (#equal.platname#,#equal.remark#)
+		]]>
+		<selectKey resultClass="java.lang.Integer" keyProperty="id" type="pre">
+			<![CDATA[SELECT LAST_INSERT_ID() AS ID ]]>
+		</selectKey>
+	</insert>
+	
+	<delete id="delPlatForm" parameterClass="dynamicSqlParameter">
+		delete from tb_platform where pid = #equal.platid#
+	</delete>
+	
+	<update id="editPlatForm" parameterClass="dynamicSqlParameters">
+			update tb_platform set platname=#equal.platname#,
+				               	   remark=#equal.remark#
+				         where pid=#equal.editId#
+	</update>
+	
+	<select id="checkPlatExist" resultClass="java.lang.Integer" parameterClass="dynamicSqlParameter">
+		select count(1) from tb_platform where platname=#equal.platname#
+	</select>
+</sqlMap>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bootstrap Admin</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script type="text/javascript">
+	$(document).ready(function(){
+		setOptions("operateServerForm","pid","plat");
+		if(editObj){
+			$("#serverManageTitle").text("修改服务器");
+			$("#operateServerForm").find("input[name=serverName]").val(editObj[0].serverName);
+			$("#operateServerForm").find("input[name=sshIp]").val(editObj[0].sshIp);
+			$("#operateServerForm").find("input[name=sshPort]").val(editObj[0].sshPort);
+			$("#operateServerForm").find("input[name=sshUsername]").val(editObj[0].sshUsername);
+			$("#operateServerForm").find("input[name=sshUserpwd]").val(editObj[0].sshUserpwd);
+			$("#operateServerForm").find("select").val(editObj[0].pid);
+			$("#operateServerForm").find("textarea").val(editObj[0].remark);
+		}
+		else{
+			$("#serverManageTitle").text("新增服务器");
+		}
+		
+		$("#operateServerForm").find("textarea").width($("#operateServerForm").find("input[name=serverName]").width());
+		
+		$("#operateServerForm").find("#operateServerSubmit").click(function(){
+			operate_param.serverName = $("#operateServerForm").find("input[name=serverName]").val();
+			operate_param.sshIp = $("#operateServerForm").find("input[name=sshIp]").val();
+			operate_param.sshPort = $("#operateServerForm").find("input[name=sshPort]").val();
+			operate_param.sshUsername = $("#operateServerForm").find("input[name=sshUsername]").val();
+			operate_param.sshUserpwd = $("#operateServerForm").find("input[name=sshUserpwd]").val();
+			operate_param.pid = $("#operateServerForm").find("select").val();
+			operate_param.remark = $("#operateServerForm").find("textarea").val();
+			if(editObj){
+				operate_param.operateId = editObj[0].sid;
+				getEditInfo(editObj[0].sid,"server");
+			}
+			else{
+				addInfo("server");
+			}
+			//加验证
+			
+			setTipDivContent();
+			$("#common_a").trigger("click");
+			
+		}); 
+		
+		$("#operateServerForm").find("#operateServerReset").click(function(){
+			if(editObj){
+				$("#operateServerForm").find("input[name=serverName]").val(editObj[0].serverName);
+				$("#operateServerForm").find("input[name=sshIp]").val(editObj[0].sshIp);
+				$("#operateServerForm").find("input[name=sshPort]").val(editObj[0].sshPort);
+				$("#operateServerForm").find("input[name=sshUsername]").val(editObj[0].sshUsername);
+				$("#operateServerForm").find("input[name=sshUserpwd]").val(editObj[0].sshUserpwd);
+				$("#operateServerForm").find("select").val(editObj[0].pid);
+				$("#operateServerForm").find("textarea").val(editObj[0].remark);
+			}
+			else{
+				//$("#operateServerForm").find("input").val("");
+				document.getElementById("operateServerForm").reset();
+			}
+		});
+	});
+	
+	function serverAdd(){
+		$.ajax({ 
+			type:"POST",
+			url:"addServer.do",
+			data:{
+				 	servername: operate_param.serverName, 
+				  	sship: operate_param.sshIp,
+				  	sshport: operate_param.sshPort,
+				  	sshusername: operate_param.sshUsername,
+				  	sshuserpwd: operate_param.sshUserpwd,
+				  	pid: operate_param.pid,
+				  	remark: operate_param.remark
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "服务器添加成功";
+					operateType = -1;
+					toMainRight("rightServerList");
+				}
+				else{
+					tip_div.alert = "添加失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+	
+	function serverEdit(){
+		$.ajax({ 
+			type:"POST",
+			url:"editServer.do",
+			data:{
+					editId: operate_param.operateId,
+					servername: operate_param.serverName, 
+				  	sship: operate_param.sshIp,
+				  	sshport: operate_param.sshPort,
+				  	sshusername: operate_param.sshUsername,
+				  	sshuserpwd: operate_param.sshUserpwd,
+				  	pid: operate_param.pid,
+				  	remark: operate_param.remark
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "服务器修改成功";
+					operateType = -1;
+					toMainRight("rightServerList");
+				}
+				else{
+					tip_div.alert = "操作失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	  <div class="span4 offset4 dialog">
+        <div class="block">
+            <div id="serverManageTitle" class="block-heading">创建角色</div>
+            <div class="block-body">
+                <form id="operateServerForm">
+                    <label>服务器</label>
+                    <input type="text" name="serverName" class="span12">
+                    <label>地址</label>
+                    <input type="text" name="sshIp" class="span12">
+                    <label>端口</label>
+                    <input type="text" name="sshPort" class="span12">
+                    <label>用户名</label>
+                    <input type="text" name="sshUsername" class="span12">
+                    <label>密码</label>
+                    <input type="password" name="sshUserpwd" class="span12">
+                    <label>所属平台</label>
+                    <select id="pid" name="pid" class="input-xlarge"></select>
+                    <label>备注</label>
+                    <textarea rows="5" cols="10" name="remark" class="span12"></textarea>
+                    <br/>
+                   <!--  <label>邮箱地址</label>
+                    <input type="text" name="email" class="span12"> -->
+                    <a href="javascript:void(0)" id="operateServerSubmit" class="btn btn-primary pull-right">提交</a>
+                    <a href="javascript:void(0)" id="operateServerReset" class="btn btn-primary pull-right" style="margin-right: 10px;">重置</a>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

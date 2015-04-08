@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Project">
+	<typeAlias type="com.ctfo.service.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<resultMap id="ProjectInfos" class="com.ctfo.beans.Project">
+		<result column="PROJECT_ID" property="projectId" jdbcType="DECIMAL" />
+		<result column="PROJECT_NAME" property="projectName" jdbcType="VARCHAR" />
+		<result column="PROJECT_VERSION" property="projectVersion" jdbcType="VARCHAR" />
+		<result column="COMPILE_DATE" property="compileDate" jdbcType="VARCHAR" />
+		<result column="BRANCH_NAME" property="branchName" jdbcType="VARCHAR" />
+		<result column="BRANCH_PATH" property="branchPath" jdbcType="VARCHAR" />
+		<result column="DBSCRIPT_PATH" property="dbscriptPath" jdbcType="VARCHAR" />
+		<result column="DEPLOY_DESC" property="deployDesc" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getProjectList" resultMap="ProjectInfos" parameterClass="dynamicSqlParameter">
+		select projectid project_id,
+		       project_name,
+			   project_version,
+			   complie_date compile_date,
+			   branch_name,
+			   branch_path,
+			   dbscript_path,
+			   deploy_description deploy_desc
+		 from tb_project
+		limit #page#,#rows#
+	</select>
+	
+	<select id="getProjectListCount" resultClass="int" parameterClass="dynamicSqlParameter">
+		select count(1) from tb_project 
+	</select>
+	
+	<select id="getEditProject" resultClass="com.ctfo.beans.Project" parameterClass="dynamicSqlParameter">
+		select projectid,
+               project_name projectname,
+               project_version projectversion,
+               complie_date compiledate,
+               branch_name branchname,
+               branch_path branchpath,
+               dbscript_path dbscriptpath,
+               deploy_description deploydesc
+         from tb_project
+        where projectid=#equal.editId#
+	</select>
+	
+	<insert id="addProject" parameterClass="dynamicSqlParameter">
+		<![CDATA[
+			insert into tb_project(project_name,project_version,complie_date,branch_name,branch_path,dbscript_path,deploy_description) 
+			values (#equal.projectName#,#equal.projectVersion#,#equal.compileDate#,#equal.branchName#,#equal.branchPath#,#equal.dbscriptPath#,#equal.deployDesc#)
+		]]>
+		<selectKey resultClass="java.lang.Integer" keyProperty="id" type="pre">
+			<![CDATA[SELECT LAST_INSERT_ID() AS ID ]]>
+		</selectKey>
+	</insert>
+	
+	<delete id="delProject" parameterClass="dynamicSqlParameter">
+		delete from tb_project where projectid = #equal.projectId#
+	</delete>
+	
+	<update id="editProject" parameterClass="dynamicSqlParameters">
+			update tb_project set project_name=#equal.projectName#,
+				               project_version=#equal.projectVersion#,
+				               complie_date=#equal.compileDate#,
+				               branch_name=#equal.branchName#,
+				               branch_path=#equal.branchPath#,
+				               dbscript_path=#equal.dbscriptPath#,
+				               deploy_description=#equal.deployDesc#
+				         where projectid=#equal.editId#
+	</update>
+</sqlMap>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bootstrap Admin</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script type="text/javascript">
+	$(document).ready(function(){
+		getList();
+	});
+	
+	function getList(){
+		$.ajax({ 
+			type:"POST",
+			url:"getPlatFormList.do",
+			dataType : "json", 
+			data:{page:pageInfo.curPage,rows:pageInfo.pageSize},
+			success:function(data){
+				/* var res = eval("("+data+")");
+				var datas = res.data; */
+				var datas = data.data;
+				var platInfos = "";
+				calcPages(pageInfo.curPage,data.total,pageInfo.pageSize);
+				for(var i = 0; i < datas.length; i++){
+					platInfos += " <tr> " +
+										" <td>" + (i+1) + "</td> " +
+					             		" <td>" + datas[i].platName + "</td> " +
+					                	" <td title='" + datas[i].remark + "'>" + subContent(datas[i].remark) + "</td> " +
+					                	" <td> " +
+					                		" <a href='javascript:void(0)' onclick='getEditInfo(" + datas[i].platId + ",\"plat\");'> " +
+					                			" <i class='icon-pencil'></i></a> " +
+					                		" <a href='javascript:void(0)' data-toggle='modal' onclick='deleteInfo(" + datas[i].platId + ",\"plat\")'> " +
+					                			" <i class='icon-remove'></i></a> " +
+					                	" </td> " +
+                                  " </tr> ";
+				}
+				$("#roleListTable").find("tbody").html(platInfos);
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<h1 class="page-title">平台列表</h1>
+	<div class="btn-toolbar">
+		<button class="btn btn-primary" onclick="toMainRight('rightPlatFormOperate');editObj = null;">
+			<i class="icon-plus"></i> 添加平台
+		</button>
+		<button class="btn">Import</button>
+		<button class="btn">Export</button>
+		<div class="btn-group"></div>
+	</div>
+	<div class="well">
+		<table id="roleListTable" class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>平台名称</th>
+					<th>备注</th>
+					<th style="width: 26px;"></th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div>
+	<div id="pages" class="pagination" align="center">
+		<ul>
+			
+		</ul>
+		<br/>
+		当前第 <span id="curpage">1</span> 页,
+		总共 <span id="totalpage">1</span> 页&nbsp;&nbsp;&nbsp;
+		共 <span id="totalcount">0</span> 条记录
+	</div>
+</body>
+</html>
+
+

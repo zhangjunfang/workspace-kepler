@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Server">
+	<typeAlias type="com.ctfo.service.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<resultMap id="ServerInfos" class="com.ctfo.beans.Server">
+		<result column="SID" property="sid" jdbcType="DECIMAL" />
+		<result column="SERVERNAME" property="serverName" jdbcType="VARCHAR" />
+		<result column="SSH_IP" property="sshIp" jdbcType="VARCHAR" />
+		<result column="SSH_PORT" property="sshPort" jdbcType="VARCHAR" />
+		<result column="SSH_USERNAME" property="sshUsername" jdbcType="VARCHAR" />
+		<result column="SSH_USERPWD" property="sshUserpwd" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="PID" property="pid" jdbcType="VARCHAR" />
+		<result column="PLATNAME" property="platName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="getServerList" resultMap="ServerInfos" parameterClass="dynamicSqlParameter">
+		select s.sid,
+	  	       s.servername,
+	  	       s.ssh_ip,
+	  	       s.ssh_port,
+	  	       s.ssh_username,
+	  	       s.ssh_userpwd,
+	  	       s.remark,
+	  	       s.pid,
+	  	       p.platname
+	  	  from tb_server s join tb_platform p on s.pid = p.pid
+		limit #page#,#rows#
+	</select>
+	
+	<select id="getServerListCount" resultClass="int" parameterClass="dynamicSqlParameter">
+		select count(1) from tb_server s join tb_platform p on s.pid = p.pid 
+	</select>
+	
+	<select id="getEditServer" resultClass="com.ctfo.beans.Server" parameterClass="dynamicSqlParameter">
+		select sid,
+	  	       servername,
+	  	       ssh_ip sship,
+	  	       ssh_port sshport,
+	  	       ssh_username sshusername,
+	  	       ssh_userpwd sshuserpwd,
+	  	       remark,
+	  	       pid
+	  	  from tb_server
+        where sid=#equal.editId#
+	</select>
+	
+	<insert id="addServer" parameterClass="dynamicSqlParameter">
+		<![CDATA[
+			insert into tb_Server(servername,ssh_ip,ssh_port,ssh_username,ssh_userpwd,remark,pid) 
+			values (#equal.serverName#,#equal.sshIp#,#equal.sshPort#,#equal.sshUsername#,#equal.sshUserpwd#,#equal.remark#,#equal.pid#)
+		]]>
+		<selectKey resultClass="java.lang.Integer" keyProperty="id" type="pre">
+			<![CDATA[SELECT LAST_INSERT_ID() AS ID ]]>
+		</selectKey>
+	</insert>
+	
+	<delete id="delServer" parameterClass="dynamicSqlParameter">
+		delete from tb_Server where sid = #equal.sid#
+	</delete>
+	
+	<update id="editServer" parameterClass="dynamicSqlParameters">
+			update tb_Server set servername=#equal.serverName#,
+				              	 ssh_ip=#equal.sshIp#,
+				               	 ssh_port=#equal.sshPort#,
+				               	 ssh_username=#equal.sshUsername#,
+				                 ssh_userpwd=#equal.sshUserpwd#,
+				                 remark=#equal.remark#,
+				                 pid=#equal.pid#
+				           where sid=#equal.editId#
+	</update>
+</sqlMap>

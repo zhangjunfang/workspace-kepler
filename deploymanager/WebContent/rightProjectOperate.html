@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bootstrap Admin</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script type="text/javascript">
+	$(document).ready(function(){
+		if(editObj){
+			$("#projectManageTitle").text("编辑项目");
+			$("#operateProjectForm").find("input[name=projectName]").val(editObj[0].projectName);
+			$("#operateProjectForm").find("input[name=projectVersion]").val(editObj[0].projectVersion);
+			$("#operateProjectForm").find("input[name=branchName]").val(editObj[0].branchName);
+			$("#operateProjectForm").find("input[name=branchPath]").val(editObj[0].branchPath);
+			$("#operateProjectForm").find("input[name=dbscriptPath]").val(editObj[0].dbscriptPath);
+			$("#operateProjectForm").find("textarea").val(editObj[0].deployDesc);
+		}
+		else{
+			$("#projectManageTitle").text("添加项目");
+		}
+		
+		$("#operateProjectForm").find("textarea").width($("#operateProjectForm").find("input[name=projectName]").width());
+		
+		$("#operateProjectForm").find("#operateProjectSubmit").click(function(){
+			operate_param.projectName = $("#operateProjectForm").find("input[name=projectName]").val();
+			operate_param.projectVersion = $("#operateProjectForm").find("input[name=projectVersion]").val();
+			operate_param.branchName = $("#operateProjectForm").find("input[name=branchName]").val();
+			operate_param.branchPath = $("#operateProjectForm").find("input[name=branchPath]").val();
+			operate_param.dbscriptPath = $("#operateProjectForm").find("input[name=dbscriptPath]").val();
+			operate_param.deployDesc = $("#operateProjectForm").find("textarea").val();
+			operate_param.compileDate = date2utc(getnowTime());
+			if(editObj){
+				operate_param.operateId = editObj[0].projectId;
+				getEditInfo(editObj[0].projectId,"project");
+			}
+			else{
+				addInfo("project");
+			}
+			//加验证
+			
+			setTipDivContent();
+			$("#common_a").trigger("click");
+			
+			
+		}); 
+		
+		$("#operateProjectForm").find("#operateProjectReset").click(function(){
+			if(editObj){
+				$("#operateProjectForm").find("input[name=projectName]").val(editObj[0].projectName);
+				$("#operateProjectForm").find("input[name=projectVersion]").val(editObj[0].projectVersion);
+				$("#operateProjectForm").find("input[name=branchName]").val(editObj[0].branchName);
+				$("#operateProjectForm").find("input[name=branchPath]").val(editObj[0].branchPath);
+				$("#operateProjectForm").find("input[name=dbscriptPath]").val(editObj[0].dbscriptPath);
+				$("#operateProjectForm").find("textarea").val(editObj[0].deployDesc);
+			}
+			else{
+				//$("#operateProjectForm").find("input").val("");
+				document.getElementById("operateProjectForm").reset();
+			}
+		});
+	});
+	
+	function projectAdd(){
+		$.ajax({ 
+			type:"POST",
+			url:"addProject.do",
+			data:{
+				 	projectname: operate_param.projectName, 
+				  	projectversion: operate_param.projectVersion,
+				  	branchname: operate_param.branchName,
+				  	branchpath: operate_param.branchPath,
+				  	dbscriptpath: operate_param.dbscriptPath,
+				  	deploydesc: operate_param.deployDesc,
+				  	compiledate: operate_param.compileDate
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "项目添加成功";
+					operateType = -1;
+					toMainRight("rightProjectList");
+				}
+				else{
+					tip_div.alert = "添加失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+	
+	function projectEdit(){
+		$.ajax({ 
+			type:"POST",
+			url:"editProject.do",
+			data:{
+					editId: operate_param.operateId,
+					projectname: operate_param.projectName, 
+				  	projectversion: operate_param.projectVersion,
+				  	branchname: operate_param.branchName,
+				  	branchpath: operate_param.branchPath,
+				  	dbscriptpath: operate_param.dbscriptPath,
+				  	deploydesc: operate_param.deployDesc,
+				  	compiledate: operate_param.compileDate
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "项目修改成功";
+					operateType = -1;
+					toMainRight("rightProjectList");
+				}
+				else{
+					tip_div.alert = "操作失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	  <div class="span4 offset4 dialog">
+        <div class="block">
+            <div id="projectManageTitle" class="block-heading">创建角色</div>
+            <div class="block-body">
+                <form id="operateProjectForm">
+                    <label>项目名称</label>
+                    <input type="text" name="projectName" class="span12">
+                    <label>版本</label>
+                    <input type="text" name="projectVersion" class="span12">
+                    <label>分支名称</label>
+                    <input type="text" name="branchName" class="span12">
+                    <label>分支路径</label>
+                    <input type="text" name="branchPath" class="span12">
+                    <label>数据库脚本路径</label>
+                    <input type="text" name="dbscriptPath" class="span12">
+                    <label>部署说明</label>
+                    <textarea rows="5" cols="10" name="deployDesc"></textarea>
+                    <br/>
+                   <!--  <label>邮箱地址</label>
+                    <input type="text" name="email" class="span12"> -->
+                    <a href="javascript:void(0)" id="operateProjectSubmit" class="btn btn-primary pull-right">提交</a>
+                    <a href="javascript:void(0)" id="operateProjectReset" class="btn btn-primary pull-right" style="margin-right: 10px;">重置</a>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

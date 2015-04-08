@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bootstrap Admin</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({ 
+			type:"POST",
+			url:"getProjectList.do",
+			dataType : "json", 
+			data:{page:pageInfo.curPage,rows:pageInfo.pageSize},
+			success:function(data){
+				var datas = data.data;
+				var projectInfos = "";
+				calcPages(pageInfo.curPage, data.total, pageInfo.pageSize);
+				for(var i = 0; i < datas.length; i++){
+					projectInfos += " <tr> " +
+										" <td>" + (i+1) + "</td> " +
+					             		" <td>" + datas[i].projectName + "</td> " +
+					                	" <td>" + datas[i].projectVersion + "</td> " +
+					                	" <td>" + utc2Date(datas[i].compileDate) + "</td> " +
+					                	" <td>" + datas[i].branchName + "</td> " +
+					                	" <td>" + datas[i].branchPath + "</td> " +
+					                	" <td>" + datas[i].dbscriptPath + "</td> " +
+					                	" <td title='" + datas[i].deployDesc + "'>" + subContent(datas[i].deployDesc) + "</td> " +
+					                	" <td> " +
+					                		" <a href='javascript:void(0)' onclick='getEditInfo(" + datas[i].projectId + ",\"project\");'> " +
+					                			" <i class='icon-pencil'></i></a> " +
+					                		" <a href='javascript:void(0)' data-toggle='modal' onclick='deleteInfo(" + datas[i].projectId + ",\"project\")'> " +
+					                			" <i class='icon-remove'></i></a> " +
+					                	" </td> " +
+                                  " </tr> ";
+				}
+				$("#projectListTable").find("tbody").html(projectInfos);
+			}
+		});
+	});
+	
+</script>
+</head>
+<body>
+	<h1 class="page-title">项目列表</h1>
+	<div class="btn-toolbar">
+		<button class="btn btn-primary" onclick="toMainRight('rightProjectOperate');editObj = null;">
+			<i class="icon-plus"></i> 添加新项目
+		</button>
+		<button class="btn">Import</button>
+		<button class="btn">Export</button>
+		<div class="btn-group"></div>
+	</div>
+	<div class="well">
+		<table id="projectListTable" class="table">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>项目名称</th>
+					<th>版本</th>
+					<th>编辑日期</th>
+					<th>分支名称</th>
+					<th>分支路径</th>
+					<th>数据库脚本路径</th>
+					<th>部署说明</th>
+					<th style="width: 26px;"></th>
+				</tr>
+			</thead>
+			<tbody>
+				
+			</tbody>
+		</table>
+	</div>
+	<div id="pages" class="pagination" align="center">
+		<ul>
+			
+		</ul>
+		<br/>
+		当前第 <span id="curpage">1</span> 页,
+		总共 <span id="totalpage">1</span> 页&nbsp;&nbsp;&nbsp;
+		共 <span id="totalcount">0</span> 条记录
+	</div>
+</body>
+</html>
+
+

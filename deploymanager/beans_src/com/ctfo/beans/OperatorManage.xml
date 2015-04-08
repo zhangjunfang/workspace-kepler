@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Operator">
+	<typeAlias type="com.ctfo.service.DynamicSqlParameter" alias="dynamicSqlParameters" />
+	<resultMap id="OperatorsInfo" class="com.ctfo.beans.Operator">
+		<result column="OP_ID" property="opId" jdbcType="DECIMAL" />
+		<result column="OP_LOGINNAME" property="opLoginname" jdbcType="VARCHAR" />
+		<result column="OP_PASS" property="opPass" jdbcType="VARCHAR" />
+		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+		<result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+		<result column="CREATE_OP" property="createOp" jdbcType="VARCHAR" />
+		<result column="UPDATE_OP" property="updateOp" jdbcType="VARCHAR" />
+		<result column="CREATE_DATE" property="createDate" jdbcType="VARCHAR" />
+		<result column="UPDATE_DATE" property="updateDate" jdbcType="VARCHAR" />
+	
+		<!-- <result column="OP_ID" property="opId" jdbcType="DECIMAL" />
+		<result column="ENT_ID" property="entId" jdbcType="DECIMAL" />
+		<result column="OP_LOGINNAME" property="opLoginname" jdbcType="VARCHAR" />
+		<result column="OP_PASS" property="opPass" jdbcType="VARCHAR" />
+		<result column="OP_AUTHCODE" property="opAuthcode" jdbcType="VARCHAR" />
+		<result column="OP_NAME" property="opName" jdbcType="VARCHAR" />
+		<result column="OP_SUPER" property="opSuper" jdbcType="VARCHAR" />
+		<result column="OP_SEX" property="opSex" jdbcType="VARCHAR" />
+		<result column="OP_BIRTH" property="opBirth" jdbcType="DECIMAL" />
+		<result column="OP_COUNTRY" property="opCountry" jdbcType="VARCHAR" />
+		<result column="OP_PROVINCE" property="opProvince" jdbcType="VARCHAR" />
+		<result column="OP_CITY" property="opCity" jdbcType="VARCHAR" />
+		<result column="OP_ADDRESS" property="opAddress" jdbcType="VARCHAR" />
+		<result column="OP_MOBILE" property="opMobile" jdbcType="VARCHAR" />
+		<result column="OP_PHONE" property="opPhone" jdbcType="VARCHAR" />
+		<result column="OP_FAX" property="opFax" jdbcType="VARCHAR" />
+		<result column="OP_EMAIL" property="opEmail" jdbcType="VARCHAR" />
+		<result column="OP_IDENTITY_ID" property="opIdentityId" jdbcType="VARCHAR" />
+		<result column="OP_DUTY" property="opDuty" jdbcType="VARCHAR" />
+		<result column="OP_WORKID" property="opWorkid" jdbcType="VARCHAR" />
+		<result column="OP_STARTUTC" property="opStartutc" jdbcType="DECIMAL" />
+		<result column="OP_ENDUTC" property="opEndutc" jdbcType="DECIMAL" />
+		<result column="OP_TYPE" property="opType" jdbcType="VARCHAR" />
+		<result column="OP_MEM" property="opMem" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="DECIMAL" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+		<result column="OP_ZIP" property="opZip" jdbcType="VARCHAR" />
+		<result column="OP_STATUS" property="opStatus" jdbcType="VARCHAR" />
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="PARENT_ENTID" property="parentEntId" jdbcType="DECIMAL" />
+		<result column="CORP_CODE" property="corpCode" jdbcType="VARCHAR" />
+		<result column="ENT_TYPE" property="entType" jdbcType="DECIMAL" />
+		<result column="ORG_LOGO" property="orgLogo" jdbcType="VARCHAR" />
+		<result column="SEQ_CODE" property="seqCode" jdbcType="VARCHAR" />
+		<result column="IS_MEMBER" property="isMember" jdbcType="VARCHAR" />
+		<result column="IMSI" property="imsi" jdbcType="VARCHAR" />
+		<result column="PHOTO" property="photo" jdbcType="VARCHAR" />
+		<result column="BUSINESS_LICENSE" property="businessLicense" jdbcType="VARCHAR" />
+		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" /> -->
+	</resultMap>
+	
+	<select id="getUserList" resultMap="OperatorsInfo" parameterClass="dynamicSqlParameters">
+	   select u.userid op_id,
+	  u.username op_loginname,
+	  u.userpwd op_pass,
+	  u.roleid role_id,
+	  r.role_name,
+	  u.realname real_name,
+	  s.realname create_op,
+	  u.create_time create_date,
+	  t.realname update_op,
+          u.update_time update_date
+  from tb_user u join tb_role r on u.roleid = r.roleid
+                   left join tb_user s on u.create_by = s.userid
+                   left join tb_user t on u.update_by = t.userid 
+
+	      <dynamic>
+	           <isNotEmpty property="equal.opId" prepend="where">
+	           		 u.userid != #equal.opId#
+	           		 and u.create_by = #equal.opId#
+	           </isNotEmpty>
+	      </dynamic>
+	      
+	      	limit #page#,#rows#
+	</select>
+	
+	<select id="getUserListCount" resultClass="int" parameterClass="dynamicSqlParameters">
+	    select count(1)
+	      from tb_user u join tb_role r on u.roleid = r.roleid
+	      <dynamic>
+	           <isNotEmpty property="equal.opId" prepend="where">
+	           		 u.userid != #equal.opId#
+	           		 and u.create_by = #equal.opId#
+	           </isNotEmpty>
+	      </dynamic>
+	</select>
+	
+	<insert id="addOperator" parameterClass="dynamicSqlParameters">
+		<![CDATA[
+			insert into tb_user(username,userpwd,roleid,realname,create_by,create_time) 
+			values (#equal.uname#,#equal.upass#,#equal.roleid#,#equal.realname#,#equal.creater#,(select now() from dual))
+		]]>
+		<selectKey resultClass="java.lang.Integer" keyProperty="id" type="pre">
+			<![CDATA[SELECT LAST_INSERT_ID() AS ID ]]>
+		</selectKey>
+	</insert>
+	
+	<select id="getEditUser" resultMap="OperatorsInfo" parameterClass="dynamicSqlParameters">
+	    select u.userid op_id,
+	           u.username op_loginname,
+	           u.userpwd op_pass,
+	           u.roleid role_id,
+	           r.role_name,
+	           u.realname real_name,
+	           u.create_by create_op,
+	           u.create_time create_date,
+               u.update_by update_op,
+               u.update_time update_date
+               from tb_user u join tb_role r on u.roleid = r.roleid 
+               where u.userid = #equal.editId#
+	</select>
+	
+	<update id="editUser" parameterClass="dynamicSqlParameters">
+			update tb_user set userpwd=#equal.opPass#,
+				               roleid=#equal.roleId#,
+				               realname=#equal.realName#,
+				               update_by=#equal.updater#,
+				               update_time=(select now() from dual)
+				         where userid=#equal.editId#
+	</update>
+	
+	<delete id="delUser" parameterClass="dynamicSqlParameters">
+		delete from tb_user where userid=#equal.delId#
+	</delete>
+	
+	<select id="checkUserExist" resultClass="int" parameterClass="dynamicSqlParameters">
+		select count(1) from tb_user where username = #equal.username#
+	</select>
+	
+</sqlMap>

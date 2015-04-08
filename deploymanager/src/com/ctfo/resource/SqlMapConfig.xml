@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" 
+	"http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+   <settings useStatementNamespaces="true" lazyLoadingEnabled="true" enhancementEnabled="true"/>
+	
+	<!-- 查询操作员权限  ADD by cuisong-->
+	<sqlMap  resource="com/ctfo/beans/SysSpOperator.xml"/>
+	<sqlMap  resource="com/ctfo/beans/OperatorManage.xml"/>
+	<sqlMap  resource="com/ctfo/beans/RoleManage.xml"/>
+	<sqlMap  resource="com/ctfo/beans/PlatFormManage.xml"/>
+	<sqlMap  resource="com/ctfo/beans/ProjectManage.xml"/>
+	<sqlMap  resource="com/ctfo/beans/ServerManage.xml"/>
+	<sqlMap  resource="com/ctfo/beans/ServiceManage.xml"/>
+	<sqlMap  resource="com/ctfo/beans/SelectOptionsManage.xml"/>
+ </sqlMapConfig>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bootstrap Admin</title>
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<script type="text/javascript">
+	$(document).ready(function(){
+		setOptions("editUserForm","roleid","role");
+		
+		$("#editUserForm").find("label").css({
+			"width" : $("#editUserForm").find("input[name=username]").width()
+		});
+		
+		$("#editUserForm").find("span").css({
+			"float" : "right",
+			"color" : "red"
+		});
+		
+		var initEdit = function(){
+			$("#editUserForm").find("input[name=username]").val(editObj[0].opLoginname);
+			$("#editUserForm,#editUserPassForm").find("input[name=password],input[name=password1]").val(editObj[0].opPass.substr(0,20));
+			$("#editUserForm").find("input[name=realname]").val(editObj[0].realName);
+			$("#editUserForm").find("select[name=roleid]").find("option").each(function(){
+				if($(this).val() == editObj[0].roleId){
+					$(this).attr("selected",true);
+				}
+				else{
+					$(this).attr("selected",false);
+				}
+			});
+		}
+		
+		initEdit();
+		
+		//密码验证
+		var passValid = 1;
+		$("#editUserForm").find("input[name=password]").blur(function(){
+			var passTip1 = "";
+			var reg=/^(\w){6,20}$/;
+
+			if(!$(this).val()){
+				passValid = 1;
+				passTip1 = "请输入密码";
+			}
+			else if(!reg.exec($(this).val())){
+				passValid = 1;
+				passTip1 = "密码格式错误";
+			}
+			else if(reg.exec($(this).val())){
+				passValid = 0;
+				passTip1 = "";
+			}
+			
+			$("#editUserForm").find("#pass1").text(passTip1);
+			
+			if($("#editUserForm").find("input[name=password1]").val()){
+				$("#editUserForm").find("input[name=password1]").trigger("blur");
+			}
+		});
+		
+		$("#editUserForm").find("input[name=password1]").blur(function(){
+			var passTip2 = "";
+			if($(this).val() != $("#editUserForm").find("input[name=password]").val()){
+				passValid = 1;
+				passTip2 = "两次密码输入不一致";
+			}
+			else{
+				passValid = 0;
+				passTip2 = "";
+			}
+			
+			$("#editUserForm").find("#pass2").text(passTip2);
+		});
+		
+		//提交
+		$("#editUserSubmit").click(function(){
+			$("#editUserForm").find("input[name=password]").trigger("blur");
+			$("#editUserForm").find("input[name=password1]").trigger("blur");
+			if(passValid != 0){
+				return false;
+			}
+			/* var pass = $("#editUserForm").find("input[name=password]").val();
+			var pass_ = $("#editUserPassForm").find("input[name=password]").val();
+			var realname = $("#editUserForm").find("input[name=realname]").val();
+			var roleid = $("#editUserForm").find("select[name=roleid]").val(); */
+			operate_param.operateId = editObj[0].opId,
+			operate_param.password = $("#editUserForm").find("input[name=password]").val();
+			operate_param.realName = $("#editUserForm").find("input[name=realname]").val();
+			operate_param.roleId = $("#editUserForm").find("select[name=roleid]").val();
+			setTipDivContent();
+			$("#common_a").trigger("click");
+			/* $.ajax({ 
+				type:"POST",
+				url:"editUser.do",
+				data:{
+						editId: editObj[0].opId,
+					 	password: pass, 
+					  	roleid: roleid,
+					  	realname: realname
+					  },
+				success:function(data){
+					if(data == "done"){
+						alert("用户修改成功");
+						toMainRight("rightUserList");
+					}
+					else{
+						alert("用户修改失败");
+					}
+				}
+			}); */
+		});
+		
+		$("#editUserForm").find("#editUserReset").click(function(){
+			initEdit();
+		});
+		
+		
+	});
+	
+	function userEdit(){
+		$.ajax({ 
+			type:"POST",
+			url:"editUser.do",
+			data:{
+					editId: operate_param.operateId,
+				 	password: operate_param.password, 
+				  	roleid: operate_param.roleId,
+				  	realname: operate_param.realName
+				  },
+			success:function(data){
+				if(data == "done"){
+					tip_div.alert = "用户修改成功";
+					operateType = -1;
+					toMainRight("rightUserList");
+				}
+				else{
+					tip_div.alert = "用户修改失败";
+				}
+				alert_();
+				$("#common_alert").trigger("click");
+			}
+		});
+	}
+	
+
+</script>
+</head>
+<body>
+	<h1 class="page-title">编辑用户</h1>
+	<div class="btn-toolbar">
+		<button id="editUserSubmit" class="btn btn-primary">
+			<i class="icon-save"></i> 保存
+		</button>
+		<a href="javascript:void(0)" data-toggle="modal" class="btn">删除</a>
+		<div class="btn-group"></div>
+	</div>
+	<div class="well">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#home" data-toggle="tab">用户信息</a></li>
+			<!-- <li><a href="#profile" data-toggle="tab">更改密码</a></li> -->
+		</ul>
+		<div id="myTabContent" class="tab-content">
+			<div class="tab-pane active in" id="home">
+				<form id="editUserForm">
+					<label>用户名</label> 
+					<input type="text" name="username" value="" class="input-xlarge" disabled="disabled"> 
+					<label>密码<span id="pass1"></span></label> 
+					<input type="password" name="password" value="" class="input-xlarge"> 
+					<label>再次输入密码<span id="pass2"></span></label> 
+					<input type="password" name="password1" value="" class="input-xlarge"> 
+					<label>姓名</label> 
+					<input type="text" name="realname" value="" class="input-xlarge">
+					<label>用户角色</label>
+                    <select id="roleid" name="roleid" class="input-xlarge">
+                    </select>
+                    <br/>
+					<!-- 
+					<label>Email</label> 
+					<input type="text" value="jsmith@yourcompany.com" class="input-xlarge"> <label>Address</label> 
+					-->
+                    <a href="javascript:void(0)" id="editUserReset" class="btn btn-primary pull-left">重置</a>
+				</form>
+			</div>
+			<!-- <div class="tab-pane fade" id="profile">
+				<form id="editUserPassForm">
+					<label>新密码</label>
+					<input type="password" name="password" class="input-xlarge">
+					<label>再次输入密码</label>
+					<input type="password" name="password1" class="input-xlarge">
+					<div>
+						<button class="btn btn-primary">提交</button>
+					</div>
+				</form>
+			</div> -->
+		</div>
+	</div>
+</body>
+</html>
+
+
