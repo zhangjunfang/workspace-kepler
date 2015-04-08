@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xconf>
+	<app>DataTransferServer</app>
+	<ver>1.0.0.0</ver>
+	<desc>数据传输服务</desc>
+
+	<item name="ManagePort">
+		<value>17450</value>
+		<comments>管理端口</comments>
+	</item>
+	<item name="AnalyseClass">
+		<value>com.ctfo.datatransferserver.protocal.CommonAnalyseService</value>
+		<comments>数据分析类</comments>
+	</item>
+	<item name="IsZIP">
+		<value>1</value>
+		<comments>是否压缩0不压缩，1压缩</comments>
+	</item>
+	<item name="TaskAddIns">
+		<item name="0">
+			<comments>发送GPS数据任务</comments>
+			<item name="class">
+				<value>com.ctfo.datatransferserver.services.impl.GPSTransferTaskImpl</value>
+				<comments>任务处理类</comments>
+			</item>
+			<item name="delay">
+				<value>3</value>
+				<comments>延迟时间(s)</comments>
+			</item>
+			<item name="period">
+				<value>120</value>
+				<comments>周期时间(s)</comments>
+			</item>
+			<item name="IP">
+				<value>192.168.100.52</value>
+				<comments>聚合服务tomcat部署服务器地址发送IP</comments>
+			</item>
+			<item name="Port">
+				<value>4000</value>
+				<comments>发送端口</comments>
+			</item>
+		</item>
+		<item name="1">
+			<comments>发送权限数据任务</comments>
+			<item name="class">
+				<value>com.ctfo.datatransferserver.services.impl.PermissionTransferTaskImpl</value>
+				<comments>任务处理类</comments>
+			</item>
+			<item name="delay">
+				<value>3</value>
+				<comments>延迟时间(s)</comments>
+			</item>
+			<item name="period">
+				<value>300</value>
+				<comments>周期时间(s)</comments>
+			</item>
+			<item name="IP">
+				<value>192.168.100.52</value>
+				<comments>发送IP</comments>
+			</item>
+			<item name="Port">
+				<value>4001</value>
+				<comments>发送端口</comments>
+			</item>
+		</item>
+	</item>
+
+	<item name="msgServiceManage">
+		<comments>消息服务配置管理</comments>
+		<item name="msgServiceAddr">
+			<value>192.168.100.50</value>
+			<comments>消息服务器地址</comments>
+		</item>
+		<item name="msgServicePort">
+			<value>7505</value>
+			<comments>消息服务器端口</comments>
+		</item>
+		<item name="userid">
+			<value>6709</value>
+			<comments>登陆id</comments>
+		</item>
+		<item name="password">
+			<value>6709</value>
+			<comments>登陆密码</comments>
+		</item>
+			<item name="conNums">
+			<value>2</value>
+			<comments>连接数</comments>
+		</item>
+	</item>
+
+	<item name="database">
+		<comments>数据库连接配置</comments>
+		<item name="ServiceUnitDaoImpl">
+			<value>com.ctfo.datatransferserver.dao.impl.ServiceUnitDaoImpl</value>
+			<comments>数据库处理类</comments>
+		</item>
+		<item name="OrganizationDaoImpl">
+			<value>com.ctfo.datatransferserver.dao.impl.OrganizationDaoImpl</value>
+			<comments>数据库处理类</comments>
+		</item>
+		<item name="JDBCDriver">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+			<comments>数据库类型</comments>
+		</item>
+		<item name="JDBCUrl">
+			<value>jdbc:oracle:thin:@192.168.100.53:1521:orcl</value>
+			<comments>数据库连接</comments>
+		</item>
+		<item name="JDBCUser">
+			<value>kcpt</value>
+			<comments>数据库登录用户名</comments>
+		</item>
+		<item name="JDBCPassword">
+			<value>kcpt</value>
+			<comments>ORACLE数据库登录密码</comments>
+		</item>
+
+		<item name="DBReconnectWait">
+			<value>60000</value>
+			<comments>数据库断线重连延时(秒)</comments>
+		</item>
+		<item name="delay">
+			<value>3600000</value>
+			<comments>检测线程休眠时间</comments>
+		</item>
+		<item name="connectionPoolSize">
+			<value>30</value>
+			<comments>连接池连接数目</comments>
+		</item>
+		<item name="minLimit">
+			<value>2</value>
+			<comments>连接池最小连接数</comments>
+		</item>
+		<item name="InitialLimit">
+			<value>10</value>
+			<comments>连接池初始化连接数</comments>
+		</item>
+		<item name="abandonedConnectionTimeout">
+			<value>30</value>
+			<comments>Sets the maximum time that a connection can remain unused before the connection is closed and returned to the cache(单位:S)</comments>
+		</item>
+		<item name="propertyCheckInterval">
+			<value>60</value>
+			<comments>Sets the time interval at which the cache manager inspects and enforces all specified cache properties (单位:S)</comments>
+		</item>
+		<item name="inactivityTimeout">
+			<value>30</value>
+			<comments>Sets the maximum time a physical connection can remain idle in a connection cache.(单位:S)</comments>
+		</item>
+		<item name="sqlstatement">
+			<comments>轨迹分析SQL语句</comments>
+			<item name="sql_queryAllVehicle">
+			<value>SELECT v.ent_id entid, v.TRANSTYPE_CODE,v.area_code,v.vehicle_no, S.SUID,V.VID AS VID,PLATE_COLOR AS plate_color_id,M.COMMADDR AS t_identifyno,T.OEM_CODE AS oemcode,T.TMODEL_CODE,T.TID,L.maplon Lon,L.maplat Lat,L.Utc, L.Direction,L.Alarm_Code alarmcode,L.Isonline,L.Alarm_Utc alarmutc,L.gps_speed speed FROM TB_SIM M INNER JOIN TR_SERVICEUNIT S ON S.SID = M.SID INNER JOIN TB_VEHICLE V ON V.VID = S.VID INNER JOIN TB_TERMINAL T ON T.TID = S.TID inner join tr_vehicle_lasttrack L on V.Vid=L.Vid WHERE M.COMMADDR IS NOT NULL AND V.ENABLE_FLAG ='1' AND T.ENABLE_FLAG ='1'</value>	
+			<comments>初始化加载所有车辆基本信息 </comments>
+			</item>
+			<item name="sql_queryVehicleByMacid">
+			<value>SELECT v.ent_id entid, v.TRANSTYPE_CODE,v.area_code,v.vehicle_no, S.SUID,V.VID AS VID,PLATE_COLOR AS plate_color_id,M.COMMADDR AS t_identifyno,T.OEM_CODE AS oemcode,T.TMODEL_CODE,T.TID ,0 Lon,0 Lat,0 Utc, 0 Direction,'' alarmcode,1 Isonline,0 alarmutc,0 speed  FROM TB_SIM M INNER JOIN TR_SERVICEUNIT S ON S.SID = M.SID INNER JOIN TB_VEHICLE V ON V.VID = S.VID INNER JOIN TB_TERMINAL T ON T.TID = S.TID  WHERE M.COMMADDR = ? AND T.OEM_CODE = ? AND V.ENABLE_FLAG ='1' AND T.ENABLE_FLAG ='1'</value>	
+			<comments>如果内存中不存在当前车辆信息，则从数据库加载</comments>
+			</item>
+			<item name="sql_queryAllOrganization">
+				<value>SELECT ENT_ID ENTID ,PARENT_ID,LEVEL,ENT_TYPE ENTTYPE FROM TB_ORGANIZATION START WITH PARENT_ID='-1' CONNECT BY PRIOR   ENT_ID=PARENT_ID</value>
+				<comments>权限数据</comments>
+			</item>
+		</item>
+	</item>
+</xconf>
