@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<!-- 用户 -->
+	<bean id="tbSpOperatorDAO" class="com.ctfo.sys.dao.impl.TbSpOperatorDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbSpOperator"></property>
+	</bean> 
+	
+	<bean id="tbSpOperatorService" class="com.ctfo.sys.service.impl.TbSpOperatorServiceImpl" scope="prototype" parent="baseService">
+		<property name="tbSpOperatorDAO" ref="tbSpOperatorDAO"></property>
+		<property name="trOperatorRoleDAO" ref="trOperatorRoleDAO"></property>
+	</bean>
+	
+	<!-- 角色 -->
+	<bean id="tbSpRoleDAO" class="com.ctfo.sys.dao.impl.TbSpRoleDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbSpRole"></property>
+	</bean> 
+	
+	<bean id="tbSpRoleService" class="com.ctfo.sys.service.impl.TbSpRoleServiceImpl" scope="prototype" parent="baseService">
+		<property name="tbSpRoleDAO" ref="tbSpRoleDAO"></property>
+		<property name="trRoleFunctionDAO" ref="trRoleFunctionDAO"></property>
+		<property name="trOperatorRoleDAO" ref="trOperatorRoleDAO"></property>
+	</bean>
+	
+	<!-- 权限 -->
+	<bean id="sysFunctionDAO" class="com.ctfo.sys.dao.impl.SysFunctionDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbOrganization"></property>
+	</bean> 
+	
+	<bean id="sysFunctionService" class="com.ctfo.sys.service.impl.SysFunctionServiceImpl" scope="prototype">
+		<property name="sysFunctionDAO" ref="sysFunctionDAO"></property>
+	</bean>
+	
+	<!-- 登录  -->
+	<bean id="loginService" class="com.ctfo.sys.service.impl.LoginServiceImpl" scope="prototype">
+		<property name="tbSpOperatorDAO" ref="tbSpOperatorDAO"></property>
+	</bean>
+	
+	<!-- 角色权限关系 -->
+	<bean id="trRoleFunctionDAO" class="com.ctfo.sys.dao.impl.TrRoleFunctionDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TrRoleFunction"></property>
+	</bean>
+	
+	<!-- 用户角色关系 -->
+	<bean id="trOperatorRoleDAO" class="com.ctfo.sys.dao.impl.TrOperatorRoleDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TrOperatorRole"></property>
+	</bean>
+	
+	<!-- 字典码表 -->
+	<bean id="sysGeneralCodeDAO" class="com.ctfo.sys.dao.impl.SysGeneralCodeDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="SysGeneralCode"></property>
+	</bean> 
+	
+	<bean id="sysGeneralCodeService" class="com.ctfo.sys.service.impl.SysGeneralCodeServiceImpl" scope="prototype">
+		<property name="sysGeneralCodeDAO" ref="sysGeneralCodeDAO"></property>
+		<property name="sysAreaInfoDAO" ref="sysAreaInfoDAO"></property>
+	</bean>
+	
+	<!-- 全国行政区划 -->
+	<bean id="sysAreaInfoDAO" class="com.ctfo.sys.dao.impl.SysAreaInfoDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="SysAreaInfo"></property>
+	</bean> 
+	
+	<!-- 通用码表初始化 -->
+	<bean name="cacheInit" class="com.ctfo.common.local.web.GeneralCodeInit" init-method="init">
+		<property name="sysGeneralCodeService" ref="sysGeneralCodeService" />
+		<property name="writeJedisDao" ref="writeJedisDao"></property>
+	</bean>
+	
+	<!-- 组织树 -->
+	<bean id="structureOrgTreeDAO" class="com.ctfo.sys.dao.impl.StructureOrgTreeDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="StructureOrgTree"></property>
+	</bean> 
+	
+	<bean id="structureOrgTreeService" class="com.ctfo.sys.service.impl.StructureOrgTreeServiceImpl" scope="prototype">
+		<property name="structureOrgTreeDAO" ref="structureOrgTreeDAO"></property>
+	</bean>
+</beans>

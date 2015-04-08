@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TbOrganization">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="TbOrganization" type="com.ctfo.basic.beans.TbOrganization"/>	
+	
+	<resultMap id="TbOrganization" class="TbOrganization">
+		<result column="ENT_ID" property="entId" jdbcType="VARCHAR" />
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="ENT_TYPE" property="entType" jdbcType="DECIMAL" />
+		<result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+		<result column="ENT_STATE" property="entState" jdbcType="VARCHAR" />
+		<result column="MEMO" property="memo" jdbcType="VARCHAR" />
+		<result column="SEQ_CODE" property="seqCode" jdbcType="VARCHAR" />
+		<result column="ISCOMPANY" property="iscompany" jdbcType="DECIMAL" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 组织列表 -->
+	<resultMap id="TbOrganizationPage" class="TbOrganization">
+		<result column="ENT_ID" property="entId" jdbcType="VARCHAR" />
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+		<result column="ENT_TYPE" property="entType" jdbcType="DECIMAL" />
+		<result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="ENT_STATE" property="entState" jdbcType="VARCHAR" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />		
+		<result column="ORG_SHORTNAME" property="orgShortname" jdbcType="VARCHAR" />
+		<result column="CORP_CODE" property="corpCode" jdbcType="VARCHAR" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		<result column="ORG_ADDRESS" property="orgAddress" jdbcType="VARCHAR" />
+		<result column="ORG_CZIP" property="orgCzip" jdbcType="VARCHAR"/>
+		<result column="ORG_CMAIL" property="orgCmail" jdbcType="VARCHAR" />
+		<result column="CORP_PROVINCE" property="corpProvince" jdbcType="VARCHAR" />
+		<result column="CORP_CITY" property="corpCity" jdbcType="VARCHAR" />
+		<result column="CORP_QUALE" property="corpQuale" jdbcType="VARCHAR" />
+		<result column="CORP_LEVEL" property="corpLevel" jdbcType="VARCHAR" />
+		<result column="LICENCE_NO" property="licenceNo" jdbcType="VARCHAR" />
+		<result column="ORG_CNAME" property="orgCname" jdbcType="VARCHAR" />
+		<result column="ORG_CFAX" property="orgCfax" jdbcType="VARCHAR" />
+		<result column="ORG_CPHONE" property="orgCphone" jdbcType="VARCHAR" />
+		<result column="PARENT_NAME" property="parentName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="table" >
+    	TB_ORGANIZATION
+	</sql>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		ENT_ID ,ENT_NAME ,ENT_TYPE ,PARENT_ID ,CREATE_BY ,CREATE_TIME ,UPDATE_BY ,UPDATE_TIME ,ENABLE_FLAG ,ENT_STATE ,MEMO ,SEQ_CODE ,ISCOMPANY ,CENTER_CODE 
+	</sql>
+	
+	<sql id="equal_where">
+		<isNotNull prepend="AND" property="equal.entId">
+			o.ENT_ID_URL LIKE '%$equal.entId$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.parentId">
+			o.PARENT_ID = #equal.parentId:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.corpProvince">
+			t.CORP_PROVINCE = #equal.corpProvince:VARCHAR#
+		</isNotNull>
+	</sql>
+	<sql id="like_where">
+		<isNotEmpty prepend="AND" property="like.entName">
+             o.ENT_NAME like '%$like.entName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="like.corpCode">
+             t.CORP_CODE like '%$like.corpCode$%'
+		</isNotEmpty>
+	</sql>
+	<sql id="where_param" >
+		<include refid="equal_where" />
+		<include refid="like_where" />
+	</sql>
+	
+	<insert id="insert" >
+		INSERT INTO TB_ORGANIZATION (
+		<include refid="columns" />
+		) VALUES (
+			#entId# ,
+			#entName# ,
+			#entType# ,
+			#parentId# ,
+			#createBy# ,
+			#createTime# ,
+			#updateBy# ,
+			#updateTime# ,
+			#enableFlag# ,
+			#entState# ,
+			#memo# ,
+			#seqCode# ,
+			#iscompany# ,
+			#centerCode# 
+		)
+	</insert>
+ 
+	<!-- 更新 -->
+	<update id="update" parameterClass="TbOrganization">
+		UPDATE TB_ORGANIZATION 
+		   SET ENT_NAME = #entName:VARCHAR# 
+		 WHERE ENT_ID = #entId:VARCHAR#
+		   AND CENTER_CODE = #centerCode:VARCHAR#
+	</update>
+	
+	<!-- 删除(逻辑删除) -->
+	<update id="updateDelete" parameterClass="TbOrganization">
+		UPDATE <include refid="table" />
+	 	   SET ENABLE_FLAG = '0' ,
+	 	   	   UPDATE_BY = #updateBy:VARCHAR# ,
+			   UPDATE_TIME = #updateTime:DECIMAL#
+	  	 WHERE ENT_ID = #entId:VARCHAR#
+	  	   AND CENTER_CODE = #centerCode:VARCHAR#
+	</update>
+ 
+	<!-- 吊销与启用 -->
+	<update id="updateRevokeOpen" parameterClass="TbOrganization">
+		UPDATE <include refid="table" />
+	 	   SET ENT_STATE = #entState:VARCHAR# ,
+	 	   	   UPDATE_BY = #updateBy:VARCHAR# ,
+			   UPDATE_TIME = #updateTime:DECIMAL#
+	  	 WHERE ENT_ID = #entId:VARCHAR#
+	  	   AND CENTER_CODE = #centerCode:VARCHAR#
+	</update>
+
+	<!-- 查询组织下是否有子企业和车队 -->
+	<select id="countExist" resultClass="int" parameterClass="TbOrganization" >
+		SELECT COUNT(1)
+		  FROM TB_ORGANIZATION
+		 WHERE ENABLE_FLAG = '1'
+		   AND ENT_STATE = '1'
+		   AND PARENT_ID = #entId:VARCHAR#
+		   AND CENTER_CODE = #centerCode:VARCHAR#
+	</select>
+
+	<select id="selectEndIds" resultClass="String" parameterClass="dynamicSqlParameter" >
+		SELECT SUBSTR((SELECT queryChildrenTbOrg (#equal.entId:VARCHAR#)), 2) as entIds
+	</select>
+
+	<!-- 组织列表查询 -->
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter" >
+		SELECT count(1) 
+		  FROM TB_ORGANIZATION o
+		  LEFT JOIN TB_ORG_INFO t
+		    ON t.ENT_ID = o.ENT_ID
+		   AND t.CENTER_CODE = #equal.centerCode#
+		 WHERE o.ENABLE_FLAG = '1'
+		   AND o.ENT_STATE = '1'
+		   AND o.CENTER_CODE = #equal.centerCode#
+		<include refid="where_param" />
+	</select>
+	<select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbOrganizationPage">		
+		SELECT o.ENT_ID,
+			   o.ENT_NAME,
+		       o.PARENT_ID,
+		       o.ENT_TYPE,
+		       o.CREATE_TIME,
+		       o.ENT_STATE,
+		       o.CENTER_CODE,
+		       t.ORG_SHORTNAME,
+		       t.CORP_CODE,
+		       t.URL,
+		       t.ORG_ADDRESS,
+		       t.ORG_CMAIL,
+		       t.ORG_CZIP,
+		       t.CORP_PROVINCE,
+		       t.CORP_CITY,
+		       t.CORP_QUALE,
+		       t.CORP_LEVEL,
+		       t.LICENCE_NO,
+		       t.ORG_CNAME,
+		       t.ORG_CFAX,
+		       t.ORG_CPHONE,
+		       (SELECT op.OP_NAME FROM TB_SP_OPERATOR op 
+		         WHERE op.OP_ID = o.CREATE_BY AND op.CENTER_CODE = #equal.centerCode#) 	  AS CREATE_NAME,
+               (SELECT org.ENT_NAME FROM TB_ORGANIZATION org 
+                 WHERE org.ENT_ID = o.PARENT_ID AND org.CENTER_CODE = #equal.centerCode#) AS PARENT_NAME
+		  FROM TB_ORGANIZATION o
+		  LEFT JOIN TB_ORG_INFO t
+		    ON t.ENT_ID = o.ENT_ID
+		   AND t.CENTER_CODE = #equal.centerCode#
+		 WHERE o.ENABLE_FLAG = '1'
+		   AND o.ENT_STATE = '1'
+		   AND o.CENTER_CODE = #equal.centerCode#
+		<include refid="where_param" />
+	     ORDER BY o.CREATE_TIME DESC
+	LIMIT <![CDATA[ #startNum# , #pagesize# ]]>
+	</select>
+	
+</sqlMap>
+

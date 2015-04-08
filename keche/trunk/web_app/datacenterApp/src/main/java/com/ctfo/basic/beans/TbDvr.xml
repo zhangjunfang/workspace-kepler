@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TbDvr">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="TbDvr" type="com.ctfo.basic.beans.TbDvr" />
+	
+	<resultMap id="TbDvr" class="TbDvr">
+		<result column="DVR_ID" property="dvrId" jdbcType="VARCHAR" />
+		<result column="DVR_NO" property="dvrNo" jdbcType="VARCHAR" />
+		<result column="ENT_ID" property="entId" jdbcType="VARCHAR" />
+		<result column="CHANNEL_NUM" property="channelNum" jdbcType="DECIMAL" />
+		<result column="DVRSER_ID" property="dvrserId" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="CREATE_NAME" property="creatName" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+		<result column="REG_STATUS" property="regStatus" jdbcType="DECIMAL" />
+		<result column="MAKER" property="maker" jdbcType="VARCHAR" />
+		<result column="DVRSER_NAME" property="dvrserName" jdbcType="VARCHAR" />
+		<result column="DVR_MAKER_CODE" property="dvrMakerCode" jdbcType="VARCHAR" />
+		<result column="DVRSER_IP" property="dvrSerIp" jdbcType="VARCHAR" />
+		<result column="DVRSER_PORT" property="dvrSerPort" jdbcType="VARCHAR" />
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="DVR_SIMNUM" property="dvrSimNum" jdbcType="VARCHAR" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="table">
+		TB_DVR t
+	</sql>
+
+	<sql id="entId_in_where">
+		<isNotEmpty prepend="AND" property="inStrMap.entIds">
+			t.ENT_ID IN
+			<iterate property="inStrMap.entIds" conjunction="," open="(" close=")">
+				#inStrMap.entIds[]:VARCHAR#
+			</iterate>
+		</isNotEmpty>
+	</sql>
+	<sql id="equal_where">
+		<isNotNull prepend="AND" property="equal.dvrMakerCode">
+			d.DVR_MAKER_CODE = #equal.dvrMakerCode:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.regStatus">
+			t.REG_STATUS = #equal.regStatus:DECIMAL#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.enableFlag">
+			t.ENABLE_FLAG = #equal.enableFlag:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.entId">
+			o.ENT_ID_URL LIKE '%$equal.entId$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.corpProvince">
+			i.CORP_PROVINCE = #equal.corpProvince:VARCHAR#
+		</isNotNull>
+	</sql>
+	<sql id="like_where">
+		<isNotNull prepend="AND" property="like.dvrNo">
+			t.DVR_NO like '%$like.dvrNo$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="like.dvrserIp">
+			d.DVRSER_IP like '%$like.dvrserIp$%'
+		</isNotNull>
+	</sql>
+	<sql id="no_equal_WHERE">
+		<isNotEmpty prepend="AND" property="noId">
+			t.DVR_ID != #noId:VARCHAR#
+		</isNotEmpty>
+	</sql>
+
+	<sql id="where">
+		WHERE 1 = 1
+		<include refid="equal_where" />
+		<include refid="like_where" />
+		<include refid="no_equal_WHERE" />
+		<include refid="entId_in_where" />
+	</sql>
+
+	<sql id="order">
+		<dynamic prepend="ORDER BY">
+			t.CREATE_TIME desc
+		</dynamic>
+	</sql>
+
+	<!-- 3G视频终端列表查询 -->
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter">
+		SELECT COUNT(1)
+		  FROM TB_DVR t
+		  LEFT JOIN TB_DVRSER d 
+		    ON d.DVRSER_ID = t.DVRSER_ID
+		   AND d.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORGANIZATION o
+		    ON o.ENT_ID = t.ENT_ID
+		   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORGANIZATION org
+		    ON org.ENT_ID = o.PARENT_ID  
+		   AND org.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORG_INFO i
+		    ON i.ENT_ID = org.ENT_ID
+		   AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid="where" />
+		   AND t.CENTER_CODE = #equal.centerCode:VARCHAR#
+	</select>
+	<select id="selectPageForParam" resultMap="TbDvr" parameterClass="dynamicSqlParameter">		
+		SELECT t.DVR_ID,
+		       t.DVR_NO,
+		       t.CHANNEL_NUM,
+		       t.ENT_ID,
+		       t.DVRSER_ID,
+		       t.CREATE_BY,
+		       t.UPDATE_BY,
+		       t.ENABLE_FLAG,
+		       t.REG_STATUS,
+		       t.CREATE_TIME,
+		       t.UPDATE_TIME,
+		       t.CENTER_CODE,
+		       (SELECT b.OP_NAME
+		          FROM TB_SP_OPERATOR b
+		         WHERE t.CREATE_BY = b.OP_ID
+		           AND b.CENTER_CODE = #equal.centerCode:VARCHAR#) AS CREATE_NAME,
+		       (SELECT c.OP_NAME 
+		          FROM TB_SP_OPERATOR c 
+		         WHERE t.UPDATE_BY = c.OP_ID
+		           AND c.CENTER_CODE = #equal.centerCode:VARCHAR#) AS UPDATE_NAME,
+		       t.DVR_SIMNUM,
+		       d.DVRSER_NAME,
+		       d.DVR_MAKER_CODE,
+		       (SELECT s.CODE_NAME 
+		          FROM SYS_GENERAL_CODE s
+		         WHERE s.PARENT_GENERAL_CODE = 'SYS_DVR_MAKER_CODE'
+		           AND d.DVR_MAKER_CODE = s.GENERAL_CODE) AS MAKER,
+		       d.DVRSER_IP,
+		       d.DVRSER_PORT,
+		       o.ENT_NAME
+		  FROM TB_DVR t
+		  LEFT JOIN TB_DVRSER d 
+		    ON d.DVRSER_ID = t.DVRSER_ID
+		   AND d.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORGANIZATION o
+		    ON o.ENT_ID = t.ENT_ID
+		   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORGANIZATION org
+		    ON org.ENT_ID = o.PARENT_ID  
+		   AND org.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORG_INFO i
+		    ON i.ENT_ID = org.ENT_ID
+		   AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid="where" />
+		   AND t.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid="order" />
+	LIMIT <![CDATA[ #startNum# , #pagesize# ]]>
+	</select>
+
+</sqlMap>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<system desc="系统参数配置">
+		<property name="listenPort" desc="监听端口">${listenPort}</property>
+	</system>
+	
+	<redis desc="Redis缓存服务客户端配置">
+		<property name="host" desc="Redis服务器IP">${redisHost}</property>
+		<property name="port" desc="Redis服务器端口">${redisPort}</property>
+		<property name="pass" desc="Redis密码">${redisPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="maxIdle" desc="最大空闲连接数">10</property>
+		<property name="maxWait" desc="最大等待时间(毫秒)">3000</property>
+		<property name="timeOut" desc="连接超时时间">3000</property>
+	</redis>
+	
+	<mysql desc="mysql缓存服务客户端配置">
+		<property name="url" desc="mysql连接地址">jdbc:mysql://${mysqlUrl}/CENTER?useUnicode=true&amp;characterEncoding=utf8</property>
+		<property name="username" desc="mysql登录用户名">${mysqlUser}</property>
+		<property name="password" desc="mysql登录密码">${mysqlPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="minIdle" desc="最大空闲连接数">10</property>
+		<property name="initialSize" desc="初始化连接数量">10</property>		
+		<property name="sql_initVehicleCache" desc="初始化车辆缓存SQL">SELECT VID,ENTID,PHONE,PLATE,PLATECOLOR,VINCODE,INNERCODE,TID,TERMINALTYPE,OEMCODE,ENTNAME,TEAMID,TEAMNAME,STAFFID,STAFFNAME,ONLINE FROM VEHICLE</property>
+	</mysql>
+		<hbase desc="HBase客户端配置">
+		<property name="quorum" desc="HBase服务器IP">${hbaseQuorum}</property>
+		<property name="port" desc="HBase服务器端口">${hbasePort}</property>
+	</hbase>
+	
+	<mongo desc="Mongo缓存服务客户端配置">
+		<property name="host" desc="Mongo服务器IP">${mongoHost}</property>
+		<property name="port" desc="Mongo服务器端口">${mongoPort}</property>
+	</mongo>
+	
+	<receive desc="接收数据配置">
+		<property name="connections" desc="连接数">${msgConnections}</property>
+		<property name="host" desc="通讯服务器地址">${msgHost}</property>
+		<property name="port" desc="通讯服务器端口">${msgPort}</property>
+		<property name="user" desc="通讯服务器端口">${msgUser}</property>
+		<property name="pass" desc="通讯服务器端口">${msgPass}</property>
+		<property name="source" desc="消息来源">${msgSource}</property>
+		<property name="destination" desc="消息目的地">${msgDestination}</property>
+	</receive>
+	
+	<storage desc="存储业务线程配置">
+		<property name="trackFileBatchSize" desc="轨迹文件批量提交数">3000</property>
+		<property name="trackFileBatchTime" desc="轨迹文件批量提交时间(单位:毫秒)">3000</property>
+		<property name="alarmFileBatchSize" desc="报警文件数据批量提交数">3000</property>
+		<property name="alarmFileBatchTime" desc="报警文件数据批量提交时间(单位:毫秒)">3000</property>
+		<property name="statusBatchSize" desc="状态批量提交数">3000</property>
+		<property name="statusBatchTime" desc="状态批量提交时间(单位:毫秒)">3000</property>
+		<property name="realTimeBatchSize" desc="实时数据批量提交数">5000</property>
+		<property name="realTimeBatchTime" desc="实时数据批量提交时间(单位:毫秒)">5000</property>
+		<property name="oilBatchSize" desc="油量数据批量提交数">100</property>
+		<property name="oilBatchTime" desc="油量数据批量提交时间(单位:毫秒)">30000</property>
+		<property name="eventBatchSize" desc="驾驶事件数据批量提交数">1000</property>
+		<property name="eventBatchTime" desc="驾驶事件数据批量提交时间(单位:毫秒)">3000</property>
+		<property name="alarmBatchSize" desc="报警数据批量提交数">300</property>
+		<property name="alarmBatchTime" desc="报警数据批量提交时间(单位:毫秒)">3000</property>
+	</storage>
+	
+	<tasks>
+		<task name="GeneralCode" enable="true" desc="码表同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.storage.command.task.GeneralCodeTask</class>
+			<!-- 任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时" -->
+			<interval unit="minute" delay="0" desc="任务间隔">10</interval>
+			<properties desc="自定义配置">
+				<property name="sql_syncGeneral" desc="全量同步查询语句">select t.general_code,t.code_name,t.parent_general_code from SYS_GENERAL_CODE t where t.enable_flag !=0</property>
+				<property name="sql_syncArea" desc="全量同步查询语句">select t.area_code,t.area_name,t.area_level from SYS_AREA_INFO t where t.area_level in (0,1) order by area_code</property>
+			</properties>
+		</task>
+ 		<task name="OrgTreeCacheSync" enable="true" desc="分中心组织树同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.storage.command.task.OrgTreeCacheSyncTask</class>
+			任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时"
+			<interval unit="minute" delay="0" desc="任务间隔">5</interval>
+			<properties desc="自定义配置">
+				<property name="sql_initAllParentId" desc="查询所有分中心父ID语句">SELECT T.ENT_ID,T.CENTER_CODE FROM TB_ORGANIZATION T WHERE T.ENABLE_FLAG != '0' GROUP BY T.ENT_ID ,T.CENTER_CODE</property>
+				<property name="sql_initOrgTree" desc="查询父ID下的子组织ID语句">SELECT T.PARENT_ID,T.ENT_ID ,T.CENTER_CODE FROM TB_ORGANIZATION T WHERE T.PARENT_ID = ? AND T.CENTER_CODE = ? GROUP BY T.ENT_ID ,T.CENTER_CODE</property>
+				<property name="sql_allOrgTree" desc="查询所有父子组织ID语句">SELECT T.PARENT_ID,T.ENT_ID ,T.CENTER_CODE FROM TB_ORGANIZATION T WHERE T.ENABLE_FLAG != '0'</property>
+			</properties>
+		</task>
+		<task name="CenterOrgTreeCacheSync" enable="true" desc="主中心组织树同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.storage.command.task.OrgTreeCacheSyncCenterTask</class>
+			<!-- 任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时" -->
+			<interval unit="minute" delay="0" desc="任务间隔">5</interval>
+			<properties desc="自定义配置">
+				<property name="sql_initAllCenterParentId" desc="查询所有主中心父ID语句">SELECT T.ENT_ID FROM TB_ORGANIZATION_MULTIPLE T WHERE T.ENABLE_FLAG != '0' GROUP BY T.ENT_ID </property>
+				<property name="sql_allCenterOrgTree" desc="查询所有父子组织ID语句">SELECT T.PARENT_ID,T.ENT_ID FROM TB_ORGANIZATION_MULTIPLE T WHERE T.ENABLE_FLAG != '0'</property>
+			</properties>
+		</task>
+		
+		<task name="orgEntIdUrlSyncTask" enable="true" desc="分中心组织ID同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.storage.command.task.OrgEntIdUrlSyncTask</class>
+			<!-- 任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时" -->
+			<interval unit="minute" delay="0" desc="任务间隔">10</interval>
+			<properties desc="自定义配置">
+				<property name="sql_allOrgEntId" desc="查询所有父子组织ID语句">SELECT * FROM TB_ORGANIZATION T</property>
+				<property name="sql_updateEntIdUrl" desc="更新当期id所有父节点id语句">UPDATE TB_ORGANIZATION SET ENT_ID_URL=? WHERE ENT_ID=? AND CENTER_CODE=?</property>
+			</properties>
+		</task>
+		<task name="orgEntIdUrlSyncCenterTask" enable="true" desc="主中心组织ID同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.storage.command.task.OrgEntIdUrlSyncCenterTask</class>
+			<!-- 任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时" -->
+			<interval unit="minute" delay="0" desc="任务间隔">10</interval>
+			<properties desc="自定义配置">
+				<property name="sql_allCenterOrgEntId" desc="查询所有父子组织ID语句">SELECT * FROM TB_ORGANIZATION_MULTIPLE T</property>
+				<property name="sql_updateCenterEntIdUrl" desc="更新当期id所有父节点id语句">UPDATE TB_ORGANIZATION_MULTIPLE SET ENT_ID_URL=? WHERE ENT_ID=?</property>
+			</properties>
+		</task>
+	</tasks>
+	
+</configuration>

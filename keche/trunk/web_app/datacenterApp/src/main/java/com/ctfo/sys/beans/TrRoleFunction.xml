@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TrRoleFunction">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="TrRoleFunction" type="com.ctfo.sys.beans.TrRoleFunction"/>	
+	
+	<resultMap id="TrRoleFunction" class="TrRoleFunction">
+		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+		<result column="FUN_ID" property="funId" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="table" >
+    	TR_ROLE_FUNCTION
+	</sql>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		ROLE_ID, FUN_ID,CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE_FLAG, CENTER_CODE
+	</sql>
+	
+	<insert id="insert" >
+		INSERT INTO TR_ROLE_FUNCTION (
+		<include refid="columns" />
+		) VALUES (
+			#roleId# ,
+			#funId# ,
+			#createBy# ,
+			#createTime# ,
+			#updateBy# ,
+			#updateTime# ,
+			#enableFlag# ,
+			#centerCode#
+		)
+	</insert>
+ 
+	<!-- 删除绑定关系 -->
+	<delete id="deleteTrRoleFun" parameterClass="map">
+		DELETE FROM TR_ROLE_FUNCTION
+		 WHERE ROLE_ID = #roleId:VARCHAR#
+		   AND CENTER_CODE = #centerCode:VARCHAR#
+	</delete>
+	
+</sqlMap>
+

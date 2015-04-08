@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<system desc="系统参数配置">
+		<property name="listenPort" desc="监听端口">${listenPort}</property>
+    </system>
+    	
+	<oracle desc="oracle缓存服务客户端配置">
+		<property name="url" desc="oracle连接地址">${oracleUrl}</property>
+		<property name="username" desc="oracle登录用户名">${oracleUser}</property>
+		<property name="password" desc="oracle登录密码">${oraclePass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="minIdle" desc="最大空闲连接数">10</property>
+		<property name="initialSize" desc="初始化连接数量">10</property>		
+
+		<property name="sql_sql_getTbDvr" desc="获取3G视频终端信息">
+			SELECT * FROM TB_DVR where DVR_ID = ?
+		</property>
+		<property name="sql_sql_getTbDvrser" desc="获取3G视频服务器信息">
+			SELECT * FROM TB_DVRSER where DVRSER_ID = ?
+		</property>
+		<property name="sql_sql_getTbOrgInfo" desc="获取企业组织明细信息">
+			SELECT * FROM TB_ORG_INFO where ENT_ID = ?
+		</property>
+		<property name="sql_sql_getTbOrganization" desc="获取企业组织信息">
+			SELECT * FROM TB_ORGANIZATION where ENT_ID = ?
+		</property>
+		<property name="sql_sql_getTbPredefinedMsg" desc="获取预定义消息信息">
+			SELECT * FROM TB_PREDEFINED_MSG where MSG_ID = ?
+		</property>
+		<property name="sql_sql_getTbProductType" desc="获取车辆类型信息">
+			SELECT * FROM TB_PRODUCT_TYPE where CODE_IDX = ?
+		</property>
+		<property name="sql_sql_getTbSim" desc="获取sim卡信息">
+			SELECT * FROM TB_SIM where SID = ?
+		</property>
+		<property name="sql_sql_getTbSpOperator" desc="获取系统访问用户信息">
+			SELECT * FROM TB_SP_OPERATOR where OP_ID = ?
+		</property>
+		<property name="sql_sql_getTbSpRole" desc="获取角色信息">
+			SELECT * FROM TB_SP_ROLE where ROLE_ID = ?
+		</property>
+		<property name="sql_sql_getTbTerminal" desc="获取终端表信息">
+			SELECT * FROM TB_TERMINAL where TID = ?
+		</property>
+		<property name="sql_sql_getTbTerminalOem" desc="获取终端厂家编码信息">
+			SELECT * FROM TB_TERMINAL_OEM where OEM_CODE = ?
+		</property>
+		<property name="sql_sql_getTbTerminalParam" desc="获取终端参数信息">
+			SELECT * FROM TB_TERMINAL_PARAM where PARAM_ID = ?
+		</property>
+		<property name="sql_sql_getTbTerminalProtocol" desc="获取终端协议信息">
+			SELECT * FROM TB_TERMINAL_PROTOCOL where TPROTOCOL_ID = ?
+		</property>
+		<property name="sql_sql_getVehicle" desc="获取车辆信息">
+			SELECT * FROM TB_VEHICLE where vid = ?
+		</property>
+		<property name="sql_sql_getThTransferHistory" desc="获取转组历史信息">
+			SELECT * FROM TH_TRANSFER_HISTORY where ID = ?
+		</property>
+		<property name="sql_sql_getTrOperatorRole" desc="获取用户角色关系信息">
+			SELECT * FROM TR_OPERATOR_ROLE where AUTO_ID = ?
+		</property>
+		<property name="sql_sql_getTrRoleFunction" desc="获取菜单权限角色关系信息">
+			SELECT * FROM TR_ROLE_FUNCTION where FUN_ID = ?
+		</property>
+		<property name="sql_sql_getTrServiceunit" desc="获取车卡终端关系信息">
+			SELECT * FROM TR_SERVICEUNIT where SUID = ?
+		</property>
+	</oracle>
+	
+	<mq desc = "MQ配置">
+		<property name="url" desc="MQ连接地址">${mqUrl}</property>
+		<property name="mqtopicsName" desc="MQ频道名称">${mqtopicsName}</property>
+	</mq>
+	
+	
+</configuration>

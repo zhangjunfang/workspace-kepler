@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<system desc="系统参数配置">
+		<property name="listenPort" desc="监听端口">${listenPort}</property>
+	</system>
+	
+	<redis desc="Redis缓存服务客户端配置">
+		<property name="host" desc="Redis服务器IP">${redisHost}</property>
+		<property name="port" desc="Redis服务器端口">${redisPort}</property>
+		<property name="pass" desc="Redis密码">${redisPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="maxIdle" desc="最大空闲连接数">10</property>
+		<property name="maxWait" desc="最大等待时间(毫秒)">3000</property>
+		<property name="timeOut" desc="连接超时时间">3000</property>
+	</redis>
+	
+	<mysql desc="mysql缓存服务客户端配置">
+		<property name="url" desc="mysql连接地址">jdbc:mysql://${mysqlUrl}/CENTER?useUnicode=true&amp;characterEncoding=utf8</property>
+		<property name="username" desc="mysql登录用户名">${mysqlUser}</property>
+		<property name="password" desc="mysql登录密码">${mysqlPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="minIdle" desc="最大空闲连接数">10</property>
+		<property name="initialSize" desc="初始化连接数量">10</property>
+		<property name="sql_TbDvr3G" desc="mysql存储语句">
+			INSERT INTO TB_DVR 
+			(CHANNEL_NUM,
+			CREATE_BY,
+			CREATE_TIME,
+			DVR_ID,
+			DVR_NO,
+			DVR_SIMNUM,
+			DVRSER_ID,
+			ENABLE_FLAG,
+			ENT_ID,
+			REG_STATUS,
+			UPDATE_BY,
+			UPDATE_TIME) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbDvrSer" desc="mysql存储语句">
+			INSERT INTO TB_DVRSER 
+			(CHANNEL_NUM,
+			CREATE_BY,
+			CREATE_TIME,
+			DVR_MAKER_CODE,
+			DVRSER_CITY,
+			DVRSER_ID,DVRSER_IP,
+			DVRSER_NAME,
+			DVRSER_PASSWORD,
+			DVRSER_PORT,
+			DVRSER_PROVINCE,
+			DVRSER_USERNAME,
+			ENABLE_FLAG,
+			REG_IP,
+			REG_PORT,
+			UPDATE_BY,
+			UPDATE_TIME) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbOrg" desc="mysql存储语句">
+			INSERT INTO TB_ORGANIZATION 
+			(CENTER_CODE,
+			CREATE_BY,
+			CREATE_TIME,
+			ENABLE_FLAG,
+			ENT_ID,
+			ENT_NAME,
+			ENT_STATE,
+			ENT_TYPE,
+			ISCOMPANY,
+			MEMO,
+			PARENT_ID,
+			SEQ_CODE,
+			UPDATE_BY,
+			UPDATE_TIME) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbOrgInfo" desc="mysql存储语句">
+			INSERT INTO TB_ORG_INFO 
+			(BUSINESS_LICENSE,
+			BUSINESS_SCOPE,
+			CERTIFICATE_OFFICE,
+			CORP_BOSS,
+			CORP_BUSINESSNO,
+			CORP_CITY,
+			CORP_CODE,
+			CORP_COUNTRY,
+			CORP_ECONOMYTYPE,
+			CORP_LEVEL,
+			CORP_PAYSTATE,
+			CORP_PAYTYPE,
+			CORP_PROVINCE,
+			CORP_QUALE,
+			CREATE_UTC,
+			ENT_ID,
+			ISDETEAM,
+			LICENCE_NO,
+			LICENCE_WORD,
+			ORG_ADDRESS,
+			ORG_CFAX,
+			ORG_CMAIL,
+			ORG_CNAME,
+			ORG_CNO,
+			ORG_CPHONE,
+			ORG_CZIP,
+			ORG_LOGO,
+			ORG_MEM,
+			ORG_SHORTNAME,
+			SPECIAL_ID,
+			URL) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbPredefinedMsg" desc="mysql存储语句">
+			INSERT INTO TB_PREDEFINED_MSG 
+			(CREATE_UTC,
+			ENABLE_FLAG,
+			IS_SHARED,
+			MSG_BODY,
+			MSG_ID,
+			MSG_IDX,
+			MSG_TYPE,
+			OP_ID,
+			CENTER_CODE) 
+			VALUES (?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbProductType" desc="mysql存储语句">
+			INSERT INTO TB_PRODUCT_TYPE 
+			(CODE_IDX,
+			ENABLE_FLAG,
+			PROD_CODE,
+			PROD_DESC,
+			PROD_NAME,
+			VBRAND_CODE) 
+			VALUES (?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbSim" desc="mysql存储语句">
+			INSERT INTO TB_SIM
+			(APN,
+			BUSINESS_ID,
+			CITY,
+			COMMADDR,
+			CREATE_BY,
+			CREATE_TIME,
+			DELIVERY_STATUS,
+			ENABLE_FLAG,
+			ENT_ID,
+			EXPIRE_TIME,
+			ICCID_ELECTRON,
+			ICCID_PRINT,
+			IMSI,
+			LAST_PAY_TIME,
+			OPEN_TIME,
+			PASSWORD,
+			PIN,
+			PROVINCE,
+			PUK,
+			REALCOMMADDR,
+			SID,
+			SIM_STATE,
+			SUDESC,
+			SVC_START,
+			SVC_STOP,
+			UPDATE_BY,
+			UPDATE_TIME) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbSpOperator" desc="mysql存储语句">
+			INSERT INTO TB_SP_OPERATOR 
+			(CREATE_BY,
+			CREATE_TIME,
+			ENABLE_FLAG,
+			ENT_ID,
+			IMSI,
+			IS_MEMBER,
+			OP_ADDRESS,
+			OP_AUTHCODE,
+			OP_BIRTH,
+			OP_CITY,
+			OP_COUNTRY,
+			OP_DUTY,
+			OP_EMAIL,
+			OP_ENDUTC,
+			OP_FAX,
+			OP_ID,
+			OP_IDENTITY_ID,
+			OP_LOGINNAME,
+			OP_MEM,
+			OP_MOBILE,
+			OP_NAME,
+			OP_PASS,
+			OP_PHONE,
+			OP_PROVINCE,
+			OP_SEX,
+			OP_STARTUTC,
+			OP_STATUS,
+			OP_SUPER,
+			OP_TYPE,
+			OP_WORKID,
+			OP_ZIP,
+			PHOTO,
+			SKIN_STYLE,
+			UPDATE_BY,
+			UPDATE_TIME,
+			IS_CENTER) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbSpRole" desc="mysql存储语句">
+			INSERT INTO TB_SP_ROLE 
+			(CREATE_BY,
+			CREATE_TIME,
+			ENABLE_FLAG,
+			ENT_ID,
+			ROLE_DESC,
+			ROLE_ID,
+			ROLE_NAME,
+			ROLE_STATUS,
+			ROLE_TYPE,
+			UPDATE_BY,
+			UPDATE_TIME) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbTerminal" desc="mysql存储语句">
+			INSERT INTO TB_TERMINAL 
+			(AUTH_CODE,
+			COMMUNICATE_ID,
+			CONFIG_ID,
+			CREATE_BY,
+			CREATE_TIME,
+			DELIVERY_STATUS,
+			ENABLE_FLAG,
+			ENT_ID,
+			FIRMWARE_VERSION,
+			HARDWARE_VERSION,
+			OEM_CODE,
+			REG_STATUS,
+			TER_ECOST,
+			TER_EDATE,
+			TER_EPERSON,
+			TER_HARDVER,
+			TER_MDATE,
+			TER_MEM,
+			TER_PRICE,
+			TER_SOFTVER,
+			TER_STATE,
+			TER_UTYPE,
+			TID,
+			TMAC,
+			TMODEL_CODE,
+			TPROTOCOL_ID,
+			UPDATE_BY,
+			UPDATE_TIME,
+			VIDEO_ID) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbTerminalOem" desc="mysql存储语句">
+			INSERT INTO TB_TERMINAL_OEM 
+			(ADDRESS,
+			BOSS,
+			CELLPHONE,
+			CONCATE_ADDRESS,
+			CONCATE_PERSON,
+			CREATE_BY,
+			CREATE_TIME,
+			EMAIL,
+			ENABLE_FLAG,
+			ENTERPRISE_CITY,
+			ENTERPRISE_COUNTRY,
+			ENTERPRISE_PROVINCE,
+			FAX,
+			FULL_NAME,
+			OEM_CODE,
+			OEM_DESC,
+			OEM_TYPE,
+			SHORT_NAME,
+			TEL,
+			UPDATE_BY,
+			UPDATE_TIME,
+			WEB_ADDRESS,
+			ZIP_CODE) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbTerminalParam" desc="mysql存储语句">
+			INSERT INTO TB_TERMINAL_PARAM 
+			(CREATE_BY,
+			CREATE_TIME,
+			PARAM_ID,
+			PARAM_TYPE,
+			PARAM_VALUE,
+			PARENT_CODE,
+			SEQ,
+			T_MAC,
+			TID,
+			UPDATE_BY,
+			UPDATE_TIME) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbTerminalProtocol" desc="mysql存储语句">
+			INSERT INTO TB_TERMINAL_PROTOCOL 
+			(CREATE_BY,
+			CREATE_TIME,
+			OEM_CODE,
+			TERMINAL_TYPE_ID,
+			TPROTOCOL_ID,
+			TPROTOCOL_NAME,
+			UPDATE_BY,
+			UPDATE_TIME,
+			VALID_FLAG,
+			VASET_TIME,
+			VASET_USER_ID) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TbVehicle" desc="mysql存储语句">
+			INSERT INTO TB_VEHICLE 
+			(ANNUAL_AUDIT_TIME,
+			ANNUAL_AUDIT_VALIDITY_TIME,
+			AREA_CODE,
+			ATTACHED_TO_TIME,
+			AUDIT_ALARM_DAYS,
+			AUTO_SN,
+			BUY_NO,
+			CERTIFICATE_STATE,
+			CERTIFICATE_TYPE,
+			CITY_ID,
+			COACH_LEVEL,
+			COUNTY,
+			CREATE_BY,
+			CREATE_TIME,
+			CURB_WEIGHT,
+			DELIVERY_STATUS,
+			EBRAND_CODE,
+			EMISSION_STANDARD,
+			EMODEL_CODE,
+			ENABLE_FLAG,
+			ENDTIME,
+			ENGINE_DISPLACEMENT,
+			ENGINE_NO,
+			ENT_ID,
+			FIRST_INSTAL_TIME,
+			INNER_CODE,
+			INSURANCE_STATE,
+			KM100_OILUSE,
+			MAINTENANCE_STATE,
+			MAXIMAL_PEOPLE,
+			OILTYPE_ID,
+			ORIGIN_CODE,
+			OUT_NUMBER,
+			PLATE_COLOR,
+			PROD_CODE,
+			PROG_ID,
+			REAR_AXLE_RATE,
+			REG_STATUS,
+			RELEASE_DATE,
+			REVIEW_STATE,
+			ROAD_TRANSPORT,
+			SALE_PRICE,
+			SERVICE_NO,
+			SIGNTIME,
+			STANDARD_OIL,
+			STANDARD_ROTATE,
+			TOTAL_MASS,
+			TRANSTYPE_CODE,
+			TYRE_R,
+			UPDATE_BY,
+			UPDATE_TIME,
+			VBRAND_CODE,
+			VEHICLE_BUYDATE,
+			VEHICLE_CAP,
+			VEHICLE_COLOR,
+			VEHICLE_MEM,
+			VEHICLE_MENNUM,
+			VEHICLE_NO,
+			VEHICLE_OPERATION_ID,
+			VEHICLE_OPERATION_STATE,
+			VEHICLE_PIC,
+			VEHICLE_PROPERTIES,
+			VEHICLE_REGDATE,
+			VEHICLE_REGISTER_NO_TIME,
+			VEHICLE_STATE,
+			VEHICLE_TON,
+			VEHICLE_TYPE,
+			VH_ACCESS,
+			VID,
+			VIN_CODE,
+			VOLTAGE,
+			VS_REF_ID,
+			VTYPE_ID,
+			WATT,
+			WHEELBASE) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_ThTransferHistory" desc="mysql存储语句">
+			INSERT INTO TH_TRANSFER_HISTORY 
+			(GOAL_ID,
+			ID,
+			OP_ID,
+			OP_TIME,
+			SOURCE_ID,
+			TRANSFER_ID,
+			TRANSFER_TYPE) 
+			VALUES (?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TrOperatorRole" desc="mysql存储语句">
+			INSERT INTO TR_OPERATOR_ROLE 
+			(AUTO_ID,
+			OP_ID,
+			ROLE_ID) 
+			VALUES (?,?,?)
+		</property>
+		
+		<property name="sql_TrRoleFunction" desc="mysql存储语句">
+			INSERT INTO TR_ROLE_FUNCTION 
+			(CREATE_BY,
+			CREATE_TIME,
+			ENABLE_FLAG,
+			FUN_ID,
+			ROLE_ID,
+			UPDATE_BY,
+			UPDATE_TIME) 
+			VALUES (?,?,?,?,?,?,?)
+		</property>
+		
+		<property name="sql_TrServiceunit" desc="mysql存储语句">
+			INSERT INTO TR_SERVICEUNIT 
+			(CREATE_TIME,
+			CREATE_USER,
+			DVR_ID,
+			MODELNAME,
+			REMARK,
+			SID,
+			SUID,
+			TID,
+			UPDATE_TIME,
+			UPDATE_USER,
+			VID) 
+			VALUES (?,?,?,?,?,?,?,?,?,?,?)
+		</property>
+			
+	</mysql>
+	
+	<receive desc="接收数据配置">
+		<property name="connections" desc="连接数">${msgConnections}</property>
+		<property name="host" desc="通讯服务器地址">${msgHost}</property>
+		<property name="port" desc="通讯服务器端口">${msgPort}</property>
+		<property name="user" desc="通讯服务器端口">${msgUser}</property>
+		<property name="pass" desc="通讯服务器端口">${msgPass}</property>
+		<property name="source" desc="消息来源">${msgSource}</property>
+		<property name="destination" desc="消息目的地">${msgDestination}</property>
+	</receive>
+	
+</configuration>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SysAreaInfo">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="SysAreaInfo" type="com.ctfo.sys.beans.SysAreaInfo"/>	
+	
+	<resultMap id="SysAreaInfo" class="SysAreaInfo">
+		<result column="AREA_CODE" property="areaCode" jdbcType="VARCHAR" />
+		<result column="AREA_NAME" property="areaName" jdbcType="VARCHAR" />
+		<result column="SHORT_NAME" property="shortName" jdbcType="VARCHAR" />
+		<result column="LON" property="lon" jdbcType="DECIMAL" />
+		<result column="LAT" property="lat" jdbcType="DECIMAL" />
+		<result column="AREA_LEVEL" property="areaLevel" jdbcType="DECIMAL" />
+		<result column="AREA_FLAG" property="areaFlag" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<sql id="table" >
+    	SYS_AREA_INFO
+	</sql>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		AREA_CODE, AREA_NAME, SHORT_NAME, LON, LAT, AREA_LEVEL, AREA_FLAG
+	</sql>
+	
+	<!-- 查询省市编码 -->
+	<select id="select" resultMap="SysAreaInfo" parameterClass="dynamicSqlParameter">
+		SELECT <include refid="columns" />
+		  FROM <include refid="table" />
+		 WHERE AREA_LEVEL IN (0,1)
+		 ORDER BY AREA_CODE
+	</select>
+	
+</sqlMap>
+

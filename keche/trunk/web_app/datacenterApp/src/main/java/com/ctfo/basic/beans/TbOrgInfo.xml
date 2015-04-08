@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="TbOrgInfo">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="TbOrgInfo" type="com.ctfo.basic.beans.TbOrgInfo"/>
+	<typeAlias alias="map" type="java.util.Map"/>
+  	
+	<resultMap id="TbOrgInfo" class="TbOrgInfo" >
+		<result column="ENT_ID" property="entId" jdbcType="VARCHAR" />
+		<result column="CORP_CODE" property="corpCode" jdbcType="VARCHAR" />
+		<result column="CORP_BUSINESSNO" property="corpBusinessno" jdbcType="VARCHAR" />
+		<result column="SPECIAL_ID" property="specialId" jdbcType="VARCHAR" />
+		<result column="BUSINESS_SCOPE" property="businessScope" jdbcType="VARCHAR" />
+		<result column="CERTIFICATE_OFFICE" property="certificateOffice" jdbcType="VARCHAR" />
+		<result column="LICENCE_NO" property="licenceNo" jdbcType="VARCHAR" />
+		<result column="CORP_QUALE" property="corpQuale" jdbcType="VARCHAR" />
+		<result column="CORP_BOSS" property="corpBoss" jdbcType="DECIMAL" />
+		<result column="CORP_PAYSTATE" property="corpPaystate" jdbcType="DECIMAL" />
+		<result column="CORP_PAYTYPE" property="corpPaytype" jdbcType="DECIMAL" />
+		<result column="CORP_ECONOMYTYPE" property="corpEconomytype" jdbcType="VARCHAR" />
+		<result column="ORG_ADDRESS" property="orgAddress" jdbcType="VARCHAR" />
+		<result column="ORG_CZIP" property="orgCzip" jdbcType="VARCHAR" />
+		<result column="ORG_CFAX" property="orgCfax" jdbcType="VARCHAR" />
+		<result column="URL" property="url" jdbcType="VARCHAR" />
+		<result column="ORG_CMAIL" property="orgCmail" jdbcType="VARCHAR" />
+		<result column="ORG_CNAME" property="orgCname" jdbcType="VARCHAR" />
+		<result column="ORG_CNO" property="orgCno" jdbcType="VARCHAR" />
+		<result column="CREATE_UTC" property="createUtc" jdbcType="DECIMAL" />
+		<result column="ORG_LOGO" property="orgLogo" jdbcType="VARCHAR" />
+		<result column="ORG_MEM" property="orgMem" jdbcType="VARCHAR" />
+		<result column="ORG_CPHONE" property="orgCphone" jdbcType="VARCHAR" />
+		<result column="ORG_SHORTNAME" property="orgShortname" jdbcType="VARCHAR" />
+		<result column="CORP_COUNTRY" property="corpCountry" jdbcType="VARCHAR" />
+		<result column="CORP_PROVINCE" property="corpProvince" jdbcType="VARCHAR" />
+		<result column="CORP_CITY" property="corpCity" jdbcType="VARCHAR" />
+		<result column="LICENCE_WORD" property="licenceWord" jdbcType="VARCHAR" />
+		<result column="ISDETEAM" property="isdeteam" jdbcType="VARCHAR" />
+		<result column="CORP_LEVEL" property="corpLevel" jdbcType="VARCHAR" />
+		<result column="BUSINESS_LICENSE" property="businessLicense" jdbcType="VARCHAR" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+	</resultMap>
+  
+	<sql id="table">
+    	TB_ORG_INFO
+	</sql>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+    	ENT_ID, CORP_CODE, CORP_BUSINESSNO, SPECIAL_ID, BUSINESS_SCOPE, CERTIFICATE_OFFICE, LICENCE_NO, CORP_QUALE, CORP_BOSS, CORP_PAYSTATE,
+    	CORP_PAYTYPE, CORP_ECONOMYTYPE, ORG_ADDRESS, ORG_CZIP, ORG_CFAX, URL, ORG_CMAIL, ORG_CNAME, ORG_CNO, CREATE_UTC, ORG_LOGO, ORG_MEM, 
+    	ORG_CPHONE, ORG_SHORTNAME, CORP_COUNTRY, CORP_PROVINCE, CORP_CITY, LICENCE_WORD, ISDETEAM, CORP_LEVEL, BUSINESS_LICENSE, CENTER_CODE
+	</sql>
+	
+	<insert id="insert" >
+		INSERT INTO TB_ORG_INFO (
+		<include refid="columns" />
+		) VALUES (
+			#entId:VARCHAR#, #corpCode:VARCHAR#, #corpBusinessno:VARCHAR#, #specialId:VARCHAR#,
+      		#businessScope:VARCHAR#, #certificateOffice:VARCHAR#, #licenceNo:VARCHAR#,
+      		#corpQuale:VARCHAR#, #corpBoss:DECIMAL#, #corpPaystate:DECIMAL#, #corpPaytype:DECIMAL#,
+	        #corpEconomytype:VARCHAR#, #orgAddress:VARCHAR#, #orgCzip:VARCHAR#, #orgCfax:VARCHAR#,
+	        #url:VARCHAR#, #orgCmail:VARCHAR#, #orgCname:VARCHAR#, #orgCno:VARCHAR#, #createUtc:DECIMAL#,
+	        #orgLogo:VARCHAR#, #orgMem:VARCHAR#, #orgCphone:VARCHAR#, #orgShortname:VARCHAR#,
+	        #corpCountry:VARCHAR#, #corpProvince:VARCHAR#, #corpCity:VARCHAR#, #licenceWord:VARCHAR#,
+	        #isdeteam:VARCHAR#, #corpLevel:VARCHAR#, #businessLicense:VARCHAR#, #centerCode:VARCHAR#
+		)
+	</insert>
+  
+	<update id="update" parameterClass="TbOrgInfo">
+		UPDATE TB_ORG_INFO 
+		   SET CORP_QUALE = #corpQuale:VARCHAR# ,
+		   	   ORG_SHORTNAME = #orgShortname:VARCHAR# ,
+		   	   ORG_ADDRESS = #orgAddress:VARCHAR# ,
+       		   ORG_CZIP = #orgCzip:VARCHAR# ,
+        	   URL = #url:VARCHAR# ,
+        	   ORG_CMAIL = #orgCmail:VARCHAR# ,
+        	   CORP_PROVINCE = #corpProvince:VARCHAR# ,
+        	   CORP_CITY = #corpCity:VARCHAR# ,
+        	   CORP_LEVEL = #corpLevel:VARCHAR# ,
+        	   ORG_CFAX = #orgCfax:VARCHAR# ,
+        	   ORG_CNAME = #orgCname:VARCHAR# ,
+        	   ORG_CPHONE = #orgCphone:VARCHAR#
+		 WHERE ENT_ID = #entId:VARCHAR#
+		   AND CENTER_CODE = #centerCode:VARCHAR#
+	</update>
+  
+</sqlMap>

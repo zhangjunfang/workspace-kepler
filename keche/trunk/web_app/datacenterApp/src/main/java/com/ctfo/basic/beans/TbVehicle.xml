@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TbVehicle">
+	<typeAlias type="com.ctfo.common.local.obj.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<resultMap id="TbVehicle" class="com.ctfo.basic.beans.TbVehicle">
+		<result column="VID" property="vid" jdbcType="DECIMAL" />
+		<result column="VEHICLE_NO" property="vehicleNo" jdbcType="VARCHAR" />
+		<result column="PLATE_COLOR" property="plateColor" jdbcType="VARCHAR" />
+		<result column="VEHICLE_COLOR" property="vehicleColor" jdbcType="VARCHAR" />
+		<result column="VTYPE_ID" property="vtypeId" jdbcType="VARCHAR" />
+		<result column="VBRAND_CODE" property="vbrandCode" jdbcType="VARCHAR" />
+		<result column="PROD_CODE" property="prodCode" jdbcType="VARCHAR" />
+		<result column="ORIGIN_CODE" property="originCode" jdbcType="VARCHAR" />
+		<result column="INNER_CODE" property="innerCode" jdbcType="VARCHAR" />
+		<result column="OILTYPE_ID" property="oiltypeId" jdbcType="VARCHAR" />
+		<result column="EBRAND_CODE" property="ebrandCode" jdbcType="VARCHAR" />
+		<result column="EMODEL_CODE" property="emodelCode" jdbcType="VARCHAR" />
+		<result column="ENGINE_NO" property="engineNo" jdbcType="VARCHAR" />
+		<result column="VIN_CODE" property="vinCode" jdbcType="VARCHAR" />
+		<result column="AUTO_SN" property="autoSn" jdbcType="VARCHAR" />
+		<result column="BUY_NO" property="buyNo" jdbcType="VARCHAR" />
+		<result column="SERVICE_NO" property="serviceNo" jdbcType="VARCHAR" />
+		<result column="KM100_OILUSE" property="km100Oiluse" jdbcType="DECIMAL" />
+		<result column="VEHICLE_MENNUM" property="vehicleMennum" jdbcType="DECIMAL" />
+		<result column="STANDARD_OIL" property="standardOil" jdbcType="DECIMAL" />
+		<result column="STANDARD_ROTATE" property="standardRotate" jdbcType="DECIMAL" />
+		<result column="VEHICLE_TON" property="vehicleTon" jdbcType="DECIMAL" />
+		<result column="SALE_PRICE" property="salePrice" jdbcType="DECIMAL" />
+		<result column="OUT_NUMBER" property="outNumber" jdbcType="DECIMAL" />
+		<result column="VS_REF_ID" property="vsRefId" jdbcType="DECIMAL" />
+		<result column="TYRE_R" property="tyreR" jdbcType="DECIMAL" />
+		<result column="REAR_AXLE_RATE" property="rearAxleRate" jdbcType="DECIMAL" />
+		<result column="VEHICLE_CAP" property="vehicleCap" jdbcType="DECIMAL" />
+		<result column="VEHICLE_BUYDATE" property="vehicleBuydate" jdbcType="DECIMAL" />
+		<result column="VEHICLE_REGDATE" property="vehicleRegdate" jdbcType="DECIMAL" />
+		<result column="VEHICLE_PIC" property="vehiclePic" jdbcType="VARCHAR" />
+		<result column="VEHICLE_MEM" property="vehicleMem" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+		<result column="ENT_ID" property="entId" jdbcType="VARCHAR" />
+		<result column="VEHICLE_STATE" property="vehicleState" jdbcType="VARCHAR" />
+		<result column="CERTIFICATE_TYPE" property="certificateType" jdbcType="VARCHAR" />
+		<result column="CERTIFICATE_STATE" property="certificateState" jdbcType="VARCHAR" />
+		<result column="ROAD_TRANSPORT" property="roadTransport" jdbcType="VARCHAR" />
+		<result column="REVIEW_STATE" property="reviewState" jdbcType="VARCHAR" />
+		<result column="VEHICLE_TYPE" property="vehicleType" jdbcType="VARCHAR" />
+		<result column="TRANSTYPE_CODE" property="transtypeCode" jdbcType="VARCHAR" />
+		<result column="MAINTENANCE_STATE" property="maintenanceState" jdbcType="VARCHAR" />
+		<result column="VEHICLE_OPERATION_STATE" property="vehicleOperationState" jdbcType="VARCHAR" />
+		<result column="INSURANCE_STATE" property="insuranceState" jdbcType="VARCHAR" />
+		<result column="COACH_LEVEL" property="coachLevel" jdbcType="VARCHAR" />
+		<result column="VOLTAGE" property="voltage" jdbcType="VARCHAR" />
+		<result column="VEHICLE_OPERATION_ID" property="vehicleOperationId" jdbcType="VARCHAR" />
+		<result column="AREA_CODE" property="areaCode" jdbcType="VARCHAR" />
+		<result column="CITY_ID" property="cityId" jdbcType="VARCHAR" />
+		<result column="REG_STATUS" property="regStatus" jdbcType="DECIMAL" />
+		<result column="PROG_ID" property="progId" jdbcType="DECIMAL" />
+		<result column="COUNTY" property="county" jdbcType="VARCHAR" />
+		<result column="FIRST_INSTAL_TIME" property="firstInstalTime" jdbcType="DECIMAL" />
+		<result column="ENGINE_DISPLACEMENT" property="engineDisplacement" jdbcType="DECIMAL" />
+		<result column="WATT" property="watt" jdbcType="DECIMAL" />
+		<result column="WHEELBASE" property="wheelbase" jdbcType="DECIMAL" />
+		<result column="TOTAL_MASS" property="totalMass" jdbcType="DECIMAL" />
+		<result column="CURB_WEIGHT" property="curbWeight" jdbcType="DECIMAL" />
+		<result column="MAXIMAL_PEOPLE" property="maximalPeople" jdbcType="DECIMAL" />
+		<result column="RELEASE_DATE" property="releaseDate" jdbcType="DECIMAL" />
+		<result column="DELIVERY_STATUS" property="deliveryStatus" jdbcType="DECIMAL" />
+		<result column="EMISSION_STANDARD" property="emissionStandard" jdbcType="VARCHAR" />
+		<result column="VEHICLE_PROPERTIES" property="vehicleProperties" jdbcType="VARCHAR" />
+		<result column="ATTACHED_TO_TIME" property="attachedToTime" jdbcType="DECIMAL" />
+		<result column="VEHICLE_REGISTER_NO_TIME" property="vehicleRegisterNoTime" jdbcType="DECIMAL" />
+		<result column="ANNUAL_AUDIT_TIME" property="annualAuditTime" jdbcType="DECIMAL" />
+		<result column="ANNUAL_AUDIT_VALIDITY_TIME" property="annualAuditValidityTime" jdbcType="DECIMAL" />
+		<result column="AUDIT_ALARM_DAYS" property="auditAlarmDays" jdbcType="DECIMAL" />
+		<result column="ENDTIME" property="endtime" jdbcType="DECIMAL" />
+		<result column="SIGNTIME" property="signtime" jdbcType="DECIMAL" />
+		<result column="VH_ACCESS" property="vhAccess" jdbcType="DECIMAL" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+		<result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+		<result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="PARENT_ENT_NAME" property="parentEntName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="table">
+		TB_VEHICLE v
+	</sql>
+	
+	<sql id="where">
+		WHERE 1 = 1
+	</sql>
+	<sql id="equal_where">
+		<isNotNull prepend="AND" property="equal.centerCode">
+			v.CENTER_CODE = #equal.centerCode:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.vehicleOperationState">
+			v.VEHICLE_OPERATION_STATE = #equal.vehicleOperationState:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.enableFlag">
+			v.ENABLE_FLAG = #equal.enableFlag:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.vehicleState">
+			v.VEHICLE_STATE = #equal.vehicleState:DECIMAL#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.entId">
+			o.ENT_ID_URL LIKE '%$equal.entId$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.corpProvince">
+			i.CORP_PROVINCE = #equal.corpProvince:VARCHAR#
+		</isNotNull>
+	</sql>	
+	<sql id="like_where">
+		<isNotNull prepend="AND" property="like.vinCode">
+			v.VIN_CODE like '%$like.vinCode$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="like.vehicleNo">
+			v.VEHICLE_NO like '%$like.vehicleNo$%'
+		</isNotNull>
+	</sql>
+	<sql id="entId_in_where">
+		<isNotEmpty prepend="AND" property="inStrMap.entIds">
+		<![CDATA[ org.ENT_ID in ]]>
+			<iterate property="inStrMap.entIds" conjunction="," open="(" close=")">
+				#inStrMap.entIds[]:VARCHAR#
+			</iterate>
+		</isNotEmpty>
+	</sql>
+		
+	<sql id="where_param">
+		<include refid="where" />
+		<include refid="equal_where" />
+		<include refid="like_where" />
+		<include refid="entId_in_where"/>
+	</sql>
+
+	<!-- 查询车辆列表 -->
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter">
+	    SELECT COUNT(1) 
+		  FROM TB_VEHICLE v
+		  LEFT JOIN TB_ORGANIZATION o 
+		    ON o.ENT_ID = v.ENT_ID
+		   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORGANIZATION org
+		    ON org.ENT_ID = o.PARENT_ID  
+		   AND org.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORG_INFO i
+		    ON i.ENT_ID = org.ENT_ID
+		   AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid="where_param" />
+	</select>
+	<select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbVehicle">
+		SELECT v.*,
+			   (SELECT b.OP_NAME FROM TB_SP_OPERATOR b 
+			     WHERE v.CREATE_BY = b.OP_ID 
+			       AND b.CENTER_CODE = #equal.centerCode:VARCHAR#)   AS CREATE_NAME,
+			   (SELECT c.OP_NAME FROM TB_SP_OPERATOR c 
+			     WHERE v.UPDATE_BY = c.OP_ID
+			       AND c.CENTER_CODE = #equal.centerCode:VARCHAR#)   AS UPDATE_NAME,
+			   o.ENT_NAME AS ENT_NAME,
+       		   org.ENT_NAME AS PARENT_ENT_NAME
+		  FROM TB_VEHICLE v
+		  LEFT JOIN TB_ORGANIZATION o 
+		    ON o.ENT_ID = v.ENT_ID
+		   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORGANIZATION org
+		    ON org.ENT_ID = o.PARENT_ID  
+		   AND org.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORG_INFO i
+		    ON i.ENT_ID = org.ENT_ID
+		   AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid="where_param" />
+		 ORDER BY v.VID DESC
+	LIMIT <![CDATA[ #startNum# , #pagesize# ]]>
+	</select>
+
+</sqlMap>

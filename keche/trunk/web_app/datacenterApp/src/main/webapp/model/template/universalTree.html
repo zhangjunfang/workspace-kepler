@@ -1,0 +1,65 @@
+<!--左侧-->
+<div class=" h lineS_r">
+    <!--切换-->
+    <div class=" pt10 h30 lh30 lineS69c_b pl10 pr10 tc overh treeTabs">
+        <!-- <span class="fl hand w50 tit1 h30 radius3-t lineS69c_l lineS69c_r lineS69c_t cFFF">组 织</span>
+        <span class="fl hand w50 tit2 h30 radius3-t lineS_l lineS_r lineS_t">车 队</span>
+        <span class="fl hand w50 tit2 h30 radius3-t lineS_l lineS_r lineS_t">车 辆</span>
+        <span class="fl hand w50 tit2 h30 radius3-t lineS_l lineS_r lineS_t">线 路</span> -->
+    </div>
+    <div class="cl h treeContentList">
+     <!--模块3-->
+        <div class="w treeContainer">
+            <!--模块3搜索-->
+            <div class=" h25 overh pl10 pr10 pt5 pb5 lineS_b vehicleTreeForm">
+                <!--p class="h30 lh30 fl w150">
+                    <select class=" w50b" name="keywordType">
+                        <option value="vehicleNo">车牌号</option>
+                        <option value="simNum">sim卡号</option>
+                        <option value="tmac">终端号</option>
+                    </select>
+                    <input class="w50b" type="text" name="keyword" value="关键词" title="查询多个时请空格隔开"/>
+                </p>
+                <span class="btnB1 cFFF fr queryButton">查询</span-->
+                <div class="cl lh30 h30">
+                    <!-- <label class="fl checkbox lh25 h30 w100">
+                        <input class="w20" type="checkbox" />
+                        只显示在线
+                    </label> -->
+                    <div class=" w20 fr">
+                        <span class="ico135 hand refreshButton" title="刷新">刷新</span>
+                        <!--span class="ico136 hand clearButton" title="清空已选节点">清空已选节点</span-->
+                    </div>
+                </div>
+            </div>
+            <!--模块1tree-->
+            <div class="w overa treeContentWrap">
+                <div class="vehicleTree treeContent"></div>
+            </div>
+
+        </div>
+        <!--模块1-->
+        <div class="none treeContainer">
+            <!--模块1搜索-->
+            <div class="h25 overh pl10 pr10 pt5 pb5 lineS_b orgTreeForm">
+                <div class="cl lh30 h30">
+                    <label class="fl checkbox lh25 h30 w100">
+	                    <select disabled="disabled" class=" " name="keywordType">
+	                        <option value="vehicleNo">运输企业</option>
+	                    </select>
+                    </label>
+                    <div class=" w20 fr">
+                        <span class="ico135 hand refreshButton" title="刷新">刷新</span>
+                        <!--span class="ico136 hand clearButton" title="清空已选节点">清空已选节点</span-->
+                    </div>
+                </div>
+            </div>
+            <!--模块1tree-->
+            <div class="w overa treeContentWrap">
+                <div class="orgTree treeContent"></div>
+            </div>
+
+        </div>
+    </div>
+
+</div>

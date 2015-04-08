@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" 
+	  "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+<sqlMapConfig>
+	<settings useStatementNamespaces="true" lazyLoadingEnabled="true" enhancementEnabled="true"/>
+	
+	<!-- 系统功能 -->
+	<!-- 用户 -->
+	<sqlMap resource="com/ctfo/sys/beans/TbSpOperator.xml"/>
+	
+	<!-- 角色 -->
+	<sqlMap resource="com/ctfo/sys/beans/TbSpRole.xml"/>
+	
+	<!-- 权限 -->
+	<sqlMap resource="com/ctfo/sys/beans/SysFunction.xml"/>
+	
+	<!-- 角色权限关系 -->
+	<sqlMap resource="com/ctfo/sys/beans/TrRoleFunction.xml"/>
+	
+	<!-- 用户角色关系 -->
+	<sqlMap resource="com/ctfo/sys/beans/TrOperatorRole.xml"/>
+
+	<!-- 字典码表 -->
+	<sqlMap resource="com/ctfo/sys/beans/SysGeneralCode.xml"/>
+	
+	<!-- 全国行政区划 -->
+	<sqlMap resource="com/ctfo/sys/beans/SysAreaInfo.xml"/>
+	
+	<!-- 组织树 -->
+	<sqlMap resource="com/ctfo/sys/beans/StructureOrgTree.xml"/>
+	
+	<!-- 支撑 -->
+	<!-- 组织 -->
+	<sqlMap resource="com/ctfo/basic/beans/TbOrganization.xml"/>
+	
+	<!-- 主中心组织 -->
+	<sqlMap resource="com/ctfo/basic/beans/TbOrganizationMultiple.xml"/>
+	
+	<!-- 组织基本信息 -->
+	<sqlMap resource="com/ctfo/basic/beans/TbOrgInfo.xml"/>
+	
+	<!-- 3g视频服务器 -->
+	<sqlMap resource="com/ctfo/basic/beans/TbDvrser.xml"/>
+	
+	<!-- 3g视频终端 -->
+	<sqlMap resource="com/ctfo/basic/beans/TbDvr.xml"/>
+	
+	<!-- sim卡 -->
+	<sqlMap resource="com/ctfo/basic/beans/TbSim.xml"/>
+
+	<!-- 终端 -->
+	<sqlMap resource="com/ctfo/basic/beans/TbTerminal.xml"/>
+	
+	<!-- 终端厂家 -->
+	<sqlMap resource="com/ctfo/basic/beans/TbTerminalOem.xml"/>
+	
+	<!-- 终端协议名称-->
+	<sqlMap resource="com/ctfo/basic/beans/TbTerminalProtocol.xml"/>
+	
+	<!-- 车辆 -->
+	<sqlMap resource="com/ctfo/basic/beans/TbVehicle.xml"/>
+	
+	<!-- 分中心 -->
+	<sqlMap resource="com/ctfo/basic/beans/TbBranchCenter.xml"/>
+	
+	<!-- 车辆注册 -->
+	<sqlMap resource="com/ctfo/basic/beans/TrServiceunit.xml"/>
+	
+	<!-- 车厂考核指标 -->
+	<!-- 统计指标按月统计 -->
+	<sqlMap resource="com/ctfo/stat/beans/TlRepFacActDetailMonth.xml"/>
+	
+</sqlMapConfig>

@@ -1,0 +1,88 @@
+<!--企业资讯管理 corpMessageManage -->
+<!--sidebox-->
+    <div class=" sidebox leftTreeContainer"></div>
+    <div class=" main ml_240">
+        <div class=" h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>{{=C.CUR_POSITION}}：</font>
+            <font>{{=C.menus.systemManage}}</font> -> 
+            <font>{{=C.menus.corpMessageManage}}</font>
+        </div>
+        <div class="m3 corpMMContent">
+              <div class=" lineS69c h50 p5 tit5 overh corpMMTerm">
+                    <form name='searchCorpMMForm'>
+              	      <!--组织  -->
+              	  	  <input type="hidden" name="requestParam.equal.entId"  value="" />
+              	  	  <input type="hidden" name="requestParam.equal.sysRequest"  value="" />
+              	  	   <div class=" h25 lh25">
+                          {{=C.CORP_NAME}}：<font class=" c00F mr3 orgLabel">总部</font>
+             	 	   </div>
+	                  <div class="h30 lh30 fl w140">
+	                        {{=C.customColumns.corpMessageManage.infoTheme}}：<input name="requestParam.like.infoTheme" class="w70" type="text" value="" />
+	                  </div>
+	                  <div class="h30 lh30 fl w150">
+	                    	{{=C.customColumns.corpMessageManage.infoType}}：
+	                      <select class="w70" name="requestParam.equal.infoType">
+	                          <option value="">请选择</option>
+						      <option value="002">企业公告</option>
+						      <option value="005">企业资讯</option>
+	                      </select>
+	                  </div>
+	                  <span class=" btn1 cFFF fl ml10 searchGrid">{{=C.QUERY}}</span>
+	                  <span class=" btn9 fr ml10 addCorpMsgInfo">{{=C.ADD}}</span>
+                  </form>
+              </div>
+              <div class=" lineS mt3 bcFFF corpMMGrid"></div>
+        </div>
+        <!--新增 html片段-->
+        <div class="p10 corpMMContent none">
+            <h1 class=" h40 lh30 mb20">资讯信息<font class=" pl10">（<font class=" cF00">*</font>号为必填项）</font></h1>
+            <form name='modifyCorpMMForm' >
+                <div class=" bcF2 lineD lh30 h30 pl10">
+                    <span class="fl">{{=C.CORP_NAME}}：</span><label class="fl lh30 orgLabel">总部</label>
+                    <input name='vehicleEntId' type='hidden' forTree='orgId' />
+                </div>
+                <div class="modifyFormCondition">
+                    <input name="tbPublishInfo.entId" type="hidden" value=""/>
+                    <input name="tbPublishInfo.infoId" type="hidden"/>
+        	        <input name="tbPublishInfo.createBy" type="hidden" value="" /> 
+                    <div class="w pt20">
+                    	<ul class="h25 p10 baseInfo">
+                            <li class="h25 lh25 fl w30b mb10">
+                                <div class="fl w110 tr"><font class="fb cF00">* </font>{{=C.customColumns.corpMessageManage.infoTheme}}：</div>
+                                <span class="pr fl">
+                                <input name="tbPublishInfo.infoTheme" type="text" class=" mt2 abs_left {required:true,specialchars: true,maxlength:20}"  value=""/>
+                                </span>
+                            </li>
+                            <li class="h25 lh25 fl w30b mb10">
+                                <div class="fl w110 tr"><font class="fb cF00">* </font>{{=C.customColumns.corpMessageManage.infoType}}：</div>
+                                <span class="pr fl">
+                                  <select  name="tbPublishInfo.infoType"  class=" mt2 abs_left {required: true}">
+                                      <option value="">请选择</option>
+                							        <option value="002">企业公告</option>
+                							        <option value="005">企业资讯</option>
+                                  </select>
+                                </span>
+                            </li>
+                            <li class="h25 lh25 fl w30b mb10">
+                                <div class="h30 lh30 fl w80"><font class="fb cF00">* </font>{{=C.customColumns.corpMessageManage.enddate}}:</div>
+			                    <div class="h30 lh30 fl w180">
+			                       <input type="text" name="tbPublishInfo.enddate" class="fl"/>
+			                    </div>
+                            </li>
+                         </ul>
+                         <div class=" p10">
+                         	<div class=" lineS">
+                            	 <div class="h25 lh25 tit2 tc">{{=C.customColumns.corpMessageManage.infoContent}}</div>
+                            	 <textarea id="infoContent" class="infoContent" style="height:300px; width:100%"></textarea>
+                         	</div>
+                         </div>
+                    </div>
+                </div>
+                <div class=" w mt15 fl lineD_t pt10">
+                    <span name='saveForm' class="btn4 fl ml10" >{{=C.SAVE}}</span>
+                    <span name='cancelSave' class="btn4 fl ml10">{{=C.CANCEL}}</span>
+                </div>
+            </form>
+        </div>
+    </div>

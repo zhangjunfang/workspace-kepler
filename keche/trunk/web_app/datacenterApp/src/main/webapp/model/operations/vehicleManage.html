@@ -1,0 +1,78 @@
+<!--车辆管理-->
+<!--sidebox-->  
+    <div class="sidebox TreeContainer">
+    </div>
+<!--main--> 
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>{{=C.CUR_POSITION}}：</font>
+            <font>{{=C.menus.systemManage}}</font> -> 
+            <font>{{=C.menus.vehicleManage}}</font>
+        </div>
+        <div class="m3 userManageContent">
+            <!--内容-->
+            <!--查询条件-->
+            <div class=" lineS69c p5 tit5 overh userManageTerm">
+                
+                <form name="userManageform">                     
+                    <input  name="entIds"  type="hidden" value="" />                     
+                    <input  name="entId"  type="hidden" value="" />                  
+                    <input  name="centerCode"  type="hidden" value="" />                  
+                    <input  name="corpProvince"  type="hidden" value="" />
+                    <div class="none">
+                        <input name="nouse"  type="text" value="" />
+                    </div>
+                    
+                   <div class=" h25 fl lh25 pr10">{{=C.CORP_NAME}}：<font class=" c00F parentCorpDesc"> </font></div>
+                     
+                   <div class="h30 lh30  fl w280 queryOrgBox">
+	                <span class="pr fl w280 h25 mr10">
+	                  <input name="entName" type="text" class="mt2 abs_left fl w280" readonly=true />
+	                   <span class="abs_right  ico111 hand queryOrgButton " title="查询组织"></span>
+	                </span>
+                   </div>
+                    <div class="cb"></div>
+                    <div class=" h30 lh25">
+                    
+                        <div class=" fl w180">
+                        	<div class="fl w70 tl">车辆VIN：</div>
+                        	<input type="text" name="vinCode"/>
+                        </div>
+                        <div class=" fl w180">
+                        	<div class="fl w70 tr">车牌号：</div>
+                            <input type="text" name="vehicleNo"/>
+                        </div>
+                        <div class=" fl w180">
+                        	<div class="fl w70 tr">车辆状态：</div>
+                            <select name="vehicleState">
+                            	<option value="">请选择</option>
+                            	<option value="1">空闲</option>
+                            	<option value="2">绑定</option>
+                            	<option value="3">已吊销</option>
+                            </select>
+                        </div>
+                        <div class="fl w180">
+                        	<div class="fl w70 tr">运营状态：</div>
+                            <select name="vehicleOperationState"></select>
+                        </div>
+                        <div class="fl w180">
+                        	<div class="fl w70 tr">数据状态：</div>
+                            <SELECT name="enableFlag"> 
+                                <OPTION value="">全部</OPTION> 
+                                <OPTION selected value=1>正常</OPTION> 
+                                <OPTION value=0>已删除</OPTION>
+                            </SELECT>
+                        </div>
+                        <span class="btn1 cFFF fl ml10 searchGrid"> 查 询 </span>
+                    </div>
+                </form>
+            </div>
+            <!--数据显示-->
+            <div class=" lineS mt3 bcFFF gridListBox">
+                <div class="userManageBox"></div>
+            </div>    
+        </div>
+
+    </div>

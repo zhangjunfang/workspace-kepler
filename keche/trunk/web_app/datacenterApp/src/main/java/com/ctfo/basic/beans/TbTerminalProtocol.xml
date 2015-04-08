@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TbTerminalProtocol">
+	<typeAlias type="com.ctfo.common.local.obj.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<resultMap id="TbTerminalProtocol" class="com.ctfo.basic.beans.TbTerminalProtocol">
+		<result column="TPROTOCOL_ID" property="tprotocolId" jdbcType="VARCHAR" />
+		<result column="TPROTOCOL_NAME" property="tprotocolName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter">
+		SELECT COUNT(1)
+	    FROM TB_TERMINAL_PROTOCOL
+	</select>
+	<select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbTerminalProtocol">		
+	SELECT TPROTOCOL_ID,
+		   TPROTOCOL_NAME
+		   FROM
+		   TB_TERMINAL_PROTOCOL
+		ORDER BY TPROTOCOL_ID ASC
+	</select> 
+</sqlMap>	

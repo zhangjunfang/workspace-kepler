@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<!-- 分中心组织 -->
+	<bean id="tbOrganizationDAO" class="com.ctfo.basic.dao.impl.TbOrganizationDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbOrganization"></property>
+	</bean> 
+	
+	<bean id="tbOrgInfoDAO" class="com.ctfo.basic.dao.impl.TbOrgInfoDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbOrgInfo"></property>
+	</bean> 
+	
+	<bean id="tbOrganizationService" class="com.ctfo.basic.service.impl.TbOrganizationServiceImpl" scope="prototype" parent="baseService">
+		<property name="tbOrganizationDAO" ref="tbOrganizationDAO"></property>
+		<property name="tbOrgInfoDAO" ref="tbOrgInfoDAO"></property>
+	</bean>
+	
+	<!-- 主中心组织 -->
+	<bean id="tbOrganizationMultipleDAO" class="com.ctfo.basic.dao.impl.TbOrganizationMultipleDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbOrganizationMultiple"></property>
+	</bean> 
+	
+	<bean id="tbOrganizationMultipleService" class="com.ctfo.basic.service.impl.TbOrganizationMultipleServiceImpl" scope="prototype" parent="baseService">
+		<property name="tbOrganizationMultipleDAO" ref="tbOrganizationMultipleDAO"></property>
+	</bean>
+	
+	<!-- 3G视频服务器 -->
+	<bean id="tbDvrserDAO" class="com.ctfo.basic.dao.impl.TbDvrserDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbDvrser"></property>
+	</bean> 
+	
+	<bean id="tbDvrserService" class="com.ctfo.basic.service.impl.TbDvrserServiceImpl" scope="prototype">
+		<property name="tbDvrserDAO" ref="tbDvrserDAO"></property>
+	</bean>
+	
+	<!-- 3G视频终端 -->
+	<bean id="tbDvrDAO" class="com.ctfo.basic.dao.impl.TbDvrDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbDvr"></property>
+	</bean> 
+	
+	<bean id="tbDvrService" class="com.ctfo.basic.service.impl.TbDvrServiceImpl" scope="prototype" parent="baseService">
+		<property name="tbDvrDAO" ref="tbDvrDAO"></property>
+	</bean>
+	
+	<!-- sim卡管理 -->
+	<bean id="tbSimDAO" class="com.ctfo.basic.dao.impl.TbSimDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbSim"></property>
+	</bean> 
+	
+	<bean id="tbSimService" class="com.ctfo.basic.service.impl.TbSimServiceImpl" scope="prototype" parent="baseService">
+		<property name="tbSimDAO" ref="tbSimDAO"></property>
+	</bean>
+	
+	<!-- 终端管理 -->
+	<bean id="tbTerminalDAO" class="com.ctfo.basic.dao.impl.TbTerminalDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbTerminal"></property>
+	</bean> 
+	
+	<bean id="tbTerminalOemDAO" class="com.ctfo.basic.dao.impl.TbTerminalOemDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbTerminalOem"></property>
+	</bean>
+	
+	<bean id="tbTerminalProtocolDAO" class="com.ctfo.basic.dao.impl.TbTerminalProtocolDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbTerminalProtocol"></property>
+	</bean>
+	
+	<bean id="tbTerminalService" class="com.ctfo.basic.service.impl.TbTerminalServiceImpl" scope="prototype" parent="baseService">
+		<property name="tbTerminalDAO" ref="tbTerminalDAO"></property>
+		<property name="tbTerminalOemDAO" ref="tbTerminalOemDAO"></property>
+		<property name="tbTerminalProtocolDAO" ref="tbTerminalProtocolDAO"></property>
+	</bean>
+	
+	<!-- 车辆管理 -->
+	<bean id="tbVehicleDAO" class="com.ctfo.basic.dao.impl.TbVehicleDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbVehicle"></property>
+	</bean> 
+	
+	<bean id="tbVehicleService" class="com.ctfo.basic.service.impl.TbVehicleServiceImpl" scope="prototype" parent="baseService">
+		<property name="tbVehicleDAO" ref="tbVehicleDAO"></property>
+	</bean>
+	
+	<!-- 分中心管理 -->
+	<bean id="tbBranchCenterDAO" class="com.ctfo.basic.dao.impl.TbBranchCenterDAOImpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TbBranchCenter"></property>
+	</bean> 	
+	
+	<bean id="tbBranchCenterService" class="com.ctfo.basic.service.impl.TbBranchCenterServiceImpl" scope="prototype">
+		<property name="tbBranchCenterDAO" ref="tbBranchCenterDAO"></property>
+	</bean>
+	
+	<!-- 车辆注册信息管理 -->
+	<bean id="trServiceunitDAO" class="com.ctfo.basic.dao.impl.TrServiceunitDAOimpl" scope="prototype" parent="centerGenericIbatisAbstract">
+		<property name="sqlmapNamespace" value="TrServiceunit"></property>
+	</bean>
+	
+	<bean id="trServiceunitService" class="com.ctfo.basic.service.impl.TrServiceunitServiceImpl" scope="prototype" parent="baseService">
+		<property name="trServiceunitDAO" ref="trServiceunitDAO"></property>
+	</bean>
+</beans>

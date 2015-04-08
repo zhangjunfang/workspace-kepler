@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- <property name="user_home" value="d:/test/logs/media" /> -->
+	<!--appender 输出目的地 console 控制台 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender"
+		target="System.out">
+		<encoder charset="UTF-8">
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} [%logger{5}] [%le]- %m%n</pattern>
+		</encoder>
+		<target>System.out</target>
+	</appender>
+	<!--appender 输出目的地 file 文件   -->
+	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>d:/test/logs/media/media.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>d:/test/logs/media/media-%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+		</rollingPolicy>
+		<!-- 编码格式解析器 -->
+		<encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss} [%logger{5}]-[%le] - %m%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="INFO">
+		<appender-ref ref="file" /> 
+		<appender-ref ref="console" />
+	</root>
+
+</configuration>

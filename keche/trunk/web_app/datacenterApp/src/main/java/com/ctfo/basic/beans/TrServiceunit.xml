@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="TrServiceunit">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="TrServiceunit" type="com.ctfo.basic.beans.TrServiceunit"/>	
+	
+	<resultMap id="TrServiceunit" class="TrServiceunit">
+		<result column="SUID" property="suid" jdbcType="VARCHAR" />
+		<result column="TID" property="tid" jdbcType="VARCHAR" />
+		<result column="SID" property="sid" jdbcType="VARCHAR" />
+		<result column="VID" property="vid" jdbcType="VARCHAR" />
+		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="MODELNAME" property="modelname" jdbcType="VARCHAR" />
+		<result column="DVR_ID" property="dvrId" jdbcType="VARCHAR" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 车辆注册列表 -->
+	<resultMap id="TrServiceunitPage" class="TrServiceunit" extends="TrServiceunit">
+		<result column="CREATE_USERNAME" property="createUsername" jdbcType="VARCHAR" />
+		<result column="UPDATE_USERNAME" property="updateUsername" jdbcType="VARCHAR" />
+		<result column="VEHICLE_NO" property="vehicleNo" jdbcType="VARCHAR" />
+		<result column="VIN_CODE" property="vinCode" jdbcType="VARCHAR" />
+		<result column="INNER_CODE" property="innerCode" jdbcType="VARCHAR" />
+		<result column="VEHICLE_STATE" property="vehicleState" jdbcType="VARCHAR" />
+		<result column="VEHICLE_OPERATION_STATE" property="vehicleOperationState" jdbcType="VARCHAR" />
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="TMAC" property="tmac" jdbcType="VARCHAR" />
+		<result column="OEM_CODE" property="oemCode" jdbcType="VARCHAR" />
+		<result column="CODE_NAME" property="codeName" jdbcType="VARCHAR" />
+		<result column="COMMADDR" property="commaddr" jdbcType="VARCHAR" />
+		<result column="DVR_NO" property="dvrNo" jdbcType="VARCHAR" />
+		<result column="AUTO_SN" property="autoSn" jdbcType="VARCHAR" />
+	</resultMap>
+	
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="TrServiceunit.columns">
+		SUID, TID, SID, VID, CREATE_USER, CREATE_TIME, UPDATE_USER, UPDATE_TIME, REMARK, MODELNAME, DVR_ID, CENTER_CODE 
+	</sql>
+	
+	<sql id="equal_where">
+		<isNotEmpty prepend="AND" property="equal.vehicleState">
+			tv.VEHICLE_STATE = #equal.vehicleState:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="equal.centerCode">
+			tst.CENTER_CODE = #equal.centerCode:VARCHAR#
+		</isNotEmpty>
+		<isNotNull prepend="AND" property="equal.createTimeStart">
+			<![CDATA[  tst.CREATE_TIME >= #equal.createTimeStart:DECIMAL# ]]>
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.createTimeEnd">
+			<![CDATA[  tst.CREATE_TIME <= #equal.createTimeEnd:DECIMAL# ]]>
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.entId">
+			o.ENT_ID_URL LIKE '%$equal.entId$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.corpProvince">
+			i.CORP_PROVINCE = #equal.corpProvince:VARCHAR#
+		</isNotNull>
+	</sql>
+	<sql id="like_where">
+		<isNotEmpty prepend="AND" property="like.vehicleNo">
+			tv.VEHICLE_NO like '%$like.vehicleNo$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="like.vidCode">
+			tv.VIN_CODE like '%$like.vidCode$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="like.innerCode">
+			tv.INNER_CODE like '%$like.innerCode$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="like.tmac">
+			ttl.TMAC like '%$like.tmac$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="like.commaddr">
+			tsm.COMMADDR like '%$like.commaddr$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="like.dvrNo">
+			dvr.DVR_NO like '%$like.dvrNo$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="like.createUsername">
+			tsoc.OP_NAME like '%$like.createUsername$%'
+		</isNotEmpty>
+	</sql>
+	<sql id="entId_in_where">
+		<isNotEmpty prepend="AND" property="inStrMap.entIds">
+		<![CDATA[ org.ENT_ID in ]]>
+			<iterate property="inStrMap.entIds" conjunction="," open="(" close=")">
+				#inStrMap.entIds[]:VARCHAR#
+			</iterate>
+		</isNotEmpty>
+	</sql>
+	<sql id="where_param" >
+		<include refid="equal_where" />
+		<include refid="like_where" />
+		<include refid="entId_in_where" />
+	</sql>
+	
+	<insert id="TrServiceunit.insert" >
+		INSERT INTO tr_serviceunit (
+		<include refid="columns" />
+		) VALUES (
+			#suid# ,
+			#tid# ,
+			#sid# ,
+			#vid# ,
+			#createUser# ,
+			#createTime# ,
+			#updateUser# ,
+			#updateTime# ,
+			#remark# ,
+			#modelname# ,
+			#dvrId# ,
+			#centerCode# 
+		)
+	</insert>
+
+	<!-- 车辆注册列表 -->
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter" >
+		SELECT COUNT(1)
+		  FROM TR_SERVICEUNIT tst
+		  LEFT JOIN TB_SP_OPERATOR tsoc ON tst.CREATE_USER = tsoc.OP_ID
+		  								AND tsoc.ENABLE_FLAG = '1'
+		  								AND tsoc.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_SP_OPERATOR tsou on tst.UPDATE_USER = tsou.OP_ID
+		  								AND tsou.ENABLE_FLAG = '1'
+		  								AND tsou.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_VEHICLE tv 
+		    ON tv.VID = tst.VID 
+           AND tv.ENABLE_FLAG = '1'
+		   AND tv.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_DVR dvr 
+		    ON tst.DVR_ID = dvr.DVR_ID
+		   AND dvr.ENABLE_FLAG = '1'
+		   AND dvr.CENTER_CODE = #equal.centerCode:VARCHAR#					
+		  LEFT JOIN TB_TERMINAL ttl
+		    ON tst.TID = ttl.TID
+		   AND ttl.ENABLE_FLAG = '1'
+		   AND ttl.CENTER_CODE = #equal.centerCode:VARCHAR#	
+		  LEFT JOIN TB_SIM tsm
+		    ON tst.SID = tsm.SID
+		   AND tsm.ENABLE_FLAG = '1'
+		   AND tsm.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN (SELECT sgce.GENERAL_CODE, sgce.CODE_NAME
+		  			   FROM SYS_GENERAL_CODE sgce
+		  			  WHERE sgce.PARENT_GENERAL_CODE = 'SYS_TERMINAL_MODEL'
+                        AND sgce.ENABLE_FLAG = '1') sgc
+            ON ttl.TMODEL_CODE = sgc.GENERAL_CODE
+          JOIN TB_ORGANIZATION o 
+		    ON o.ENT_ID = tv.ENT_ID
+		   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  JOIN TB_ORGANIZATION org
+		    ON org.ENT_ID = o.PARENT_ID  
+		   AND org.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORG_INFO i
+		    ON i.ENT_ID = org.ENT_ID
+		   AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+         WHERE 1 = 1
+		<include refid="where_param" />
+	</select>
+	<select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TrServiceunitPage">
+		SELECT tst.*, 
+		       tsoc.OP_NAME 			  	AS CREATE_USERNAME,
+			   tsou.OP_NAME 				AS UPDATE_USERNAME,
+		       tv.VEHICLE_NO 				AS VEHICLE_NO,
+		       tv.VIN_CODE 					AS VIN_CODE,
+		       tv.INNER_CODE 				AS INNER_CODE,
+		       tv.AUTO_SN					AS AUTO_SN,
+		       tv.VEHICLE_STATE				AS VEHICLE_STATE,
+		       tv.VEHICLE_OPERATION_STATE 	AS VEHICLE_OPERATION_STATE,
+		       org.ENT_NAME 				AS ENT_NAME,
+		       ttl.TMAC 					AS TMAC,
+		       ttl.OEM_CODE 				AS OEM_CODE,
+		       sgc.CODE_NAME 				AS CODE_NAME,
+		       tsm.COMMADDR 				AS COMMADDR,
+		       dvr.DVR_NO 					AS DVR_NO
+		  FROM TR_SERVICEUNIT tst
+		  LEFT JOIN TB_SP_OPERATOR tsoc ON tst.CREATE_USER = tsoc.OP_ID
+		  								AND tsoc.ENABLE_FLAG = '1'
+		  								AND tsoc.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_SP_OPERATOR tsou on tst.UPDATE_USER = tsou.OP_ID
+		  								AND tsou.ENABLE_FLAG = '1'
+		  								AND tsou.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_VEHICLE tv 
+		    ON tv.VID = tst.VID 
+           AND tv.ENABLE_FLAG = '1'
+		   AND tv.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_DVR dvr 
+		    ON tst.DVR_ID = dvr.DVR_ID
+		   AND dvr.ENABLE_FLAG = '1'
+		   AND dvr.CENTER_CODE = #equal.centerCode:VARCHAR#					
+		  LEFT JOIN TB_TERMINAL ttl
+		    ON tst.TID = ttl.TID
+		   AND ttl.ENABLE_FLAG = '1'
+		   AND ttl.CENTER_CODE = #equal.centerCode:VARCHAR#	
+		  LEFT JOIN TB_SIM tsm
+		    ON tst.SID = tsm.SID
+		   AND tsm.ENABLE_FLAG = '1'
+		   AND tsm.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN (SELECT sgce.GENERAL_CODE, sgce.CODE_NAME
+		  			   FROM SYS_GENERAL_CODE sgce
+		  			  WHERE sgce.PARENT_GENERAL_CODE = 'SYS_TERMINAL_MODEL'
+                        AND sgce.ENABLE_FLAG = '1') sgc
+            ON ttl.TMODEL_CODE = sgc.GENERAL_CODE
+          JOIN TB_ORGANIZATION o 
+		    ON o.ENT_ID = tv.ENT_ID
+		   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  JOIN TB_ORGANIZATION org
+		    ON org.ENT_ID = o.PARENT_ID  
+		   AND org.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORG_INFO i
+		    ON i.ENT_ID = org.ENT_ID
+		   AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		 WHERE 1 = 1
+		<include refid="where_param" />
+	LIMIT <![CDATA[ #startNum# , #pagesize# ]]>
+	</select>
+	
+</sqlMap>
+

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<system desc="系统参数配置">
+		<property name="listenPort" desc="监听端口">${listenPort}</property>
+    </system>
+    	
+	<oracle desc="oracle缓存服务客户端配置">
+		<property name="url" desc="oracle连接地址">${oracleUrl}</property>
+		<property name="username" desc="oracle登录用户名">${oracleUser}</property>
+		<property name="password" desc="oracle登录密码">${oraclePass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="minIdle" desc="最大空闲连接数">10</property>
+		<property name="initialSize" desc="初始化连接数量">10</property>		
+
+		<property name="sql_TbDvr3G" desc="3G视频终端信息表">
+			SELECT * FROM TB_DVR
+		</property>	
+		<property name="sql_TbDvrSer" desc="3G视频服务器信息表">
+			SELECT * FROM TB_DVRSER
+		</property>
+		<property name="sql_TbOrg" desc="企业组织表">
+			SELECT * FROM TB_ORGANIZATION
+		</property>
+		<property name="sql_TbOrgInfo" desc="企业组织明细表">
+			SELECT * FROM TB_ORG_INFO
+		</property>
+		<property name="sql_TbPredefinedMsg" desc="预定义消息表">
+			SELECT * FROM TB_PREDEFINED_MSG
+		</property>
+		<property name="sql_TbProductType" desc="车辆类型表">
+			SELECT * FROM SYS_PRODUCT_TYPE
+		</property>
+		<property name="sql_TbSim" desc="sim卡信息表">
+			SELECT * FROM TB_SIM
+		</property>
+		<property name="sql_TbSpOperator" desc="系统访问用户表">
+			SELECT * FROM SYS_SP_OPERATOR
+		</property>
+		<property name="sql_TbSpRole" desc="角色表">
+			SELECT * FROM SYS_SP_ROLE
+		</property>
+		<property name="sql_TbTerminal" desc="终端表信息表">
+			SELECT * FROM TB_TERMINAL
+		</property>
+		<property name="sql_TbTerminalOem" desc="终端厂家编码表">
+			SELECT * FROM SYS_TERMINAL_OEM
+		</property>
+		<property name="sql_TbTerminalParam" desc="终端参数信息表">
+			SELECT * FROM TB_TERMINAL_PARAM
+		</property>
+		<property name="sql_TbTerminalProtocol" desc="终端协议信息表">
+			SELECT * FROM TB_TERMINAL_PROTOCOL
+		</property>
+		<property name="sql_TbVehicle" desc="车辆信息表">
+			SELECT * FROM TB_VEHICLE
+		</property>
+		<property name="sql_ThTransferHistory" desc="转组历史表">
+			SELECT * FROM TH_TRANSFER_HISTORY
+		</property>
+		
+		<property name="sql_TrOperatorRole" desc="用户角色关系表">
+			SELECT * FROM TR_OPERATOR_ROLE
+		</property>
+		<property name="sql_TrRoleFunction" desc="菜单权限角色关系表">
+			SELECT * FROM TR_ROLE_FUNCTION
+		</property>
+		<property name="sql_TrServiceunit" desc="车卡终端关系表">
+			SELECT * FROM TR_SERVICEUNIT
+		</property>		
+	</oracle>
+	
+	<mq desc = "MQ配置">
+		<property name="url" desc="MQ连接地址">${mqUrl}</property>
+		<property name="mqName" desc="MQ名称">${mqName}</property>
+	</mq>
+	
+	<receive desc="接收数据配置">
+		<property name="connections" desc="连接数">${msgConnections}</property>
+		<property name="host" desc="通讯服务器地址">${msgHost}</property>
+		<property name="port" desc="通讯服务器端口">${msgPort}</property>
+		<property name="user" desc="通讯服务器端口">${msgUser}</property>
+		<property name="pass" desc="通讯服务器端口">${msgPass}</property>
+		<property name="group" desc="组名">${msgGroup}</property>
+		<property name="loginType" desc="登录类型">${loginType}</property>
+	</receive>
+	
+</configuration>

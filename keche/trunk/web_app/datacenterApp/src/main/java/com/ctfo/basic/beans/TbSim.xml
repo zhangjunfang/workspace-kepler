@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TbSim">
+	<typeAlias type="com.ctfo.common.local.obj.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<typeAlias alias="TbSim" type="com.ctfo.basic.beans.TbSim"/>
+	
+	<resultMap id="TbSim" class="TbSim">
+		<result column="SID" property="sid" jdbcType="VARCHAR" />
+		<result column="ENT_ID" property="entId" jdbcType="VARCHAR" />
+		<result column="COMMADDR" property="commaddr" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+		<result column="ICCID_ELECTRON" property="iccidElectron" jdbcType="VARCHAR" />
+		<result column="BUSINESS_ID" property="businessId" jdbcType="VARCHAR" />
+		<result column="SVC_START" property="svcStart" jdbcType="DECIMAL" />
+		<result column="SVC_STOP" property="svcStop" jdbcType="DECIMAL" />
+		<result column="SUDESC" property="sudesc" jdbcType="VARCHAR" />
+		<result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+		<result column="SIM_STATE" property="simState" jdbcType="VARCHAR" />
+		<result column="ICCID_PRINT" property="iccidPrint" jdbcType="VARCHAR" />
+		<result column="IMSI" property="imsi" jdbcType="VARCHAR" />
+		<result column="APN" property="apn" jdbcType="VARCHAR" />
+		<result column="PIN" property="pin" jdbcType="VARCHAR" />
+		<result column="PUK" property="puk" jdbcType="VARCHAR" />
+		<result column="CITY" property="city" jdbcType="VARCHAR" />
+		<result column="DELIVERY_STATUS" property="deliveryStatus" jdbcType="VARCHAR" />
+		<result column="REALCOMMADDR" property="realCommaddr" jdbcType="VARCHAR" />
+		<result column="OPEN_TIME" property="openTime" jdbcType="DECIMAL" />
+		<result column="EXPIRE_TIME" property="expireTime" jdbcType="DECIMAL" />
+		<result column="LAST_PAY_TIME" property="lastPayTime" jdbcType="DECIMAL" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- SIM卡列表MAP -->
+	<resultMap id="TbSimPage" class="TbSim" extends="TbSim">
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+		<result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+		<result column="PARENT_ENT_NAME" property="parentEntName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="table">
+		TB_SIM t
+	</sql>
+	
+	<sql id="where">
+		WHERE 1=1
+	</sql>
+	<sql id="entId_in_where">
+		<isNotEmpty prepend="AND" property="inStrMap.entIds">
+			org.ENT_ID IN
+			<iterate property="inStrMap.entIds" conjunction="," open="(" close=")">
+				#inStrMap.entIds[]:VARCHAR#
+			</iterate>
+		</isNotEmpty>
+	</sql>
+	<sql id="equal_where">
+		<isNotEmpty prepend="AND" property="equal.centerCode">
+			t.CENTER_CODE = #equal.centerCode:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="equal.businessId">
+			t.BUSINESS_ID = #equal.businessId:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="equal.enableFlag">
+			t.ENABLE_FLAG = #equal.enableFlag:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="equal.simState">
+			t.SIM_STATE = #equal.simState:VARCHAR#
+		</isNotEmpty>
+		<isNotNull prepend="AND" property="equal.entId">
+			o.ENT_ID_URL LIKE '%$equal.entId$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.corpProvince">
+			i.CORP_PROVINCE = #equal.corpProvince:VARCHAR#
+		</isNotNull>
+	</sql>
+	<sql id="like_where">
+		<isNotNull prepend="AND" property="like.commaddr">
+			t.COMMADDR like '%$like.commaddr$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="like.iccidElectron">
+			t.ICCID_ELECTRON like '%$like.iccidElectron$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="like.iccidPrint">
+			t.ICCID_PRINT like '%$like.iccidPrint$%'
+		</isNotNull>
+	</sql>
+	<sql id="where_param">
+		<include refid="where" />
+		<include refid="equal_where" />
+		<include refid="like_where" />
+		<include refid="entId_in_where" />
+	</sql>
+	
+	<!-- SIM卡列表 -->
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter">
+		SELECT COUNT(1) 
+		  FROM TB_SIM t
+		  LEFT JOIN TB_ORGANIZATION o 
+		    ON o.ENT_ID = t.ENT_ID
+		   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORGANIZATION org
+		    ON org.ENT_ID = o.PARENT_ID  
+		   AND org.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORG_INFO i
+		    ON i.ENT_ID = org.ENT_ID
+		   AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid="where_param" />
+	</select>
+	<select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbSimPage">
+		SELECT t.*,
+			   (SELECT b.OP_NAME
+		          FROM TB_SP_OPERATOR b
+				 WHERE t.CREATE_BY = b.OP_ID
+				   AND b.CENTER_CODE = #equal.centerCode:VARCHAR#) AS CREATE_NAME,
+			   (SELECT c.OP_NAME 
+			      FROM TB_SP_OPERATOR c 
+			     WHERE t.UPDATE_BY = c.OP_ID
+			       AND c.CENTER_CODE = #equal.centerCode:VARCHAR#) AS UPDATE_NAME,
+			   o.ENT_NAME AS ENT_NAME,
+       		   org.ENT_NAME AS PARENT_ENT_NAME
+		  FROM TB_SIM t
+		  LEFT JOIN TB_ORGANIZATION o 
+		    ON o.ENT_ID = t.ENT_ID
+		   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORGANIZATION org
+		    ON org.ENT_ID = o.PARENT_ID  
+		   AND org.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORG_INFO i
+		    ON i.ENT_ID = org.ENT_ID
+		   AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid ="where_param" />
+		 ORDER BY t.SID DESC 
+	LIMIT <![CDATA[ #startNum#, #pagesize# ]]>
+	</select>
+
+</sqlMap>

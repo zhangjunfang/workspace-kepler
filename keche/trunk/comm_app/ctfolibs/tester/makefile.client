@@ -1,0 +1,17 @@
+############################################################
+## makefile of libunisql.a
+############################################################
+.SUFFIXES: .cpp
+
+SOURCES  = cli3.c
+PROGRAM  = client
+CLIB     = 
+
+SPECIAL_MACRO_FLAGS = -DRELEASE
+SPECIAL_CCFLAGS   = 
+SPECIAL_INCL_PATH = 
+SPECIAL_LIB_PATH  = 
+
+SPECIAL_LIBS = -lctfobase
+
+include ${CTFOLIBS_HOME}/makefile.include

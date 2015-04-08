@@ -1,0 +1,93 @@
+SYS_INCL_PATH = -I/usr/include
+INCL_PATH = \
+        -I${CTFOLIBS_HOME}/include/utils \
+        -I${CTFOLIBS_HOME}/include/log \
+		-I${CTFOLIBS_HOME}/include/socket_ex \
+        -I${CTFOLIBS_HOME}/include/std \
+        -I${CTFOLIBS_HOME}/include/thread \
+        -I${CTFOLIBS_HOME}/include/base \
+        -I${CTFOLIBS_HOME}/include/http \
+        -I${CTFOLIBS_HOME}/include/tinyxml \
+        -I${CTFOLIBS_HOME}/include/fqueue \
+        ${SYS_INCL_PATH} \
+        ${SPECIAL_INCL_PATH} \
+        -I.
+
+SYS_LIB_PATH  = -L/usr/local/lib
+        
+LIB_PATH = -L$(CTFOLIBS_HOME)/lib -L$(MTRANS_PRJ_HOME)/libs/lib ${SPECIAL_LIB_PATH} ${SYS_LIB_PATH}
+
+SYS_LIBS =  -ldl -lpthread
+
+LIBS = ${SPECIAL_LIBS} ${SYS_LIBS} 
+
+MACRO_FLAGS = ${SPECIAL_MACRO_FLAGS} -D_USE_MACRO  -D_CSERVER_DEBUG_ -D_DEBUG -D_USE_SECOND -D_USE_SINGLE -D_GPS_STAT
+
+CCC=g++
+
+CCFLAGS  = -g -Wall -c -fPIC -ggdb3 -Wno-deprecated ${MACRO_FLAGS} ${INCL_PATH} ${SPECIAL_CCFLAGS} 
+            
+LFLAGS = -shared -Wl,-soname,$(SONAME)
+
+# Platform-specific overrides
+uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
+ifeq ($(uname_S),Darwin)
+  SYS_LIBS+=-liconv
+  MACRO_FLAGS +=-D_MAC_OS -D_UNIX
+  LFLAGS = -shared -Wl,-install_name,$(DYLIB_MINOR_NAME)
+endif
+
+LFLIBS = $(LIB_PATH) $(LIBS)
+            
+CPPFLAGS = -g ${LIB_PATH} ${SPECIAL_CCFLAGS} 
+
+CPPLIBS  = ${LIBS}
+
+AR       = ar
+ARFLAGS  = -ruv
+RANLIB	 = ranlib
+
+INSTALL_BIN_PATH= ${MTRANS_PRJ_HOME}/bin
+TARGET_PATH= ./
+
+OBJECTS=${SOURCES:%.cpp=%.o}
+
+all: ${CLIB} ${PROGRAM} ${SONAME}
+
+${CLIB}: ${OBJECTS}
+	@if [ ! -d ${TARGET_PATH} ]; then mkdir -p ${TARGET_PATH}; fi
+	$(AR) ${ARFLAGS} $@ $(OBJECTS)
+	$(RANLIB) $@
+	
+${SONAME} : ${OBJECTS}
+	@if [ ! -d ${TARGET_PATH} ]; then mkdir -p ${TARGET_PATH}; fi
+	$(CCC) $(LFLAGS) -o $(SONAME) $(OBJECTS) $(LFLIBS)
+	
+${PROGRAM}: ${OBJECTS}
+	@if [ ! -d ${TARGET_PATH} ]; then mkdir -p ${TARGET_PATH}; fi
+	$(CCC) -o $@ ${CPPFLAGS} $(OBJECTS) $(CPPLIBS)
+
+.cpp.o:
+	$(CCC) $(CCFLAGS) -o $@ -c $< 
+
+install:
+	@if [ "x${SONAME}" != "x" ]; then echo ${SONAME} ; rm -f "${MTRANS_PRJ_HOME}/libs/lib/${SONAME}"; cp -r ${SONAME} ${MTRANS_PRJ_HOME}/libs/lib; fi	
+	@if [ "x${LNNAME}" != "x" ]; then cd "${MTRANS_PRJ_HOME}/libs/lib"; rm -rf ${LNNAME}; ln -s ${SONAME} ${LNNAME}; fi
+	@if [ "x${PROGRAM}" != "x" ]; then mkdir -p ${INSTALL_BIN_PATH}; cp $(PROGRAM) $(INSTALL_BIN_PATH); fi
+	
+setup:
+	@if [ "x${PROGRAM}" != "x" ]; then cp $(PROGRAM) /usr/local/lbs/bin/; fi
+clean:
+	rm -rf ${OBJECTS} ${CLIB} ${PROGRAM} ${SONAME}
+	rm -rf ir.out
+	rm -rf core.* 
+	rm -rf *.o nohup.out
+	@if [ "x${SONAME}" != "x" ]; then rm -rf *.so* ; rm -rf ${MTRANS_PRJ_HOME}/libs/lib/${SONAME}; fi 
+	@if [ "x${PROGRAM}" != "x" ]; then rm -rf ${MTRANS_PRJ_HOME}/lbs/log/${PROGRAM}.*; fi
+	
+log:	
+	@rm -f core.* nohup.out valg.log.*
+	@rm -f ${MTRANS_PRJ_HOME}/lbs/log/${PROGRAM}.*
+	
+	
+

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+<sqlMap namespace="SysFunction">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="SysFunction" type="com.ctfo.sys.beans.SysFunction"/>
+	<typeAlias alias="map" type="java.util.Map"/>
+  	
+	<resultMap id="SysFunction" class="SysFunction" >
+		<result column="FUN_ID" property="funId" jdbcType="VARCHAR" />
+		<result column="FUN_NAME" property="funName" jdbcType="VARCHAR"/>
+		<result column="FUN_ENAME" property="funEname" jdbcType="VARCHAR" />
+		<result column="FUN_URI" property="funUri" jdbcType="VARCHAR" />
+		<result column="FUN_IMG" property="funImg" jdbcType="VARCHAR" />
+		<result column="FUN_PARENT_ID" property="funParentId" jdbcType="VARCHAR" />
+		<result column="FUN_CBS" property="funCbs" jdbcType="VARCHAR" />
+		<result column="FUN_LEVEL" property="funLevel" jdbcType="DECIMAL" />
+		<result column="FUN_IDX" property="funIdx" jdbcType="VARCHAR" />
+		<result column="FUN_FLAG" property="funFlag" jdbcType="DECIMAL" />
+		<result column="FUN_RUN" property="funRun" jdbcType="DECIMAL" />
+		<result column="MEM" property="mem" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="DECIMAL" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="DECIMAL" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+	</resultMap>
+  
+	<resultMap id="SysFunctionCheck" class="SysFunction" extends="SysFunction">
+		<result column="ISCHECKED" property="isChecked" jdbcType="VARCHAR" />
+	</resultMap>
+  
+	<sql id="table">
+    	SYS_FUNCTION
+	</sql>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+    	FUN_ID, FUN_NAME, FUN_ENAME, FUN_URI, FUN_IMG, FUN_PARENT_ID, FUN_CBS, FUN_LEVEL, FUN_IDX, FUN_FLAG,
+    	FUN_RUN, MEM, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME, ENABLE_FLAG
+	</sql>
+	
+	<!-- 初始化权限树 -->
+	<select id="initFunTree" resultMap="SysFunction" parameterClass="map">
+		SELECT <include refid="columns" />
+		FROM <include refid="table" />
+		 WHERE 1 = 1
+		<isEqual property="treeType" compareValue="1">
+		   AND FUN_CBS != 7
+		</isEqual>
+		<isEqual property="treeType" compareValue="2">
+		   AND FUN_CBS = 7
+		</isEqual>
+	</select>
+  
+	<!-- 查看角色已分配的权限树 -->
+	<select id="selectByRoleId" parameterClass="map" resultMap="SysFunction">
+  	 	SELECT f.*
+  	 	  FROM SYS_FUNCTION f, TR_ROLE_FUNCTION rf, TB_SP_ROLE r
+	 	 WHERE f.FUN_ID = rf.FUN_ID
+	       AND r.ROLE_ID = rf.ROLE_ID 	
+	       AND rf.ROLE_ID = #roleId#
+	       AND rf.CENTER_CODE = #centerCode#
+	       AND r.CENTER_CODE = #centerCode#
+	</select>
+  
+	<!-- 角色编辑时，初始化权限树同时选中已关联的 -->
+	<select id="selectFunTreeRoleEdit" parameterClass="map" resultMap="SysFunctionCheck">
+		SELECT IF( ISNULL(tt.ROLE_ID) = 1, '', 'true' ) ischecked, sf.*
+	      FROM SYS_FUNCTION sf
+	      LEFT JOIN (SELECT *
+		               FROM TR_ROLE_FUNCTION trf
+		     		  WHERE trf.ROLE_ID = #roleId#
+		     		    AND trf.CENTER_CODE = #centerCode# ) tt 
+		    ON sf.FUN_ID = tt.FUN_ID
+		 WHERE 1 = 1
+		<isEqual property="treeType" compareValue="1">
+		   AND FUN_CBS != 7
+		</isEqual>
+		<isEqual property="treeType" compareValue="2">
+		   AND FUN_CBS = 7
+		</isEqual>
+	</select>
+  
+	<!-- 查询用户登录后的权限集合 -->
+	<select id="selectFunListByOpId" parameterClass="map" resultClass="String">
+		SELECT f.FUN_ID
+	      FROM TR_OPERATOR_ROLE pr, TR_ROLE_FUNCTION rf, SYS_FUNCTION f
+	     WHERE pr.OP_ID = #opId#
+	       AND pr.ROLE_ID = rf.ROLE_ID
+	       AND rf.FUN_ID = f.FUN_ID
+	       AND pr.CENTER_CODE = '10'
+	       AND rf.CENTER_CODE = '10'
+	</select>
+  
+</sqlMap>

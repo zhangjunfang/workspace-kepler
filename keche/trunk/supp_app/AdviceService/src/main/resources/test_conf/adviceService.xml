@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<system desc="系统参数配置">
+		<property name="listenPort" desc="监听端口">${listenPort}</property>
+    </system>
+    	
+	<oracle desc="oracle缓存服务客户端配置">
+		<property name="url" desc="oracle连接地址">${oracleUrl}</property>
+		<property name="username" desc="oracle登录用户名">${oracleUser}</property>
+		<property name="password" desc="oracle登录密码">${oraclePass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="minIdle" desc="最大空闲连接数">10</property>
+		<property name="initialSize" desc="初始化连接数量">10</property>		
+
+		<property name="sql_sql_getVehicleByPhone" desc="通过手机号获取车辆信息">
+			SELECT * FROM TB_VEHICLE
+		</property>	
+		
+	</oracle>
+	
+	<mq desc = "MQ配置">
+		<property name="url" desc="MQ连接地址">${mqUrl}</property>
+		<property name="mqtopicsName" desc="MQ频道名称">${mqtopicsName}</property>
+	</mq>
+	
+	
+</configuration>

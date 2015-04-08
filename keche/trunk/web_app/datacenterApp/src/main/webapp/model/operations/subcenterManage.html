@@ -1,0 +1,73 @@
+<!--系统用户管理 userManage.html-->
+<!--main--> 
+    <div class="main">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>{{=C.CUR_POSITION}}：</font>
+            <font>{{=C.menus.vehicleOpenAccount}}</font> -> 
+            <font>{{=C.menus.subcenterManage}}</font>
+        </div>
+        <div class="m3 userManageContent">
+            <!--内容-->
+            <!--查询条件-->
+            <div class=" lineS69c p5 tit5 overh userManageTerm">
+                
+                <form name="userManageform">                     
+                    <input  name="entIds"  type="hidden" value="" />
+                    <div class="none">
+                        <input name="nouse"  type="text" value="" />
+                    </div>
+                    <div class=" h25 lh25 none">{{=C.CORP_NAME}}：<font class=" c00F parentCorpDesc"> 总公司 </font></div>
+                    <div class="h30 lh30 fl w180">
+                        分中心名称：<input type="text" name="centerName"/>
+                    </div>
+                    <span class="btn1 cFFF fl ml10 searchGrid"> 查 询 </span>
+                </form>
+                <span class="btn9 fr ml10 userManageAddBtn"> 添 加 </span>
+            </div>
+            <!--数据显示-->
+            <div class=" lineS mt3 bcFFF gridListBox">
+                <div class="userManageBox"></div>
+            </div>    
+        </div>
+
+
+        <!--新增HTML片断-->
+        <div class="p10 userManageContent none">
+
+            
+            <h1 class=" h40 lh30 mb20">分中心信息</h1>
+            <div class=" bcF2 lineD lh30 h30 pl10">
+                    带<font class=" cF00">*</font>号为必填项
+            </div>
+            <div class="w pt20">
+            <form name="pushUserManage">
+                <div class="w pt20">
+                    <ul class="modifyFormConditionTable">
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>编码：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.centerCode" type="text" class="mt2 abs_left {required:true,specialchars: true,noChinese:true}"  value="">
+                            </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>名称：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.centerName" type="text" class="mt2 abs_left {required:true,specialchars:true,maxlength:10}"  value="">
+                        </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class=" w mt15 fl lineD_t pt10">
+                    <span name='saveForm' class="btn4 fl" >保存</span>
+                    <span name='cancelSave' class="btn4 fl ml10">取消</span>
+                </div>
+            </form>
+            </div>
+        </div>
+
+
+    </div>

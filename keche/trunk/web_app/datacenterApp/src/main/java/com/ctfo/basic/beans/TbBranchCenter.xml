@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TbBranchCenter">
+	<typeAlias type="com.ctfo.common.local.obj.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<typeAlias alias="TbBranchCenter" type="com.ctfo.basic.beans.TbBranchCenter"/>	
+	
+	<resultMap id="TbBranchCenter" class="com.ctfo.basic.beans.TbBranchCenter">	
+		<result column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+		<result column="CENTER_NAME" property="centerName" jdbcType="VARCHAR" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="table">
+		TB_BRANCH_CENTER
+	</sql>
+	
+	<sql id="columns">
+		ID ,CENTER_CODE, CENTER_NAME, ENABLE_FLAG
+	</sql>
+	
+	<sql id="where">
+		WHERE 1 = 1
+	</sql>
+	<sql id="like_where">
+		<isNotEmpty prepend="AND" property="like.centerName">
+             CENTER_NAME like '%$like.centerName$%'
+		</isNotEmpty>
+	</sql>
+	<sql id="where_param" >
+		<include refid="where" />
+		<include refid="like_where" />
+	</sql>
+	
+	<!-- 新添分中心 -->
+	<insert id="insert"  parameterClass="TbBranchCenter">
+		INSERT INTO TB_BRANCH_CENTER (
+		<include refid="columns" />)
+		 VALUES (
+			#id# ,
+			#centerCode# ,
+			#centerName# ,
+			#enableFlag#
+		)
+	</insert>
+	
+	<!-- 删除(逻辑) -->
+	<update id="updateDelete" parameterClass="TbBranchCenter">
+		UPDATE <include refid="table" />
+	 	   SET ENABLE_FLAG = '0' 	   	   
+	  	 WHERE ID = #id#
+	</update>
+	
+	<!-- 分中心列表查询 -->	
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter">
+		SELECT COUNT(1)
+	      FROM TB_BRANCH_CENTER
+		<include refid="where_param" />
+	</select>
+	<select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbBranchCenter">		
+		SELECT ID,
+		   	   CENTER_CODE,
+		   	   CENTER_NAME,
+		   	   ENABLE_FLAG
+		  FROM TB_BRANCH_CENTER
+		<include refid="where_param" />
+		 ORDER BY ID ASC
+	</select> 
+</sqlMap>	

@@ -1,0 +1,16 @@
+<!-- 框架,菜单模板 -->
+  <ul class="{{=it.l === 0 ? 'nav' : 'subnav'}}">
+    {{ for (var i = 0, l = it.c.length; i < l; i++) { var item = it.c[i]; if (item) { }}
+
+        {{ if(it.c[i].l === 1) { }}
+          <li class="{{='li_' + item.l + '_' + i}}" url="{{=item.url}}" mid="{{=item.mid}}" auth="{{=item.auth || '' }}" isframe="{{=item.isFrame || 0}}">
+            <div class="firstLevelNav {{=item.icon}}">{{=item.name}}</div>
+          </li>
+        {{ } else { }}
+          <ol url="{{=item.url}}" mid="{{=item.mid}}" auth="{{=item.auth || '' }}" isframe="{{=item.isFrame || 0}}">
+            <span class="{{=item.icon}}"></span>{{=item.name}}
+          </ol>
+        {{ } }}
+      {{ } }}
+    {{ } }}
+  </ul>

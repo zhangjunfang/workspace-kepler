@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TlRepFacActDetailMonth">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="TlRepFacActDetailMonth" type="com.ctfo.stat.beans.TlRepFacActDetailMonth"/>	
+	
+	<resultMap id="tlRepFacActDetailMonth" class="TlRepFacActDetailMonth" >
+		<result column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="STATISTICS_MONTH" property="statisticsMonth" jdbcType="DECIMAL" />
+		<result column="PROVINCE_ID" property="provinceId" jdbcType="VARCHAR" />
+		<result column="PROVINCE_NAME" property="provinceName" jdbcType="VARCHAR" />
+		<result column="CITY_ID" property="cityId" jdbcType="VARCHAR" />
+		<result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="ENT_ID" property="entId" jdbcType="VARCHAR" />
+		<result column="ENT_CODE" property="entCode" jdbcType="VARCHAR" />
+		<result column="OPENING_TIME" property="openingTime" jdbcType="DECIMAL" />
+		<result column="VH_NUM" property="vhNum" jdbcType="DECIMAL" />
+		<result column="VH_ONLINE_NUM" property="vhOnlineNum" jdbcType="DECIMAL" />
+		<result column="LOGIN_NUM" property="loginNum" jdbcType="DECIMAL" />
+		<result column="SIGN_VH_NUM" property="signVhNum" jdbcType="DECIMAL" />
+		<result column="EXPIRE_VH_NUM" property="expireVhNum" jdbcType="DECIMAL" />
+	</resultMap>
+	
+	<!-- 平台接入车辆数 -->
+	<select id="querySumJoinNetVhMonth" resultClass="java.util.HashMap" parameterClass="dynamicSqlParameter">
+		select t.net_vh_num as net_vh_num
+		  from TL_REP_FAC_ACT_NET_VH_NUM t
+		 where t.statistics_date = #equal.endDate:DECIMAL# + 12 * 60 * 60 * 1000
+	</select>
+	
+	<!-- 统计活跃度指标汇总:企业活跃度，车辆活跃度，活跃度，续约率 -->
+	<select id="querySumActivityDegreeMonth" resultClass="java.util.HashMap" parameterClass="dynamicSqlParameter">
+		select ifnull(round((tt.activity_num / tt.check_object_num) * 100, 2), 0) as ent_degree,
+			   ifnull(round((tt.activity_vh_num / tt.check_vh_num) * 100, 2), 0) as vh_degree,
+			   ifnull(round((tt.sum_sign_vh_num / tt.sum_expire_vh_num) * 100, 2), 0) as renewal_rate,
+			   ifnull(round((round((tt.activity_num / tt.check_object_num) * 100, 2)) *
+			   	     (select tc.quota_value from TL_REP_FAC_QUOTA_CFG tc where tc.quota_name = 'ORG_WEIGH_THRESHOLD' and tc.factory_type = '0') 
+			   			+ 
+			   		 (round((tt.activity_vh_num / tt.check_vh_num) * 100, 2)) * 
+			   		 (select tc.quota_value from TL_REP_FAC_QUOTA_CFG tc where tc.quota_name = 'VH_WEIGH_THRESHOLD' and tc.factory_type = '0'), 2), 0) as activity_degree
+		  from(select <![CDATA[
+		  			  sum(case 
+		                    when (t.vh_num >= (select tc.quota_value from tl_rep_fac_quota_cfg tc where tc.quota_name = 'VH_NUM_THRESHOLD' and tc.factory_type = '0')
+			   	                 and (t.statistics_date - t.opening_time) > (select tc.quota_value from tl_rep_fac_quota_cfg tc where tc.quota_name = 'ACTIVATE_THRESHOLD' and tc.factory_type = '0') * 86400000)
+			   	            then 1
+	               			else 0
+	               		  end) as check_object_num,
+	               	  sum(case
+	               	        when (t.vh_num >= (select tc.quota_value from tl_rep_fac_quota_cfg tc where tc.quota_name = 'VH_NUM_THRESHOLD' and tc.factory_type = '0')
+	               	        	 and (t.statistics_date - t.opening_time) > (select tc.quota_value from tl_rep_fac_quota_cfg tc where tc.quota_name = 'ACTIVATE_THRESHOLD' and tc.factory_type = '0') * 86400000)
+	               	 		then t.vh_num
+	               			else 0
+	               		  end)as check_vh_num,
+	               	  sum(case
+	               			when (t.login_num >= (select tc.quota_value from tl_rep_fac_quota_cfg tc where tc.quota_name = 'MONTH_LOGIN_THRESHOLD' and tc.factory_type = '0')
+	                    		 and ((t.vh_num - t.vh_online_num) / t.vh_num) * 100 <= (select tc.quota_value from tl_rep_fac_quota_cfg tc where tc.quota_name = 'ONLINE_ROTE_THRESHOLD' and tc.factory_type = '0'))
+	              		    then 1
+	               		    else 0
+	            		  end) as activity_num,	 
+	               	  sum(case
+	               		    when (t.login_num >= (select tc.quota_value from tl_rep_fac_quota_cfg tc where tc.quota_name = 'MONTH_LOGIN_THRESHOLD' and tc.factory_type = '0')
+	                    	     and ((t.vh_num - t.vh_online_num) / t.vh_num) * 100 <= (select tc.quota_value from tl_rep_fac_quota_cfg tc where tc.quota_name = 'ONLINE_ROTE_THRESHOLD' and tc.factory_type = '0'))
+	               		    then t.vh_num
+	               		    else 0
+	             		  end)as activity_vh_num,
+	             	  sum(t.sign_vh_num)  as sum_sign_vh_num,
+	             	  sum(t.expire_vh_num) as sum_expire_vh_num
+	             	  ]]>  
+	   			 from tl_rep_fac_act_detail_month t
+	   			where t.statistics_month = #equal.statisticsMonth:DECIMAL# ) tt
+	</select>
+	
+</sqlMap>

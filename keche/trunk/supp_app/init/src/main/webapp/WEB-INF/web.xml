@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>init</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- 启动参数 -->
+	<context-param>
+		<param-name>test</param-name>
+		<param-value>-d / start</param-value>
+	</context-param>
+
+	<!-- 字符处理过滤器 -->
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>com.ctfo.storage.init.core.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern><!-- (/*表示对于任意请求) -->
+	</filter-mapping>
+
+	<!-- 数据库连接池监控 -->
+	<filter>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+		<init-param>
+			<param-name>exclusions</param-name>
+			<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>DruidStatView</servlet-name>
+		<servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
+	<!-- 防火墙配置 -->
+	<!-- <init-param>
+			<param-name>allow</param-name>
+			<param-value>192.168.2.1/24,192.168.2.100,192.168.110.12,169.254.171.114</param-value>
+		</init-param>
+		<init-param>
+			<param-name>deny</param-name>
+			<param-value>128.242.127.4</param-value>
+		</init-param> -->
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DruidStatView</servlet-name>
+		<url-pattern>/druid/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- 应用程序启动监听器 -->
+	<listener>
+		<listener-class>com.ctfo.storage.init.core.InitListener</listener-class>
+	</listener>
+
+	<!-- 请求处理器 -->
+	<servlet>
+		<servlet-name>ReseviedServlet</servlet-name>
+		<servlet-class>com.ctfo.storage.init.core.ReseviedServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReseviedServlet</servlet-name>
+		<url-pattern>/ReseviedServlet</url-pattern>
+	</servlet-mapping>
+
+	<!-- 回话超时配置 -->
+	<session-config>
+		<session-timeout>5</session-timeout>
+	</session-config>
+
+</web-app>

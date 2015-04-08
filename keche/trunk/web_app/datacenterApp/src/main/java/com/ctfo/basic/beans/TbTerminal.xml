@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TbTerminal">
+	<typeAlias type="com.ctfo.common.local.obj.DynamicSqlParameter" alias="dynamicSqlParameter" />
+	<typeAlias alias="TbTerminal" type="com.ctfo.basic.beans.TbTerminal"/>
+	
+	<resultMap id="TbTerminal" class="TbTerminal">
+		<result column="TID" property="tid" jdbcType="VARCHAR" />
+		<result column="TMAC" property="tmac" jdbcType="VARCHAR" />
+		<result column="AUTH_CODE" property="authCode" jdbcType="VARCHAR" />
+		<result column="OEM_CODE" property="oemCode" jdbcType="VARCHAR" />
+		<result column="TER_HARDVER" property="terHardver" jdbcType="VARCHAR" />
+		<result column="TER_SOFTVER" property="terSoftver" jdbcType="VARCHAR" />		
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />		
+		<result column="TER_STATE" property="terState" jdbcType="DECIMAL" />
+		<result column="TPROTOCOL_ID" property="tprotocolId" jdbcType="VARCHAR" />		
+		<result column="TMODEL_CODE" property="tmodelCode" jdbcType="VARCHAR" />
+		<result column="REG_STATUS" property="tmodelCode" jdbcType="DECIMAL" />
+		<result column="HARDWARE_VERSION" property="hardwareVersion" jdbcType="VARCHAR" />
+		<result column="FIRMWARE_VERSION" property="firmwareVersion" jdbcType="VARCHAR" />
+		<result column="STANDARD_VERSION" property="firmwareVersion" jdbcType="VARCHAR" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 终端列表 -->
+	<resultMap id="TbTerminalPage" class="TbTerminal" extends="TbTerminal">
+		<result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+		<result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="PARENT_ENT_NAME" property="parentEntName" jdbcType="VARCHAR" />
+		<result column="OEM_NAME" property="oemName" jdbcType="VARCHAR" />
+		<result column="TMODEL_NAME" property="tmodelName" jdbcType="VARCHAR" />
+		<result column="TPROTOCOL_NAME" property="tprotocolName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="columns">
+		t.TID, t.TMAC, t.AUTH_CODE, t.OEM_CODE, t.TER_HARDVER, t.TER_SOFTVER, t.COMMUNICATE_ID,
+		t.VIDEO_ID, t.TER_UTYPE, t.TER_MDATE, t.TER_EDATE, t.TER_EPERSON, t.TER_PRICE, t.TER_ECOST,
+		t.TER_MEM, t.CREATE_BY, t.CREATE_TIME, t.UPDATE_BY, t.UPDATE_TIME, t.ENABLE_FLAG, t.ENT_ID,
+		t.TER_STATE, t.TPROTOCOL_ID, t.CONFIG_ID, t.TMODEL_CODE, t.REG_STATUS, t.HARDWARE_VERSION, t.FIRMWARE_VERSION,
+		t.DELIVERY_STATUS, t.CENTER_CODE
+	</sql>
+
+	<sql id="table">
+		TB_TERMINAL t
+	</sql>
+
+	<sql id="where">
+		WHERE 1=1
+	</sql>
+	<sql id="equal_where">
+		<isNotEmpty prepend="AND" property="equal.centerCode">
+			t.CENTER_CODE = #equal.centerCode:VARCHAR#
+		</isNotEmpty>
+		<isNotNull prepend="AND" property="equal.tmodelCode">
+			t.TMODEL_CODE = #equal.tmodelCode:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.oemCode">
+			t.OEM_CODE = #equal.oemCode:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.tprotocolId">
+			t.TPROTOCOL_ID = #equal.tprotocolId:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.terState">
+			t.TER_STATE = #equal.terState:DECIMAL#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.enableFlag">
+			t.ENABLE_FLAG = #equal.enableFlag:VARCHAR#
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.entId">
+			o.ENT_ID_URL LIKE '%$equal.entId$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.corpProvince">
+			i.CORP_PROVINCE = #equal.corpProvince:VARCHAR#
+		</isNotNull>
+	</sql>	
+	<sql id="like_where">
+		<isNotNull prepend="AND" property="like.tmac">
+			t.TMAC like '%$like.tmac$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="like.hardwareVersion">
+			t.HARDWARE_VERSION like '%$like.hardwareVersion$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="like.terSoftver">
+			t.TER_SOFTVER like '%$like.terSoftver$%'
+		</isNotNull>
+	</sql>
+	<sql id="entId_in_where">
+		<isNotEmpty prepend="AND" property="inStrMap.entIds">
+		<![CDATA[ org.ENT_ID in ]]>
+			<iterate property="inStrMap.entIds" conjunction="," open="(" close=")">
+				#inStrMap.entIds[]:VARCHAR#
+			</iterate>
+		</isNotEmpty>
+	</sql>
+	
+	<sql id="where_param">
+		<include refid="where" />
+		<include refid="equal_where" />
+		<include refid="like_where" />
+		<include refid="entId_in_where"/>
+	</sql>
+	
+	<select id="selectPk" parameterClass="String" resultMap="TbTerminal">
+		SELECT
+		<include refid="columns" />
+		  FROM
+		<include refid="table" />
+		 WHERE t.TID = #tid:VARCHAR#
+	</select>
+	
+	<!-- 终端分页列表 -->
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter">
+	    SELECT COUNT(1) 
+	      FROM TB_TERMINAL t
+		  LEFT JOIN TB_ORGANIZATION o 
+		    ON o.ENT_ID = t.ENT_ID
+		   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORGANIZATION org
+		    ON org.ENT_ID = o.PARENT_ID  
+		   AND org.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  LEFT JOIN TB_ORG_INFO i
+		    ON i.ENT_ID = org.ENT_ID
+		   AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid="where_param" />
+	</select>
+	<select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbTerminalPage">
+		 SELECT t.TID, t.TMAC, t.AUTH_CODE, t.OEM_CODE, t.TER_HARDVER, t.TER_SOFTVER,  t.CREATE_BY, 
+		 		t.CREATE_TIME, t.UPDATE_BY, t.UPDATE_TIME, t.ENABLE_FLAG, t.TER_STATE, t.TPROTOCOL_ID, 
+		 		t.TMODEL_CODE, t.REG_STATUS, t.HARDWARE_VERSION, t.FIRMWARE_VERSION, t.CENTER_CODE, t.STANDARD_VERSION,
+		 		o.ENT_NAME AS ENT_NAME,
+       		    org.ENT_NAME AS PARENT_ENT_NAME,
+				(SELECT b.OP_NAME 
+				   FROM TB_SP_OPERATOR b 
+				  WHERE t.CREATE_BY = b.OP_ID
+				    AND b.CENTER_CODE = #equal.centerCode:VARCHAR#)   AS CREATE_NAME,
+				(SELECT c.OP_NAME 
+				   FROM TB_SP_OPERATOR c 
+				  WHERE t.UPDATE_BY = c.OP_ID
+				    AND c.CENTER_CODE = #equal.centerCode:VARCHAR#)   AS UPDATE_NAME,
+				(SELECT oe.FULL_NAME 
+				   FROM TB_TERMINAL_OEM oe 
+				  WHERE t.OEM_CODE = oe.OEM_CODE)					  AS OEM_NAME,
+				(SELECT s.CODE_NAME 
+				   FROM SYS_GENERAL_CODE s 
+				  WHERE t.TMODEL_CODE = s.GENERAL_CODE 
+				    AND s.PARENT_GENERAL_CODE = 'SYS_TERMINAL_MODEL') AS TMODEL_NAME,
+				(SELECT pr.TPROTOCOL_NAME 
+				   FROM TB_TERMINAL_PROTOCOL pr
+				  WHERE t.TPROTOCOL_ID = pr.TPROTOCOL_ID) 			  AS TPROTOCOL_NAME				
+		   FROM TB_TERMINAL t
+		   LEFT JOIN TB_ORGANIZATION o 
+		     ON o.ENT_ID = t.ENT_ID
+		    AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		   LEFT JOIN TB_ORGANIZATION org
+		     ON org.ENT_ID = o.PARENT_ID  
+		    AND org.CENTER_CODE = #equal.centerCode:VARCHAR#
+		   LEFT JOIN TB_ORG_INFO i
+		     ON i.ENT_ID = org.ENT_ID
+		    AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid="where_param" />
+		  ORDER BY t.UPDATE_TIME DESC
+	LIMIT <![CDATA[ #startNum# , #pagesize# ]]>
+	</select>
+	
+</sqlMap>

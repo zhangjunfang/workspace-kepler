@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="SysGeneralCode">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="SysGeneralCode" type="com.ctfo.sys.beans.SysGeneralCode"/>	
+	
+	<resultMap id="SysGeneralCode" class="SysGeneralCode">
+		<result column="AUTO_ID" property="autoId" jdbcType="VARCHAR" />
+		<result column="GENERAL_CODE" property="generalCode" jdbcType="VARCHAR" />
+		<result column="CODE_NAME" property="codeName" jdbcType="VARCHAR" />
+		<result column="CODE_DESC" property="codeDesc" jdbcType="DECIMAL" />
+		<result column="PARENT_GENERAL_CODE" property="parentGeneralCode" jdbcType="VARCHAR" />
+		<result column="CODE_IDX" property="codeIdx" jdbcType="DECIMAL" />
+		<result column="CODE_LEVEL" property="codeLevel" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="table" >
+    	SYS_GENERAL_CODE
+	</sql>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		AUTO_ID, GENERAL_CODE, CODE_NAME, CODE_DESC, PARENT_GENERAL_CODE, CODE_IDX, CODE_LEVEL, ENABLE_FLAG
+	</sql>
+	
+	<!-- 查询所有编码 -->
+	<select id="select" resultMap="SysGeneralCode" parameterClass="dynamicSqlParameter">
+		SELECT <include refid="columns" />
+		FROM <include refid="table" />
+		WHERE ENABLE_FLAG != 0
+		ORDER BY PARENT_GENERAL_CODE, CODE_IDX
+	</select>
+	
+</sqlMap>
+

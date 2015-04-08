@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="StructureOrgTree">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="StructureOrgTree" type="com.ctfo.sys.beans.StructureOrgTree"/>	
+	
+	<resultMap id="StructureOrgTree" class="StructureOrgTree">
+		<result column="ENT_ID" property="entId" jdbcType="VARCHAR" />
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="ENT_TYPE" property="entType" jdbcType="DECIMAL" />
+		<result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+		<result column="CORP_CODE" property="corpCode" jdbcType="VARCHAR" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+		<result column="CENTER_NAME" property="centerName" jdbcType="VARCHAR" />
+		<result column="CORP_PROVINCE" property="corpProvince" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- 根据组织ID查询组织 -->
+	<select id="synchronizedOrgByParam" parameterClass="map" resultMap="StructureOrgTree">
+		SELECT o.ENT_ID,
+			   CASE WHEN PARENT_ID = -1 THEN c.CENTER_NAME ELSE o.ENT_NAME END AS ENT_NAME,
+		       o.PARENT_ID,
+		       o.ENT_TYPE,
+		       c.CENTER_CODE,
+		       c.CENTER_NAME,
+		       i.CORP_CODE,
+		       i.CORP_PROVINCE
+		  FROM TB_ORGANIZATION o, TB_BRANCH_CENTER c, TB_ORG_INFO i
+		 WHERE o.CENTER_CODE = c.CENTER_CODE
+		   AND o.ENT_ID = i.ENT_ID
+		   AND o.ENABLE_FLAG = '1'
+		   AND o.ENT_STATE = 1
+		   AND o.ENT_TYPE = 1
+		   AND o.ENT_ID_URL LIKE '%$entId$%'
+		<isNotEmpty prepend="AND" property="entName">
+			i.ORG_SHORTNAME LIKE '%$entName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="centerCode">
+			o.CENTER_CODE = #centerCode:VARCHAR# AND i.CENTER_CODE = #centerCode:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="corpProvince">
+			i.CORP_PROVINCE = #corpProvince:VARCHAR# 
+		</isNotEmpty>
+	</select>
+	
+	<!-- 分中心组织树 异步树 -->
+	<select id="asynchronousFindById" parameterClass="map" resultMap="StructureOrgTree">		
+		SELECT o.ENT_ID,
+			   CASE WHEN PARENT_ID = -1 THEN c.CENTER_NAME ELSE o.ENT_NAME END AS ENT_NAME,
+		       o.PARENT_ID,
+		       o.ENT_TYPE,
+		       c.CENTER_CODE,
+		       c.CENTER_NAME,
+		       i.CORP_CODE,
+		       i.CORP_PROVINCE
+		  FROM TB_ORGANIZATION o, TB_BRANCH_CENTER c, TB_ORG_INFO i
+		 WHERE o.CENTER_CODE = c.CENTER_CODE
+		   AND o.CENTER_CODE = i.CENTER_CODE
+		   AND o.ENT_ID = i.ENT_ID
+		   AND o.PARENT_ID = #entId:VARCHAR#
+		   AND o.ENABLE_FLAG = '1'
+		   AND o.ENT_STATE = 1
+		   AND o.ENT_TYPE = 1
+		<isNotEmpty prepend="AND" property="centerCode">
+			o.CENTER_CODE = #centerCode:VARCHAR# AND i.CENTER_CODE = #centerCode:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="corpProvince">
+			i.CORP_PROVINCE = #corpProvince:VARCHAR# 
+		</isNotEmpty>
+	</select>
+	
+	<!-- 主中心组织树 异步树 -->
+	<select id="asynchronousDataFindById" parameterClass="map" resultMap="StructureOrgTree">		
+		SELECT o.ENT_ID		AS ENT_ID,
+		       o.ENT_NAME	AS ENT_NAME,
+		       o.PARENT_ID	AS PARENT_ID,
+		       1 			AS ENT_TYPE,
+		       o.CORP_CODE  AS CORP_CODE,
+		       '10' 		AS CENTER_CODE,
+		       '数据中心' 	AS CENTER_NAME,
+		       '' 			AS CORP_PROVINCE
+		  FROM TB_ORGANIZATION_MULTIPLE o
+		 WHERE o.PARENT_ID = #entId:VARCHAR#
+		   AND o.ENABLE_FLAG = '1'
+		   AND o.ENT_STATE = 1
+	</select>
+	
+	<!-- 查询省市 -->
+	<select id="selectAreaByLevel" parameterClass="map" resultClass="StructureOrgTree">		
+		SELECT t.AREA_CODE 	AS corpProvince, 
+			   t.AREA_NAME 	AS entName,
+			   0			AS entType
+		  FROM SYS_AREA_INFO t
+		 WHERE t.AREA_LEVEL = 0
+	</select>
+</sqlMap>
+

@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<conver tableName="TB_DVR" businessKey="DVR_ID" sql="sql_sql_getTbDvr" >
+		<column name="CHANNEL_NUM" />
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="DVR_ID" />
+		<column name="DVR_NO" />
+		<column name="DVR_SIMNUM" />
+		<column name="DVRSER_ID" />
+		<column name="ENABLE_FLAG" />
+		<column name="ENT_ID" />
+		<column name="REG_STATUS" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+	</conver>
+	
+	<conver tableName="TB_DVRSER" businessKey="DVRSER_ID" sql="sql_sql_getTbDvrser" >
+		<column name="CHANNEL_NUM" />
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="DVR_MAKER_CODE" />
+		<column name="DVRSER_CITY" />
+		<column name="DVRSER_ID" />
+		<column name="DVRSER_IP" />
+		<column name="DVRSER_NAME" />
+		<column name="DVRSER_PASSWORD" />
+		<column name="DVRSER_PORT" />
+		<column name="DVRSER_PROVINCE" />
+		<column name="DVRSER_USERNAME" />
+		<column name="ENABLE_FLAG" />
+		<column name="REG_IP" />
+		<column name="REG_PORT" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+	</conver>
+	
+	<conver tableName="TB_ORG_INFO" businessKey="ENT_ID" sql="sql_sql_getTbOrgInfo" >
+		<column name="BUSINESS_LICENSE" />
+		<column name="BUSINESS_SCOPE" />
+		<column name="CERTIFICATE_OFFICE" />
+		<column name="CORP_BOSS" />
+		<column name="CORP_BUSINESSNO" />
+		<column name="CORP_CITY" />
+		<column name="CORP_CODE" />
+		<column name="CORP_COUNTRY" />
+		<column name="CORP_ECONOMYTYPE" />
+		<column name="CORP_LEVEL" />
+		<column name="CORP_PAYSTATE" />
+		<column name="CORP_PAYTYPE" />
+		<column name="CORP_PROVINCE" />
+		<column name="CORP_QUALE" />
+		<column name="CREATE_UTC" />
+		<column name="ENT_ID" />
+		<column name="ISDETEAM" />
+		<column name="LICENCE_NO" />
+		<column name="LICENCE_WORD" />
+		<column name="ORG_ADDRESS" />
+		<column name="ORG_CFAX" />
+		<column name="ORG_CMAIL" />
+		<column name="ORG_CNAME" />
+		<column name="ORG_CNO" />
+		<column name="ORG_CPHONE" />
+		<column name="ORG_CZIP" />
+		<column name="ORG_LOGO" />
+		<column name="ORG_MEM" />
+		<column name="ORG_SHORTNAME" />
+		<column name="SPECIAL_ID" />
+		<column name="URL" />
+	</conver>
+
+	<conver tableName="TB_ORGANIZATION" businessKey="ENT_ID" sql="sql_sql_getTbOrganization" >
+		<column name="CENTER_CODE" />
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="ENABLE_FLAG" />
+		<column name="ENT_ID" />
+		<column name="ENT_NAME" />
+		<column name="ENT_STATE" />
+		<column name="ENT_TYPE" />
+		<column name="ISCOMPANY" />
+		<column name="MEMO" />
+		<column name="PARENT_ID" />
+		<column name="SEQ_CODE" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+	</conver>
+	
+	<conver tableName="TB_PREDEFINED_MSG" businessKey="MSG_ID" sql="sql_sql_getTbPredefinedMsg" >
+		<column name="CREATE_UTC" />
+		<column name="ENABLE_FLAG" />
+		<column name="IS_SHARED" />
+		<column name="MSG_BODY" />
+		<column name="MSG_ID" />
+		<column name="MSG_IDX" />
+		<column name="MSG_TYPE" />
+		<column name="OP_ID" />
+	</conver>
+	
+	<conver tableName="TB_PRODUCT_TYPE" businessKey="CODE_IDX" sql="sql_sql_getTbProductType" >
+		<column name="CODE_IDX" />
+		<column name="ENABLE_FLAG" />
+		<column name="PROD_CODE" />
+		<column name="PROD_DESC" />
+		<column name="PROD_NAME" />
+		<column name="VBRAND_CODE" />
+	</conver>
+	
+	<conver tableName="TB_SIM" businessKey="SID" sql="sql_sql_getTbSim" >
+		<column name="APN" />
+		<column name="BUSINESS_ID" />
+		<column name="CITY" />
+		<column name="COMMADDR" />
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="DELIVERY_STATUS" />
+		<column name="ENABLE_FLAG" />
+		<column name="ENT_ID" />
+		<column name="EXPIRE_TIME" />
+		<column name="ICCID_ELECTRON" />
+		<column name="ICCID_PRINT" />
+		<column name="IMSI" />
+		<column name="LAST_PAY_TIME" />
+		<column name="OPEN_TIME" />
+		<column name="PASSWORD" />
+		<column name="PIN" />
+		<column name="PROVINCE" />
+		<column name="PUK" />
+		<column name="REALCOMMADDR" />
+		<column name="SID" />
+		<column name="SIM_STATE" />
+		<column name="SUDESC" />
+		<column name="SVC_START" />
+		<column name="SVC_STOP" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+	</conver>
+	
+	<conver tableName="TB_SP_OPERATOR" businessKey="OP_ID" sql="sql_sql_getTbSpOperator" >
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="ENABLE_FLAG" />
+		<column name="ENT_ID" />
+		<column name="IMSI" />
+		<column name="IS_MEMBER" />
+		<column name="OP_ADDRESS" />
+		<column name="OP_AUTHCODE" />
+		<column name="OP_BIRTH" />
+		<column name="OP_CITY" />
+		<column name="OP_COUNTRY" />
+		<column name="OP_DUTY" />
+		<column name="OP_EMAIL" />
+		<column name="OP_ENDUTC" />
+		<column name="OP_FAX" />
+		<column name="OP_ID" />
+		<column name="OP_IDENTITY_ID" />
+		<column name="OP_LOGINNAME" />
+		<column name="OP_MEM" />
+		<column name="OP_MOBILE" />
+		<column name="OP_NAME" />
+		<column name="OP_PASS" />
+		<column name="OP_PHONE" />
+		<column name="OP_PROVINCE" />
+		<column name="OP_SEX" />
+		<column name="OP_STARTUTC" />
+		<column name="OP_STATUS" />
+		<column name="OP_SUPER" />
+		<column name="OP_TYPE" />
+		<column name="OP_WORKID" />
+		<column name="OP_ZIP" />
+		<column name="PHOTO" />
+		<column name="SKIN_STYLE" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+		<column name="IS_CENTER " />
+	</conver>
+	
+	<conver tableName="TB_SP_ROLE" businessKey="ROLE_ID" sql="sql_sql_getTbSpRole" >
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="ENABLE_FLAG" />
+		<column name="ENT_ID" />
+		<column name="ROLE_DESC" />
+		<column name="ROLE_ID" />
+		<column name="ROLE_NAME" />
+		<column name="ROLE_STATUS" />
+		<column name="ROLE_TYPE" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+	</conver>
+	
+	<conver tableName="TB_TERMINAL" businessKey="TID" sql="sql_sql_getTbTerminal" >
+		<column name="AUTH_CODE" />
+		<column name="COMMUNICATE_ID" />
+		<column name="CONFIG_ID" />
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="DELIVERY_STATUS" />
+		<column name="ENABLE_FLAG" />
+		<column name="ENT_ID" />
+		<column name="FIRMWARE_VERSION" />
+		<column name="HARDWARE_VERSION" />
+		<column name="OEM_CODE" />
+		<column name="REG_STATUS" />
+		<column name="TER_ECOST" />
+		<column name="TER_EDATE" />
+		<column name="TER_EPERSON" />
+		<column name="TER_HARDVER" />
+		<column name="TER_MDATE" />
+		<column name="TER_MEM" />
+		<column name="TER_PRICE" />
+		<column name="TER_SOFTVER" />
+		<column name="TER_STATE" />
+		<column name="TER_UTYPE" />
+		<column name="TID" />
+		<column name="TMAC" />
+		<column name="TMODEL_CODE" />
+		<column name="TPROTOCOL_ID" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+		<column name="VIDEO_ID" />
+	</conver>
+	
+	<conver tableName="TB_TERMINAL_OEM" businessKey="OEM_CODE" sql="sql_sql_getTbTerminalOem" >
+		<column name="ADDRESS" />
+		<column name="BOSS" />
+		<column name="CELLPHONE" />
+		<column name="CONCATE_ADDRESS" />
+		<column name="CONCATE_PERSON" />
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="EMAIL" />
+		<column name="ENABLE_FLAG" />
+		<column name="ENTERPRISE_CITY" />
+		<column name="ENTERPRISE_COUNTRY" />
+		<column name="ENTERPRISE_PROVINCE" />
+		<column name="FAX" />
+		<column name="FULL_NAME" />
+		<column name="OEM_CODE" />
+		<column name="OEM_DESC" />
+		<column name="OEM_TYPE" />
+		<column name="SHORT_NAME" />
+		<column name="TEL" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+		<column name="WEB_ADDRESS" />
+		<column name="ZIP_CODE" />
+	</conver>
+	
+	<conver tableName="TB_TERMINAL_PARAM" businessKey="PARAM_ID" sql="sql_sql_getTbTerminalParam" >
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="PARAM_ID" />
+		<column name="PARAM_TYPE" />
+		<column name="PARAM_VALUE" />
+		<column name="PARENT_CODE" />
+		<column name="SEQ" />
+		<column name="T_MAC" />
+		<column name="TID" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+	</conver>
+	
+	<conver tableName="TB_TERMINAL_PROTOCOL" businessKey="TPROTOCOL_ID" sql="sql_sql_getTbTerminalProtocol" >
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="OEM_CODE" />
+		<column name="TERMINAL_TYPE_ID" />
+		<column name="TPROTOCOL_ID" />
+		<column name="TPROTOCOL_NAME" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+		<column name="VALID_FLAG" />
+		<column name="VASET_TIME" />
+		<column name="VASET_USER_ID" />
+	</conver>
+	
+	<conver tableName="TB_VEHICLE" businessKey="vid" sql="sql_sql_getVehicle" >
+		<column name="ANNUAL_AUDIT_TIME" />
+		<column name="ANNUAL_AUDIT_VALIDITY_TIME" />
+		<column name="AREA_CODE" />
+		<column name="ATTACHED_TO_TIME" />
+		<column name="AUDIT_ALARM_DAYS" />
+		<column name="AUTO_SN" />
+		<column name="BUY_NO" />
+		<column name="CERTIFICATE_STATE" />
+		<column name="CERTIFICATE_TYPE" />
+		<column name="CITY_ID" />
+		<column name="COACH_LEVEL" />
+		<column name="COUNTY" />
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="CURB_WEIGHT" />
+		<column name="DELIVERY_STATUS" />
+		<column name="EBRAND_CODE" />
+		<column name="EMISSION_STANDARD" />
+		<column name="EMODEL_CODE" />
+		<column name="ENABLE_FLAG" />
+		<column name="ENDTIME" />
+		<column name="ENGINE_DISPLACEMENT" />
+		<column name="ENGINE_NO" />
+		<column name="ENT_ID" />
+		<column name="FIRST_INSTAL_TIME" />
+		<column name="INNER_CODE" />
+		<column name="INSURANCE_STATE" />
+		<column name="KM100_OILUSE" />
+		<column name="MAINTENANCE_STATE" />
+		<column name="MAXIMAL_PEOPLE" />
+		<column name="OILTYPE_ID" />
+		<column name="ORIGIN_CODE" />
+		<column name="OUT_NUMBER" />
+		<column name="PLATE_COLOR" />
+		<column name="PROD_CODE" />
+		<column name="PROG_ID" />
+		<column name="REAR_AXLE_RATE" />
+		<column name="REG_STATUS" />
+		<column name="RELEASE_DATE" />
+		<column name="REVIEW_STATE" />
+		<column name="ROAD_TRANSPORT" />
+		<column name="SALE_PRICE" />
+		<column name="SERVICE_NO" />
+		<column name="SIGNTIME" />
+		<column name="STANDARD_OIL" />
+		<column name="STANDARD_ROTATE" />
+		<column name="TOTAL_MASS" />
+		<column name="TRANSTYPE_CODE" />
+		<column name="TYRE_R" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+		<column name="VBRAND_CODE" />
+		<column name="VEHICLE_BUYDATE" />
+		<column name="VEHICLE_CAP" />
+		<column name="VEHICLE_COLOR" />
+		<column name="VEHICLE_MEM" />
+		<column name="VEHICLE_MENNUM" />
+		<column name="VEHICLE_NO" />
+		<column name="VEHICLE_OPERATION_ID" />
+		<column name="VEHICLE_OPERATION_STATE" />
+		<column name="VEHICLE_PIC" />
+		<column name="VEHICLE_PROPERTIES" />
+		<column name="VEHICLE_REGDATE" />
+		<column name="VEHICLE_REGISTER_NO_TIME" />
+		<column name="VEHICLE_STATE" />
+		<column name="VEHICLE_TON" />
+		<column name="VEHICLE_TYPE" />
+		<column name="VH_ACCESS" />
+		<column name="VID" />
+		<column name="VIN_CODE" />
+		<column name="VOLTAGE" />
+		<column name="VS_REF_ID" />
+		<column name="VTYPE_ID" />
+		<column name="WATT" />
+		<column name="WHEELBASE" />
+	</conver>
+	
+	<conver tableName="TH_TRANSFER_HISTORY" businessKey="ID" sql="sql_sql_getThTransferHistory" >
+		<column name="GOAL_ID" />
+		<column name="ID" />
+		<column name="OP_ID" />
+		<column name="OP_TIME" />
+		<column name="SOURCE_ID" />
+		<column name="TRANSFER_ID" />
+		<column name="TRANSFER_TYPE" />
+	</conver>
+
+	<conver tableName="TR_OPERATOR_ROLE" businessKey="AUTO_ID" sql="sql_sql_getTrOperatorRole" >
+		<column name="AUTO_ID" />
+		<column name="OP_ID" />
+		<column name="ROLE_ID" />
+	</conver>
+
+	<conver tableName="TR_ROLE_FUNCTION" businessKey="FUN_ID" sql="sql_sql_getTrRoleFunction" >
+		<column name="CREATE_BY" />
+		<column name="CREATE_TIME" />
+		<column name="ENABLE_FLAG" />
+		<column name="FUN_ID" />
+		<column name="ROLE_ID" />
+		<column name="UPDATE_BY" />
+		<column name="UPDATE_TIME" />
+	</conver>
+	
+	<conver tableName="TR_SERVICEUNIT" businessKey="SUID" sql="sql_sql_getTrServiceunit" >
+		<column name="CREATE_TIME" />
+		<column name="CREATE_USER" />
+		<column name="DVR_ID" />
+		<column name="MODELNAME" />
+		<column name="REMARK" />
+		<column name="SID" />
+		<column name="SUID" />
+		<column name="TID" />
+		<column name="UPDATE_TIME" />
+		<column name="UPDATE_USER" />
+		<column name="VID" />
+	</conver>
+</configuration>

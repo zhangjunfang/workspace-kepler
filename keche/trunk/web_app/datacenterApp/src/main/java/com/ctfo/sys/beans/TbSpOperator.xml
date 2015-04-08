@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    
+<sqlMap namespace="TbSpOperator">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="TbSpOperator" type="com.ctfo.sys.beans.TbSpOperator"/>	
+	<typeAlias alias="map" type="java.util.Map"/>
+	
+	<resultMap id="TbSpOperator" class="TbSpOperator">
+		<result column="OP_ID" property="opId" jdbcType="VARCHAR" />
+		<result column="ENT_ID" property="entId" jdbcType="VARCHAR" />
+		<result column="OP_LOGINNAME" property="opLoginname" jdbcType="VARCHAR" />
+		<result column="OP_PASS" property="opPass" jdbcType="VARCHAR" />
+		<result column="OP_AUTHCODE" property="opAuthcode" jdbcType="VARCHAR" />
+		<result column="OP_NAME" property="opName" jdbcType="VARCHAR" />
+		<result column="OP_SUPER" property="opSuper" jdbcType="VARCHAR" />
+		<result column="OP_SEX" property="opSex" jdbcType="VARCHAR" />
+		<result column="OP_BIRTH" property="opBirth" jdbcType="DECIMAL" />
+		<result column="OP_COUNTRY" property="opCountry" jdbcType="VARCHAR" />
+		<result column="OP_PROVINCE" property="opProvince" jdbcType="VARCHAR" />
+		<result column="OP_CITY" property="opCity" jdbcType="VARCHAR" />
+		<result column="OP_ADDRESS" property="opAddress" jdbcType="VARCHAR" />
+		<result column="OP_MOBILE" property="opMobile" jdbcType="VARCHAR" />
+		<result column="OP_PHONE" property="opPhone" jdbcType="VARCHAR" />
+		<result column="OP_FAX" property="opFax" jdbcType="VARCHAR" />
+		<result column="OP_EMAIL" property="opEmail" jdbcType="VARCHAR" />
+		<result column="OP_IDENTITY_ID" property="opIdentityId" jdbcType="VARCHAR" />
+		<result column="OP_DUTY" property="opDuty" jdbcType="VARCHAR" />
+		<result column="OP_WORKID" property="opWorkid" jdbcType="VARCHAR" />
+		<result column="OP_STARTUTC" property="opStartutc" jdbcType="DECIMAL" />
+		<result column="OP_TYPE" property="opType" jdbcType="VARCHAR" />
+		<result column="OP_MEM" property="opMem" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL"/>
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR"/>
+		<result column="OP_ZIP" property="opZip" jdbcType="VARCHAR" />
+		<result column="OP_STATUS" property="opStatus" jdbcType="VARCHAR" />
+		<result column="IS_MEMBER" property="isMember" jdbcType="VARCHAR" />
+		<result column="IMSI" property="imsi" jdbcType="VARCHAR" />
+		<result column="PHOTO" property="photo" jdbcType="VARCHAR" />
+		<result column="OP_ENDUTC" property="opEndutc" jdbcType="DECIMAL" />
+		<result column="SKIN_STYLE" property="skinStyle" jdbcType="VARCHAR" />
+		<result column="IS_CENTER" property="isCenter" jdbcType="VARCHAR" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 详情 -->
+	<resultMap id="TbSpOperatorDetail" class="TbSpOperator" extends="TbSpOperator">
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 用户列表 -->
+	<resultMap id="TbSpOperatorPage" class="TbSpOperator" extends="TbSpOperator">
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="CORP_CODE" property="corpCode" jdbcType="VARCHAR" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+		<result column="OP_NAME" property="createName" jdbcType="VARCHAR" />
+		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+	</resultMap>
+	<!-- 登录 -->
+	<resultMap id="TbSpOperatorLogin" class="TbSpOperator" extends="TbSpOperator">
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="CORP_CODE" property="corpCode" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="table" >
+    	TB_SP_OPERATOR
+	</sql>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		OP_ID, ENT_ID, OP_LOGINNAME, OP_PASS, OP_AUTHCODE, OP_NAME, OP_SUPER, OP_SEX, OP_BIRTH,
+		OP_COUNTRY, OP_PROVINCE, OP_CITY, OP_ADDRESS, OP_MOBILE, OP_PHONE, OP_FAX, OP_EMAIL, OP_IDENTITY_ID,
+		OP_DUTY, OP_WORKID, OP_STARTUTC, OP_TYPE, OP_MEM, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME,
+		ENABLE_FLAG, OP_ZIP, OP_STATUS, IS_MEMBER, IMSI, PHOTO, OP_ENDUTC, SKIN_STYLE, IS_CENTER, CENTER_CODE 
+	</sql>
+	
+	<sql id="equal_where">
+		<isNotEmpty prepend="AND" property="equal.opType">
+			t.OP_TYPE = #equal.opType:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="equal.opStatus">
+            t.OP_STATUS = #equal.opStatus:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="equal.roleId">
+            tor.ROLE_ID = #equal.roleId:VARCHAR#
+		</isNotEmpty>
+		<isNotNull prepend="AND" property="equal.entId">
+			o.ENT_ID_URL LIKE '%$equal.entId$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.corpProvince">
+			i.CORP_PROVINCE = #equal.corpProvince:VARCHAR#
+		</isNotNull>
+	</sql>
+	<sql id="like_where">
+		<isNotEmpty prepend="AND" property="like.opLoginname">
+			OP_LOGINNAME like '%$like.opLoginname$%'
+		</isNotEmpty>
+	</sql>
+	<sql id="entId_in_where">
+		<isNotEmpty prepend="AND" property="inStrMap.entIds">
+		<![CDATA[ o.ENT_ID in ]]>
+			<iterate property="inStrMap.entIds" conjunction="," open="(" close=")">
+				#inStrMap.entIds[]:VARCHAR#
+			</iterate>
+		</isNotEmpty>
+	</sql>
+	<sql id="where_param" >
+		<include refid="equal_where" />
+		<include refid="like_where" />
+		<include refid="entId_in_where" />
+	</sql>
+	
+	<insert id="insert" parameterClass="TbSpOperator">
+		INSERT INTO TB_SP_OPERATOR (
+		<include refid="columns" />
+		) VALUES (
+			#opId# ,
+			#entId# ,
+			#opLoginname# ,
+			#opPass# ,
+			#opAuthcode# ,
+			#opName# ,
+			#opSuper# ,
+			#opSex# ,
+			#opBirth# ,
+			#opCountry# ,
+			#opProvince# ,
+			#opCity# ,
+			#opAddress# ,
+			#opMobile# ,
+			#opPhone# ,
+			#opFax# ,
+			#opEmail# ,
+			#opIdentityId# ,
+			#opDuty# ,
+			#opWorkid# ,
+			#opStartutc# ,
+			#opType# ,
+			#opMem# ,
+			#createBy# ,
+			#createTime# ,
+			#updateBy# ,
+			#updateTime# ,
+			#enableFlag# ,
+			#opZip# ,
+			#opStatus# ,
+			#isMember# ,
+			#imsi# ,
+			#photo# ,
+			#opEndutc# ,
+			#skinStyle# ,
+			#isCenter# ,
+			#centerCode# 
+		)
+	</insert>
+
+	<update id="update" parameterClass="TbSpOperator">
+		UPDATE TB_SP_OPERATOR 
+		   SET OP_NAME = #opName# ,
+			   OP_SEX = #opSex# ,
+			   OP_BIRTH = #opBirth# ,
+			   OP_COUNTRY = #opCountry# ,
+			   OP_PROVINCE = #opProvince# ,
+			   OP_CITY = #opCity# ,
+			   OP_MOBILE = #opMobile# ,
+			   OP_PHONE = #opPhone# ,
+			   OP_FAX = #opFax# ,
+			   OP_EMAIL = #opEmail# ,
+			   OP_IDENTITY_ID = #opIdentityId# ,
+			   OP_DUTY = #opDuty# ,
+			   OP_WORKID = #opWorkid# ,
+			   OP_STARTUTC = #opStartutc# ,
+			   OP_TYPE = #opType# ,
+			   OP_MEM = #opMem# ,
+			   UPDATE_BY = #updateBy# ,
+			   UPDATE_TIME = #updateTime# ,
+			   OP_ZIP = #opZip# ,
+			   OP_STATUS = #opStatus# ,
+			   IS_MEMBER = #isMember# ,
+			   IMSI = #imsi# ,
+			   PHOTO = #photo# ,
+			   OP_ENDUTC = #opEndutc#
+		 WHERE OP_ID = #opId#
+		   AND CENTER_CODE = #centerCode#
+	</update>
+
+	<!-- 吊销与启用 -->
+	<update id="updateRevokeOpen" parameterClass="TbSpOperator">
+		UPDATE <include refid="table" />
+	 	   SET OP_STATUS = #opStatus# ,
+	 	   	   UPDATE_BY = #updateBy# ,
+			   UPDATE_TIME = #updateTime#
+	  	 WHERE OP_ID = #opId#
+	  	   AND CENTER_CODE = #centerCode#
+	</update>
+
+	<!-- 删除(逻辑) -->
+	<update id="updateDelete" parameterClass="TbSpOperator">
+		UPDATE <include refid="table" />
+	 	   SET ENABLE_FLAG = '0' ,
+	 	   	   UPDATE_BY = #updateBy# ,
+			   UPDATE_TIME = #updateTime#
+	  	 WHERE OP_ID = #opId#
+	  	   AND CENTER_CODE = #centerCode#
+	</update>
+	
+	<!-- 修改密码 -->
+	<update id="updatePass" parameterClass="TbSpOperator">
+		UPDATE <include refid="table" />
+	   	   SET OP_PASS = #opPass#
+	  	 WHERE OP_ID = #opId#
+	  	   AND CENTER_CODE = #centerCode#
+	</update>
+	
+	<!-- 根据主键id查询 -->
+	<select id="selectOpDetail" resultMap="TbSpOperatorDetail" parameterClass="map">
+		SELECT op.*, r.ROLE_NAME
+		  FROM TB_SP_OPERATOR op, TR_OPERATOR_ROLE tor, TB_SP_ROLE r 
+		 WHERE op.OP_ID = tor.OP_ID
+		   AND tor.ROLE_ID = r.ROLE_ID
+		   AND op.OP_ID = #opId#
+		   AND op.CENTER_CODE = #centerCode#
+		   AND tor.CENTER_CODE = #centerCode#
+		   AND r.CENTER_CODE = #centerCode#
+	</select>
+
+	<!-- 用户列表查询 -->
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter" >
+		SELECT count(1) FROM 
+			(SELECT t.*,
+			        o.ENT_NAME,
+			        i.CORP_CODE
+			   FROM TB_SP_OPERATOR t
+			   LEFT JOIN TB_ORGANIZATION o
+			     ON t.ENT_ID = o.ENT_ID
+			    AND o.ENABLE_FLAG = '1'
+		   		AND o.ENT_STATE = '1'
+		   		AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		   	   LEFT JOIN TB_ORG_INFO i
+		    	 ON i.ENT_ID = o.ENT_ID
+		    	AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		       LEFT JOIN TR_OPERATOR_ROLE tor
+		         ON t.OP_ID = tor.OP_ID
+		        AND tor.CENTER_CODE = #equal.centerCode:VARCHAR#
+		       LEFT JOIN TB_SP_ROLE r
+		         ON r.ROLE_ID = tor.ROLE_ID
+		        AND r.CENTER_CODE = #equal.centerCode:VARCHAR#
+			  WHERE t.ENABLE_FLAG = '1'
+			    AND t.CENTER_CODE = #equal.centerCode:VARCHAR#  
+		<include refid="where_param" /> ) c
+	</select>
+	<select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbSpOperatorPage">		
+		SELECT t.*,
+			   o.ENT_NAME,
+		       i.CORP_CODE,
+		       r.ROLE_NAME,
+		       r.ROLE_ID,
+		       so.OP_NAME
+		  FROM TB_SP_OPERATOR t
+		  LEFT JOIN TB_ORGANIZATION o
+		    ON t.ENT_ID = o.ENT_ID
+		   AND o.ENABLE_FLAG = '1'
+	   	   AND o.ENT_STATE = '1'
+	   	   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+	   	  LEFT JOIN TB_ORG_INFO i
+	    	ON i.ENT_ID = o.ENT_ID
+	       AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+	      LEFT JOIN TR_OPERATOR_ROLE tor
+	        ON t.OP_ID = tor.OP_ID
+	       AND tor.CENTER_CODE = #equal.centerCode:VARCHAR#
+	      LEFT JOIN TB_SP_ROLE r
+	        ON r.ROLE_ID = tor.ROLE_ID
+	       AND r.CENTER_CODE = #equal.centerCode:VARCHAR#
+	      LEFT JOIN TB_SP_OPERATOR so
+	        ON so.OP_ID = t.CREATE_BY
+	       AND so.CENTER_CODE = #equal.centerCode:VARCHAR#
+		 WHERE t.ENABLE_FLAG = '1'
+		   AND t.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid="where_param" />
+	     ORDER BY t.UPDATE_TIME DESC
+	LIMIT <![CDATA[ #startNum# , #pagesize# ]]>
+	</select>
+	
+	<!-- 主中心用户列表查询 -->
+	<select id="countOperatorParam" resultClass="int" parameterClass="dynamicSqlParameter" >
+		SELECT count(1) FROM 
+			(SELECT t.*,
+			        o.ENT_NAME,
+			        o.CORP_CODE
+			   FROM TB_SP_OPERATOR t
+			   LEFT JOIN TB_ORGANIZATION_MULTIPLE o
+			     ON t.ENT_ID = o.ENT_ID
+			    AND o.ENABLE_FLAG = '1'
+		   		AND o.ENT_STATE = '1'
+		       LEFT JOIN TR_OPERATOR_ROLE tor
+		         ON t.OP_ID = tor.OP_ID
+		        AND tor.CENTER_CODE = #equal.centerCode:VARCHAR#
+		       LEFT JOIN TB_SP_ROLE r
+		         ON r.ROLE_ID = tor.ROLE_ID
+		        AND r.CENTER_CODE = #equal.centerCode:VARCHAR#
+			  WHERE t.ENABLE_FLAG = '1'
+			    AND t.CENTER_CODE = #equal.centerCode:VARCHAR#  
+		<include refid="where_param" /> ) c
+	</select>
+	<select id="selectOperatorPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbSpOperatorPage">		
+		SELECT t.*,
+			   o.ENT_NAME,
+		       o.CORP_CODE,
+		       r.ROLE_NAME,
+		       r.ROLE_ID,
+		       so.OP_NAME
+		  FROM TB_SP_OPERATOR t
+		  LEFT JOIN TB_ORGANIZATION_MULTIPLE o
+		    ON t.ENT_ID = o.ENT_ID
+		   AND o.ENABLE_FLAG = '1'
+	   	   AND o.ENT_STATE = '1'
+	      LEFT JOIN TR_OPERATOR_ROLE tor
+	        ON t.OP_ID = tor.OP_ID
+	       AND tor.CENTER_CODE = #equal.centerCode:VARCHAR#
+	      LEFT JOIN TB_SP_ROLE r
+	        ON r.ROLE_ID = tor.ROLE_ID
+	       AND r.CENTER_CODE = #equal.centerCode:VARCHAR#
+	      LEFT JOIN TB_SP_OPERATOR so
+	        ON so.OP_ID = t.CREATE_BY
+	       AND so.CENTER_CODE = #equal.centerCode:VARCHAR#
+		 WHERE t.ENABLE_FLAG = '1'
+		   AND t.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<include refid="where_param" />
+	     ORDER BY t.UPDATE_TIME DESC
+	LIMIT <![CDATA[ #startNum# , #pagesize# ]]>
+	</select>
+	
+	<!-- 用户登录 -->
+	<select id="selectParamForLogin" resultMap="TbSpOperatorLogin" parameterClass="map">
+		SELECT op.*,
+			   o.ENT_NAME,
+			   o.CORP_CODE
+	      FROM TB_SP_OPERATOR op, TB_ORGANIZATION_MULTIPLE o
+	     WHERE op.ENT_ID = o.ENT_ID
+	       AND op.OP_LOGINNAME = #opLoginname:VARCHAR#
+	       AND op.OP_PASS = #opPass:VARCHAR#
+	       AND o.CORP_CODE = #parentOrgCode:VARCHAR#
+	       AND o.ENABLE_FLAG != 0 
+	       AND op.IS_CENTER = '0'
+	</select>
+	
+	<!-- 判断用户密码是否正确 -->
+	<select id="countExist" resultClass="int" parameterClass="TbSpOperator">
+		SELECT COUNT(1) 
+		  FROM TB_SP_OPERATOR t
+		 WHERE t.OP_ID = #opId:VARCHAR#
+		   AND t.OP_PASS = #oldOpPass:VARCHAR#
+		   AND t.CENTER_CODE = #centerCode:VARCHAR#
+	</select>
+	
+</sqlMap>
+

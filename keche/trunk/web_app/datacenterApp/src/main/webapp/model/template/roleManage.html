@@ -1,0 +1,29 @@
+<!--角色管理查看弹出框-->
+<div class="roleManageInfo">
+    <div class=" m5 h420">
+        <h4 class=" h25 lh25  bcBlue3 lineD pl10">
+            {{=C.CORP_NAME}}：<font class=" c00F mr3 entIdName"></font>
+        </h4>
+        <div class="fl w50b pt10">
+            <h4 class=" h25 lh25">{{=C.customColumns.roleManage.functionId}}：</h4>
+            <div class=" lineS bcFFF h350 overa">
+                <div class="limitsTree  w"></div>
+            </div>
+        </div>
+        <div class="fr w50b pt10">
+            <ul class="ml10 w">
+                <li class="h60 lh25">
+                    <div class="h25">{{=C.customColumns.roleManage.roleName}}：</div>
+                    <div class="h25 p5 bcFFF lineD w220 " name="sysSpRole.roleName"></div>
+                    
+                </li>
+                <li class="h120 lh25 ">
+                    <div class="h25">{{=C.customColumns.roleManage.roleDesc}}：</div>
+                    <p name="sysSpRole.roleDesc" class=" w220 h80 p5 bcFFF lineD"></p>
+                    
+                </li>
+            </ul>
+        </div>
+        <div class="cb"></div>
+    </div>
+</div>

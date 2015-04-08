@@ -1,0 +1,26 @@
+<!--选择组织-->
+<form class="selectOrg">
+    <div class="winBox lineS69c_b_none">
+        <input name="createBy" type="hidden" value="{{=CTFO.cache.user.opId}}"/>
+        <input name="updateBy" type="hidden" value="{{=CTFO.cache.user.opId}}"/>
+        <input name="processId" type="hidden" value="{{=it.processId}}"/>
+        <input name="stepId" type="hidden" value="{{=it.stepId}}"/>
+        <div class="p5 h25 lh25 tit4 searchForm">
+              <div class="h25 lh25 fl w160 ml5">
+                <input type="hidden" name="entId" value="" />
+                组织名称：<input type="text" name="searchOrgText" />
+              </div>
+              <span class="btn1 cFFF fr queryButton">查 询</span>
+              <div class=" w40 fr">
+                <span title="刷新" class="ico135 hand refreshButton">刷新</span>
+              </div>
+        </div>
+        <div class=" treeContainerBox lh25 h160 w overa ">
+              <div class=" treeContainer lh25 h160 w  "></div>
+        </div>
+    </div>
+    <div class="bcBlue l-dialog-buttons">
+        <span class=" btn4 fr mr10 cancelButton" type="button" value="取消">取消</span>
+        <span class=" btn4 fr mr10 saveButton" type="button" value="确定">确定</span>
+    </div>
+</form>

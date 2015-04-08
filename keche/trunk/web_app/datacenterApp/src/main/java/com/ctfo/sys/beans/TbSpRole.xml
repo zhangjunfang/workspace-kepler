@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TbSpRole">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="TbSpRole" type="com.ctfo.sys.beans.TbSpRole"/>	
+	<typeAlias alias="map" type="java.util.Map"/>
+	
+	<resultMap id="TbSpRole" class="TbSpRole">
+		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+		<result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+		<result column="ROLE_TYPE" property="roleType" jdbcType="VARCHAR" />
+		<result column="ENT_ID" property="entId" jdbcType="VARCHAR" />
+		<result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+		<result column="ROLE_STATUS" property="roleStatus" jdbcType="DECIMAL" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<resultMap id="TbSpRolePage" class="TbSpRole" extends="TbSpRole">
+		<result column="ENT_NAME" property="entName" jdbcType="VARCHAR" />
+		<result column="OP_NAME" property="createName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="table" >
+    	TB_SP_ROLE
+	</sql>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		ROLE_ID, ROLE_NAME, ROLE_TYPE, ENT_ID, ROLE_DESC, CREATE_BY, CREATE_TIME, UPDATE_BY, UPDATE_TIME ,ENABLE_FLAG, ROLE_STATUS, CENTER_CODE 
+	</sql>
+	
+	<sql id="like_where">
+		<isNotEmpty prepend="AND" property="like.roleName">
+             t.ROLE_NAME like '%$like.roleName$%'
+		</isNotEmpty>
+	</sql> 
+	<sql id="entId_in_where">
+		<isNotEmpty prepend="AND" property="inStrMap.entIds">
+		<![CDATA[ t.ENT_ID in ]]>
+			<iterate property="inStrMap.entIds" conjunction="," open="(" close=")">
+				#inStrMap.entIds[]:VARCHAR#
+			</iterate>
+		</isNotEmpty>
+	</sql>
+	<sql id="equal_where">
+		<isNotEmpty prepend="AND" property="equal.centerCode">
+      		t.CENTER_CODE = #equal.centerCode:VARCHAR#
+		</isNotEmpty>
+		<isNotNull prepend="AND" property="equal.entId">
+			o.ENT_ID_URL LIKE '%$equal.entId$%'
+		</isNotNull>
+		<isNotNull prepend="AND" property="equal.corpProvince">
+			i.CORP_PROVINCE = #equal.corpProvince:VARCHAR#
+		</isNotNull>
+	</sql>
+	<sql id="where_param" >
+		<include refid="equal_where" />
+		<include refid="like_where" />
+		<include refid="entId_in_where" />
+	</sql>
+	
+	<insert id="insert" parameterClass="TbSpRole">
+		INSERT INTO TB_SP_ROLE (
+		<include refid="columns" />
+		) VALUES (
+			#roleId# ,
+			#roleName# ,
+			#roleType# ,
+			#entId# ,
+			#roleDesc# ,
+			#createBy# ,
+			#createTime# ,
+			#updateBy# ,
+			#updateTime# ,
+			#enableFlag# ,
+			#roleStatus# ,
+			#centerCode#
+		)
+	</insert>
+
+	<update id="update" parameterClass="TbSpRole">
+		UPDATE TB_SP_ROLE 
+		   SET ROLE_NAME = #roleName# ,
+			   ROLE_DESC = #roleDesc# ,
+			   UPDATE_BY = #updateBy# ,
+			   UPDATE_TIME = #updateTime# ,
+			   ROLE_STATUS = #roleStatus# 
+		 WHERE ROLE_ID = #roleId#
+		   AND CENTER_CODE = #centerCode#
+	</update>
+
+	<!-- 删除(逻辑) -->
+	<update id="updateDelete" parameterClass="TbSpRole">
+		UPDATE <include refid="table" />
+	 	   SET ENABLE_FLAG = '0' ,
+	 	   	   UPDATE_BY = #updateBy# ,
+			   UPDATE_TIME = #updateTime#
+	  	 WHERE ROLE_ID = #roleId#
+	  	   AND CENTER_CODE = #centerCode#
+	</update>
+    
+	<!-- 根据主键id查询 -->
+	<select id="selectRoleDetail" resultMap="TbSpRole" parameterClass="map">
+		SELECT <include refid="columns"/>
+		  FROM TB_SP_ROLE 
+	     WHERE ROLE_ID = #roleId#
+	       AND CENTER_CODE = #centerCode#
+	</select>
+
+	<!-- 角色列表查询 -->
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter" >
+		SELECT count(1) FROM 
+			(SELECT t.*,
+			        o.ENT_NAME
+			   FROM TB_SP_ROLE t
+			   LEFT JOIN TB_SP_OPERATOR op
+		    	 ON op.OP_ID = t.CREATE_BY
+		   		AND op.CENTER_CODE = #equal.centerCode:VARCHAR#
+			<isEmpty property="equal.isOrg">
+		  	   JOIN TB_ORGANIZATION o
+		  	     ON t.ENT_ID = o.ENT_ID
+		  	    AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		  	   LEFT JOIN TB_ORG_INFO i
+	    		 ON i.ENT_ID = o.ENT_ID
+	       		AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+			</isEmpty>
+			<isNotEmpty property="equal.isOrg">
+               JOIN TB_ORGANIZATION_MULTIPLE o
+                 ON t.ENT_ID = o.ENT_ID
+			</isNotEmpty>
+			    AND t.ENABLE_FLAG = '1'
+			    AND o.ENABLE_FLAG = '1'
+		   		AND o.ENT_STATE = '1'
+		   	  WHERE 1 = 1
+		<include refid="where_param" /> ) c
+	</select>
+	<select id="selectPageForParam" parameterClass="dynamicSqlParameter" resultMap="TbSpRolePage">		
+		SELECT t.*,
+			   o.ENT_NAME,
+			   op.OP_NAME
+		  FROM TB_SP_ROLE t
+		  LEFT JOIN TB_SP_OPERATOR op
+		    ON op.OP_ID = t.CREATE_BY
+		   AND op.CENTER_CODE = #equal.centerCode:VARCHAR#
+		<isEmpty property="equal.isOrg">
+	  	  JOIN TB_ORGANIZATION o
+	  	    ON t.ENT_ID = o.ENT_ID
+	  	   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+	  	  LEFT JOIN TB_ORG_INFO i
+	    	ON i.ENT_ID = o.ENT_ID
+	       AND i.CENTER_CODE = #equal.centerCode:VARCHAR#
+		</isEmpty>
+		<isNotEmpty property="equal.isOrg">
+          JOIN TB_ORGANIZATION_MULTIPLE o
+            ON t.ENT_ID = o.ENT_ID
+		</isNotEmpty>
+		   AND t.ENABLE_FLAG = '1'
+		   AND o.ENABLE_FLAG = '1'
+	   	   AND o.ENT_STATE = '1'
+	   	 WHERE 1 = 1
+		<include refid="where_param" />
+	     ORDER BY t.UPDATE_TIME DESC
+	LIMIT <![CDATA[ #startNum# , #pagesize# ]]>
+	</select>
+
+	<!-- 增加用户时，查询角色列表 -->
+	<select id="selectRoleList" parameterClass="dynamicSqlParameter" resultMap="TbSpRole">
+		SELECT t.*
+		  FROM TB_SP_ROLE t
+	    <isEmpty property="equal.isOrg">
+		  LEFT JOIN TB_ORGANIZATION o
+		    ON t.ENT_ID = o.ENT_ID
+		   AND o.CENTER_CODE = #equal.centerCode:VARCHAR#
+		</isEmpty>
+		<isNotEmpty property="equal.isOrg">
+		  LEFT JOIN TB_ORGANIZATION_MULTIPLE o
+		    ON t.ENT_ID = o.ENT_ID
+		</isNotEmpty>
+		 WHERE t.ENABLE_FLAG = '1'
+		   AND t.CENTER_CODE = #equal.centerCode:VARCHAR#
+		   AND o.ENT_ID_URL LIKE '%$equal.entId$%'
+	</select>
+</sqlMap>
+

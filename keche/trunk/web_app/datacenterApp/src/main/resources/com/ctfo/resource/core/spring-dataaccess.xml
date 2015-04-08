@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+	
+	<bean id="SpringBUtils" class="com.ctfo.common.util.SpringBUtils" scope="singleton" />
+	
+	<bean id="propertyConfigurer" class="com.ctfo.common.context.CustomizedPropertyPlaceholderConfigurer">
+		<property name="locations"> 
+			<list> 
+				<value>classpath:/system.properties</value>
+				<value>classpath:/jdbc.properties</value>
+				<value>classpath:/redis.properties</value>
+			</list> 
+		</property> 	
+	</bean>
+	
+	<bean id="dataSource" class="com.atomikos.jdbc.AtomikosDataSourceBean" init-method="init" destroy-method="close">
+		<description>mysql xa datasource</description>
+		<property name="uniqueResourceName" value="${mysql_resourceName}" />
+		<property name="xaDataSourceClassName" value="${mysql_xaDataSourceClassName}" />
+		<property name="xaProperties">
+			<props>
+				<prop key="user">${mysql_user}</prop>
+				<prop key="password">${mysql_password}</prop>
+				<prop key="URL">${mysql_url}</prop>
+			</props>
+		</property>
+		<!-- 测试失效链接 -->
+		<!--<property name="testQuery"> <value>select 1 from dual</value> </property>-->
+		<property name="poolSize" value="${mysql_poolSize}" />
+		<property name="maxPoolSize" value="${mysql_maxPoolSize}" />    
+		<!-- 最大空闲时间，超过空闲时间的连接将被丢弃。为0或负数则永不丢弃。默认为0秒 -->
+		<property name="maxIdleTime" value="${mysql_maxIdleTime}" />
+		<property name="borrowConnectionTimeout" value="${borrowConnectionTimeout}" /> 
+	</bean>
+	
+	<!-- 注入ibaits配置文件 -->
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">  
+		<property name="configLocation"> 
+			<value>classpath:com/ctfo/resource/core/SqlMapConfig.xml</value>
+		</property>
+		<property name="dataSource" ref="dataSource" />  
+	</bean> 
+    
+	<bean id="centerClientTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+
+	<!-- oracle库dao抽象类 -->
+	<bean id="centerGenericIbatisAbstract" class="com.ctfo.common.local.daoImpl.GenericIbatisAbstract"
+		abstract="true">
+		<property name="sqlMapClientTemplate">
+			<ref bean="centerClientTemplate" />
+		</property>
+	</bean>
+		
+	<bean id="atomikosUserTransaction"	class="com.atomikos.icatch.jta.UserTransactionImp">
+		<description>UserTransactionImp1</description>
+		<property name="transactionTimeout" value="${TransactionTimeout}"/>
+	</bean>
+
+	<bean id="atomikosTransactionManager" class="com.atomikos.icatch.jta.UserTransactionManager"
+		init-method="init" destroy-method="close">
+		<description>UserTransactionManager1</description>
+		<property name="forceShutdown">	
+			<value>true</value>
+		</property>
+	</bean>
+
+	<bean id="springTransactionManager"	class="org.springframework.transaction.jta.JtaTransactionManager">
+		<description>JtaTransactionManager1</description>
+		<property name="transactionManager">
+			<ref bean="atomikosTransactionManager" />
+		</property>
+		<property name="userTransaction">
+			<ref bean="atomikosUserTransaction" />
+		</property>
+	</bean>
+	
+	<!-- 事务的传播特性 -->
+	<tx:advice id="txAdvice" transaction-manager="springTransactionManager">
+		<tx:attributes>
+			<tx:method name="insert*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="add*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="modify*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="delete*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="update*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />
+			<tx:method name="deal*" 
+				propagation="REQUIRED" rollback-for="java.lang.Exception" />	
+			<tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<aop:config proxy-target-class="true">
+		<aop:advisor pointcut="execution(* com.ctfo.*.dao.impl.*DAO*.*(..))" advice-ref="txAdvice"/>
+	</aop:config>
+	
+	<!-- 抽象Service -->
+	<bean id="baseService" class="com.ctfo.platfrom.service.impl.BaseServiceImpl" abstract="true">
+		<property name="writeJedisDao" ref="writeJedisDao" />
+		<property name="readJedisDao" ref="readJedisDao" />
+	</bean>
+	
+</beans>

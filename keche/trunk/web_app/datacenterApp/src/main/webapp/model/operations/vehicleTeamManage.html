@@ -1,0 +1,60 @@
+<!--车队管理 vehicleTeamManage-->
+<!--sidebox-->
+    <div class="sidebox leftTreeContainer">
+    </div>
+<!--main-->
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>{{=C.CUR_POSITION}}：</font>
+            <font>{{=C.menus.systemManage}}</font> ->
+            <font>{{=C.menus.vehicleTeamManage}}</font>
+        </div>
+        <div class="m3">
+            <div class="">
+            	<!--查询条件-->
+                <div class=" lineS69c h25 p5 tit5 overh vehicleTeamTerm">
+                    <form name="vehicleTeamForm">                         
+	                    <input  name="entId"  type="hidden" value="" />                 
+	                    <input  name="corpProvince"  type="hidden" value="" />
+                        <input type="hidden" name="parentId" value="">
+                        <input type="hidden" name="centerCode" value="">
+                        <input type="hidden" name="grandpaId" value="-1">
+                        <input type="hidden" name="treeType" value="1">
+                        <input type="hidden" name="treeTypeTmp" value="1">
+                        <input type="hidden" name="corpCode" value="">
+                        <div class=" h25 fl lh25 pr10">{{=C.CORP_NAME}}：<font class=" c00F parentCorpDesc"></font></div>
+                       
+	                    <div class="h30 lh30  fl w220 queryOrgBox">
+			                <span class="pr fl w220 h25 mr10">
+			                  <input name="entName" type="text" class="mt2 abs_left fl w220" readonly=true />
+			                   <span class="abs_right  ico111 hand queryOrgButton " title="查询组织"></span>
+			                </span>
+	                    </div>
+	                    
+                        <div class="ml20 h25 lh25 fl w160 subCorpTeamBox">
+                            	子企业：
+                            <select name="subCorpTeam">
+                                <option value="1">是</option>
+                                <option value="0">否</option>
+                            </select>
+                        </div>
+	                    
+                        <div class="fl ml20 h25 lh25 ">
+                            <span class="btn1 cFFF fl mr20 queryButton">{{=C.QUERY}}</span>
+                        </div>
+	                    
+                        <div class="fr ml20 h25 lh25 ">
+                            <span class="btn7 fr  mr10 addVehicleTeam">{{=C.ADD}}</span>
+                            <span class="btn6 fr  mr10 exportGrid">{{=C.EXPORT}}</span>
+                        </div>
+                    </form>
+                </div>
+                <!--数据显示-->
+                <div class=" lineS mt3 bcFFF gridContainerWrap">
+                    <div class="gridContainer"></div>
+                </div>
+            </div>
+        </div>
+    </div>

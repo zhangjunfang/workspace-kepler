@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<system desc="系统参数配置">
+		<property name="listenPort" desc="监听端口">${listenPort}</property>
+	</system>
+	
+	<redis desc="Redis缓存服务客户端配置">
+		<property name="host" desc="Redis服务器IP">${redisHost}</property>
+		<property name="port" desc="Redis服务器端口">${redisPort}</property>
+		<property name="pass" desc="Redis密码">${redisPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="maxIdle" desc="最大空闲连接数">10</property>
+		<property name="maxWait" desc="最大等待时间(毫秒)">3000</property>
+		<property name="timeOut" desc="连接超时时间">3000</property>
+	</redis>
+	
+	<mysql desc="mysql缓存服务客户端配置">
+		<property name="url" desc="mysql连接地址">jdbc:mysql://${mysqlUrl}/CENTER?rewriteBatchedStatements=true</property>
+		<property name="username" desc="mysql登录用户名">${mysqlUser}</property>
+		<property name="password" desc="mysql登录密码">${mysqlPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="minIdle" desc="最大空闲连接数">10</property>
+		<property name="initialSize" desc="初始化连接数量">10</property>		
+		<property name="sql_initVehicleCache" desc="初始化车辆缓存SQL">SELECT VID,ENTID,PHONE,PLATE,PLATECOLOR,VINCODE,INNERCODE,TID,TERMINALTYPE,OEMCODE,ENTNAME,TEAMID,TEAMNAME,STAFFID,STAFFNAME,ISONLINE FROM VEHICLE</property>
+	</mysql>
+		<hbase desc="HBase客户端配置">
+		<property name="quorum" desc="HBase服务器IP">${hbaseQuorum}</property>
+		<property name="port" desc="HBase服务器端口">${hbasePort}</property>
+	</hbase>
+	
+	<mongo desc="Mongo缓存服务客户端配置">
+		<property name="host" desc="Mongo服务器IP">${mongoHost}</property>
+		<property name="port" desc="Mongo服务器端口">${mongoPort}</property>
+	</mongo>
+	
+	<receive desc="接收数据配置">
+		<property name="connections" desc="连接数">${msgConnections}</property>
+		<property name="host" desc="通讯服务器地址">${msgHost}</property>
+		<property name="port" desc="通讯服务器端口">${msgPort}</property>
+		<property name="user" desc="通讯服务器端口">${msgUser}</property>
+		<property name="pass" desc="通讯服务器端口">${msgPass}</property>
+		<property name="source" desc="消息来源">${msgSource}</property>
+		<property name="destination" desc="消息目的地">${msgDestination}</property>
+	</receive>
+	
+	<storage desc="存储业务线程配置">
+		<property name="trackFileBatchSize" desc="轨迹文件批量提交数">5000</property>
+		<property name="trackFileBatchTime" desc="轨迹文件批量提交时间(单位:毫秒)">3000</property>
+		<property name="alarmFileBatchSize" desc="报警文件数据批量提交数">5000</property>
+		<property name="alarmFileBatchTime" desc="报警文件数据批量提交时间(单位:毫秒)">3000</property>
+		<property name="statusBatchSize" desc="状态批量提交数">5000</property>
+		<property name="statusBatchTime" desc="状态批量提交时间(单位:毫秒)">3000</property>
+		<property name="realTimeBatchSize" desc="实时数据批量提交数">5000</property>
+		<property name="realTimeBatchTime" desc="实时数据批量提交时间(单位:毫秒)">5000</property>
+		<property name="oilBatchSize" desc="油量数据批量提交数">100</property>
+		<property name="oilBatchTime" desc="油量数据批量提交时间(单位:毫秒)">30000</property>
+		<property name="eventBatchSize" desc="驾驶事件数据批量提交数">5000</property>
+		<property name="eventBatchTime" desc="驾驶事件数据批量提交时间(单位:毫秒)">3000</property>
+		<property name="alarmBatchSize" desc="报警数据批量提交数">5000</property>
+		<property name="alarmBatchTime" desc="报警数据批量提交时间(单位:毫秒)">3000</property>
+	</storage>
+	
+</configuration>

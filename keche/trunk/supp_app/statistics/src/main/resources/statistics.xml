@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+		<system desc="系统参数配置">
+		<property name="listenPort" desc="监听端口">${listenPort}</property>
+	</system>
+	
+	<redis desc="Redis缓存服务客户端配置">
+		<property name="host" desc="Redis服务器IP">${redisHost}</property>
+		<property name="port" desc="Redis服务器端口">${redisPort}</property>
+		<property name="pass" desc="Redis密码">${redisPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="maxIdle" desc="最大空闲连接数">10</property>
+		<property name="maxWait" desc="最大等待时间(毫秒)">3000</property>
+		<property name="timeOut" desc="连接超时时间">3000</property>
+	</redis>
+	
+	<mysql desc="mysql缓存服务客户端配置">
+		<property name="url" desc="mysql连接地址">jdbc:mysql://${mysqlUrl}/CENTER</property>
+		<property name="username" desc="mysql登录用户名">${mysqlUser}</property>
+		<property name="password" desc="mysql登录密码">${mysqlPass}</property>
+		<property name="maxActive" desc="最大连接数">50</property>
+		<property name="minIdle" desc="最大空闲连接数">10</property>
+		<property name="initialSize" desc="初始化连接数量">10</property>		
+		<property name="sql_initVehicleCache" desc="初始化车辆缓存SQL">SELECT VID,ENTID,PHONE,PLATE,PLATECOLOR,VINCODE,INNERCODE,TID,TERMINALTYPE,OEMCODE,ENTNAME,TEAMID,TEAMNAME,STAFFID,STAFFNAME,LINE FROM VEHICLE</property>
+	</mysql>
+		<hbase desc="HBase客户端配置">
+		<property name="quorum" desc="HBase服务器IP">${hbaseQuorum}</property>
+		<property name="port" desc="HBase服务器端口">${hbasePort}</property>
+	</hbase>
+	
+	<mongo desc="Mongo缓存服务客户端配置">
+		<property name="host" desc="Mongo服务器IP">${mongoHost}</property>
+		<property name="port" desc="Mongo服务器端口">${mongoPort}</property>
+	</mongo>
+	
+	<tasks>
+		<task name="vehicleSync" enable="true" desc="车辆缓存同步任务">
+			<class desc="任务实现类(继承TaskAdapter)">com.ctfo.storage.statistics.task.VehicleCacheSyncTask</class>
+			<!-- 任务间隔(day:天 ;hour:小时 ;minute:分钟 ;second:秒),为day时内容为(HH:mm:ss)格式" delay="延时" -->
+			<interval unit="second" delay="10" desc="任务间隔">15</interval>
+			<properties desc="自定义配置">
+				<property name="sql_initVehicleCache" desc="全量同步查询语句">SELECT VID,ENTID,PHONE,PLATE,PLATECOLOR,VINCODE,INNERCODE,TID,TERMINALTYPE,OEMCODE,ENTNAME,TEAMID,TEAMNAME,STAFFID,STAFFNAME,LINE FROM VEHICLE</property>
+			</properties>
+		</task>
+	</tasks>
+	
+	
+</configuration>

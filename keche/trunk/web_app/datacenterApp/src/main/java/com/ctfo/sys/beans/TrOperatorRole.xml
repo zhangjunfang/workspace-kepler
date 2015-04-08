@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TrOperatorRole">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="TrOperatorRole" type="com.ctfo.sys.beans.TrOperatorRole"/>	
+	
+	<resultMap id="TrOperatorRole" class="TrOperatorRole">
+		<result column="AUTO_ID" property="autoId" jdbcType="VARCHAR" />
+		<result column="OP_ID" property="opId" jdbcType="VARCHAR" />
+		<result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<sql id="table" >
+    	TR_OPERATOR_ROLE
+	</sql>
+
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="columns">
+		AUTO_ID, OP_ID, ROLE_ID, CENTER_CODE
+	</sql>
+	
+	<insert id="insert" >
+		INSERT INTO TR_OPERATOR_ROLE (
+		<include refid="columns" />
+		) VALUES (
+			#autoId# ,
+			#opId# ,
+			#roleId# ,
+			#centerCode#
+		)
+	</insert>
+ 
+	<!-- 删除用户角色关系 -->
+	<delete id="deleteTrOperatorRole" parameterClass="map">
+		DELETE FROM TR_OPERATOR_ROLE
+		 WHERE OP_ID = #opId:VARCHAR#
+		   AND CENTER_CODE = #centerCode:VARCHAR#
+	</delete>
+ 
+	<!-- 判断角色是否被用户使用 -->
+	<select id="countExist" resultClass="int" parameterClass="map" >
+		SELECT count(1) 
+		  FROM TR_OPERATOR_ROLE r
+		 WHERE r.ROLE_ID = #roleId#
+		   AND r.CENTER_CODE = #centerCode#
+	</select>
+	
+</sqlMap>
+

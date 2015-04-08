@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" 
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="TbDvrser">
+	<typeAlias alias="dynamicSqlParameter" type="com.ctfo.common.local.obj.DynamicSqlParameter" />
+	<typeAlias alias="TbDvrser" type="com.ctfo.basic.beans.TbDvrser"/>	
+	<resultMap id="TbDvrser" class="TbDvrser">
+		<result column="DVRSER_ID" property="dvrserId" jdbcType="DECIMAL" />
+		<result column="DVRSER_NAME" property="dvrserName" jdbcType="VARCHAR" />
+		<result column="DVRSER_IP" property="dvrserIp" jdbcType="VARCHAR" />
+		<result column="DVRSER_PORT" property="dvrserPort" jdbcType="VARCHAR" />
+		<result column="DVRSER_USERNAME" property="dvrserUsername" jdbcType="VARCHAR" />
+		<result column="DVRSER_PASSWORD" property="dvrserPassword" jdbcType="VARCHAR" />
+		<result column="DVRSER_PROVINCE" property="dvrserProvince" jdbcType="VARCHAR" />
+		<result column="DVRSER_CITY" property="dvrserCity" jdbcType="VARCHAR" />
+		<result column="DVR_MAKER_CODE" property="dvrMakerCode" jdbcType="VARCHAR" />
+		<result column="CREATE_BY" property="createBy" jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="DECIMAL" />
+		<result column="UPDATE_BY" property="updateBy" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="DECIMAL" />
+		<result column="ENABLE_FLAG" property="enableFlag" jdbcType="VARCHAR" />
+		<result column="CHANNEL_NUM" property="channelNum" jdbcType="DECIMAL" />
+		<result column="REG_IP" property="regIp" jdbcType="VARCHAR" />
+		<result column="REG_PORT" property="regPort" jdbcType="VARCHAR" />
+		<result column="CENTER_CODE" property="centerCode" jdbcType="VARCHAR" />
+		<result column="CODE_NAME" property="maker" jdbcType="VARCHAR" />
+		<result column="UPDATE_NAME" property="updateName" jdbcType="VARCHAR" />
+		<result column="CREATE_NAME" property="createName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="table" >
+    	TB_DVRSER t
+	</sql>
+
+	<sql id="equal_where">
+		<isNotEmpty prepend="AND" property="equal.maker">
+			t.DVR_MAKER_CODE = #equal.maker:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="equal.dvrserProvince">
+            t.DVRSER_PROVINCE = #equal.dvrserProvince:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="equal.dvrserCity">
+            t.DVRSER_CITY = #equal.dvrserCity:VARCHAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="equal.centerCode">
+            t.CENTER_CODE = #equal.centerCode:VARCHAR#
+		</isNotEmpty>		
+	</sql>	
+	<sql id="like_where">
+		<isNotEmpty prepend="AND" property="like.dvrserName">
+			t.DVRSER_NAME like '%$like.dvrserName$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="like.dvrserIp">
+            t.DVRSER_IP like '%$like.dvrserIp$%'
+		</isNotEmpty>
+	</sql> 
+
+	<sql id="where_param" >
+		WHERE 1 = 1
+		<include refid="equal_where" />
+		<include refid="like_where" />	
+	</sql>
+
+	<!-- 查询数量 -->
+	<select id="countParam" resultClass="int" parameterClass="dynamicSqlParameter" >
+		SELECT count(1) 
+		  FROM
+		<include refid="table"/>	
+		<include refid="where_param" />
+	</select>
+	<!-- 条件查询 -->
+	<select id="selectPageForParam" resultMap="TbDvrser" parameterClass="dynamicSqlParameter">
+		SELECT t.DVRSER_ID,
+		       t.DVRSER_NAME,
+		       t.DVRSER_IP,
+		       t.DVRSER_PORT,
+		       t.DVRSER_USERNAME,
+		       t.DVRSER_PASSWORD,
+		       t.DVRSER_PROVINCE,
+		       t.DVRSER_CITY,
+		       t.DVR_MAKER_CODE,
+		       (SELECT s.CODE_NAME 
+		          FROM SYS_GENERAL_CODE s
+		         WHERE s.PARENT_GENERAL_CODE = 'SYS_DVR_MAKER_CODE'
+		           AND t.DVR_MAKER_CODE = s.GENERAL_CODE) AS CODE_NAME,
+		       t.CREATE_BY,
+		       t.CREATE_TIME,
+		       t.UPDATE_BY,
+		       t.UPDATE_TIME,
+		       t.ENABLE_FLAG,
+		       t.CHANNEL_NUM,
+		       t.REG_IP,
+		       t.REG_PORT,
+		       t.CENTER_CODE,
+		       (SELECT b.OP_NAME
+		          FROM TB_SP_OPERATOR b
+		         WHERE t.CREATE_BY = b.OP_ID
+		           AND b.CENTER_CODE = t.CENTER_CODE) AS CREATE_NAME,
+		       (SELECT c.OP_NAME 
+		          FROM TB_SP_OPERATOR c 
+		         WHERE t.UPDATE_BY = c.OP_ID
+		           AND c.CENTER_CODE = t.CENTER_CODE) AS UPDATE_NAME
+		  FROM TB_DVRSER t
+		<include refid="where_param" />
+	LIMIT <![CDATA[ #startNum# , #pagesize# ]]>
+	</select>
+
+</sqlMap>
+
+

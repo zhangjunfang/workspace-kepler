@@ -1,0 +1,33 @@
+<!-- 运营管理 > 车队管理 > 新增车队/修改车队 -->
+  <form name="vehicleTeamModifyForm" id="vehicleTeamModifyForm" action="">
+    <div class=" lineS69c_b p10">
+        <h3 class=" h25 lh25 mb20 pl10 bcBlue3 lineD">{{=C.CORP_NAME}}：<font class=" c00F "> {{=it.parentName || ''}} </font></h3>
+        <input name="parentId" type="hidden" value="{{=it.parentId || ''}}" />
+        <input name="entId" type="hidden" value="{{=it.entId || ''}}" />
+        <input name="centerCode" type="hidden" value="{{=it.centerCode || ''}}" />
+
+        <ul class="lh25 h380">
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>{{=C.customColumns.vehicleTeamManage.corpCode}}：</div>
+                <div class="fl pr"><input name="corpCode" class="abs_left mt2 " type="text" value="{{=it.corpCode || ''}}"/></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>{{=C.customColumns.vehicleTeamManage.entName}}：</div>
+                <div class="fl pr"><input class="abs_left mt2 " name="entName" type="text" value="{{=it.entName || ''}}"/></div>
+            </li>
+             <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr"><font class="fb cF00">* </font>{{=C.customColumns.vehicleTeamManage.orgShortname}}：</div>
+                <div class="fl pr"><input class="abs_left mt2 " name="orgShortname" type="text" value="{{=it.orgShortname || ''}}" /></div>
+            </li>
+            <li class=" h25 mb10 fl w50b">
+                <div class="lh25 w80 fl tr">备注：</div>
+                <div class="fl pr"><input class="abs_left mt2 "  name="memo" type="text" value="{{=it.memo || ''}}"/></div>
+            </li>
+        </ul>
+        <div class="cb"></div>
+    </div>
+    <div class="  bcBlue l-dialog-buttons">
+        <span class=" btn4 fr mr20 cancelButton" type="button">{{=C.CANCEL}}</span>
+        <span class=" btn4 fr mr20 saveButton" type="button">{{=C.SAVE}}</span>
+    </div>
+  </form>

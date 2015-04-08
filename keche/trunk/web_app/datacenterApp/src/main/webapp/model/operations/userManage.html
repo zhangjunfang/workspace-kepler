@@ -1,0 +1,228 @@
+<!--系统用户管理 userManage.html-->
+<!--sidebox-->  
+    <div class="sidebox TreeContainer">
+    </div>
+<!--main--> 
+    <div class="main ml_240">
+    <!--当前位置-->
+        <div class="h25 lh25 lineS_b tit2 overh pageLocation">
+            <span class=" ico146"></span>
+            <font>{{=C.CUR_POSITION}}：</font>
+            <font>{{=C.menus.systemManage}}</font> -> 
+            <font>{{=C.menus.userManage}}</font>
+        </div>
+        <div class="m3 userManageContent">
+            <!--内容-->
+            <!--查询条件-->
+            <div class=" lineS69c p5 tit5 overh userManageTerm">
+                
+                <form name="userManageform">                     
+                    <input  name="entIds"  type="hidden" value="" />                   
+                    <input  name="entId"  type="hidden" value="" />                    
+                    <input  name="centerCode"  type="hidden" value="" />                 
+                    <input  name="treeType"  type="hidden" value="1" />               
+                    <input  name="corpProvince"  type="hidden" value="" />
+                    <div class="none">
+                        <input name="nouse"  type="text" value="" />
+                    </div>
+                    <div class="fl h25 lh25 pr10">{{=C.CORP_NAME}}：<font class=" c00F parentCorpDesc"> </font></div>
+                     
+                   <div class="h30 lh30  fl w280 queryOrgBox">
+	                <span class="pr fl w280 h25 mr10">
+	                  <input name="entName" type="text" class="mt2 abs_left fl w280" readonly=true />
+	                   <span class="abs_right  ico111 hand queryOrgButton " title="查询组织"></span>
+	                </span>
+                   </div>
+                    <div class="cb"></div>
+	                    <div class="h30 lh30 fl w180">
+	                        用户名：<input type="text" name="opLoginname"/>
+	                    </div>
+	                    <div class="h30 lh30 fl w180">
+	                        用户类型：
+	                        <select name="opType"></select>
+	                    </div>
+	                    <div class="h30 lh30 fl w180">
+	                        所属角色：
+	                        <select name="roleId"><option value="">请选择</option></select>
+	                    </div>
+	                    <div class="h30 lh30 fl w180">
+	                        用户状态：
+	                        <select name="opStatus"><option value="">全部</option><option value="1">有效</option><option value="0">无效</option></select>
+	                    </div>
+	                    <span class="btn1 cFFF fl ml10 searchGrid"> 查 询 </span>
+                </form>
+                <span class="btn9 fr ml10 userManageAddBtn"> 添 加 </span>
+            </div>
+            <!--数据显示-->
+            <div class=" lineS mt3 bcFFF gridListBox">
+                <div class="userManageBox"></div>
+            </div>    
+        </div>
+
+
+        <!--新增HTML片断-->
+        <div class="p10 userManageContent none">
+
+            
+            <h1 class=" h40 lh30 mb20">用户信息</h1>
+            <div class=" bcF2 lineD lh30 h30 pl10">
+                    带<font class=" cF00">*</font>号为必填项
+            </div>
+            <div class="w pt20">
+            <form name="pushUserManage">
+                <input name="spOperator.centerCode" type="hidden" value=""/>
+                <input name="spOperator.entId" type="hidden" value=""/>
+                <input name="spOperator.createBy" type="hidden"/>
+                <input name="spOperator.opId" type="hidden"/>
+                <input name="parentOrgCode" type="hidden" value=""/>
+
+                <div class="w pt20">
+                    <ul class="modifyFormConditionTable">
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>{{=C.customColumns.userManage.opLoginname}}：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.opLoginname" type="text" class="mt2 abs_left {required:true,specialchars: true,noChinese:true}"  value="">
+                            </span>
+                        </li>
+                        
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>{{=C.customColumns.userManage.opType}}：</div>
+                            <span class="pr fl">
+                                <select  name="spOperator.opType" class="mt2  abs_left {required:true}"></select>
+                            </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10 passwordBox">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>{{=C.customColumns.userManage.opPass}}：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.opPass" type="password" class="mt2 abs_left {required:true,minlength:7,maxlength:16}"  value="" id="opPass">
+                        </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10 passwordBox">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>确认密码：</div>
+                            <span class="pr fl">
+                            <input  type="password" class="mt2 abs_left {required:true,minlength:7,maxlength:16,equalTo:'#opPass'}"  value="">
+                        </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opStartutc}}：</div>
+                            <input type="text" name="spOperator.opStartutc" class="mt2 Wdate"/>
+                        </li>
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opEndutc}}：</div> 
+                            <input type="text" name="spOperator.opEndutc" class="mt2 Wdate"/>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>{{=C.customColumns.userManage.opName}}：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.opName" type="text" class="mt2 abs_left {required:true,specialchars:true,maxlength:10}"  value="">
+                        </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opIdentityId}}：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.opIdentityId" type="text" class="mt2 abs_left {isidcardno:true}"  value="">
+                        </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opSex}}：</div>
+                            <select  name="spOperator.opSex" class="mt2 ">
+                                <option value="">请选择</option>
+                                <option value="1">男</option>
+                                <option value="0">女</option>
+                            </select>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>{{=C.customColumns.userManage.roleName}}：</div>
+                            <span class="pr fl">
+                            <input type="text" name="spOperator.roleName" class="mt2 abs_left {required:true}"/>
+                        </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>{{=C.customColumns.userManage.opProvince}}：</div>
+                            <span class="pr fl">
+                            <select  name="spOperator.opProvince" class="mt2 abs_left {required:true}">
+                                <option value="">请选择</option>
+                            </select>
+                        </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr"><font class="fb cF00">* </font>{{=C.customColumns.userManage.opCity}}：</div>
+                            <span class="pr fl">
+                            <select  name="spOperator.opCity" class="mt2 abs_left {required:true}">
+                                <option value="">请选择</option>
+                            </select>
+                        </span>
+                        </li>
+ 
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opPhone}}：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.opPhone" type="text" class="mt2 abs_left {phonenumber:true}"  value="">
+                        </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opWorkid}}：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.opWorkid" type="text" class="mt2 abs_left {intNumber:true,minlength:10}"  value="">
+                        </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opDuty}}：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.opDuty" type="text" class="mt2 abs_left {maxlength:10,specialchars: true}"  value="">
+                        </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b  mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opBirth}}：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.opBirth" type="text" class="mt2 abs_left {htmlSpecialhars: true}"  value="">
+                        </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b  mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opFax}}：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.opFax" type="text" class="mt2 abs_left {phonenumber:true}"  value="">
+                        </span>
+                        </li>
+
+                        <li class="h25 lh25 fl w33b  mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opMobile}}：</div>
+                            <span class="pr fl">
+                            <input name="spOperator.opMobile" type="text" class="mt2 abs_left {mobile:true}"  value="">
+                        </span>
+                        </li>
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opEmail}}：</div><span class="pr fl"><input name="spOperator.opEmail" type="text" class="mt2 {emailExtend:true,maxlength:50}"  value=""></span>
+                        </li>
+                       
+                        <li class="h25 lh25 fl w33b mb10">
+                            <div class="fl w90 tr">{{=C.customColumns.userManage.opMem}}：</div>
+                            <span class="pr fl">
+                            <input type="text" name="spOperator.opMem" class=" abs_left  mt2 w150 {maxlength:200,htmlSpecialhars: true}" />
+                        </span>
+                        </li> 
+                    </ul>
+                </div>
+
+                <div class=" w mt15 fl lineD_t pt10">
+                    <span name='saveForm' class="btn4 fl" >{{=C.SAVE}}</span>
+                    <span name='cancelSave' class="btn4 fl ml10">{{=C.CANCEL}}</span>
+                </div>
+            </form>
+            </div>
+        </div>
+
+
+    </div>
