@@ -3,10 +3,10 @@
 #################
 ## Eclipse
 #################
-
+.metadata/
+.svn/
 *.pydevproject
 .project
-.metadata
 bin/
 tmp/
 *.tmp
