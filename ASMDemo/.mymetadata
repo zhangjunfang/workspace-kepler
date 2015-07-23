@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="ASMDemo"
+  id="myeclipse.1370001629300"
+  context-root="/ASMDemo"
+  j2ee-spec="5.0"
+  archive="ASMDemo.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
